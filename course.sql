@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 02, 2012 at 10:45 PM
+-- Generation Time: Aug 11, 2012 at 08:23 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -128,56 +128,59 @@ CREATE TABLE IF NOT EXISTS `classinfo` (
   `cTime` varchar(10) DEFAULT NULL,
   `Location` varchar(15) DEFAULT NULL,
   `Duration` varchar(5) DEFAULT NULL,
+  `by_teacher` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`CourseNo`,`cDay`,`Sec`),
-  KEY `CourseNo` (`CourseNo`)
+  KEY `CourseNo` (`CourseNo`),
+  KEY `by_teacher` (`by_teacher`),
+  KEY `by_teacher_2` (`by_teacher`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `classinfo`
 --
 
-INSERT INTO `classinfo` (`CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`) VALUES
-('CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50'),
-('CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50'),
-('CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50'),
-('CSE303', 'Tuesday', 3, 'B', '10:00 am', 'CSE102', '50'),
-('CSE303', 'Wednesday', 2, 'A', '09:00 am', 'CSE102', '50'),
-('CSE303', 'Wednesday', 1, 'B', '08:00 am', 'CSE102', '50'),
-('CSE304', 'Monday', 7, 'A2', '02:30 pm', 'CSE109', '150'),
-('CSE304', 'Saturday', 7, 'B1', '02:30 pm', 'CSE109', '150'),
-('CSE304', 'Sunday', 7, 'A1', '02:30 pm', 'CSE109', '150'),
-('CSE305', 'Monday', 1, 'A', '08:00 am', 'CSE102', '50'),
-('CSE305', 'Saturday', 5, 'B', '12:00 pm', 'CSE109', '50'),
-('CSE305', 'Sunday', 1, 'A', '08:00 am', 'CSE102', '50'),
-('CSE305', 'Sunday', 4, 'B', '11:00 am', 'CSE102', '50'),
-('CSE305', 'Tuesday', 3, 'A', '10:00 am', 'CSE102', '50'),
-('CSE305', 'Tuesday', 1, 'B', '08:00 am', 'CSE102', '50'),
-('CSE307', 'Monday', 4, 'A', '11:00 am', 'CSE102', '50'),
-('CSE307', 'Monday', 5, 'B', '12:00 pm', 'CSE102', '50'),
-('CSE307', 'Saturday', 1, 'A', '08:00 am', 'CSE109', '50'),
-('CSE307', 'Saturday', 4, 'B', '11:00 pm', 'CSE109', '50'),
-('CSE307', 'Sunday', 4, 'A', '11:00 am', 'CSE102', '50'),
-('CSE307', 'Sunday', 5, 'B', '12:00 pm', 'CSE102', '50'),
-('CSE307', 'Wednesday', 1, 'A', '08:00 am', 'CSE102', '50'),
-('CSE307', 'Wednesday', 3, 'B', '10:00 am', 'CSE102', '50'),
-('CSE308', 'Tuesday', 4, 'A1', '11:00 am', 'CSE102', '150'),
-('CSE308', 'Wednesday', 7, 'A2', '02:30 pm', 'CSE109', '150'),
-('CSE308', 'Wednesday', 4, 'B1', '11:00 am', 'CSE109', '150'),
-('CSE309', 'Monday', 2, 'A', '09:00 am', 'CSE102', '50'),
-('CSE309', 'Monday', 3, 'B', '10:00 am', 'CSE102', '50'),
-('CSE309', 'Saturday', 2, 'A', '09:00 am', 'CSE109', '50'),
-('CSE309', 'Saturday', 3, 'B', '10:00 am', 'CSE109', '50'),
-('CSE309', 'Sunday', 2, 'A', '09:00 am', 'CSE102', '50'),
-('CSE309', 'Sunday', 3, 'B', '10:00 am', 'CSE102', '50'),
-('CSE310', 'Saturday', 7, 'A1', '02:30 pm', 'CSE109', '50'),
-('CSE310', 'Saturday', 7, 'A2', '02:30 pm', 'CSE109', '150'),
-('CSE310', 'Tuesday', 4, 'B1', '11:00 am', 'CSE102', '150'),
-('CSE311', 'Monday', 3, 'A', '10:00 am', 'CSE102', '50'),
-('CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50'),
-('CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50'),
-('CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50'),
-('CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50'),
-('CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50');
+INSERT INTO `classinfo` (`CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`, `by_teacher`) VALUES
+('CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50', '05001'),
+('CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50', '05001'),
+('CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50', '05001'),
+('CSE303', 'Tuesday', 3, 'B', '10:00 am', 'CSE102', '50', '05001'),
+('CSE303', 'Wednesday', 2, 'A', '09:00 am', 'CSE102', '50', '05002'),
+('CSE303', 'Wednesday', 1, 'B', '08:00 am', 'CSE102', '50', '05002'),
+('CSE304', 'Monday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05001'),
+('CSE304', 'Saturday', 7, 'B1', '02:30 pm', 'CSE109', '150', '05002'),
+('CSE304', 'Sunday', 7, 'A1', '02:30 pm', 'CSE109', '150', '05001'),
+('CSE305', 'Monday', 1, 'A', '08:00 am', 'CSE102', '50', '05003'),
+('CSE305', 'Saturday', 5, 'B', '12:00 pm', 'CSE109', '50', '05003'),
+('CSE305', 'Sunday', 1, 'A', '08:00 am', 'CSE102', '50', '05003'),
+('CSE305', 'Sunday', 4, 'B', '11:00 am', 'CSE102', '50', '05003'),
+('CSE305', 'Tuesday', 3, 'A', '10:00 am', 'CSE102', '50', '05003'),
+('CSE305', 'Tuesday', 1, 'B', '08:00 am', 'CSE102', '50', '05003'),
+('CSE307', 'Monday', 4, 'A', '11:00 am', 'CSE102', '50', '05004'),
+('CSE307', 'Monday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004'),
+('CSE307', 'Saturday', 1, 'A', '08:00 am', 'CSE109', '50', '05004'),
+('CSE307', 'Saturday', 4, 'B', '11:00 pm', 'CSE109', '50', '05004'),
+('CSE307', 'Sunday', 4, 'A', '11:00 am', 'CSE102', '50', '05004'),
+('CSE307', 'Sunday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004'),
+('CSE307', 'Wednesday', 1, 'A', '08:00 am', 'CSE102', '50', '05004'),
+('CSE307', 'Wednesday', 3, 'B', '10:00 am', 'CSE102', '50', '05004'),
+('CSE308', 'Tuesday', 4, 'A1', '11:00 am', 'CSE102', '150', '05004'),
+('CSE308', 'Wednesday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05005'),
+('CSE308', 'Wednesday', 4, 'B1', '11:00 am', 'CSE109', '150', '05004'),
+('CSE309', 'Monday', 2, 'A', '09:00 am', 'CSE102', '50', '05006'),
+('CSE309', 'Monday', 3, 'B', '10:00 am', 'CSE102', '50', '05006'),
+('CSE309', 'Saturday', 2, 'A', '09:00 am', 'CSE109', '50', '05006'),
+('CSE309', 'Saturday', 3, 'B', '10:00 am', 'CSE109', '50', '05006'),
+('CSE309', 'Sunday', 2, 'A', '09:00 am', 'CSE102', '50', '05007'),
+('CSE309', 'Sunday', 3, 'B', '10:00 am', 'CSE102', '50', '05007'),
+('CSE310', 'Saturday', 7, 'A1', '02:30 pm', 'CSE109', '50', '05007'),
+('CSE310', 'Saturday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05008'),
+('CSE310', 'Tuesday', 4, 'B1', '11:00 am', 'CSE102', '150', '05007'),
+('CSE311', 'Monday', 3, 'A', '10:00 am', 'CSE102', '50', '05009'),
+('CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50', '05009'),
+('CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50', '05010'),
+('CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010'),
+('CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50', '05009'),
+('CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009');
 
 -- --------------------------------------------------------
 
@@ -206,7 +209,8 @@ INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Up
 ('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-08-01', '8C736EAE00613.txt'),
 ('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings1.txt'),
 ('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings2.txt'),
-('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings3.txt');
+('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings3.txt'),
+('CSE309', '1', 'e', 'ee', 'Rajkumar Das', '2012-08-10', 'git_repository.txt');
 
 -- --------------------------------------------------------
 
@@ -558,6 +562,7 @@ ALTER TABLE `assignedcourse`
 -- Constraints for table `classinfo`
 --
 ALTER TABLE `classinfo`
+  ADD CONSTRAINT `classinfo_ibfk_2` FOREIGN KEY (`by_teacher`) REFERENCES `assignedcourse` (`T_Id`),
   ADD CONSTRAINT `classinfo_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
