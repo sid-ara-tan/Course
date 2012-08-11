@@ -11,7 +11,7 @@
 		<div class="container">
 
 		
-			<p class="copyright">Powered by <a href="#" title="Halogy">CMS buet</a></p>
+			<p class="copyright">Powered by <a href="#" title="CMS">CMS buet</a></p>
 			
 			<br />
 			
