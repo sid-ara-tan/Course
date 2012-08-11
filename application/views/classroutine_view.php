@@ -30,7 +30,7 @@
         </ul>
       </li>
       <li><a href="3-columns.html">3 Columns</a></li>
-      <li class="last"><a href="gallery.html">Gallery</a></li>
+      <li class="last"><?php echo anchor('course/logout','Log Out');?></li>
     </ul>
     <div  class="clear"></div>
   </div>

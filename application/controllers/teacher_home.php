@@ -6,22 +6,12 @@ class Teacher_home extends CI_controller{
     function __construct(){
         parent::__construct();
         $this->load->library(array('session','table'));
-        $this->is_logged_in();
+        $this->my_library->is_logged_in();
        
         $this->load->model('teacher');
         $row=$this->teacher->get_info();
         $this->name=$row->Name;
         $this->designation=$row->Designation;
-    }
-    
-    function is_logged_in(){
-        $is_logged_in=$this->session->userdata('is_logged_in');
-        
-        if(!isset($is_logged_in) || $is_logged_in!=TRUE){
-            //echo 'Please <a href="course">login </a>';
-            echo anchor('course','login');
-            die();
-        }
     }
     
     function index(){
