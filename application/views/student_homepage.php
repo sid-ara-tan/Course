@@ -32,7 +32,7 @@
              ?>
         </ul>
       </li>
-      <li><a href="">Course Registration</a></li>
+      <li><?php echo anchor("student_home/course_registration","Course Registration")?></li>
       <li><a href="#">Course Group</a>
         <ul>
             <?php
@@ -49,7 +49,7 @@
              ?>
         </ul>
       </li>
-      <li class="last"><a href="">Result</a></li>
+      <li class="last"><?php echo anchor("student_home/result","Result")?></li>
     </ul>
     <div  class="clear"></div>
   </div>
@@ -59,6 +59,7 @@
 <div class="wrapper row3">
   <div id="featured_slide">
     <!-- ####################################################################################################### -->
+    <p><b>Daily Class Schedule</b></p>
     <dl class="slidedeck">
       <dt>Saturday</dt>
       <dd>
@@ -196,6 +197,7 @@
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper row4">
+    <br><br><br>
   <div id="container" class="clear">
     <!-- ####################################################################################################### -->
     <div id="homepage" class="clear">
