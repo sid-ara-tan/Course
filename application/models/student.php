@@ -37,5 +37,27 @@ class Student extends CI_model {
         else
             return FALSE;
     }
+    
+    function edit_profile()
+    {
+        $ID=$this->session->userdata['ID'];
+        
+
+        $data = array(
+               'father_name' => $this->input->post('Fname'),
+               'email' => $this->input->post('user_email'),
+               'address' => $this->input->post('user_address'),
+               'phone' => $this->input->post('user_phone'),
+               'Password' => $this->input->post('password1')
+            );
+
+        $this->db->where('S_Id', $ID);
+        $update=$this->db->update('student', $data);
+        if($update){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
 
 }

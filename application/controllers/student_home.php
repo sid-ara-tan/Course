@@ -44,7 +44,23 @@ class Student_home extends CI_controller {
     
     function profile()
     {
-
+        if($this->uri->segment(3)=='updated')$data['notification']="Profile Information Is Updated";
+        else $data['notification']="";
+        
+        $data['query_student_info'] = $this->query_student;
+        $data['taken_course_query'] = $this->query_taken_course;
+        $row=$this->query_student->row();
+        $this->load->model('teacher');
+        $data['advisor_name']=$this->teacher->get_name($row->Advisor);
+        $this->load->view('student_profile', $data);
+    }
+    
+    function edit_profile()
+    {
+        $this->load->model('student');
+        $update=$this->student->edit_profile();
+        if($update)redirect('student_home/profile/updated');
+        else echo "error";
     }
     
     function course_registration()

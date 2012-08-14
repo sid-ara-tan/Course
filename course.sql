@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 11, 2012 at 08:40 PM
+-- Generation Time: Aug 14, 2012 at 07:59 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -371,6 +371,10 @@ CREATE TABLE IF NOT EXISTS `student` (
   `Advisor` varchar(10) DEFAULT NULL,
   `Curriculam` int(11) DEFAULT NULL,
   `Password` varchar(30) DEFAULT NULL,
+  `father_name` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `address` varchar(50) NOT NULL,
+  `phone` int(50) NOT NULL,
   PRIMARY KEY (`S_Id`),
   KEY `Dept_id` (`Dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -379,20 +383,20 @@ CREATE TABLE IF NOT EXISTS `student` (
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`S_Id`, `Name`, `Dept_id`, `sLevel`, `Term`, `Sec`, `Advisor`, `Curriculam`, `Password`) VALUES
-('0805001', 'Ishat-E-Rabban', 'CSE', 3, 1, 'A1', '05001', 2005, '81dc9bdb52d04dc20036dbd8313ed0'),
-('0805002', 'Radi Moahammad Reza', 'CSE', 3, 1, 'A1', '05001', 2005, '1234'),
-('0805007', 'kausar ahmed', 'CSE', 3, 2, 'A1', '05001', 2008, '1234'),
-('0805038', 'saikar chakraborty', 'CHE', 1, 1, 'A1', '05001', 1990, '1234'),
-('0805039', 'Madhududan bashak', 'CHE', 1, 1, 'A1', '05001', 1990, '1234'),
-('0805040', 'Mir Tazbinur sharif', 'CSE', 3, 2, 'A2', '05004', 2008, '1234'),
-('0805047', 'Siddhartha Shankar Das', 'CSE', 3, 1, 'A2', '05001', 2005, '1234'),
-('0805048', 'Md. Arafat Imtiaz', 'CSE', 3, 1, 'A2', '05001', 2005, '1234'),
-('0805049', 'Tanzir Ul Islam', 'CSE', 3, 1, 'A2', '05001', 2005, '1234'),
-('0805067', 'Jahangir Alam', 'CSE', 3, 1, 'B1', '05002', 2005, '1234'),
-('0805086', 'Faruk Hossen', 'CSE', 3, 1, 'B1', '05002', 2005, '1234'),
-('0805102', 'Ovi', 'CSE', 3, 1, 'B2', '05002', 2005, '1234'),
-('0805114', 'Sakib', 'CSE', 3, 1, 'B2', '05002', 2005, '1234');
+INSERT INTO `student` (`S_Id`, `Name`, `Dept_id`, `sLevel`, `Term`, `Sec`, `Advisor`, `Curriculam`, `Password`, `father_name`, `email`, `address`, `phone`) VALUES
+('0805001', 'Ishat-E-Rabban', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', 0),
+('0805002', 'Radi Moahammad Reza', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', 0),
+('0805007', 'kausar ahmed', 'CSE', 3, 2, 'A1', '05001', 2008, '1234', '', '', '', 0),
+('0805038', 'saikar chakraborty', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', 0),
+('0805039', 'Madhududan bashak', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', 0),
+('0805040', 'Mir Tazbinur sharif', 'CSE', 3, 2, 'A2', '05004', 2008, '1234', 'Abul Hosain', 'tashjg@yy.cc', '', 1674123456),
+('0805047', 'Siddhartha Shankar Das', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
+('0805048', 'Md. Arafat Imtiaz', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
+('0805049', 'Tanzir Ul Islam', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', 'Tazul Islam', 'tanzir.b@gmail.com', '', 1674894025),
+('0805067', 'Jahangir Alam', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
+('0805086', 'Faruk Hossen', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
+('0805102', 'Ovi', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', 0),
+('0805114', 'Sakib', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -509,7 +513,7 @@ CREATE TABLE IF NOT EXISTS `teacher` (
 
 INSERT INTO `teacher` (`Name`, `T_Id`, `Password`, `Dept_Id`, `Designation`) VALUES
 ('Rajkumar Das', '05001', '1234', 'CSE', 'Assistant Professor'),
-('Dr. A.S.M. Latiful Hoque', '05002', '1234', 'CSE', 'Associate Professor'),
+('Dr. A.S.M. Latiful Haque', '05002', '1234', 'CSE', 'Associate Professor'),
 ('Mahfuza Sarmin', '05003', '1234', 'CSE', 'Lecturer'),
 ('Rezwana Riaz', '05004', '1234', 'CSE', 'Lecturer'),
 ('Hasan Shahid Ferdous', '05005', '1234', 'CSE', 'Assistant Professor'),
@@ -562,8 +566,8 @@ ALTER TABLE `assignedcourse`
 -- Constraints for table `classinfo`
 --
 ALTER TABLE `classinfo`
-  ADD CONSTRAINT `classinfo_ibfk_2` FOREIGN KEY (`by_teacher`) REFERENCES `assignedcourse` (`T_Id`),
-  ADD CONSTRAINT `classinfo_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `classinfo_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `classinfo_ibfk_2` FOREIGN KEY (`by_teacher`) REFERENCES `assignedcourse` (`T_Id`);
 
 --
 -- Constraints for table `content`
