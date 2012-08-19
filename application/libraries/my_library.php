@@ -44,7 +44,7 @@ class My_library {
 
     function logged_in($link='admin/admin') {
         $CI = & get_instance();
-        $is_logged_in=$CI->session->userdata('is_logged_in');
+        $is_logged_in=$CI->session->userdata('logged_in');
 
         if($is_logged_in==TRUE){
             redirect($link);
@@ -53,7 +53,7 @@ class My_library {
 
     function check_logged_in($link='admin/login') {
         $CI = & get_instance();
-        $is_logged_in=$CI->session->userdata('is_logged_in');
+        $is_logged_in=$CI->session->userdata('logged_in');
 
         if($is_logged_in!=TRUE){
             redirect($link);
