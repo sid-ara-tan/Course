@@ -22,6 +22,8 @@
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js"></script>
 
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
+        
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
 
 	<script>
 
@@ -30,6 +32,37 @@
 		$( "#tabs" ).tabs();
 
 	});
+
+	</script>
+        
+        <script>
+
+	$(function() {
+
+		$( "input:submit, button,input:button", ".demo" ).button();
+
+		//$( "a", ".demo" ).click(function() { return false; });
+
+	});
+
+	</script>
+
+	<script>
+        function checkNull(frm)
+        {
+            if((frm.message.value=="")||(frm.subject.value==""))
+                {
+                }
+            else frm.submit();
+        }
+        
+        function check()
+        {
+            var ans=confirm("Are you sure to delete ?");
+            if(ans){return true;}
+            else return false;
+
+        }
 
 	</script>
 <!--************************************************************************************************************* -->

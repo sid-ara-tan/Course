@@ -32,14 +32,7 @@ class Student_home extends CI_controller {
     function group()
     {
         $courseno=$this->uri->segment(3);
-        $data['query_student_info'] = $this->query_student;
-        $data['taken_course_query'] = $this->query_taken_course;
-        
-        foreach ($this->query_taken_course->result_array() as $value) {
-            if($courseno==$value['CourseNo'])$data['coursename']=$value['CourseName'];
-        }
-        
-        $this->load->view('student_group_page', $data);
+        redirect('student_home_group/group/'.$courseno);
     }
     
     function profile()

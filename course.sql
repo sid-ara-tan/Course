@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 14, 2012 at 07:59 PM
+-- Generation Time: Aug 19, 2012 at 09:43 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -194,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `Topic` varchar(30) DEFAULT NULL,
   `Description` text,
   `Uploader` varchar(50) DEFAULT NULL,
-  `Upload_Time` date DEFAULT NULL,
+  `Upload_Time` timestamp NULL DEFAULT NULL,
   `File_Path` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`CourseNo`,`ID`),
   KEY `CourseNo` (`CourseNo`)
@@ -205,12 +205,13 @@ CREATE TABLE IF NOT EXISTS `content` (
 --
 
 INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Upload_Time`, `File_Path`) VALUES
-('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings.txt'),
-('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-08-01', '8C736EAE00613.txt'),
-('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings1.txt'),
-('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings2.txt'),
-('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-08-01', 'Router_Settings3.txt'),
-('CSE309', '1', 'e', 'ee', 'Rajkumar Das', '2012-08-10', 'git_repository.txt');
+('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings.txt'),
+('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-07-31 18:00:00', '8C736EAE00613.txt'),
+('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt'),
+('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt'),
+('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt'),
+('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png'),
+('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png');
 
 -- --------------------------------------------------------
 
@@ -325,13 +326,31 @@ INSERT INTO `hascourse` (`Dept_Id`, `course_no`) VALUES
 CREATE TABLE IF NOT EXISTS `message` (
   `CourseNo` varchar(10) NOT NULL DEFAULT '',
   `MessageNo` int(11) NOT NULL DEFAULT '0',
-  `mTime` date DEFAULT NULL,
-  `SenderInfo` varchar(20) DEFAULT NULL,
+  `mTime` timestamp NULL DEFAULT NULL,
+  `SenderInfo` varchar(50) DEFAULT NULL,
+  `senderType` varchar(25) DEFAULT NULL,
   `Subject` varchar(20) DEFAULT NULL,
-  `mBody` varchar(200) DEFAULT NULL,
+  `mBody` text,
+  `status` int(1) NOT NULL,
   PRIMARY KEY (`CourseNo`,`MessageNo`),
   KEY `CourseNo` (`CourseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
+('CSE304', 1, '2012-08-18 16:06:39', 'Tanzir Ul Islam', 'student', 'cfg', 'gfh', 1),
+('CSE309', 3, '2012-08-18 16:07:08', 'Md. Arafat Imtiaz', 'student', 'dfg', 'df gdg dfg j<br />\r\nhukj b<br />\r\nik.p[/ fjhfg', 1),
+('CSE309', 4, '2012-08-18 16:21:43', 'Md. Arafat Imtiaz', 'student', 'gfggggggggwswwwww', 'sf fds', 0),
+('CSE309', 5, '2012-08-19 02:19:53', 'Tanzir Ul Islam', 'student', 'hello', 'lkjasd sd;fsdfsfj ;sdfjoaksjdghls<br />\r\nsdfkljhkljfdg', 1),
+('CSE309', 6, '2012-08-19 02:36:04', 'Tanzir Ul Islam', 'student', 'c', 'c', 1),
+('CSE309', 7, '2012-08-19 02:36:18', 'Tanzir Ul Islam', 'student', 'xx', 'cx', 1),
+('CSE309', 8, '2012-08-19 02:37:05', 'Tanzir Ul Islam', 'student', 'SOFT', 'ss', 1),
+('CSE309', 9, '2012-08-19 03:27:49', 'Md. Arafat Imtiaz', 'student', 'sd', '???? ??? ????', 0),
+('CSE309', 10, '2012-08-19 03:40:16', 'Md. Arafat Imtiaz', 'student', 'asd', 'adkjh a;o \\<br />\r\ndfkljhdf a a<br />\r\ndsfuygfd afdhl<br />\r\nsdakljfhdfsdkjhf ;sdf<br />\r\nsidf', 1),
+('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1);
 
 -- --------------------------------------------------------
 
