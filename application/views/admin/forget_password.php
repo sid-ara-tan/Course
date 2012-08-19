@@ -10,7 +10,7 @@
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="#">Website Admin</a></h1>
+			<h1 class="site_title"><a href="index.html">Website Admin</a></h1>
                         <h2 class="section_title">Administration Login</h2><div class="btn_view_site"><a href="<?php echo site_url();?>">Main Site</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->
@@ -20,7 +20,7 @@
 			<p>Guest</p>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="#">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Guest</a></article>
+			<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Guest</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -32,8 +32,9 @@
 		<h3>Guest</h3>
 		<ul class="toggle">
                         <li class="icn_categories"><a href="<?php echo site_url();?>">Member site</a></li>
+                        <li class="icn_security"><a href="<?php echo site_url('admin/login');?>">Login Here.</a></li>
 		</ul>
-		
+
 		<footer>
 			<hr />
 			<p><strong></strong></p>
@@ -42,18 +43,18 @@
 
 	<section id="main" class="column">
 
-		<h4 class="alert_info">Welcome to the administration panel.Login to  customize properties.</h4>
-                
+		<h4 class="alert_info">Give your Username. Password will be send to your mail account.</h4>
+
 		<article class="module width_half">
                     <header>
                         <h3>Login.</h3>
                     </header>
 
                     <div id="login_form">
-                        
+
                         <?php echo validation_errors('<div id="error_message" class="error">','</div><br/>');?>
-                        
-                        <?php echo form_open(site_url('admin/login/validate'));?>
+
+                        <?php echo form_open(site_url('admin/login/reset_password'));?>
 
                             <p>
                                 <?php echo form_label('Username','username');?>
@@ -62,25 +63,15 @@
                                 <?php echo form_input('username',set_value('username'),'id="username"');?>
                             </p>
 
-                            <p>
-                                <?php echo form_label('Password','password');?>
-                                <br/>
-                                <br/>
-                                <?php echo form_password('password',set_value('password'),'id="password"');?>
-                            </p>
-                            
-                            <p style="color:rgb(102,102,102); font-weight: normal;line-height: 0;">
-                                <?php echo form_submit('submit','Sign in','id="submit"');?>
-                                <?php echo nbs(10);?>
-                                <input type="checkbox" name="stay" id="stay" value="1" <?php echo set_checkbox('stay', '1'); ?> /> Stay signed in
-                            </p>
 
-                            <?php echo anchor(site_url('admin/login/forget_password'),'Can\'t access your account?');?>
+                            <p>
+                                <?php echo form_submit('submit','Reset Password','id="submit"');?>
+                            </p>
 
                         <?php echo form_close();?>
                     </div>
-                    
+
 		</article>
 	</section>
-        
+
 <?php $this->load->view('admin/template/footer');?>

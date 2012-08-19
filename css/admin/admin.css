@@ -1,0 +1,79 @@
+/* 
+    Document   : admin
+    Created on : Aug 19, 2012, 3:29:50 PM
+    Author     : secret
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+#login_form{
+    background: #f0f0f0;
+    border: 1px solid white;
+    margin: 10px;
+    padding: 1em;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+
+    -webkit-box-shadow: 0 0 8px #D0D0D0;
+    -moz-box-shadow: 0 0 8px grey;
+}
+
+#login_form input[type=text],#login_form input[type=password] {
+
+margin: 0 0 1em 0;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+
+border: 1px solid #BBBBBB;
+height: 20px;
+color: #666666;
+
+-webkit-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+-moz-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;
+
+padding: 10px;
+background-position: 10px 6px;
+
+display: block;
+width: 92%;
+
+}
+
+#login_form input[type=text]:focus,#login_form input[type=password]:focus {
+outline: none;
+border: 1px solid #77BACE;
+-webkit-box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;
+-moz-box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;
+box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;
+}
+
+#login_form select {
+width: 92%;
+margin: 0 10px;
+border: 1px solid #bbb;
+height: 20px;
+color: #666666;
+}
+
+#login_form label{
+    font-weight: bold;
+}
+
+.error {
+display: block;
+width: 92%;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background-position: 10px 10px;
+border: 1px solid rgb(221,30,16);
+background-color: rgb(255,235,232);
+padding: 10px;
+}

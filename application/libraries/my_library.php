@@ -42,6 +42,23 @@ class My_library {
         }
     }
 
+    function logged_in($link='admin/admin') {
+        $CI = & get_instance();
+        $is_logged_in=$CI->session->userdata('is_logged_in');
+
+        if($is_logged_in==TRUE){
+            redirect($link);
+        }
+    }
+
+    function check_logged_in($link='admin/login') {
+        $CI = & get_instance();
+        $is_logged_in=$CI->session->userdata('is_logged_in');
+
+        if($is_logged_in!=TRUE){
+            redirect($link);
+        }
+    }
 }
 
 /* End of file Someclass.php */

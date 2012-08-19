@@ -1,3 +1,8 @@
+<?php
+    header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+    header('Pragma: no-cache'); // HTTP 1.0.
+    header('Expires: 0'); // Proxies.
+?>
 <!doctype html>
 <html lang="en">
 
@@ -5,7 +10,7 @@
 	<meta charset="utf-8"/>
         <title><?php echo $title;?></title>
 
-        <link rel="stylesheet" href="<?php echo base_url();?>/template/admin/css/layout.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="<?php echo base_url();?>template/admin/css/layout.css" type="text/css" media="screen" />
 	<!--[if lt IE 9]>
 	<link rel="stylesheet" href="css/ie.css" type="text/css" media="screen" />
 	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -50,3 +55,5 @@
         $('.column').equalHeight();
     });
 </script>
+
+
