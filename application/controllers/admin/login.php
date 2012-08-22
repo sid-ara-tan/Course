@@ -8,8 +8,13 @@ class Login extends CI_Controller{
         $this->load->helper('string');
     }
 
-    public function index($param=NULL) {        
-        $data['title']='Login';
+    public function index($param=NULL) {
+        $data=array(
+            'msg'=>'Login to proced',
+            'info'=>$param,
+            'title'=>'Login'
+        );
+
         $this->load->view('admin/login_view',$data);
     }
 
@@ -46,7 +51,12 @@ class Login extends CI_Controller{
     }
 
     public function forget_password(){
-        $data['title']='Forget Password';
+        $data=array(
+            'msg'=>'Give your Username. Password will be send to your mail account.',
+            'info'=>'',
+            'title'=>'Forget Password'
+        );
+
         $this->load->view('admin/forget_password',$data);
     }
 

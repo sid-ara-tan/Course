@@ -42,7 +42,7 @@
 
 	<section id="main" class="column">
 
-		<h4 class="alert_info">Welcome to the administration panel.Login to  customize properties.</h4>
+            <h4 class="alert_info"><?php echo $msg;?></h4>
                 
 		<article class="module width_half">
                     <header>

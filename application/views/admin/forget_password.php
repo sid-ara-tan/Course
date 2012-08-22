@@ -43,7 +43,7 @@
 
 	<section id="main" class="column">
 
-		<h4 class="alert_info">Give your Username. Password will be send to your mail account.</h4>
+            <h4 class="alert_info"><?php echo $msg; ?></h4>
 
 		<article class="module width_half">
                     <header>
