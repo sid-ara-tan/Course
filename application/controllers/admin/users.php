@@ -7,7 +7,7 @@
     }
 
     function index($param=NULL){
-
+           
     }
 
     function add_user() {
@@ -107,7 +107,7 @@
         $username=$this->session->userdata('username');
         $delete=$this->admin->delete_account($username);
         if($delete){
-            
+            $this->my_library->logout();
         }else {
             echo 'error deleting account';
             die();

@@ -11,7 +11,9 @@
                         <?php
                             $username=$this->session->userdata('username');
                             echo $username;
-                        ?> (<a href="#">No Messages</a>)</p>
+                        ?> (<a href="#">No Messages</a>)
+                        (<a href="<?php echo site_url('admin/admin/logout');?>"><span><i>Logout</i></span></a>)
+                    </p>
 			<!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
 		</div>
 		<div class="breadcrumbs_container">

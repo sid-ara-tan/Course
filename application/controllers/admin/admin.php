@@ -15,8 +15,7 @@ class Admin extends CI_Controller{
     }
     
     function logout(){
-        $this->session->sess_destroy();
-        redirect('admin/login');
+        $this->my_library->logout();
     }
 
     public function template($param=NULL) {

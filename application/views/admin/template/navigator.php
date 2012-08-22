@@ -12,11 +12,17 @@
                         <?php endforeach;?>
                     </ul>
                 <?php endforeach;?>
-		
+
+                    <script type="text/javascript" charset="utf-8">
+                       /* $(document).ready(function(){
+                            $('.toggle').hide();
+                        });*/
+                    </script>
+                    
 		<footer>
 			<hr />
 			<p><strong>Contact Info</strong></p>
 			<p>siddhartha047@gmail.com</p>
 		</footer>
-                    <hr/>
+                        <hr/>
 	</aside><!-- end of sidebar -->

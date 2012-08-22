@@ -40,10 +40,7 @@
 		</footer>
 	</aside><!-- end of sidebar -->
 
-	<section id="main" class="column">
-
-            <h4 class="alert_info"><?php echo $msg;?></h4>
-                
+	<section id="main" class="column">                
 		<article class="module width_half">
                     <header>
                         <h3>Login.</h3>

@@ -25,7 +25,6 @@
     $this->load->view('admin/template/navigator',$data);
 ?>
 	<section id="main" class="column">
-            <h4 class="alert_info"><?php echo $msg;?></h4>
 		<article class="module width_half">
 			<header><h3>Add User</h3></header>
 			<div id="login_form">

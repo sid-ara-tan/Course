@@ -13,11 +13,6 @@
     );
 
     $admin=array(
-        'options'=>array(
-            'name'=>'Options',
-            'link'=>  site_url(),
-            'class'=>'icn_settings'
-        ),
         'logout'=>array(
             'name'=>'Logout',
             'link'=> site_url('admin/admin/logout'),
@@ -25,8 +20,46 @@
         )
     );
 
+    $department=array(
+        'view_department'=>array(
+            'name'=>'View Department',
+            'link'=>  site_url('admin/department/view_department'),
+            'class'=>'icn_categories'
+        ),
+    );
+
+    $course=array(
+        'view_course'=>array(
+            'name'=>'View Course',
+            'link'=>  site_url(),
+            'class'=>'icn_categories'
+        ),
+    );
+
+    $teacher=array(
+        'view_teacher'=>array(
+            'name'=>'View teachers',
+            'link'=>  site_url(),
+            'class'=>'icn_categories'
+        ),
+    );
+
+    $student=array(
+        'view_student'=>array(
+            'name'=>'View students',
+            'link'=>  site_url(),
+            'class'=>'icn_categories'
+        ),
+    );
+
     $data['navigator']=array(
+        'Department'=>$department,
+        'Course'=>$course,
+        'Teacher'=>$teacher,
+        'Student'=>$student,
         'Users'=>$users,
         'Admin'=>$admin
     );
+
+
 ?>

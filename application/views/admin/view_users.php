@@ -102,59 +102,54 @@
 <?php $username=$this->session->userdata('username');?>
 
 <section id="main" class="column">
-    <h4 class="alert_info"><?php echo $msg;?></h4>
-        <article class="module width_full">
-                <header><h3>Your Profile Information</h3></header>
-                <div class="module_content">
-                    <div id="user_info_tabs" class="shadow">
-                                <ul>
-                                        <li><a href="#user_info_tabs_1">Profile</a></li>
-                                        <li><a href="#user_info_tabs_2">Edit Information</a></li>
-                                </ul>
-                                <?php $current_user=$current_user_info->row();?>
+        <article class="module width_full shadow" id="user_info_tabs">
+            <div>
+                <ul>
+                        <li><a href="#user_info_tabs_1">Profile</a></li>
+                        <li><a href="#user_info_tabs_2">Edit Information</a></li>
+                </ul>
+                <?php $current_user=$current_user_info->row();?>
 
-                                <div id="user_info_tabs_1">
-                                    <?php echo img(base_url('images/admin/no_profile.jpg','Picture havent given yet'));?>
-                                    <h3>Name:</h3><?php echo $current_user->username;?>
-                                    <h3>Email:</h3><?php echo $current_user->email;?>
-                                </div>
-                                <div id="user_info_tabs_2">
-                                     <div id="login_form" style="width:30%;">
-                                            <div id="show_edit_information"></div>
+                <div id="user_info_tabs_1">
+                    <?php echo img(base_url('images/admin/no_profile.jpg','Picture havent given yet'));?>
+                    <p><strong>Name:</strong><br/><?php echo $current_user->username;?></p>
+                    <p><strong>Email:</strong><br/><?php echo $current_user->email;?></p>
+                </div>
+                <div id="user_info_tabs_2">
+                     <div id="login_form" style="width:30%;">
+                            <div id="show_edit_information"></div>
 
-                                            <?php echo form_open();?>
+                            <?php echo form_open();?>
 
-                                                <p>
-                                                    <strong><?php echo form_label('Email','edit_email');?></strong>
-                                                    <br/>
-                                                    <br/>
-                                                    <?php echo form_input('email',set_value('email',$current_user->email),'id="edit_email" title="incase you forget password reseted password will be sent here."');?>
-                                                </p>
+                                <p>
+                                    <strong><?php echo form_label('Email','edit_email');?></strong>
+                                    <br/>
+                                    <br/>
+                                    <?php echo form_input('email',set_value('email',$current_user->email),'id="edit_email" title="incase you forget password reseted password will be sent here."');?>
+                                </p>
 
-                                                <p>
-                                                    <strong><?php echo form_label('Password','edit_password');?></strong>
-                                                    <br/>
-                                                    <br/>
-                                                    <?php echo form_password('password',set_value('password'),'id="edit_password" title="Password should be at least 5 chars."');?>
-                                                </p>
+                                <p>
+                                    <strong><?php echo form_label('Password','edit_password');?></strong>
+                                    <br/>
+                                    <br/>
+                                    <?php echo form_password('password',set_value('password'),'id="edit_password" title="Password should be at least 5 chars."');?>
+                                </p>
 
-                                                <p>
-                                                    <strong><?php echo form_label('Confirm Password','edit_password2');?></strong>
-                                                    <br/>
-                                                    <br/>
-                                                    <?php echo form_password('password2',set_value('password2'),'id="edit_password2"');?>
-                                                </p>
+                                <p>
+                                    <strong><?php echo form_label('Confirm Password','edit_password2');?></strong>
+                                    <br/>
+                                    <br/>
+                                    <?php echo form_password('password2',set_value('password2'),'id="edit_password2"');?>
+                                </p>
 
-                                                <p>
-                                                <?php echo form_submit('submit','Edit Account','id="edit_submit"');?>
-                                                <a href="<?php echo site_url('admin/users/delete_account');?>" title="Delete your existing account." onclick="if (!confirm('Are you sure?')) return false" >Delete Account.</a>
-                                                </p>
-                                            <?php echo form_close();?>
-                                        </div>
-                                </div>
-                                
+                                <p>
+                                <?php echo form_submit('submit','Edit Account','id="edit_submit"');?>
+                                <a href="<?php echo site_url('admin/users/delete_account');?>" title="Delete your existing account." onclick="if (!confirm('Are you sure?')) return false" >Delete Account.</a>
+                                </p>
+                            <?php echo form_close();?>
                         </div>
                 </div>
+        </div>
         </article>
 
         <article class="module width_quarter">
