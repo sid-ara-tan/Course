@@ -6,6 +6,12 @@
 <meta http-equiv="imagetoolbar" content="no" />
 
 <link rel="stylesheet" href="<?php echo base_url();?>template/styles/layout.css" type="text/css" />
+
+<!--*********************************************************************************-->
+<link rel="stylesheet" href="<?php echo base_url();?>css/button.css" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url();?>jquery/profile_valid.js"></script>
+<!--*********************************************************************************-->
+
 <link rel="stylesheet" href="<?php echo base_url();?>template/styles/3_column.css" type="text/css" />
 
 <script type="text/javascript" src="<?php echo base_url();?>jquery/jquery-1.7.2.min.js"></script>

@@ -12,4 +12,26 @@
 <script type="text/javascript" src="<?php echo base_url();?>jquery/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>template/scripts/jquery-slidedeck.pack.lite.js"></script>
 
+<!--************************************************************************************************************* -->
+	<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/base/jquery.ui.all.css">
+
+	
+
+	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.core.js"></script>
+
+	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js"></script>
+
+	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
+
+	<script>
+
+	$(function() {
+
+		$( "#tabs" ).tabs();
+
+	});
+
+	</script>
+<!--************************************************************************************************************* -->
+
 </head>

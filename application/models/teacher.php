@@ -77,4 +77,20 @@ class Teacher extends CI_model{
         }
         else return FALSE;
     }
+    
+    
+    function get_name($id){
+
+        $result=$this->db->query("
+                                    select Name from teacher
+                                    where T_Id='$id';
+                                    ");
+        if($result){
+            $row=$result->row();
+            return $row->Name;
+        }else{
+            return FALSE;
+        }
+        
+    }
 }
