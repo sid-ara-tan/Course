@@ -1,0 +1,97 @@
+<?php
+$data['title'] = "Student Group Page Comment";
+$this->load->view('header/style_demo_header', $data);
+?>
+
+<?php
+$row_std = $query_student_info->row();
+?>
+
+<body id="top">
+    <div class="wrapper row1">
+        <div id="header" class="clear">
+            <div class="fl_left">
+                <h1><a href="index.html">Course Management System</a></h1>
+                <p>Student Panel of <b><?php echo "* " . $row_std->Name . " *"; ?></b>
+                    <br>
+                    <?php echo anchor('course/logout', 'Log Out'); ?>
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- ####################################################################################################### -->
+    <div class="wrapper row2">
+        <div id="topnav">
+            <ul>
+                <li class="active"><a href="<?php echo base_url().'index.php/student_home_group/group/'.$this->uri->segment(4);?>">Back To Group</a></li>
+
+            </ul>
+            <div  class="clear"></div>
+        </div>
+    </div>
+    <!-- ####################################################################################################### -->
+    <!-- ####################################################################################################### -->
+    <div class="wrapper row4">
+        <div id="container" class="clear">
+            <!-- ####################################################################################################### -->
+            <?php $row_post=$query_post->row();?>
+            <div id="content">
+                <b><font color="red"><?php echo $notification; ?></font></b>
+                <h1><?php echo $row_post->Subject;?></h1>
+                <p><?php echo $row_post->mBody;?></p>
+                <hr>
+                <p><?php echo "by ".$row_post->SenderInfo.' at '.$row_post->mTime;?></p>
+                <hr>
+
+                <div id="comments">
+                    <h2>Comments</h2>
+                    <ul class="commentlist">
+                    <?php 
+                    if($querycomment!=FALSE)
+                    {
+                        foreach ($querycomment->result_array() as $row)
+                        {?>
+                            <li class="comment_even">
+                                <div class="author"><img class="avatar" src="images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#"><?php echo $row['commentBy'];?></a></span> <span class="wrote">wrote:</span></div>
+                                <div class="submitdate"><a href="#"><?php echo $row['time'];?></a></div>
+                                <p><?php echo $row['body'].'</p>';
+                                    $row_name_std=$query_student_name->row();
+                                    if($row['commentBy']==$row_name_std->Name)
+                                    {
+                                        echo '<br>< '.anchor('student_home_group/comment_delete/'.$row['msg_no'].'/'.$row['CourseNo'].'/'.$row['id'],'Delete','onclick=" return check()"').' >';
+                                    }?>
+                            </li>
+                        <?php
+
+                        }
+                    }
+                    else echo 'no comment';
+                     ?>
+                    </ul>
+                </div>
+                <h2>Write A Comment</h2>
+                <div id="respond">
+                    <?php echo form_open('student_home_group/comment_post');?>
+                        <p>
+                            <textarea name="comment" id="comment" cols="100%" rows="10"></textarea>
+                            <label for="comment" style="display:none;"><small>Comment (required)</small></label>
+                            <?php 
+                                    echo form_hidden('msg_no',$row_post->MessageNo);
+                                    echo form_hidden('courseno',$row_post->CourseNo);
+                            ?>
+                        </p>
+                        <p>
+                            <input type="button" id="cmntPost" value="Post" onclick="checkNullComment(this.form)" />
+                            &nbsp;
+                            <input name="reset" type="reset" id="reset" tabindex="5" value="Reset Form" />
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <!-- ####################################################################################################### -->
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!-- ####################################################################################################### -->
+
+    <?php $this->load->view('footer/footer'); ?>

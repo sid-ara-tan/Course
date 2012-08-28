@@ -1,23 +1,12 @@
 <?php
 
-class Message extends CI_model {
+class Comment extends CI_model {
+    
+    //msg_no foreign key constraint
 
-    function insert($subject, $message, $courseno) {
+    function insert($body, $courseno, $msgno) {
 
         $user_id = $this->session->userdata['ID'];
-
-        $query = $this->db->query("
-        SELECT MAX(MessageNo) as MessageNo
-        FROM message_group_student
-        WHERE CourseNo='$courseno'
-        ");
-
-        if ($query->num_rows() == 1) {
-            $row = $query->row();
-            $id = $row->MessageNo + 1;
-        } else {
-            $id = 1;
-        }
 
         $uptime = strftime("%Y-%m-%d %H:%M:%S", time());
 
@@ -42,23 +31,22 @@ class Message extends CI_model {
 
         $data = array(
             'CourseNo' => $courseno,
-            'MessageNo' => $id,
-            'SenderInfo' => $name,
+            'msg_no' => $msgno,
+            'commentBy' => $name,
             'senderType' => $this->session->userdata['type'],
-            'Subject' => $subject,
-            'Mbody' => $message,
+            'body' => $body,
             'status' => 1,
-            'mTime' => $uptime
+            'time' => $uptime
         );
-        $this->db->insert('message_group_student', $data);
+        $this->db->insert('comment', $data);
     }
 
-    function getallmessage($courseno) {
+    function getall($courseno,$msg_id) {
         $query = $this->db->query("
                 select * 
-                from message_group_student 
-                where CourseNo='$courseno' and status=1
-                order by mTime desc");
+                from comment 
+                where CourseNo='$courseno' and msg_no='$msg_id' and status=1
+                order by time asc");
 
         if ($query->num_rows() > 0)
             return $query;
@@ -66,7 +54,7 @@ class Message extends CI_model {
             return FALSE;
     }
 
-    function delete($msg_id, $courseno) {
+    function delete($id) {
         $user_id = $this->session->userdata['ID'];
 
         $query = $this->db->query("
@@ -78,26 +66,23 @@ class Message extends CI_model {
         $name = $result->Name;
 
         $query = $this->db->query("
-            UPDATE message_group_student 
+            UPDATE comment 
             SET status=0
-            where CourseNo='$courseno' and MessageNo=$msg_id and SenderInfo='$name'
+            where id=$id and commentBy='$name'
             ");
 
     }
     
-    function get($msg_id,$courseno)
+    function comment_number($courseno,$msgno)
     {
         $query = $this->db->query("
         select * 
-        from message_group_student 
-        where CourseNo='$courseno' and MessageNo='$msg_id'
-        and status=1");
-        
+        from comment 
+        where CourseNo='$courseno' and msg_no='$msgno' and status=1");
 
-        if ($query->num_rows() > 0)
-            return $query;
-        else
-            return FALSE;
+        return $query->num_rows();
+
+
     }
 
 }

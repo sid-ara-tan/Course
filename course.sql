@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 19, 2012 at 09:43 AM
+-- Generation Time: Aug 28, 2012 at 07:26 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -103,7 +103,8 @@ INSERT INTO `assignedcourse` (`T_Id`, `CourseNo`, `Sec`) VALUES
 
 CREATE TABLE IF NOT EXISTS `authentication` (
   `username` varchar(30) NOT NULL DEFAULT '',
-  `password` varchar(30) DEFAULT NULL,
+  `password` varchar(64) DEFAULT NULL,
+  `email` varchar(200) NOT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -111,8 +112,9 @@ CREATE TABLE IF NOT EXISTS `authentication` (
 -- Dumping data for table `authentication`
 --
 
-INSERT INTO `authentication` (`username`, `password`) VALUES
-('sid', '1234');
+INSERT INTO `authentication` (`username`, `password`, `email`) VALUES
+('admin', '12345', 'siddhartha047@gmail.com'),
+('secret', '827ccb0eea8a706c4c34a16891f84e7b', 'siddhartha047@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -181,6 +183,54 @@ INSERT INTO `classinfo` (`CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location
 ('CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010'),
 ('CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50', '05009'),
 ('CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment`
+--
+
+CREATE TABLE IF NOT EXISTS `comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `msg_no` int(11) NOT NULL,
+  `CourseNo` varchar(10) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `commentBy` varchar(50) NOT NULL,
+  `body` text,
+  `status` tinyint(4) NOT NULL,
+  `senderType` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`,`msg_no`,`CourseNo`),
+  KEY `msg_no` (`msg_no`),
+  KEY `CourseNo` (`CourseNo`),
+  KEY `commentBy` (`commentBy`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+
+--
+-- Dumping data for table `comment`
+--
+
+INSERT INTO `comment` (`id`, `msg_no`, `CourseNo`, `time`, `commentBy`, `body`, `status`, `senderType`) VALUES
+(1, 8, 'CSE309', '2012-08-27 21:39:31', 'Tanzir Ul Islam', 'gh', 1, 'student'),
+(2, 10, 'CSE309', '2012-08-27 15:41:08', 'Tanzir Ul Islam', 'tai naki ?<br />\r\nvaloi', 1, 'student'),
+(3, 10, 'CSE309', '2012-08-27 15:41:19', 'Tanzir Ul Islam', 'tai naki ?<br />\r\nvaloi', 1, 'student'),
+(4, 10, 'CSE309', '2012-08-27 15:42:08', 'Tanzir Ul Islam', 'tgh', 1, 'student'),
+(5, 10, 'CSE309', '2012-08-27 15:47:12', 'Tanzir Ul Islam', 'good', 1, 'student'),
+(6, 10, 'CSE309', '2012-08-27 15:50:26', 'Md. Arafat Imtiaz', 'hd', 1, 'student'),
+(7, 11, 'CSE309', '2012-08-27 15:54:28', 'Md. Arafat Imtiaz', 'cuyk', 1, 'student'),
+(8, 11, 'CSE309', '2012-08-27 15:54:51', 'Md. Arafat Imtiaz', 'dfgdfgdf dfg', 1, 'student'),
+(9, 11, 'CSE309', '2012-08-27 15:54:56', 'Md. Arafat Imtiaz', 'dfg ddfg dfg ', 1, 'student'),
+(10, 11, 'CSE309', '2012-08-27 22:26:22', 'Md. Arafat Imtiaz', '55345aaaaaaaaaaaaaa asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 0, 'student'),
+(11, 11, 'CSE309', '2012-08-27 15:55:14', 'Md. Arafat Imtiaz', 'fgggggggggggggggggg', 1, 'student'),
+(12, 11, 'CSE309', '2012-08-27 15:55:21', 'Md. Arafat Imtiaz', 'dghggggggggggggggggggggggg', 1, 'student'),
+(13, 11, 'CSE309', '2012-08-27 22:24:43', 'Tanzir Ul Islam', 'sdf sdf ??? ???? ?', 0, 'student'),
+(14, 11, 'CSE309', '2012-08-27 16:24:30', 'Tanzir Ul Islam', 'hig yu fy', 1, 'student'),
+(15, 11, 'CSE309', '2012-08-27 16:24:36', 'Tanzir Ul Islam', 'fhgfv c', 1, 'student'),
+(16, 11, 'CSE309', '2012-08-27 16:26:48', 'Md. Arafat Imtiaz', 'dd t', 1, 'student'),
+(17, 4, 'CSE310', '2012-08-27 16:28:08', 'Md. Arafat Imtiaz', 'he ehe eh', 1, 'student'),
+(18, 5, 'CSE310', '2012-08-27 16:29:08', 'Md. Arafat Imtiaz', '??', 1, 'student'),
+(19, 3, 'CSE309', '2012-08-27 17:50:52', 'Md. Arafat Imtiaz', 'he he he', 1, 'student'),
+(20, 3, 'CSE309', '2012-08-27 23:55:51', 'Tanzir Ul Islam', 'asf', 0, 'student'),
+(21, 8, 'CSE309', '2012-08-28 01:22:43', 'Tanzir Ul Islam', 'hello everybody', 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -320,10 +370,10 @@ INSERT INTO `hascourse` (`Dept_Id`, `course_no`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `message`
+-- Table structure for table `message_group_student`
 --
 
-CREATE TABLE IF NOT EXISTS `message` (
+CREATE TABLE IF NOT EXISTS `message_group_student` (
   `CourseNo` varchar(10) NOT NULL DEFAULT '',
   `MessageNo` int(11) NOT NULL DEFAULT '0',
   `mTime` timestamp NULL DEFAULT NULL,
@@ -337,20 +387,25 @@ CREATE TABLE IF NOT EXISTS `message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `message`
+-- Dumping data for table `message_group_student`
 --
 
-INSERT INTO `message` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
+INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
 ('CSE304', 1, '2012-08-18 16:06:39', 'Tanzir Ul Islam', 'student', 'cfg', 'gfh', 1),
+('CSE308', 1, '2012-08-27 17:55:03', 'Md. Arafat Imtiaz', 'student', 'fsd', 'gggg gg g g g', 1),
 ('CSE309', 3, '2012-08-18 16:07:08', 'Md. Arafat Imtiaz', 'student', 'dfg', 'df gdg dfg j<br />\r\nhukj b<br />\r\nik.p[/ fjhfg', 1),
 ('CSE309', 4, '2012-08-18 16:21:43', 'Md. Arafat Imtiaz', 'student', 'gfggggggggwswwwww', 'sf fds', 0),
 ('CSE309', 5, '2012-08-19 02:19:53', 'Tanzir Ul Islam', 'student', 'hello', 'lkjasd sd;fsdfsfj ;sdfjoaksjdghls<br />\r\nsdfkljhkljfdg', 1),
-('CSE309', 6, '2012-08-19 02:36:04', 'Tanzir Ul Islam', 'student', 'c', 'c', 1),
+('CSE309', 6, '2012-08-19 02:36:04', 'Tanzir Ul Islam', 'student', 'c', 'c', 0),
 ('CSE309', 7, '2012-08-19 02:36:18', 'Tanzir Ul Islam', 'student', 'xx', 'cx', 1),
 ('CSE309', 8, '2012-08-19 02:37:05', 'Tanzir Ul Islam', 'student', 'SOFT', 'ss', 1),
 ('CSE309', 9, '2012-08-19 03:27:49', 'Md. Arafat Imtiaz', 'student', 'sd', '???? ??? ????', 0),
-('CSE309', 10, '2012-08-19 03:40:16', 'Md. Arafat Imtiaz', 'student', 'asd', 'adkjh a;o \\<br />\r\ndfkljhdf a a<br />\r\ndsfuygfd afdhl<br />\r\nsdakljfhdfsdkjhf ;sdf<br />\r\nsidf', 1),
-('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1);
+('CSE309', 10, '2012-08-19 03:40:16', 'Md. Arafat Imtiaz', 'student', 'asd', 'adkjh a;o \\<br />\r\ndfkljhdf a a<br />\r\ndsfuygfd afdhl<br />\r\nsdakljfhdfsdkjhf ;sdf<br />\r\nsidf', 0),
+('CSE309', 11, '2012-08-22 11:46:39', 'Tanzir Ul Islam', 'student', 'cxc', 'cvc vcb hthcvb bcfb ', 1),
+('CSE309', 12, '2012-08-27 15:18:21', 'Tanzir Ul Islam', 'student', 'd', 'd', 0),
+('CSE309', 13, '2012-08-27 16:07:40', 'Md. Arafat Imtiaz', 'student', 'wer', 'werewrwerwer', 0),
+('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1),
+('CSE310', 5, '2012-08-27 16:28:52', 'Md. Arafat Imtiaz', 'student', '1254', 'were', 1);
 
 -- --------------------------------------------------------
 
@@ -411,7 +466,7 @@ INSERT INTO `student` (`S_Id`, `Name`, `Dept_id`, `sLevel`, `Term`, `Sec`, `Advi
 ('0805040', 'Mir Tazbinur sharif', 'CSE', 3, 2, 'A2', '05004', 2008, '1234', 'Abul Hosain', 'tashjg@yy.cc', '', 1674123456),
 ('0805047', 'Siddhartha Shankar Das', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
 ('0805048', 'Md. Arafat Imtiaz', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
-('0805049', 'Tanzir Ul Islam', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', 'Tazul Islam', 'tanzir.b@gmail.com', '', 1674894025),
+('0805049', 'Tanzir Ul Islam', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', 'Tazul Islam', 'tanzir.b@gmail.com', 'titumir hall 3008 buet dhaka', 1674894025),
 ('0805067', 'Jahangir Alam', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
 ('0805086', 'Faruk Hossen', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
 ('0805102', 'Ovi', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', 0),
@@ -589,6 +644,12 @@ ALTER TABLE `classinfo`
   ADD CONSTRAINT `classinfo_ibfk_2` FOREIGN KEY (`by_teacher`) REFERENCES `assignedcourse` (`T_Id`);
 
 --
+-- Constraints for table `comment`
+--
+ALTER TABLE `comment`
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `message_group_student` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `content`
 --
 ALTER TABLE `content`
@@ -614,10 +675,10 @@ ALTER TABLE `hascourse`
   ADD CONSTRAINT `hascourse_ibfk_2` FOREIGN KEY (`course_no`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `message`
+-- Constraints for table `message_group_student`
 --
-ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `message_group_student`
+  ADD CONSTRAINT `message_group_student_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `prerequisite`

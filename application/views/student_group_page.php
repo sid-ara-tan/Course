@@ -100,17 +100,7 @@ $row_std = $query_student_info->row();
                                 echo form_hidden('courseno',$this->uri->segment(3));
                                 echo form_close(); ?>
 
-                                <hr /><hr /><hr />
-
-                                <?php echo form_open_multipart('student_home_group/do_upload');?>
-
-                                <input type="file" name="file_upload" size="20" id="file_upload" />
-
-                                <br /><br />
-
-                                <input type="submit" value="upload" />
-
-                                </form>
+                                <hr />
                                 <hr /><hr />
                                 <?php
                                 $row_std_name=$query_student->row();
@@ -122,13 +112,17 @@ $row_std = $query_student_info->row();
                                     echo '<b>'.$row['SenderInfo'].'</b>'.' says :';
                                     echo '('.$row['mTime'].')';
                                     echo br(2);;
-                                    echo '<h3>'.anchor('student_home_group/comment',$row['Subject']).'</h3><br>';
-                                    echo $row['mBody'].'<br>';
+                                    echo '<h3><b>'.$row['Subject'].'</b></h3><br>';
+                                    echo $row['mBody'].'<br><br>';
                                     if($row['SenderInfo']==$row_std_name->Name)
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row['MessageNo'].'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
+                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row['MessageNo'].'/'.$this->uri->segment(3),"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
                                     }
+                                    
+                                    
+                                    
+                                    echo ' '.anchor('student_home_group/comment/'.$row['MessageNo'].'/'.$this->uri->segment(3),"< <font color='red'>".${'commentof'.$row['MessageNo']}." Comment</font> >").'<br>';
                                     echo '<hr/>';
 
                                     }
@@ -173,7 +167,17 @@ $row_std = $query_student_info->row();
                     <div id = "tabs-4">
 
                     <p>All Course files will be here.</p>
+                        <hr /><hr />
 
+                        <?php echo form_open_multipart('student_home_group/do_upload');?>
+
+                        <input type="file" name="file_upload" size="20" id="file_upload" />
+
+                        <br /><br />
+
+                        <input type="submit" value="upload" />
+
+                        </form>
 
 
                     </div>

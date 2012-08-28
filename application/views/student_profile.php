@@ -120,7 +120,7 @@ $row_std = $query_student_info->row();
                     <div>
                         Address:
                         <br>
-                        <textarea name="user_address" rows="5" cols="50" maxlenth="1000" value="<?php echo $row_std->address; ?>" ></textarea>
+                        <textarea name="user_address" rows="5" cols="50" maxlenth="1000"><?php echo $row_std->address; ?></textarea>
                     </div>
                     <br>
                     <div>

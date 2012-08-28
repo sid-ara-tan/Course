@@ -28,6 +28,8 @@
 	});
 
 	</script>
+        
+        <script type="text/javascript" src="<?php echo base_url();?>jquery/form_valid.js"></script>
 <!--************************************************************************************************************* -->
 
 </head>
