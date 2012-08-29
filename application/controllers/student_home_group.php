@@ -19,9 +19,21 @@ class Student_home_group extends CI_controller {
     function group() {
         $courseno=$this->uri->segment(3);
         
-        if($this->uri->segment(4)=='posted')$data['notification']="Message has been posted";
-        elseif($this->uri->segment(4)=='deleted')$data['notification']="Message has been deleted";
-        else $data['notification']="";
+        if($this->uri->segment(4)=='posted')
+        {
+            $data['notification']="Message has been posted";
+            $offset=0;
+        }
+        elseif($this->uri->segment(4)=='deleted')
+        {
+            $data['notification']="Message has been deleted";
+            $offset=0;
+        }
+        else 
+        {
+            $data['notification']="";
+            $offset=$this->uri->segment(4,0);
+        }
         
         $this->load->model('content');
         $this->load->model('message');
@@ -39,17 +51,32 @@ class Student_home_group extends CI_controller {
         //echo $courseno;
         $user_id=$this->session->userdata['ID'];
         $data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
-        $data['querymsg'] =$this->message->getallmessage($courseno);
         
+        
+
+        
+        //Pagination
+        $config['total_rows'] =$this->message->count_results($courseno);
+        $config['base_url'] = base_url().'index.php/student_home_group/group/'.$courseno;
+        $config['per_page'] ='5';
+        $config['uri_segment'] = 4;
+        //$config['full_tag_open'] = '<p>';
+        //$config['full_tag_close'] = '</p>'; 
+	$this->pagination->initialize($config);
+        
+        
+        $data['querymsg'] =$this->message->getallmessage($courseno,$config['per_page'],$offset);
         if($data['querymsg']!=FALSE)
         {
-            foreach ($data['querymsg']->result_array() as $row)
+            foreach ($data['querymsg'] as $row)
             {
-            $msgno=$row['MessageNo'];
+            $msgno=$row->MessageNo;
             $data['commentof'.$msgno]=$this->comment->comment_number($courseno,$msgno);
             }
             //var_dump($data);               
         }
+        
+        
         $this->load->view('student_group_page', $data);
     }
     
@@ -87,15 +114,38 @@ class Student_home_group extends CI_controller {
         $user_id=$this->session->userdata['ID'];
         $data['query_student_name']=$this->db->query("select Name from Student where S_Id='$user_id'");
         
-        if($this->uri->segment(5)=='posted')$data['notification']="Comment has been posted";
-        elseif($this->uri->segment(5)=='deleted')$data['notification']="Comment has been deleted";
-        else $data['notification']="";
+        if($this->uri->segment(5)=='posted')
+        {
+            $data['notification']="Comment has been posted";
+            $offset=0;
+        }
+        elseif($this->uri->segment(5)=='deleted')
+        {
+            $data['notification']="Comment has been deleted";
+            $offset=0;
+        }
+        else 
+        {
+            $data['notification']="";
+            $offset=$this->uri->segment(5,0);
+        }
         
         $data['query_student_info'] = $this->query_student;
         $msg_id=$this->uri->segment(3);
         $courseno=$this->uri->segment(4);
         
-        $data['querycomment'] =$this->comment->getall($courseno,$msg_id);
+        
+                //Pagination
+        $config['total_rows'] =$this->comment->comment_number($courseno,$msg_id);
+        $config['base_url'] = base_url().'index.php/student_home_group/comment/'.$msg_id.'/'.$courseno;
+        $config['per_page'] ='10';
+        $config['uri_segment'] = 5;
+        //$config['full_tag_open'] = '<p>';
+        //$config['full_tag_close'] = '</p>'; 
+	$this->pagination->initialize($config);
+        
+        
+        $data['querycomment'] =$this->comment->getall($courseno,$msg_id,$config['per_page'],$offset);
         
         $data['query_post']=$this->message->get($msg_id,$courseno);
         

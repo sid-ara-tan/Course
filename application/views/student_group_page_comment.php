@@ -64,6 +64,7 @@ $row_std = $query_student_info->row();
                         <?php
 
                         }
+                        echo $this->pagination->create_links();
                     }
                     else echo 'no comment';
                      ?>

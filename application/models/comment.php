@@ -41,12 +41,13 @@ class Comment extends CI_model {
         $this->db->insert('comment', $data);
     }
 
-    function getall($courseno,$msg_id) {
+    function getall($courseno,$msg_id,$limit,$offset) {
         $query = $this->db->query("
                 select * 
                 from comment 
                 where CourseNo='$courseno' and msg_no='$msg_id' and status=1
-                order by time asc");
+                order by time asc
+                LIMIT $limit OFFSET $offset");
 
         if ($query->num_rows() > 0)
             return $query;

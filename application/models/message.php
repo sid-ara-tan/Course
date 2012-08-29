@@ -53,17 +53,23 @@ class Message extends CI_model {
         $this->db->insert('message_group_student', $data);
     }
 
-    function getallmessage($courseno) {
+    function getallmessage($courseno,$limit,$offset) {
         $query = $this->db->query("
                 select * 
                 from message_group_student 
                 where CourseNo='$courseno' and status=1
-                order by mTime desc");
+                order by mTime desc
+                LIMIT $limit OFFSET $offset");
 
-        if ($query->num_rows() > 0)
-            return $query;
-        else
+        if($query->num_rows()>0){
+            foreach($query->result() as $row){
+                $data[]=$row;
+            }
+            return $data;
+        }
+        else{
             return FALSE;
+        }
     }
 
     function delete($msg_id, $courseno) {
@@ -98,6 +104,12 @@ class Message extends CI_model {
             return $query;
         else
             return FALSE;
+    }
+    
+    function count_results($courseno)
+    {
+        $query = $this->db->get_where('message_group_student', array('CourseNo' => $courseno,'status'=>1));
+        return $query->num_rows();
     }
 
 }

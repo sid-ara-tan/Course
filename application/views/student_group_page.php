@@ -107,30 +107,30 @@ $row_std = $query_student_info->row();
                                 if($querymsg!=FALSE)
                                 {
 
-                                foreach ($querymsg->result_array() as $row)
+                                foreach ($querymsg as $row)
                                     {
-                                    echo '<b>'.$row['SenderInfo'].'</b>'.' says :';
-                                    echo '('.$row['mTime'].')';
+                                    echo '<b>'.$row->SenderInfo.'</b>'.' says :';
+                                    echo '('.$row->mTime.')';
                                     echo br(2);;
-                                    echo '<h3><b>'.$row['Subject'].'</b></h3><br>';
-                                    echo $row['mBody'].'<br><br>';
-                                    if($row['SenderInfo']==$row_std_name->Name)
+                                    echo '<h3><b>'.$row->Subject.'</b></h3><br>';
+                                    echo $row->mBody.'<br><br>';
+                                    if($row->SenderInfo==$row_std_name->Name)
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row['MessageNo'].'/'.$this->uri->segment(3),"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
+                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$this->uri->segment(3),"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
                                     }
                                     
                                     
                                     
-                                    echo ' '.anchor('student_home_group/comment/'.$row['MessageNo'].'/'.$this->uri->segment(3),"< <font color='red'>".${'commentof'.$row['MessageNo']}." Comment</font> >").'<br>';
+                                    echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$this->uri->segment(3),"< <font color='red'>".${'commentof'.$row->MessageNo}." Comment</font> >").'<br>';
                                     echo '<hr/>';
 
                                     }
 
-
+                                echo $this->pagination->create_links();
                                 }
-
-                                else echo 'No post';
+                                
+                                else echo "<b><font color='red'>No Post</font></b>";
 
 
                         }
