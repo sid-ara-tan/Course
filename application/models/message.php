@@ -6,17 +6,28 @@ class Message extends CI_model {
 
         $user_id = $this->session->userdata['ID'];
 
-        $query = $this->db->query("
-        SELECT MAX(MessageNo) as MessageNo
+        $query1=$this->db->query("
+        SELECT MAX(MessageNo) as ID1
         FROM message_group_student
         WHERE CourseNo='$courseno'
         ");
-
-        if ($query->num_rows() == 1) {
-            $row = $query->row();
-            $id = $row->MessageNo + 1;
-        } else {
-            $id = 1;
+        
+        $query2=$this->db->query("
+        SELECT MAX(file_id) as ID2
+        FROM file
+        WHERE CourseNo='$courseno'
+        ");
+        
+        if(($query1->num_rows()==1)||($query2->num_rows()==1))
+        {
+            $row1=$query1->row();
+            $row2=$query2->row();
+            if($row1->ID1>$row2->ID2)$id=$row1->ID1+1;
+            else $id=$row2->ID2+1;
+        }
+        else
+        {
+            $id=1;
         }
 
         $uptime = strftime("%Y-%m-%d %H:%M:%S", time());

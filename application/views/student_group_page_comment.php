@@ -37,12 +37,29 @@ $row_std = $query_student_info->row();
             <?php $row_post=$query_post->row();?>
             <div id="content">
                 <b><font color="red"><?php echo $notification; ?></font></b>
+                <?php
+                if($isfile==false)
+                {
+                ?>
                 <h1><?php echo $row_post->Subject;?></h1>
                 <p><?php echo $row_post->mBody;?></p>
                 <hr>
                 <p><?php echo "by ".$row_post->SenderInfo.' at '.$row_post->mTime;?></p>
                 <hr>
-
+                <?php
+                }
+                else
+                {
+                ?>
+                <h3><?php echo anchor('student_home_group/download_file/'.$this->uri->segment(4).'/'.$row_post->filename, $row_post->topic); ?></h3>
+                <p><?php echo $row_post->description;?></p>
+                <hr>
+                <p><?php echo "by ".$row_post->uploader.' at '.$row_post->time;?></p>
+                <hr>
+                <?php
+                }
+?>
+                
                 <div id="comments">
                     <h2>Comments</h2>
                     <ul class="commentlist">
@@ -77,7 +94,8 @@ $row_std = $query_student_info->row();
                             <textarea name="comment" id="comment" cols="100%" rows="10"></textarea>
                             <label for="comment" style="display:none;"><small>Comment (required)</small></label>
                             <?php 
-                                    echo form_hidden('msg_no',$row_post->MessageNo);
+                                    if($isfile==false)echo form_hidden('msg_no',$row_post->MessageNo);
+                                    else echo form_hidden('msg_no',$row_post->file_id);
                                     echo form_hidden('courseno',$row_post->CourseNo);
                             ?>
                         </p>

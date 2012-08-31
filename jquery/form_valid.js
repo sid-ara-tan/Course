@@ -24,4 +24,13 @@ function checkNullComment(frm)
     }
     else frm.submit();
 }
+
+function checkNull_file(frm)
+{
+    if(frm.topic.value=="")
+    {
+        alert("Give Tpoic Name First");
+    }
+    else frm.submit();
+}
         
