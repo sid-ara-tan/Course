@@ -30,12 +30,12 @@ class Content extends CI_model{
     }
     
     
-    function get_content($courseno,$offset){
+    function get_content($courseno,$limit,$offset){
         $query=$this->db->query("
                 SELECT * FROM Content
                 WHERE CourseNo='$courseno'
                 ORDER BY ID desc
-                LIMIT 2 OFFSET $offset
+                LIMIT $limit OFFSET $offset
                 ");
         if($query->num_rows()>0){
             foreach($query->result() as $row){

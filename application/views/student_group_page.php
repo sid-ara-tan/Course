@@ -97,46 +97,40 @@ $row_std = $query_student_info->row();
                                     <input type="button" id="msgPost" value="Post" onclick="checkNull(this.form)" />
                                 </p>
                                 <?php 
-                                echo form_hidden('courseno',$this->uri->segment(3));
+                                echo form_hidden('courseno',$courseno);
                                 echo form_close(); ?>
 
-                                <hr /><hr /><hr />
-
-                                <?php echo form_open_multipart('student_home_group/do_upload');?>
-
-                                <input type="file" name="file_upload" size="20" id="file_upload" />
-
-                                <br /><br />
-
-                                <input type="submit" value="upload" />
-
-                                </form>
+                                <hr />
                                 <hr /><hr />
                                 <?php
                                 $row_std_name=$query_student->row();
                                 if($querymsg!=FALSE)
                                 {
 
-                                foreach ($querymsg->result_array() as $row)
+                                foreach ($querymsg as $row)
                                     {
-                                    echo '<b>'.$row['SenderInfo'].'</b>'.' says :';
-                                    echo '('.$row['mTime'].')';
+                                    echo '<b>'.$row->SenderInfo.'</b>'.' says :';
+                                    echo '('.$row->mTime.')';
                                     echo br(2);;
-                                    echo '<h3>'.anchor('student_home_group/comment',$row['Subject']).'</h3><br>';
-                                    echo $row['mBody'].'<br>';
-                                    if($row['SenderInfo']==$row_std_name->Name)
+                                    echo "<font color='blue'><h3><b>".$row->Subject.'</b></h3></font><br>';
+                                    echo $row->mBody.'<br><br>';
+                                    if($row->SenderInfo==$row_std_name->Name)
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row['MessageNo'].'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
+                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
                                     }
+                                    
+                                    
+                                    
+                                    echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,"< <font color='red'>".${'commentof'.$row->MessageNo}." Comment</font> >").'<br>';
                                     echo '<hr/>';
 
                                     }
 
-
+                                echo $this->pagination->create_links();
                                 }
-
-                                else echo 'No post';
+                                
+                                else echo "<b><font color='red'>No Post</font></b>";
 
 
                         }
@@ -146,37 +140,80 @@ $row_std = $query_student_info->row();
 
                 <div id="tabs-2">
 
-                    <p> <b>All Course content :- </b><br></p>
+                    <p> <h1>All Course content :- </h1><br></p>
                     <?php
-                    if($record!=FALSE){
+                    if($record_content!=FALSE){
 
-                    foreach($record as $row_record){
-                    ?>
-                    <h3><?php echo anchor('teacher_home/download_content/'.$this->uri->segment(3).'/'.$row_record->File_Path, $row_record->Topic); ?></h3>
-                    <?php echo "<br />uploaded by ".$row_record->Uploader ?>
-                    <?php echo $row_record->Upload_Time; ?>
-                    <?php echo $row_record->Description.'<hr>';
+                        foreach($record_content as $row_record){
+                        ?>
+                        <h3><?php echo anchor('student_home_group/download_file/'.$courseno.'/'.$row_record->File_Path, $row_record->Topic); ?></h3>
+                        <?php echo "<br />uploaded by <font color='red'>".$row_record->Uploader.'</font>' ?>
+                        <?php echo $row_record->Upload_Time; ?>
+                        <?php echo $row_record->Description.'<hr>';
 
+                        }
                     }
-                    }
+                    
+                    else echo "<font color='red'> No Content Available".'</font>';
                     ?>
-                    </div>
+                </div>
 
-                    <div id = "tabs-3">
+                <div id = "tabs-3">
 
                     <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
 
                     <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
 
-                    </div>
+                </div>
 
-                    <div id = "tabs-4">
+                <div id = "tabs-4">
+                    <div class="demo">
+                    <p><h1>All Course files : </h1></p>
+                        <hr /><hr />
 
-                    <p>All Course files will be here.</p>
+                        <?php echo form_open_multipart('student_home_group/do_upload');?>
+                        <?php echo form_label('Topic', 'topic_label');?>
+                        <br>
+                        <input type="text" name="topic" value="" size="50"  />
+                        <br>
+                        <?php echo form_label('Description', 'description_label');?>
+                        <br>
+                        <textarea name="description" rows="5" cols="70" maxlenth="1000" ></textarea>
+                        <br>
+                        <input type="file" name="file_upload" size="20" id="file_upload"  />
+                        
+                        <?php echo form_hidden('courseno',$courseno);?>
+                        <br /><br />
 
+                        <input type="button" value="upload" onclick="checkNull_file(this.form)" />
 
+                        </form>
+                        <hr><hr><hr>
+                        <?php
+                        if($record_file!=FALSE){
 
-                    </div>
+                            foreach($record_file as $row_record_file){
+                            ?>
+                            <h3><?php echo anchor('student_home_group/download_file/'.$courseno.'/'.$row_record_file->filename, $row_record_file->topic); ?></h3>
+                            <?php echo $row_record_file->description.'<br>';
+                                echo "<br />uploaded by <font color='red'> ".$row_record_file->uploader.'</font>';
+                                echo ' '.$row_record_file->time.'<br>';
+                                    if($row_record_file->uploader==$row_std_name->Name)
+                                    {
+                                        //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
+                                        echo '<br>< '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename,"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
+                                    }
+                                echo ' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,"< <font color='red'>".${'commentoffile'.$row_record_file->file_id}." Comment</font> >").'<br>';
+                                  
+                                echo '<hr>';
+
+                            }
+                        }
+                        
+                        else echo "<font color='red'> No File".'</font>';
+                        ?>
+                     </div>
+                 </div>
 
                     </div>
                     </div>

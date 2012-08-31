@@ -31,7 +31,7 @@ class Teacher_home extends CI_controller{
         $this->load->library('pagination');
 	$this->load->helper('url');
           
-        $record=$this->content->get_content($course,$this->uri->segment(4,0));
+        $record=$this->content->get_content($course,2,$this->uri->segment(4,0));
         $data['record']=$record;
         $data['name']=$this->name;
         $data['designation']=$this->designation;

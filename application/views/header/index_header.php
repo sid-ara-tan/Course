@@ -47,24 +47,7 @@
 
 	</script>
 
-	<script>
-        function checkNull(frm)
-        {
-            if((frm.message.value=="")||(frm.subject.value==""))
-                {
-                }
-            else frm.submit();
-        }
-        
-        function check()
-        {
-            var ans=confirm("Are you sure to delete ?");
-            if(ans){return true;}
-            else return false;
-
-        }
-
-	</script>
+<script type="text/javascript" src="<?php echo base_url();?>jquery/form_valid.js"></script>
 <!--************************************************************************************************************* -->
 
 </head>
