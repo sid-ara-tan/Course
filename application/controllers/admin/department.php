@@ -49,6 +49,7 @@
 
     function delete_information(){
         $id = $this->input->post('id');
+        /*further deletion task will be done here.*/
         $delete=$this->department_model->delete_info($id);
         if($delete){
             echo "ok";
@@ -64,16 +65,21 @@
         $Name=$this->input->post('Name');
         $Head_of_dept_id=$this->input->post('Head_of_dept_id');
         $password=$this->input->post('Password');
-        $password2=$this->input->post('Password2');
 
-        echo $Dept_id;
-        echo $Name;
-        echo $Head_of_dept_id;
-        echo $password;
-        echo $password2;
-        
-        echo $Dept_id;
+        $data=array(
+            'Dept_id'=>$Dept_id,
+            'Name'=>$Name,
+            'Head_of_dept_id'=>$Head_of_dept_id,
+            'Password'=> $password
+        );
 
+        $insert=$this->department_model->create_department($data);
+        if($insert){
+            echo $Dept_id;
+        }
+        else{
+            echo 'Database insertion failed';
+        }
     }
 
     function load_teacher_info(){
@@ -92,6 +98,42 @@
         }
         else{
             return FALSE;
+        }
+    }
+
+    function check_dept_id(){
+
+        $new_id=$this->input->post('value');
+
+        if($this->is_department_exists($new_id)){
+            echo 'false';
+        }
+        else{
+            echo 'true';
+        }
+        
+    }
+
+    function form_check_dept_id(){
+
+        $new_id=$this->input->post('Dept_id');
+
+        if($this->is_department_exists($new_id)){
+            echo 'false';
+        }
+        else{
+            echo 'true';
+        }
+
+    }
+
+    function is_department_exists($id){
+        $query=$this->department_model->check_department_exists($id);
+        if($query){
+            return true;
+        }
+        else{
+            return false;
         }
     }
 }

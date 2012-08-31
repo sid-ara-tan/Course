@@ -19,4 +19,19 @@
         $delete=$this->db->delete('department');
         return $delete;
     }
+
+    function check_department_exists($id){
+        $this->db->where('Dept_id',$id);
+        $query=$this->db->get('department');
+
+        if($query->num_rows==1){
+            return $query;
+        }
+        return FALSE;
+    }
+
+    function create_department($config){
+        $query=$this->db->insert('department', $config);
+        return $query;
+    }
 }

@@ -3,51 +3,7 @@
     $this->load->view('admin/template/header',$data);
 ?>
 
-<link rel="stylesheet" href="<?php echo base_url();?>css/admin/admin.css" type="text/css" media="screen" />
-<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
-
-
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.core.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.mouse.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.selectable.js" type="text/javascript"></script>
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js" type="text/javascript"></script>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-        $(function() {
-		$( "#department_info_tabs" ).tabs({
-                        ajaxOptions: {
-				error: function( xhr, status, index, anchor ) {
-					$( anchor.hash ).html(
-						"Couldn't load this tab. We'll try to fix this as soon as possible.");
-				}
-			}
-                });
-	});
-    });
-</script>
-
-<!--This style import has been done for datatable-->
-
-
-<style type="text/css" title="currentStyle">
-        @import "<?php echo base_url();?>jquery/admin/DataTables/media/css/demo_page.css";
-        @import "<?php echo base_url();?>jquery/admin/DataTables/media/css/demo_table.css";
-        @import "<?php echo base_url();?>jquery/admin/DataTables/media/css/demo_table_jui.css";
-        @import "<?php echo base_url();?>jquery/admin/Datatables_Editables/media/css/demo_validation.css";
-        @import "<?php echo base_url();?>jqueryUI/themes/smoothness/jquery-ui-1.8.23.custom.css";
-        @import "<?php echo base_url();?>css/admin/highlight_row.css";
-        
-</style>
-
-<!--<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/DataTables/media/js/jquery.dataTables.js"></script>-->
-
-<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.jeditable.js"></script>
-<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery-ui.js"></script>
-<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.validate.js"></script>
-<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.DataTables.editable.js"></script>
+<?php include 'template/scr_sty_tab_data.php'; ?>
 
 
 <script type="text/javascript" charset="utf-8">      
@@ -61,7 +17,7 @@ $(document).ready( function () {
                             "sClass": "center",
                             "aTargets": [ 0, 3 ]
             } ],
-
+            
             "aoColumns" : [
                                 {
                                     sName: "Dept_id"
@@ -92,7 +48,29 @@ $(document).ready( function () {
                         {
                             indicator : 'Saving..',
                             tooltip: 'Click to edit the ID of Department',
-                            onblur: 'cancel'
+                            onblur: 'cancel',
+                            cancel  : 'Back',
+                            submit: 'Ok',
+
+                            oValidationOptions :
+                                   {
+                                       rules:{
+                                               value: {
+                                                        required:true,
+                                                        maxlength: 5,
+                                                        remote:{
+                                                                url:"<?php echo site_url('admin/department/check_dept_id');?>",
+                                                                type:"post"
+                                                            }
+                                                      }
+                                       },
+				       messages: {
+                                               value:{
+                                                        remote:"Error this ID already exists",
+                                                         maxlength: "Enter at most 5 characters"
+                                                      }
+                                       }
+                                   }
 
                         },
 
@@ -133,7 +111,7 @@ $(document).ready( function () {
                         {
                             tooltip: 'Click to change password',
                             onblur: 'cancel',
-                            cancel  : 'Cancel',
+                            cancel  : 'Back',
                             submit: 'Ok',
                             
                             oValidationOptions :
@@ -180,6 +158,49 @@ $(document).ready( function () {
 
 } );
 </script>
+
+<script type="text/javascript" charset="utf-8">
+ $(function(){
+        $("#formAddNewRow").validate({
+            rules:  {
+                Dept_id:    {
+                                required: true,
+                                maxlength: 5,
+                                remote: {
+                                            url:"<?php echo site_url('admin/department/form_check_dept_id');?>",
+                                            type:"post"
+                                        }
+                            },
+                Name:       {
+                                required: true,
+                                maxlength: 49
+                            },
+
+                Password:   {
+                                required: true,
+                                minlength:5,
+                                maxlength: 25
+                            }
+            },
+            messages:{
+                Dept_id:    {
+                                remote:"Error this ID already exists",
+                                maxlength: "Enter at most 5 characters"
+                            },
+
+                Name:       {
+                                maxlength: "Enter at most 49 characters"
+                            },
+
+                Password:   {
+                                minlength: "Enter at least 5 characters",
+                                maxlength: "Enter at most 25 characters"
+                            }
+            }
+        });
+  });
+</script>
+
 <style type="text/css" media="screen">
     .error{
             display: block;
@@ -204,28 +225,29 @@ $(document).ready( function () {
     $this->load->view('admin/template/navigator',$data);
 ?>
 	<section id="main" class="column">
-		<article class="module width_full shadow" id="department_info_tabs">
+		<article class="module width_full shadow" id="page_tabs">
                     <div>
                         <ul>
                             <li><a href="#department_info_tabs_1" title="All available department information">Departments</a></li>
-                            <li><a href="#department_info_tabs_2" title="All available department information">Data Table Editable.</a></li>
+                            <li><a href="#department_info_tabs_2" title="All available department information">Help</a></li>
                         </ul>
                         <div id="department_info_tabs_1">
-                            <div style="padding:20px;">
-                                <p style="font-weight: bold;">Department Information.</p
+                            <div class="ex_highlight" style="padding:20px;">
+                                <p style="font-weight: bold;">Department Information.</p>
                                 
-                                <div class="add_delete_toolbar" />
+                                <div class="add_delete_toolbar"></div>
                                 <div>
+
                                 <form id="formAddNewRow" action="#" title="Add a new browser">
                                     <table>
                                     <tr>
                                         <td><?php echo form_label('Department ID','Dept_id');?></td>
-                                        <td><?php echo form_input('Dept_id',set_value('Dept_id'),'id="Dept_id" class="required" rel="0"');?></td>
+                                        <td><?php echo form_input('Dept_id',set_value('Dept_id'),'id="Dept_id" rel="0"');?></td>
                                     </tr>
 
                                     <tr>
                                         <td><?php echo form_label('Department Name','Name');?></td>
-                                        <td><?php echo form_input('Name',set_value('Name'),'id="Name" class="required" rel="1"');?></td>
+                                        <td><?php echo form_input('Name',set_value('Name'),'id="Name" rel="1"');?></td>
                                     </tr>
 
                                     <?php
@@ -242,14 +264,8 @@ $(document).ready( function () {
                                    
                                    <tr>
                                         <td><?php echo form_label('Password','Password');?></td>
-                                        <td><?php echo form_password('Password',set_value('Password'),'id="Password" class="required" minlength="5" rel="3"');?></td>
+                                        <td><?php echo form_input('Password',set_value('Password'),'id="Password" rel="3"');?></td>
                                    </tr>
-
-                                   <tr>
-                                        <td><?php echo form_label('Confirm Password','Password2');?></td>
-                                        <td><?php echo form_password('Password2',set_value('Password2'),'id="Password2" class="required" minlength="5"');?></td>
-                                   </tr>
-
 
                                     </table>
                                 </form>
@@ -298,11 +314,36 @@ $(document).ready( function () {
                                     </tfoot>
                                 </table>
                             </div>
-                            <div></div>
+                            <div> <div style="padding:20px;">
+                            <p style="font-weight: bold;">Note:</p>
+                            <p>Here are some information regarding customizing Department information.</p>
+
+                                <ul>
+                                    <li>Add button for Creating new Department</li>
+                                    <li>Delete for deleting department information</li>
+                                    <li>Double click an item for edit.</li>
+                                    <li>Click outside or cancel button for cancel update</li>
+                                    <li>You can search through your item.</li>
+                                    <li>Though pagination and selecting number of entries per page allows you to navigate information nicely.</li>
+                                </ul>
+                            </div></div>
                         </div>
 
                         <div id="department_info_tabs_2">
-                            <td><input type="image" src="<?php echo base_url('template/admin');?>/images/icn_trash.png" title="Trash"></td>
+                            <div style="padding:20px;">
+                            <h2>Help:</h2>
+                            <p>Here are some information regarding customizing Department information.</p>
+                            
+                                <ul>
+                                    <li>Add button for Creating new Department</li>
+                                    <li>Delete for deleting department information</li>
+                                    <li>Double click an item for edit.</li>
+                                    <li>Click outside or cancel button for cancel update</li>
+                                    <li>You can search through your item.</li>
+                                    <li>Though pagination and selecting number of entries per page allows you to navigate information nicely.</li>
+                                </ul>
+                            </div>
+
                         </div>
 
 
