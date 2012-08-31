@@ -10,7 +10,7 @@
 
 	<header id="header">
 		<hgroup>
-			<h1 class="site_title"><a href="index.html">Website Admin</a></h1>
+			<h1 class="site_title"><a href="#">Website Admin</a></h1>
                         <h2 class="section_title">Administration Login</h2><div class="btn_view_site"><a href="<?php echo site_url();?>">Main Site</a></div>
 		</hgroup>
 	</header> <!-- end of header bar -->
@@ -20,7 +20,7 @@
 			<p>Guest</p>
 		</div>
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="index.html">Website Admin</a> <div class="breadcrumb_divider"></div> <a class="current">Guest</a></article>
+                    <article class="breadcrumbs"><a href="<?php echo site_url('admin/login');?>">Login</a> <div class="breadcrumb_divider"></div> <a class="current">Forget Password</a></article>
 		</div>
 	</section><!-- end of secondary bar -->
 
@@ -52,7 +52,7 @@
 
                     <div id="login_form">
 
-                        <?php echo validation_errors('<div id="error_message" class="error">','</div><br/>');?>
+                        <?php echo validation_errors('<div id="error_message" class="sid_error">','</div><br/>');?>
 
                         <?php echo form_open(site_url('admin/login/reset_password'));?>
 

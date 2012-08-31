@@ -3,7 +3,7 @@
         parent::__construct();
         $this->my_library->check_logged_in();
         $this->load->library('form_validation');
-        $this->load->model('admin/admin');
+        $this->load->model('admin/admin_model','admin');
     }
 
     function index($param=NULL){
@@ -79,15 +79,15 @@
 
         if ($this->form_validation->run() == FALSE)
         {
-            echo validation_errors('<div id="error_message" class="error">','</div><br/>');
+            echo validation_errors('<div id="error_message" class="sid_error">','</div><br/>');
         }
         else
         {
             if($this->update_user()){
-                echo '<div class="success">Successfully Updated.</div>';
+                echo '<div class="sid_success">Successfully Updated.</div>';
             }
             else{
-                echo '<div class="error">Update failed.</div>';
+                echo '<div class="sid_error">Update failed.</div>';
             }
             
         }

@@ -4,7 +4,7 @@ class Login extends CI_Controller{
         parent::__construct();
         $this->my_library->logged_in();
         $this->load->library('form_validation');
-        $this->load->model('admin/admin');
+        $this->load->model('admin/admin_model','admin');
         $this->load->helper('string');
     }
 

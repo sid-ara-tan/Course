@@ -29,7 +29,7 @@
 			<header><h3>Add User</h3></header>
 			<div id="login_form">
 
-                        <?php echo validation_errors('<div id="error_message" class="error">','</div><br/>');?>
+                        <?php echo validation_errors('<div id="error_message" class="sid_error">','</div><br/>');?>
 
                         <?php echo form_open(site_url('admin/users/validate'));?>
 

@@ -1,0 +1,52 @@
+/* 
+    Document   : highlight_row
+    Created on : Aug 29, 2012, 5:27:19 PM
+    Author     : secret
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.ex_highlight .datatable tbody tr.even:hover, .datatable tbody tr.even td.highlighted {
+	background-color: #ECFFB3;
+}
+
+.ex_highlight .datatable tbody tr.odd:hover, .datatable tbody tr.odd td.highlighted {
+	background-color: #E6FF99;
+}
+
+.ex_highlight_row .datatable tr.even:hover {
+	background-color: #ECFFB3;
+}
+
+.ex_highlight_row .datatable tr.even:hover td.sorting_1 {
+	background-color: #DDFF75;
+}
+
+.ex_highlight_row .datatable tr.even:hover td.sorting_2 {
+	background-color: #E7FF9E;
+}
+
+.ex_highlight_row .datatable tr.even:hover td.sorting_3 {
+	background-color: #E2FF89;
+}
+
+.ex_highlight_row .datatable tr.odd:hover {
+	background-color: #E6FF99;
+}
+
+.ex_highlight_row .datatable tr.odd:hover td.sorting_1 {
+	background-color: #D6FF5C;
+}
+
+.ex_highlight_row .datatable tr.odd:hover td.sorting_2 {
+	background-color: #E0FF84;
+}
+
+.ex_highlight_row .datatable tr.odd:hover td.sorting_3 {
+	background-color: #DBFF70;
+}
