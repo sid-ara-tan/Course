@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 28, 2012 at 07:26 AM
+-- Generation Time: Sep 02, 2012 at 01:23 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -192,7 +192,7 @@ INSERT INTO `classinfo` (`CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location
 
 CREATE TABLE IF NOT EXISTS `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `msg_no` int(11) NOT NULL,
+  `msg_no` int(11) NOT NULL DEFAULT '0',
   `CourseNo` varchar(10) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `commentBy` varchar(50) NOT NULL,
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `msg_no` (`msg_no`),
   KEY `CourseNo` (`CourseNo`),
   KEY `commentBy` (`commentBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
 
 --
 -- Dumping data for table `comment`
@@ -223,14 +223,42 @@ INSERT INTO `comment` (`id`, `msg_no`, `CourseNo`, `time`, `commentBy`, `body`, 
 (11, 11, 'CSE309', '2012-08-27 15:55:14', 'Md. Arafat Imtiaz', 'fgggggggggggggggggg', 1, 'student'),
 (12, 11, 'CSE309', '2012-08-27 15:55:21', 'Md. Arafat Imtiaz', 'dghggggggggggggggggggggggg', 1, 'student'),
 (13, 11, 'CSE309', '2012-08-27 22:24:43', 'Tanzir Ul Islam', 'sdf sdf ??? ???? ?', 0, 'student'),
-(14, 11, 'CSE309', '2012-08-27 16:24:30', 'Tanzir Ul Islam', 'hig yu fy', 1, 'student'),
+(14, 11, 'CSE309', '2012-08-28 20:57:13', 'Tanzir Ul Islam', 'hig yu fy', 0, 'student'),
 (15, 11, 'CSE309', '2012-08-27 16:24:36', 'Tanzir Ul Islam', 'fhgfv c', 1, 'student'),
 (16, 11, 'CSE309', '2012-08-27 16:26:48', 'Md. Arafat Imtiaz', 'dd t', 1, 'student'),
 (17, 4, 'CSE310', '2012-08-27 16:28:08', 'Md. Arafat Imtiaz', 'he ehe eh', 1, 'student'),
 (18, 5, 'CSE310', '2012-08-27 16:29:08', 'Md. Arafat Imtiaz', '??', 1, 'student'),
 (19, 3, 'CSE309', '2012-08-27 17:50:52', 'Md. Arafat Imtiaz', 'he he he', 1, 'student'),
 (20, 3, 'CSE309', '2012-08-27 23:55:51', 'Tanzir Ul Islam', 'asf', 0, 'student'),
-(21, 8, 'CSE309', '2012-08-28 01:22:43', 'Tanzir Ul Islam', 'hello everybody', 1, 'student');
+(21, 8, 'CSE309', '2012-08-28 01:22:43', 'Tanzir Ul Islam', 'hello everybody', 1, 'student'),
+(22, 2, 'CSE304', '2012-08-28 16:36:45', 'Ishat-E-Rabban', 'urgent reply needed :(', 0, 'student'),
+(23, 2, 'CSE304', '2012-08-28 10:36:54', 'Ishat-E-Rabban', 'reply needed', 1, 'student'),
+(24, 11, 'CSE309', '2012-08-28 10:39:25', 'Ishat-E-Rabban', 'hmm', 1, 'student'),
+(25, 11, 'CSE309', '2012-08-28 14:35:44', 'Tanzir Ul Islam', '4err ', 1, 'student'),
+(26, 11, 'CSE309', '2012-08-28 14:35:49', 'Tanzir Ul Islam', 'rt reg er g edrre', 1, 'student'),
+(27, 11, 'CSE309', '2012-08-28 14:46:55', 'Tanzir Ul Islam', 'sdf', 1, 'student'),
+(28, 11, 'CSE309', '2012-08-28 14:47:43', 'Tanzir Ul Islam', 'sdf', 1, 'student'),
+(29, 11, 'CSE309', '2012-08-28 14:55:07', 'Tanzir Ul Islam', 'asd guag uaul;kjhsli l', 1, 'student'),
+(30, 11, 'CSE309', '2012-08-28 14:57:44', 'Tanzir Ul Islam', 'ase', 1, 'student'),
+(31, 20, 'CSE309', '2012-08-28 15:01:13', 'Tanzir Ul Islam', 'ser', 1, 'student'),
+(32, 11, 'CSE309', '2012-08-30 17:50:06', 'Ishat-E-Rabban', 'df', 0, 'student'),
+(33, 23, 'CSE309', '2012-08-30 11:50:39', 'Ishat-E-Rabban', 'fdjuujjjj', 1, 'student'),
+(34, 26, 'CSE309', '2012-08-30 15:18:32', 'Tanzir Ul Islam', 'df', 1, 'student'),
+(35, 28, 'CSE309', '2012-08-30 21:19:03', 'Tanzir Ul Islam', 'fg', 0, 'student'),
+(36, 28, 'CSE309', '2012-08-30 15:19:11', 'Tanzir Ul Islam', 'rttrrt', 1, 'student'),
+(37, 28, 'CSE309', '2012-08-31 10:31:36', 'Md. Arafat Imtiaz', ' ', 1, 'student'),
+(38, 28, 'CSE309', '2012-08-31 10:32:00', 'Md. Arafat Imtiaz', 're', 1, 'student'),
+(39, 28, 'CSE309', '2012-08-31 10:32:03', 'Md. Arafat Imtiaz', 'et', 1, 'student'),
+(40, 28, 'CSE309', '2012-08-31 10:32:06', 'Md. Arafat Imtiaz', 'ete', 1, 'student'),
+(41, 28, 'CSE309', '2012-08-31 10:32:10', 'Md. Arafat Imtiaz', 'eeeeeeeeeeee', 1, 'student'),
+(42, 28, 'CSE309', '2012-08-31 10:32:14', 'Md. Arafat Imtiaz', 'eeeettttttttttttt', 1, 'student'),
+(43, 28, 'CSE309', '2012-08-31 10:32:18', 'Md. Arafat Imtiaz', 'ttttttttttttttttttttttttttttttt', 1, 'student'),
+(44, 28, 'CSE309', '2012-08-31 10:32:23', 'Md. Arafat Imtiaz', 'ttttttttttttttttttttttttttttttttttttt', 1, 'student'),
+(45, 28, 'CSE309', '2012-08-31 16:33:13', 'Md. Arafat Imtiaz', 't', 0, 'student'),
+(46, 28, 'CSE309', '2012-08-31 10:32:29', 'Md. Arafat Imtiaz', 'tty', 1, 'student'),
+(47, 26, 'CSE309', '2012-08-31 10:33:02', 'Md. Arafat Imtiaz', 'jk', 1, 'student'),
+(48, 8, 'CSE310', '2012-08-31 10:56:44', 'Md. Arafat Imtiaz', 'nb', 1, 'student'),
+(49, 8, 'CSE310', '2012-08-31 10:56:50', 'Md. Arafat Imtiaz', 'bh', 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -246,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `Uploader` varchar(50) DEFAULT NULL,
   `Upload_Time` timestamp NULL DEFAULT NULL,
   `File_Path` varchar(100) DEFAULT NULL,
+  `status` int(1) NOT NULL,
   PRIMARY KEY (`CourseNo`,`ID`),
   KEY `CourseNo` (`CourseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -254,14 +283,19 @@ CREATE TABLE IF NOT EXISTS `content` (
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Upload_Time`, `File_Path`) VALUES
-('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings.txt'),
-('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-07-31 18:00:00', '8C736EAE00613.txt'),
-('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt'),
-('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt'),
-('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt'),
-('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png'),
-('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png');
+INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Upload_Time`, `File_Path`, `status`) VALUES
+('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings.txt', 1),
+('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-07-31 18:00:00', '8C736EAE00613.txt', 1),
+('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt', 1),
+('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt', 1),
+('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt', 1),
+('CSE309', '10', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:48', 'SMS_application1.pdf', 0),
+('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png', 1),
+('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png', 1),
+('CSE309', '6', 'ZX', 'as', 'Rajkumar Das', '2012-08-28 11:14:38', 'Ideas_of_Democracy.docx', 1),
+('CSE309', '7', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:23', 'Ideas_of_Democracy1.docx', 1),
+('CSE309', '8', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:41', 'Calendar_AA20102011[rev.docx', 1),
+('CSE309', '9', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:32', 'SMS_application.pdf', 0);
 
 -- --------------------------------------------------------
 
@@ -343,6 +377,50 @@ CREATE TABLE IF NOT EXISTS `exam` (
   KEY `CourseNo` (`CourseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `exam`
+--
+
+INSERT INTO `exam` (`CourseNo`, `Sec`, `eDate`, `eTime`, `Duration`, `Location`, `eType`, `Topic`, `FileLocation`) VALUES
+('CSE309', 'A', '2012-09-11', '2.30pm', '20', '104', 'ct1', NULL, NULL),
+('CSE309', 'A', '2012-09-25', '9.00AM', '25', NULL, 'ct2', NULL, NULL),
+('CSE309', 'B', '2012-09-11', '9.00AM', '20', '104', 'ct1', NULL, NULL),
+('CSE309', 'B', '2012-09-25', '11AM', '25', NULL, 'ct2', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `file`
+--
+
+CREATE TABLE IF NOT EXISTS `file` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `file_id` int(11) NOT NULL,
+  `CourseNo` varchar(10) NOT NULL,
+  `topic` varchar(50) NOT NULL,
+  `description` text,
+  `uploader` varchar(50) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `filename` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`CourseNo`),
+  KEY `CourseNo` (`CourseNo`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
+
+--
+-- Dumping data for table `file`
+--
+
+INSERT INTO `file` (`id`, `file_id`, `CourseNo`, `topic`, `description`, `uploader`, `time`, `filename`, `status`) VALUES
+(7, 25, 'CSE309', 'ffffffffffffffffff', ' mmmmmmmmmmmmmmmmmm', 'Tanzir Ul Islam', '2012-08-30 14:45:10', 'JQuery-DataTables-Editable-Samples.1_.3_1.zip', 1),
+(9, 28, 'CSE309', 'zz', '', 'Tanzir Ul Islam', '2012-08-30 14:56:42', 'Untitled.png', 1),
+(10, 7, 'CSE310', 'cv', 'bbbbbbbbbbbxdcv zxc dgdfg df', 'Md. Arafat Imtiaz', '2012-08-31 10:35:31', 'Koala.jpg', 1),
+(11, 29, 'CSE309', 'j', '', 'Md. Arafat Imtiaz', '2012-08-31 10:41:12', 'Lighthouse.jpg', 1),
+(12, 32, 'CSE309', ',.k', '', 'Md. Arafat Imtiaz', '2012-08-31 10:51:48', 'RESUME.doc', 1),
+(13, 33, 'CSE309', 'b', '', 'Md. Arafat Imtiaz', '2012-08-31 10:53:28', 'RESUME1.doc', 1),
+(14, 35, 'CSE309', 'kj', '', 'Md. Arafat Imtiaz', '2012-08-31 10:55:35', 'RESUME2.doc', 1),
+(15, 8, 'CSE310', 'ki', '', 'Md. Arafat Imtiaz', '2012-08-31 10:56:26', 'PeaceMaker.doc', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -370,6 +448,33 @@ INSERT INTO `hascourse` (`Dept_Id`, `course_no`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `marks`
+--
+
+CREATE TABLE IF NOT EXISTS `marks` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `CourseNo` varchar(10) NOT NULL,
+  `exam_type` varchar(10) NOT NULL,
+  `S_Id` varchar(10) NOT NULL,
+  `marks` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`S_Id`,`CourseNo`,`exam_type`),
+  KEY `CourseNo` (`CourseNo`),
+  KEY `S_Id` (`S_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `marks`
+--
+
+INSERT INTO `marks` (`id`, `CourseNo`, `exam_type`, `S_Id`, `marks`) VALUES
+(14, 'CSE309', 'ct1', '0805049', 18),
+(15, 'CSE309', 'ct1', '0805048', 20),
+(16, 'CSE309', 'ct2', '0805049', 13),
+(17, 'CSE309', 'ct2', '0805048', 18);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `message_group_student`
 --
 
@@ -392,10 +497,11 @@ CREATE TABLE IF NOT EXISTS `message_group_student` (
 
 INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
 ('CSE304', 1, '2012-08-18 16:06:39', 'Tanzir Ul Islam', 'student', 'cfg', 'gfh', 1),
+('CSE304', 2, '2012-08-28 10:35:14', 'Ishat-E-Rabban', 'student', 'About Next Online', 'online 2 kobe hobe ?', 1),
 ('CSE308', 1, '2012-08-27 17:55:03', 'Md. Arafat Imtiaz', 'student', 'fsd', 'gggg gg g g g', 1),
 ('CSE309', 3, '2012-08-18 16:07:08', 'Md. Arafat Imtiaz', 'student', 'dfg', 'df gdg dfg j<br />\r\nhukj b<br />\r\nik.p[/ fjhfg', 1),
 ('CSE309', 4, '2012-08-18 16:21:43', 'Md. Arafat Imtiaz', 'student', 'gfggggggggwswwwww', 'sf fds', 0),
-('CSE309', 5, '2012-08-19 02:19:53', 'Tanzir Ul Islam', 'student', 'hello', 'lkjasd sd;fsdfsfj ;sdfjoaksjdghls<br />\r\nsdfkljhkljfdg', 1),
+('CSE309', 5, '2012-08-19 02:19:53', 'Tanzir Ul Islam', 'student', 'hello', 'lkjasd sd;fsdfsfj ;sdfjoaksjdghls<br />\r\nsdfkljhkljfdg', 0),
 ('CSE309', 6, '2012-08-19 02:36:04', 'Tanzir Ul Islam', 'student', 'c', 'c', 0),
 ('CSE309', 7, '2012-08-19 02:36:18', 'Tanzir Ul Islam', 'student', 'xx', 'cx', 1),
 ('CSE309', 8, '2012-08-19 02:37:05', 'Tanzir Ul Islam', 'student', 'SOFT', 'ss', 1),
@@ -404,8 +510,24 @@ INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderIn
 ('CSE309', 11, '2012-08-22 11:46:39', 'Tanzir Ul Islam', 'student', 'cxc', 'cvc vcb hthcvb bcfb ', 1),
 ('CSE309', 12, '2012-08-27 15:18:21', 'Tanzir Ul Islam', 'student', 'd', 'd', 0),
 ('CSE309', 13, '2012-08-27 16:07:40', 'Md. Arafat Imtiaz', 'student', 'wer', 'werewrwerwer', 0),
+('CSE309', 14, '2012-08-28 14:15:08', 'Tanzir Ul Islam', 'student', 'hello', 'we ffrffewr fsd ', 1),
+('CSE309', 15, '2012-08-28 14:17:19', 'Tanzir Ul Islam', 'student', 'dfgdfg', 'g', 1),
+('CSE309', 16, '2012-08-28 14:18:56', 'Tanzir Ul Islam', 'student', 'dfgdfg', 'g', 1),
+('CSE309', 17, '2012-08-28 14:20:49', 'Tanzir Ul Islam', 'student', 'sfdg', 'fgdfgvx dfg fgfdg ', 1),
+('CSE309', 18, '2012-08-28 14:21:19', 'Tanzir Ul Islam', 'student', 'dfg', 'dfg dfg', 1),
+('CSE309', 19, '2012-08-28 14:21:33', 'Tanzir Ul Islam', 'student', 'dfg45', '45455445', 1),
+('CSE309', 20, '2012-08-28 15:00:53', 'Tanzir Ul Islam', 'student', 'sfgsdgfdg ', 'fsdg121111111111111', 0),
+('CSE309', 21, '2012-08-30 11:22:09', 'Ishat-E-Rabban', 'student', 'f', 'ff', 0),
+('CSE309', 22, '2012-08-30 11:48:27', 'Ishat-E-Rabban', 'student', 'wer', 'wer', 0),
+('CSE309', 23, '2012-08-30 11:50:28', 'Ishat-E-Rabban', 'student', 'dfgdfg', 'g', 1),
+('CSE309', 24, '2012-08-30 11:51:01', 'Ishat-E-Rabban', 'student', 'df', 'df', 1),
+('CSE309', 26, '2012-08-30 14:54:59', 'Tanzir Ul Islam', 'student', 'g', 'tyee', 1),
+('CSE309', 30, '2012-08-31 10:41:28', 'Md. Arafat Imtiaz', 'student', 'g', 'g', 1),
+('CSE309', 31, '2012-08-31 10:48:15', 'Md. Arafat Imtiaz', 'student', 'xcfv', 'xcv', 1),
+('CSE309', 34, '2012-08-31 10:54:45', 'Md. Arafat Imtiaz', 'student', 'n', 'n', 1),
 ('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1),
-('CSE310', 5, '2012-08-27 16:28:52', 'Md. Arafat Imtiaz', 'student', '1254', 'were', 1);
+('CSE310', 5, '2012-08-27 16:28:52', 'Md. Arafat Imtiaz', 'student', '1254', 'were', 1),
+('CSE310', 6, '2012-08-30 13:20:02', 'Tanzir Ul Islam', 'student', 'wer', 'werewrwerwv cwer sdf swfew', 1);
 
 -- --------------------------------------------------------
 
@@ -668,11 +790,24 @@ ALTER TABLE `exam`
   ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `file`
+--
+ALTER TABLE `file`
+  ADD CONSTRAINT `file_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`);
+
+--
 -- Constraints for table `hascourse`
 --
 ALTER TABLE `hascourse`
   ADD CONSTRAINT `hascourse_ibfk_1` FOREIGN KEY (`Dept_Id`) REFERENCES `department` (`Dept_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hascourse_ibfk_2` FOREIGN KEY (`course_no`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `marks`
+--
+ALTER TABLE `marks`
+  ADD CONSTRAINT `marks_ibfk_2` FOREIGN KEY (`S_Id`) REFERENCES `takencourse` (`S_Id`),
+  ADD CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `takencourse` (`CourseNo`);
 
 --
 -- Constraints for table `message_group_student`

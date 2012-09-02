@@ -50,7 +50,11 @@ class Student_home_group extends CI_controller {
         $this->load->model('content');
         $this->load->model('message');
         $this->load->model('comment');
-        $this->load->model('file');        
+        $this->load->model('file'); 
+        $this->load->model('marks'); 
+        
+        $data['query_marks']=$this->marks->get_all($courseno);
+        
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         

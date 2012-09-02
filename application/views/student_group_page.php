@@ -160,10 +160,28 @@ $row_std = $query_student_info->row();
 
                 <div id = "tabs-3">
 
-                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-
-                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
-
+                    <p><h1>All Given Marks Of <?php echo $coursename; ?></h1></p>
+                
+                    <?php
+                        $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
+                        'heading_row_start'   => '<tr class="dark">',
+                        'heading_row_end'     => '</tr>',
+                        'row_start'           => '<tr class="light">',
+                        'row_end'             => '</tr>',
+                        'row_alt_start'       => '<tr class="dark">',
+                        'row_alt_end'         => '</tr>');
+                    $this->table->set_template($tmpl);
+                    $this->table->set_heading('Exam Type','Section','Exam Date', 'Exam Time','Duration','Location','Topic','Marks');
+                    //var_dump($query_marks);
+                    if($query_marks!=FALSE){
+                                foreach($query_marks->result_array() as $row){
+                                    $this->table->add_row($row['exam_type'],$row['Sec'],$row['eDate'],$row['eTime'],$row['Duration'],$row['Location'],$row['Topic'],$row['marks']);
+                                }
+                            echo $this->table->generate();
+                            }
+                    else echo "<font color='red'> No Data Available".'</font>';      
+                    
+                    ?>
                 </div>
 
                 <div id = "tabs-4">
