@@ -59,6 +59,13 @@ class My_library {
             redirect($link);
         }
     }
+
+    function logout($link='admin/login'){
+        $CI = & get_instance();
+        $CI->session->sess_destroy();
+       
+        redirect($link);
+    }
 }
 
 /* End of file Someclass.php */

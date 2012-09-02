@@ -40,10 +40,7 @@
 		</footer>
 	</aside><!-- end of sidebar -->
 
-	<section id="main" class="column">
-
-		<h4 class="alert_info">Welcome to the administration panel.Login to  customize properties.</h4>
-                
+	<section id="main" class="column">                
 		<article class="module width_half">
                     <header>
                         <h3>Login.</h3>
@@ -51,7 +48,7 @@
 
                     <div id="login_form">
                         
-                        <?php echo validation_errors('<div id="error_message" class="error">','</div><br/>');?>
+                        <?php echo validation_errors('<div id="error_message" class="sid_error">','</div><br/>');?>
                         
                         <?php echo form_open(site_url('admin/login/validate'));?>
 

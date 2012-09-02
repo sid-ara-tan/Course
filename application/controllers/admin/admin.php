@@ -5,19 +5,20 @@ class Admin extends CI_Controller{
         $this->my_library->check_logged_in();
     }
 
-    public function index($param=NULL) {
-        
-        $data['title']='Home page';
+    public function index($param=NULL) {        
+        $data=array(
+            'msg'=>'Welcome to Admin Panel',
+            'info'=>$param,
+            'title'=>'Home'
+        );
         $this->load->view('admin/home',$data);
     }
     
     function logout(){
-        $this->session->sess_destroy();
-        redirect('admin/login');
+        $this->my_library->logout();
     }
 
     public function template($param=NULL) {
-
         $data['title']='template page';
         $this->load->view('admin/template',$data);
     }

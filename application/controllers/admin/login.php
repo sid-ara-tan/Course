@@ -4,12 +4,17 @@ class Login extends CI_Controller{
         parent::__construct();
         $this->my_library->logged_in();
         $this->load->library('form_validation');
-        $this->load->model('admin/admin');
+        $this->load->model('admin/admin_model','admin');
         $this->load->helper('string');
     }
 
-    public function index($param=NULL) {        
-        $data['title']='Login';
+    public function index($param=NULL) {
+        $data=array(
+            'msg'=>'Login to proced',
+            'info'=>$param,
+            'title'=>'Login'
+        );
+
         $this->load->view('admin/login_view',$data);
     }
 
@@ -46,7 +51,12 @@ class Login extends CI_Controller{
     }
 
     public function forget_password(){
-        $data['title']='Forget Password';
+        $data=array(
+            'msg'=>'Give your Username. Password will be send to your mail account.',
+            'info'=>'',
+            'title'=>'Forget Password'
+        );
+
         $this->load->view('admin/forget_password',$data);
     }
 

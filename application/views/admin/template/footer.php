@@ -1,9 +1,9 @@
         <script type="text/javascript" charset="utf-8">
-            $('input').click(
+            /*$('input').click(
                 function(){
                     $(this).select();
                 }
-            );
+            );*/
         </script>
         <?php //$this->output->enable_profiler(TRUE); ?>
 
