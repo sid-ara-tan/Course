@@ -238,7 +238,7 @@ $(document).ready( function () {
                                 <div class="add_delete_toolbar"></div>
                                 <div>
 
-                                <form id="formAddNewRow" action="#" title="Add a new browser">
+                                <form id="formAddNewRow" action="#" title="Add a new department">
                                     <table>
                                     <tr>
                                         <td><?php echo form_label('Department ID','Dept_id');?></td>
@@ -252,16 +252,17 @@ $(document).ready( function () {
 
                                     <?php
                                         $options=array();
+                                        $options['99999']='Currently Unavailable...';
                                         foreach ($all_teacher->result() as $at) {
                                             $options[$at->T_Id]=$at->T_Id.' -('.$at->Designation.')- '.$at->Name;
-                                    }
+                                        }
                                     ?>
 
-                                   <tr>
+                                    <tr>
                                         <td><?php echo form_label('Head of Department ID','Head_of_dept_id');?></td>
-                                        <td><?php echo form_dropdown('Head_of_dept_id', $options,set_value('Head_of_dept_id'),'rel="2"');?></td>
-                                   </tr>
-                                   
+                                        <td><?php echo form_dropdown('Head_of_dept_id', $options,  set_select('Head_of_dept_id'),'rel="2"');?></td>
+                                    </tr>
+
                                    <tr>
                                         <td><?php echo form_label('Password','Password');?></td>
                                         <td><?php echo form_input('Password',set_value('Password'),'id="Password" rel="3"');?></td>
@@ -295,7 +296,7 @@ $(document).ready( function () {
                                                 <?php $a_teacher=$single_techer_info->row();?>
                                                     <td><?php echo $single_department->Head_of_dept_id.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;?></td>
                                                 <?php else:?>
-                                                    <td><?php echo $single_department->Head_of_dept_id.' - No teaching profile found ';?></td>
+                                                    <td><?php echo $single_department->Head_of_dept_id.' - Currently Unavailable... ';?></td>
                                                 <?php endif;?>
                                                 
 
@@ -326,24 +327,12 @@ $(document).ready( function () {
                                     <li>You can search through your item.</li>
                                     <li>Though pagination and selecting number of entries per page allows you to navigate information nicely.</li>
                                 </ul>
+                            <p style="font-style: italic;color: rgb(119, 186, 206);">Refresh the page after changing Course No.</p>
                             </div></div>
                         </div>
 
                         <div id="department_info_tabs_2">
-                            <div style="padding:20px;">
-                            <h2>Help:</h2>
-                            <p>Here are some information regarding customizing Department information.</p>
-                            
-                                <ul>
-                                    <li>Add button for Creating new Department</li>
-                                    <li>Delete for deleting department information</li>
-                                    <li>Double click an item for edit.</li>
-                                    <li>Click outside or cancel button for cancel update</li>
-                                    <li>You can search through your item.</li>
-                                    <li>Though pagination and selecting number of entries per page allows you to navigate information nicely.</li>
-                                </ul>
-                            </div>
-
+                           the quick brown fox jumps over the lazy dog.
                         </div>
 
 

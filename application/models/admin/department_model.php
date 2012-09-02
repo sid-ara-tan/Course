@@ -34,4 +34,10 @@
         $query=$this->db->insert('department', $config);
         return $query;
     }
+
+    function get_department_info($id) {
+        $this->db->where('Dept_id',$id);
+        $query=$this->db->get('department');
+        return $query;
+    }
 }

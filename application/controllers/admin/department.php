@@ -8,7 +8,7 @@
     }
 
     public function index($param=NULL) {
-       
+        
     }
 
     function view_department(){
@@ -85,6 +85,7 @@
     function load_teacher_info(){
         $query= $this->teacher_model->get_all_teacher();
         $options=array();
+        $options['99999']='99999 - Currently Unavailable...';
         foreach ($query->result() as $row) {            
             $options[$row->T_Id]=$row->T_Id.'-('.$row->Designation.')-'.$row->Name;
         }
@@ -135,5 +136,25 @@
         else{
             return false;
         }
+    }
+
+    function department_info_json(){
+        $query= $this->department_model->get_all_department();
+
+        $row_set=array();
+        $options=array();
+
+        foreach ($query->result() as $row) {
+            $options['Dept_id']=$row->Dept_id;
+            $options['Name']=$row->Name;
+            $options['Head_of_dept_id']=$row->Head_of_dept_id;
+            $options['Password']=$row->Password;
+            $row_set[]=$options;
+        }
+
+
+        echo '{ "aaData":';
+        echo json_encode($row_set);
+        echo '}';
     }
 }

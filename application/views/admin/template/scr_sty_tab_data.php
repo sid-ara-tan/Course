@@ -44,3 +44,88 @@
 <script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.validate.js"></script>
 <script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/Datatables_Editables/media/js/jquery.DataTables.editable.js"></script>
 
+
+<!--This import is for jquery select-->
+<!--<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/jquery_select/ui/jquery.ui.core.js"></script>-->
+
+<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/jquery_select/ui/jquery.ui.position.js"></script>
+<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/jquery_select/ui/jquery.ui.selectmenu.js"></script>
+<!--<script type="text/javascript" language="javascript" src="<?php echo base_url();?>jquery/admin/jquery_select/ui/jquery.ui.widget.js"></script>-->
+
+<link rel="stylesheet" href="<?php echo base_url();?>jquery/admin/jquery_select/themes/base/jquery.ui.selectmenu.css" type="text/css" media="screen" />
+
+<style type="text/css">
+    .wrap ul.ui-selectmenu-menu-popup li a { font-weight: bold; }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(function(){
+                $('select#speedA').selectmenu({style:'popup'});
+
+                $('select#speedAa').selectmenu({
+                        style:'popup',
+                        maxHeight: 150
+                });
+                $('select#speedAa').selectmenu("widget").addClass("wrap");
+
+                $('select#speedB').selectmenu({
+                        style:'popup',
+                        width: '50%',
+                        format: addressFormatting
+                });
+
+                $('select#speedC').selectmenu();
+
+                $('select#speedD').selectmenu({
+                        menuWidth: 400,
+                        format: addressFormatting
+                });
+
+                $('select#filesC').selectmenu({
+                        style:'popup',
+                        positionOptions: {
+                                my: "left center",
+                                at: "right center",
+                                offset: "10 0"
+                        }
+                });
+        });
+
+        //a custom format option callback
+         addressFormatting = function(text){
+                var newText = text;
+                //array of find replaces
+                var findreps = [
+                        {find:/^([^\-]+) \- /g, rep: '<span class="ui-selectmenu-item-header">$1</span>'},
+                        {find:/([^\|><]+) \| /g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
+                        {find:/([^\|><\(\)]+) (\()/g, rep: '<span class="ui-selectmenu-item-content">$1</span>$2'},
+                        {find:/([^\|><\(\)]+)$/g, rep: '<span class="ui-selectmenu-item-content">$1</span>'},
+                        {find:/(\([^\|><]+\))$/g, rep: '<span class="ui-selectmenu-item-footer">$1</span>'}
+                ];
+
+                for(var i in findreps){
+                        newText = newText.replace(findreps[i].find, findreps[i].rep);
+                }
+                return newText;
+        }
+
+        // add themeswitcher
+        /*$(function(){
+                var ts = $('<div class="ui-button ui-widget ui-state-default ui-corner-all" style="padding: 5px; position: absolute; bottom: 20px; right: 10px;">Click here to add Themeswitcher!</div>')
+                .appendTo('div#footer')
+                .bind("click", function() {
+                        ts.text("Loading Themeswitcher...");
+                        $.getScript('http://ui.jquery.com/applications/themeroller/themeswitchertool/', function() {
+                                ts.removeClass("ui-button ui-widget ui-state-default ui-corner-all").text("").unbind("click").themeswitcher();
+                        });
+                });
+        });*/
+    });
+</script>
+
+<style type="text/css" media="screen">
+    .error{
+            display: block;
+        }
+</style>

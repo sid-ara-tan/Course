@@ -31,7 +31,7 @@
     $course=array(
         'view_course'=>array(
             'name'=>'View Course',
-            'link'=>  site_url(),
+            'link'=>  site_url('admin/course/view_course'),
             'class'=>'icn_categories'
         ),
     );
