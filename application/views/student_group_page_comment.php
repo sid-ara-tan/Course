@@ -102,7 +102,7 @@ $row_std = $query_student_info->row();
                         <p>
                             <input type="button" id="cmntPost" value="Post" onclick="checkNullComment(this.form)" />
                             &nbsp;
-                            <input name="reset" type="reset" id="reset" tabindex="5" value="Reset Form" />
+                            <input name="reset" type="reset" id="reset" tabindex="5" value="Reset" />
                         </p>
                     </form>
                 </div>
