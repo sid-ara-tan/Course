@@ -252,7 +252,7 @@ $(document).ready( function () {
 
                                     <?php
                                         $options=array();
-                                        $options['99999']='Currently Unavailable...';
+                                        $options['99999']='99999 - Currently Unavailable...';
                                         foreach ($all_teacher->result() as $at) {
                                             $options[$at->T_Id]=$at->T_Id.' -('.$at->Designation.')- '.$at->Name;
                                         }

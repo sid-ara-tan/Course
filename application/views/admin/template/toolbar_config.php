@@ -39,7 +39,7 @@
     $teacher=array(
         'view_teacher'=>array(
             'name'=>'View teachers',
-            'link'=>  site_url(),
+            'link'=>  site_url('admin/teacher/view_teacher'),
             'class'=>'icn_categories'
         ),
     );
