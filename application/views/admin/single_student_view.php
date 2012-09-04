@@ -183,6 +183,7 @@
             </tr>
         </thead>
         <tbody>
+            <?php if($all_students):?>
             <?php foreach($all_students->result()as $single_student):?>
             <tr id="<?php echo $single_student->S_Id;?>">
 
@@ -202,6 +203,7 @@
 
             </tr>
             <?php endforeach;?>
+            <?php endif;?>
         </tbody>
          <tfoot>
            <tr>

@@ -42,47 +42,72 @@
         $Advisor=$this->input->post('Advisor');
         $Curriculam=$this->input->post('Curriculam');
         
-        $data=array();
+        $this->form_validation->set_rules('Name', 'Name', 'trim|max_length[49]|xss_clean');
+        $this->form_validation->set_rules('S_Id', 'Student ID', 'trim|max_length[10]|xss_clean|callback_digit_check');
+        $this->form_validation->set_rules('Sec', 'Section', 'trim|max_length[4]');
 
-        if($Dept_id){
-            $data['Dept_id']=$Dept_id;
-        }
-        if($sLevel){
-            $data['sLevel']=$sLevel;
-        }
-        if($Term){
-            $data['Term']=$Term;
-        }
-        if($Sec){
-            $data['Sec']=$Sec;
-        }
-        if($Advisor){
-            $data['Advisor']=$Advisor;
-        }
-        if($Curriculam){
-            $data['Curriculam']=$Curriculam;
-        }
-
-        /*print_r($data);
-        echo $Name;
-        echo $S_Id;*/
-
-        $result=$this->student_model->get_search_result($data,$S_Id,$Name);
-        /*if($result){
-            foreach ($result->result() as $single){
-                echo $single->S_Id;
-                echo br();
-                echo $single->Name;
-                echo br(3);
-            }
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo validation_errors('<div class="sid_error shadow search_header" style="text-align:center;width:99%;height:20px;">', '</div>');
         }
         else{
-            echo 'No match found';
-        }*/
+            $data=array();
 
-        $info['all_students']=$result;
-        $msg=$this->load->view('admin/single_student_view',$info,TRUE);
-        echo $msg;
+            if($Dept_id){
+                $data['Dept_id']=$Dept_id;
+            }
+            if($sLevel){
+                $data['sLevel']=$sLevel;
+            }
+            if($Term){
+                $data['Term']=$Term;
+            }
+            if($Sec){
+                $data['Sec']=$Sec;
+            }
+            if($Advisor){
+                $data['Advisor']=$Advisor;
+            }
+            if($Curriculam){
+                $data['Curriculam']=$Curriculam;
+            }
+
+            /*print_r($data);
+            echo $Name;
+            echo $S_Id;*/
+
+            $result=$this->student_model->get_search_result($data,$S_Id,$Name);
+            /*if($result){
+                foreach ($result->result() as $single){
+                    echo $single->S_Id;
+                    echo br();
+                    echo $single->Name;
+                    echo br(3);
+                }
+            }
+            else{
+                echo 'No match found';
+            }*/
+
+            $info['all_students']=$result;
+            $msg=$this->load->view('admin/single_student_view',$info,TRUE);
+            echo $msg;
+        }
+    }
+
+    function digit_check($str=NULL){
+        if(strlen($str)>0){
+            if (!ctype_digit($str))
+		{
+			$this->form_validation->set_message('digit_check', 'The %s field must contains digit');
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;
+		}
+        }
+        return TRUE;
     }
 
     function validate_student_exist(){

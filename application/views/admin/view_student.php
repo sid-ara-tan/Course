@@ -199,7 +199,7 @@
         <div>
               <div id="search_div">
                 <div align="center" class="search_header">
-                    <span style="font-size: 24px;">Search Student Information..........</span>
+                    <span style="font-size: 24px;">Search Student Information</span>
                 </div>
                 <div class="search_form">
                      <?php echo form_open('admin/student/search_result','id="searh_student_form"');?>
