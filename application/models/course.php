@@ -1,5 +1,4 @@
-<?php
-class Course extends CI_model {
+<?php class Course extends CI_model {
 
     function get_courses() {
 

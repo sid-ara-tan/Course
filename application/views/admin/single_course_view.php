@@ -1,4 +1,3 @@
-
 <script type="text/javascript" charset="utf-8">
  $(function(){
         $("#formAddNewRow").validate({
@@ -320,7 +319,7 @@
     </form>
     </div>
 
-      <table id="id_datatable" cellpadding="0" cellspacing="0" border="0" class="display datatable">
+      <table id="id_datatable" cellpadding="0" cellspacing="0" border="0" class="display">
         <thead>
             <tr>
                 <th>Course No</th>

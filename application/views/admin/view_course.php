@@ -57,7 +57,7 @@
                                     <?php if($all_departments):?>
                                     <h2>Customize course information.</h2>
                                     <fieldset class="shadow">
-                                            <label for="select_dept">Select any Course:</label>
+                                            <label for="select_dept">Select any Department:</label>
                                             <select name="select_dept" id="select_dept">
                                                 <option value="NONE" selected="selected">Please select.. - Please select a department to show it's course</option>
                                                 <option value="ALL" >All Courses.. - Show all courses that has been already created.</option>
@@ -114,12 +114,13 @@
                         </div>
                         <div id="course_info_tabs_2">
                             the quick brown fox jumps over the lazy dog;
-                            <?php echo br(75);?>
+                            
                         </div>
 
 
                     </div>
 		</article><!-- end of stats article -->
+                <?php echo br(75);?>
 	</section>
 
 <?php $this->load->view('admin/template/footer');?>

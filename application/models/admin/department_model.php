@@ -14,7 +14,7 @@
         return $update;
     }
 
-    function delete_info($id){
+    function delete_info($id=NULL){
         $this->db->where('Dept_id',$id);
         $delete=$this->db->delete('department');
         return $delete;

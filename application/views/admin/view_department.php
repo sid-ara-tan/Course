@@ -107,7 +107,7 @@ $(document).ready( function () {
                             loadtype: 'GET',
                             loadurl: "<?php echo site_url('admin/department/load_teacher_info');?>"
                         },
-
+                        
                         {
                             tooltip: 'Click to change password',
                             onblur: 'cancel',
@@ -118,6 +118,7 @@ $(document).ready( function () {
                                    {
                                        rules:{
                                                value: {
+                                                        required:true,
                                                         minlength: 5,
                                                         maxlength: 25
                                                       }
@@ -333,6 +334,7 @@ $(document).ready( function () {
 
                         <div id="department_info_tabs_2">
                            the quick brown fox jumps over the lazy dog.
+                           <?php echo br(50);?>
                         </div>
 
 

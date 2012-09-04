@@ -13,7 +13,7 @@
 <script type="text/javascript" src="<?php echo base_url();?>template/scripts/jquery-slidedeck.pack.lite.js"></script>
 
 <!--************************************************************************************************************* -->
-	<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/base/jquery.ui.all.css">
+	<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/base/jquery.ui.all.css"/>
 
 	
 
@@ -24,15 +24,19 @@
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
         
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
+        
+        <script src="<?php echo base_url();?>jqueryUI/external/jquery.cookie.js"></script>
+        
 
 	<script>
-
 	$(function() {
-
-		$( "#tabs" ).tabs();
-
+		$( "#tabs" ).tabs({
+			cookie: {
+				// store cookie for a day, without, it would be a session cookie
+				expires: 1
+			}
+		});
 	});
-
 	</script>
         
         <script>

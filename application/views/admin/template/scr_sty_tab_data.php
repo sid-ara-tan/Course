@@ -7,6 +7,7 @@
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.mouse.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.selectable.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.autocomplete.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){

@@ -47,7 +47,7 @@
     $student=array(
         'view_student'=>array(
             'name'=>'View students',
-            'link'=>  site_url(),
+            'link'=>  site_url('admin/student/view_student'),
             'class'=>'icn_categories'
         ),
     );

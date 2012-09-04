@@ -125,7 +125,7 @@
         }
     }
 
-    function load_department_info(){
+    public function load_department_info(){
         $query= $this->department_model->get_all_department();
         $options=array();
         
