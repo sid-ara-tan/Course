@@ -57,4 +57,11 @@
         }
         return FALSE;
     }
+
+     function update_info($config,$id){
+        $this->db->where('S_Id',$id);
+        $update=$this->db->update('student',$config);
+        return $update;
+    }
+
 }

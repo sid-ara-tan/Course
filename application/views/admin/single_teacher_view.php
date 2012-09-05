@@ -91,7 +91,7 @@
              "aoColumns": [
                  {
                       indicator : 'Saving..',
-                            tooltip: 'Click to edit the ID of Course',
+                            tooltip: 'Click to edit the ID of Teacher',
                             onblur: 'cancel',
                             cancel  : 'Back',
                             submit: 'Ok',

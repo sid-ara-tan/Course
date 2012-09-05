@@ -8,7 +8,7 @@
         return $query;
     }
 
-    function get_teacher_by_id($id){
+    function get_teacher_by_id($id=NULL){
         $this->db->where('T_Id',$id);
         $query=$this->db->get('teacher');
 
@@ -18,10 +18,20 @@
         return FALSE;
     }
 
-    function get_teacher_by_dept_id($id){
+    function get_teacher_by_dept_id($id=NULL){
         $this->db->where('Dept_Id',$id);
         $query=$this->db->get('teacher');
         return $query;
+    }
+
+    function bool_get_teacher_by_dept_id($id=NULL){
+        $this->db->where('Dept_Id',$id);
+        $query=$this->db->get('teacher');
+        
+        if($query->num_rows>0){
+            return $query;
+        }
+        return FALSE;
     }
 
     function update_info($config,$id){

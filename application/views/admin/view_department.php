@@ -295,9 +295,9 @@ $(document).ready( function () {
                                                 ?>
                                                 <?php if($single_techer_info):?>
                                                 <?php $a_teacher=$single_techer_info->row();?>
-                                                    <td><?php echo $single_department->Head_of_dept_id.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;?></td>
+                                                    <td id="<?php echo $single_department->Dept_id;?>_id"><?php echo $single_department->Head_of_dept_id.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;?></td>
                                                 <?php else:?>
-                                                    <td><?php echo $single_department->Head_of_dept_id.' - Currently Unavailable... ';?></td>
+                                                    <td id="<?php echo $single_department->Dept_id;?>_id"><?php echo 'Currently unavailable';?></td>
                                                 <?php endif;?>
                                                 
 

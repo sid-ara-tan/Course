@@ -1,111 +1,6 @@
-<script type="text/javascript" charset="utf-8">
- $(function(){
-        $("#formAddNewRow").validate({
-            rules:  {
-                Name:  {
-                                required: true,
-                                maxlength: 49
-                            },
-               Password:   {
-                                required: true,
-                                minlength:5,
-                                maxlength: 25
-                            }
-            },
-            messages:{
-                Name: {
-                                maxlength: "Enter at most 49 characters"
-                            },
-                Password:   {
-                                minlength: "Enter at least 5 characters",
-                                maxlength: "Enter at most 25 characters"
-                            }
-                        }
-        });
-  });
-</script>
-<script type="text/javascript" charset="utf-8">
-       $(document).ready(function() {
-            $('#id_datatable').dataTable({
-		"aaSorting": [[ 0, "asc" ]],
-		"bJQueryUI": true,
-		"sPaginationType": "full_numbers",
-                "aLengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
-                 "sScrollX": "100%",
-                "sScrollXInner": "150%",
-                "bScrollCollapse": true,
-                "bStateSave": true,
-                "sDom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
-                "aoColumnDefs": [ {
-				"sClass": "center",
-				"aTargets": [ 0 ]
-		} ],
-                "aoColumns" : [
-                               { sName: "S_Id" },
-                               { sName: "Name" },
-                               { sName: "Dept_id" },
-                               { sName: "sLevel" },
-                               { sName: "Term" },
-                               { sName: "Sec" },
-                               { sName: "Advisor" },
-                               { sName: "Curriculam" },
-                               { sName: "Password" },
-                               { sName: "father_name" },
-                               { sName: "email" },
-                               { sName: "address" },
-                               { sName: "phone" }
-                              ] ,
-
-                "oLanguage": {
-			"sLengthMenu": "Display _MENU_ records per page",
-			"sZeroRecords": "Nothing found - sorry",
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ records",
-			"sInfoEmpty": "Showing 0 to 0 of 0 records",
-			"sInfoFiltered": "(filtered from _MAX_ total records)"
-		}
-            }).makeEditable({
-
-            "aoColumns" : [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null   
-            ],
-
-            oAddNewRowButtonOptions: {
-                                            label: "Add...",
-                                            icons: {primary:'ui-icon-plus'}
-            },
-
-            oDeleteRowButtonOptions: {
-                                            label: "Remove",
-                                            icons: {primary:'ui-icon-trash'}
-            },
-
-            oAddNewRowFormOptions: {
-                                            title: 'Add a new student',
-                                            show: "blind",
-                                            hide: "explode",
-                                            modal: true,
-                                            width: "auto"
-
-            },
-            sAddDeleteToolbarSelector: ".dataTables_length"
-});
-} );
-</script>
-
+<?php include 'script_student_view.php';?>
 <div>
-    <div class="add_delete_toolbar"></div>
+    <div class="add_delete_toolbar"/>
     <div>
         <form id="formAddNewRow" action="#" title="Add a new Teacher">
              <table>
@@ -189,11 +84,36 @@
 
                 <td><?php echo $single_student->S_Id;?></td>
                 <td><?php echo $single_student->Name;?></td>
-                <td><?php echo $single_student->Dept_id;?></td>
+                <?php
+                    $one_department_info=$this->department_model->get_department_info($single_student->Dept_id);
+                    if($one_department_info){
+                        $just_one_dept=$one_department_info->row();
+                        echo "<td>$single_student->Dept_id - $just_one_dept->Name</td>";
+                    }
+                    else{
+                        echo "<td>NONE - Currently Unavailable...</td>";
+                    }
+                 ?>
                 <td><?php echo $single_student->sLevel;?></td>
                 <td><?php echo $single_student->Term;?></td>
                 <td><?php echo $single_student->Sec;?></td>
-                <td><?php echo $single_student->Advisor;?></td>
+                <td id="<?php echo $single_student->Dept_id;?>">                    
+                <?php
+                    if($single_student->Advisor){
+                        $single_techer_info=$this->teacher_model->get_teacher_by_id($single_student->Advisor);
+                        if($single_techer_info){
+                            $a_teacher=$single_techer_info->row();
+                            echo $single_student->Advisor.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;
+                        }
+                        else{
+                            echo 'Currently unavailable';
+                        }
+                    }
+                    else{
+                            echo 'Currently unavailable';
+                    }
+                ?>
+                </td>
                 <td><?php echo $single_student->Curriculam;?></td>
                 <td><?php echo $single_student->Password;?></td>
                 <td><?php echo $single_student->father_name;?></td>

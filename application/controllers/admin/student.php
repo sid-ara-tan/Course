@@ -26,7 +26,7 @@
 
     function teacher_by_dept_id() {
         $Dept_id=$this->input->post('Dept_id');
-        $data['all_teachers']= $this->teacher_model->get_teacher_by_dept_id($Dept_id);
+        $data['all_teachers']= $this->teacher_model->bool_get_teacher_by_dept_id($Dept_id);
 
         $msg=$this->load->view('admin/teacher_dropdown_view',$data,TRUE);
         echo $msg;
@@ -119,6 +119,16 @@
             echo 'false';
         }
     }
+
+    function edit_validate_student_exist(){
+        $S_Id=$this->input->post('value');
+        if($this->is_student_exists($S_Id)){
+            echo 'false';
+        }
+        else{
+            echo 'true';
+        }
+    }
     function is_student_exists($S_Id=NULL){
         $check=$this->student_model->is_student_exists($S_Id);
         return $check;
@@ -192,5 +202,46 @@
        
        echo json_encode($data);
 
+    }
+
+    function update_information()
+    {
+          $id = $this->input->post('id');
+          $value = $this->input->post('value');
+          $column = $this->input->post('columnName');
+          $columnPosition = $this->input->post('columnPosition');
+          $columnId = $this->input->post('columnId');
+          $rowId = $this->input->post('rowId');
+
+          $config=array(
+              $column=>$value
+          );
+
+          $update=$this->student_model->update_info($config,$id);
+          if($update){
+              echo $value;
+          }
+          else{
+              echo "Database update falied";
+          }
+    }
+
+    function load_teacher_info(){
+        $id=$this->input->get('id');
+        $query= $this->teacher_model->bool_get_teacher_by_dept_id($id);
+
+        if($query)
+        {
+            $options=array(''=>'Please Select...');
+            foreach ($query->result() as $row) {
+                $options[$row->T_Id]=$row->T_Id.'-('.$row->Designation.')-'.$row->Name;
+            }
+            echo json_encode($options);
+        }
+        else{
+            $options=array(''=>'Currently unavailable');
+            echo json_encode($options);
+        }
+        
     }
 }

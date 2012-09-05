@@ -82,7 +82,7 @@
         }
     }
 
-    function load_teacher_info(){
+    /*function load_teacher_info(){
         $query= $this->teacher_model->get_all_teacher();
         $options=array();
         $options['99999']='99999 - Currently Unavailable...';
@@ -90,6 +90,26 @@
             $options[$row->T_Id]=$row->T_Id.'-('.$row->Designation.')-'.$row->Name;
         }
         echo json_encode($options);
+    }*/
+
+    function load_teacher_info(){
+        $id=$this->input->get('id');
+        $id=substr($id, 0, -3);
+        $query= $this->teacher_model->bool_get_teacher_by_dept_id($id);
+
+        if($query)
+        {
+            $options=array(''=>'Please Select...');
+            foreach ($query->result() as $row) {
+                $options[$row->T_Id]=$row->T_Id.'-('.$row->Designation.')-'.$row->Name;
+            }
+            echo json_encode($options);
+        }
+        else{
+            $options=array(''=>'Currently unavailable');
+            echo json_encode($options);
+        }
+
     }
 
     function load_single_teacher_info($id=NULL){

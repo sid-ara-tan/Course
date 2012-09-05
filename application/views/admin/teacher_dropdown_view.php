@@ -1,7 +1,12 @@
 <?php
-    $options=array(''=>'Select...');
-    foreach($all_teachers->result() as $single_teacher){
-        $options[$single_teacher->T_Id]=$single_teacher->T_Id.' - '.$single_teacher->Name;
+    if($all_teachers){
+        $options=array(''=>'Please Select...');
+        foreach($all_teachers->result() as $single_teacher){
+            $options[$single_teacher->T_Id]=$single_teacher->T_Id.' - '.$single_teacher->Name;
+        }
+    }
+    else{
+        $options=array(''=>'No one currently available');
     }
 ?>
 

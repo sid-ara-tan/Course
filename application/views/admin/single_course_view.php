@@ -177,7 +177,7 @@
                         },
                         
                         {
-                            tooltip: 'Click to change department ',
+                            tooltip: 'Click to change curriclum ',
                             loadtext: 'loading...',
                             type: 'select',
                             onblur: 'cancel',
