@@ -64,4 +64,9 @@
         return $update;
     }
 
+    function delete_info($id=NULL){
+        $this->db->where('S_Id',$id);
+        $delete=$this->db->delete('student');
+        return $delete;
+    }
 }

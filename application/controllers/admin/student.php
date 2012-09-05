@@ -31,6 +31,14 @@
         $msg=$this->load->view('admin/teacher_dropdown_view',$data,TRUE);
         echo $msg;
     }
+
+    function add_teacher_by_dept_id(){
+        $Dept_id=$this->input->post('Dept_id');
+        $data['all_teachers']= $this->teacher_model->bool_get_teacher_by_dept_id($Dept_id);
+
+        $msg=$this->load->view('admin/add_teacher_dropdown_view',$data,TRUE);
+        echo $msg;
+    }
     
     function  search_result(){
         $Dept_id=$this->input->post('Dept_id');
@@ -90,6 +98,8 @@
             }*/
 
             $info['all_students']=$result;
+            $info['all_departments']= $this->department_model->get_all_department();
+
             $msg=$this->load->view('admin/single_student_view',$info,TRUE);
             echo $msg;
         }
@@ -243,5 +253,18 @@
             echo json_encode($options);
         }
         
+    }
+
+    function delete_information(){
+        $id = $this->input->post('id');
+        /*further deletion task will be done here.*/
+        $delete=$this->student_model->delete_info($id);
+        if($delete){
+            echo "ok";
+        }
+        else{
+            echo "Database deletion failed";
+        }
+
     }
 }

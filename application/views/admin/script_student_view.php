@@ -1,30 +1,4 @@
 <script type="text/javascript" charset="utf-8">
- $(function(){
-        $("#formAddNewRow").validate({
-            rules:  {
-               Name:  {
-                                required: true,
-                                maxlength: 49
-                            },
-               Password:   {
-                                required: true,
-                                minlength:5,
-                                maxlength: 25
-                            }
-            },
-            messages:{
-                Name: {
-                                maxlength: "Enter at most 49 characters"
-                            },
-                Password:   {
-                                minlength: "Enter at least 5 characters",
-                                maxlength: "Enter at most 25 characters"
-                            }
-                        }
-        });
-  });
-</script>
-<script type="text/javascript" charset="utf-8">
        $(document).ready(function() {
             $('#id_datatable').dataTable({
 		"aaSorting": [[ 0, "asc" ]],
@@ -66,6 +40,7 @@
             }).makeEditable({
 
              sUpdateURL: "<?php echo site_url('admin/student/update_information');?>",
+             sDeleteURL: "<?php echo site_url('admin/student/delete_information');?>",
 
             "aoColumns" : [
                 {
@@ -302,23 +277,9 @@
                 }
             ],
 
-            oAddNewRowButtonOptions: {
-                                            label: "Add...",
-                                            icons: {primary:'ui-icon-plus'}
-            },
-
             oDeleteRowButtonOptions: {
                                             label: "Remove",
                                             icons: {primary:'ui-icon-trash'}
-            },
-
-            oAddNewRowFormOptions: {
-                                            title: 'Add a new student',
-                                            show: "blind",
-                                            hide: "explode",
-                                            modal: true,
-                                            width: "auto"
-
             },
             sAddDeleteToolbarSelector: ".dataTables_length"
 });

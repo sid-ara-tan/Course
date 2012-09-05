@@ -6,7 +6,7 @@
 <?php include 'template/scr_sty_tab_data.php'; ?>
 <style type="text/css" media="screen">
 .search_form input[type=text]{
-    width: 295px;
+    width: 298px;
     height: 20px;
 }
 .search_note{
