@@ -186,6 +186,7 @@ $row_std = $query_student_info->row();
 
                 <div id = "tabs-4">
                     <div class="demo">
+                    <b><font color="red"><?php echo $notification_file; ?></font></b>
                     <p><h1>All Course files : </h1></p>
                         <hr /><hr />
 

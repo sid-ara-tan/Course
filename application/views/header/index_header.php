@@ -1,3 +1,8 @@
+<?php
+    header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+    header('Pragma: no-cache'); // HTTP 1.0.
+    header('Expires: 0'); // Proxies.
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="EN" lang="EN" dir="ltr">
 <head profile="http://gmpg.org/xfn/11">
@@ -24,18 +29,25 @@
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
         
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
-
-	<script>
-
+        
+        <script src="<?php echo base_url();?>jqueryUI/external/jquery.cookie.js"></script>
+        <script>
 	$(function() {
 
-		$( "#tabs" ).tabs();
+		$( "#tabs" ).tabs({
+
+			cookie: {
+
+				// store cookie for a day, without, it would be a session cookie
+
+				expires: 1
+
+			}
+
+		});
 
 	});
-
-	</script>
         
-        <script>
 
 	$(function() {
 
