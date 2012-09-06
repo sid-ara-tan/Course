@@ -204,7 +204,7 @@
                                 </td>
                             </tr>
                             <?php
-                                $options=array(''=>'Please select..');
+                                $options=array();
                                 foreach ($all_departments->result() as $at) {
                                     $options[$at->Dept_id]=$at->Dept_id.' - '.$at->Name;
                                 }
