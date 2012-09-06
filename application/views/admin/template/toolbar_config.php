@@ -39,17 +39,22 @@
     $teacher=array(
         'view_teacher'=>array(
             'name'=>'View teachers',
-            'link'=>  site_url(),
+            'link'=>  site_url('admin/teacher/view_teacher'),
             'class'=>'icn_categories'
-        ),
+        )
     );
 
     $student=array(
         'view_student'=>array(
             'name'=>'View students',
-            'link'=>  site_url(),
+            'link'=>  site_url('admin/student/view_student'),
             'class'=>'icn_categories'
         ),
+        'add_student'=>array(
+            'name'=>'Creat a student',
+            'link'=>  site_url('admin/student/add_a_student'),
+            'class'=>'icn_new_article'
+        )
     );
 
     $data['navigator']=array(

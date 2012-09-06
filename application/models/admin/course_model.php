@@ -35,7 +35,7 @@
         return $insert;
     }
 
-    function delete_info($id){
+    function delete_info($id=NULL){
         $this->db->where('CourseNo',$id);
         $delete=$this->db->delete('course');
         return $delete;

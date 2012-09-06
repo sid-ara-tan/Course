@@ -107,7 +107,7 @@ $(document).ready( function () {
                             loadtype: 'GET',
                             loadurl: "<?php echo site_url('admin/department/load_teacher_info');?>"
                         },
-
+                        
                         {
                             tooltip: 'Click to change password',
                             onblur: 'cancel',
@@ -118,6 +118,7 @@ $(document).ready( function () {
                                    {
                                        rules:{
                                                value: {
+                                                        required:true,
                                                         minlength: 5,
                                                         maxlength: 25
                                                       }
@@ -252,7 +253,7 @@ $(document).ready( function () {
 
                                     <?php
                                         $options=array();
-                                        $options['99999']='Currently Unavailable...';
+                                        $options['99999']='99999 - Currently Unavailable...';
                                         foreach ($all_teacher->result() as $at) {
                                             $options[$at->T_Id]=$at->T_Id.' -('.$at->Designation.')- '.$at->Name;
                                         }
@@ -294,9 +295,9 @@ $(document).ready( function () {
                                                 ?>
                                                 <?php if($single_techer_info):?>
                                                 <?php $a_teacher=$single_techer_info->row();?>
-                                                    <td><?php echo $single_department->Head_of_dept_id.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;?></td>
+                                                    <td id="<?php echo $single_department->Dept_id;?>_id"><?php echo $single_department->Head_of_dept_id.'-('.$a_teacher->Designation.')-'.$a_teacher->Name;?></td>
                                                 <?php else:?>
-                                                    <td><?php echo $single_department->Head_of_dept_id.' - Currently Unavailable... ';?></td>
+                                                    <td id="<?php echo $single_department->Dept_id;?>_id"><?php echo 'Currently unavailable';?></td>
                                                 <?php endif;?>
                                                 
 
@@ -333,6 +334,7 @@ $(document).ready( function () {
 
                         <div id="department_info_tabs_2">
                            the quick brown fox jumps over the lazy dog.
+                           <?php echo br(50);?>
                         </div>
 
 

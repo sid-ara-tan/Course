@@ -175,6 +175,7 @@
                     <div id="show_user_information"><p>Select any user to view profile Information.</p></div>
                 </div>
         </article><!-- end of stats article -->
+        <?php echo br(50);?>
 </section>
 
 <?php $this->load->view('admin/template/footer');?>

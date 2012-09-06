@@ -50,4 +50,3 @@
         $('.column').equalHeight();
     });
 </script>
-

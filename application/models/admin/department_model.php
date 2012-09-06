@@ -14,7 +14,7 @@
         return $update;
     }
 
-    function delete_info($id){
+    function delete_info($id=NULL){
         $this->db->where('Dept_id',$id);
         $delete=$this->db->delete('department');
         return $delete;
@@ -35,7 +35,7 @@
         return $query;
     }
 
-    function get_department_info($id) {
+    function get_department_info($id=NULL) {
         $this->db->where('Dept_id',$id);
         $query=$this->db->get('department');
         return $query;

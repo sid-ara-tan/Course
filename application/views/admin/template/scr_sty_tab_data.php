@@ -7,6 +7,7 @@
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.mouse.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.selectable.js" type="text/javascript"></script>
 <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js" type="text/javascript"></script>
+<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.autocomplete.js" type="text/javascript"></script>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
@@ -111,15 +112,15 @@
         }
 
         // add themeswitcher
-        /*$(function(){
-                var ts = $('<div class="ui-button ui-widget ui-state-default ui-corner-all" style="padding: 5px; position: absolute; bottom: 20px; right: 10px;">Click here to add Themeswitcher!</div>')
-                .appendTo('div#footer')
-                .bind("click", function() {
-                        ts.text("Loading Themeswitcher...");
-                        $.getScript('http://ui.jquery.com/applications/themeroller/themeswitchertool/', function() {
-                                ts.removeClass("ui-button ui-widget ui-state-default ui-corner-all").text("").unbind("click").themeswitcher();
-                        });
-                });
+       /*	$(function(){
+			var ts = $('<div class="ui-button ui-widget ui-state-default ui-corner-all" style="padding: 5px; position: absolute; top: 20px; right: 10px;">Click here to add Themeswitcher!</div>')
+			.appendTo('body')
+			.bind("click", function() {
+				ts.text("Loading Themeswitcher...");
+				$.getScript('http://ui.jquery.com/applications/themeroller/themeswitchertool/', function() {
+					ts.removeClass("ui-button ui-widget ui-state-default ui-corner-all").text("").unbind("click").themeswitcher();
+				});
+			});
         });*/
     });
 </script>
