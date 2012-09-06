@@ -285,3 +285,10 @@
 });
 } );
 </script>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+         $('#toggle_search_result').click(function(){
+            $('#div_search_result').toggle('slow');
+        });
+    });
+</script>

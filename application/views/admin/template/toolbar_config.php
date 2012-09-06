@@ -41,7 +41,7 @@
             'name'=>'View teachers',
             'link'=>  site_url('admin/teacher/view_teacher'),
             'class'=>'icn_categories'
-        ),
+        )
     );
 
     $student=array(
@@ -50,6 +50,11 @@
             'link'=>  site_url('admin/student/view_student'),
             'class'=>'icn_categories'
         ),
+        'add_student'=>array(
+            'name'=>'Creat a student',
+            'link'=>  site_url('admin/student/add_a_student'),
+            'class'=>'icn_new_article'
+        )
     );
 
     $data['navigator']=array(

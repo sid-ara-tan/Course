@@ -90,6 +90,30 @@ background-color: rgb(240,249,232);
 padding: 10px;
 }
 
+.full_width_sid_error {
+display: block;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background-position: 10px 10px;
+border: 1px solid rgb(221,30,16);
+background-color: rgb(255,235,232);
+padding: 10px;
+}
+
+.full_width_sid_success {
+display: block;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background-position: 10px 10px;
+border: 1px solid rgb(177,224,135);
+background-color: rgb(240,249,232);
+padding: 10px;
+}
+
 #tooltip{
     width:auto;
     max-width:300px;

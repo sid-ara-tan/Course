@@ -69,4 +69,14 @@
         $delete=$this->db->delete('student');
         return $delete;
     }
+
+    function create_student($config=NULL){
+        $insert=$this->db->insert('student',$config);
+        if($insert){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+    }
 }

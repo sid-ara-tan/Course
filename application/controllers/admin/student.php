@@ -56,7 +56,7 @@
 
         if ($this->form_validation->run() == FALSE)
         {
-            echo validation_errors('<div class="sid_error shadow search_header" style="text-align:center;width:99%;height:20px;">', '</div>');
+            echo validation_errors('<article class="module width_full shadow "><div class="full_width_sid_error" style="text-align:center;">','</div></article>');
         }
         else{
             $data=array();
@@ -127,6 +127,16 @@
         }
         else{
             echo 'false';
+        }
+    }
+
+    function validate_student_exist_unique(){
+        $S_Id=$this->input->post('S_Id');
+        if($this->is_student_exists($S_Id)){
+            echo 'false';
+        }
+        else{
+            echo 'true';
         }
     }
 
@@ -266,5 +276,108 @@
             echo "Database deletion failed";
         }
 
+    }
+
+    function add_a_student($param=NULL){
+        $data=array(
+            'msg'=>'Create a Student Information',
+            'info'=>$param,
+            'title'=>'Create a Student'
+        );
+
+        $data['all_departments']= $this->department_model->get_all_department();
+        $this->load->view('admin/add_a_student_view',$data);
+    }
+
+    function create_a_student(){
+        
+
+        $this->form_validation->set_rules('S_Id', 'Student ID', 'required|trim|max_length[10]|xss_clean|callback_digit_check');
+        $this->form_validation->set_rules('Name', 'Name', 'trim|max_length[49]|xss_clean');
+        $this->form_validation->set_rules('Sec', 'Section', 'trim|max_length[4]');
+        $this->form_validation->set_rules('Password', 'Password', 'required|trim|max_length[25]|min_length[5]|xss_clean');
+        $this->form_validation->set_rules('father_name', 'Father Name', 'trim|max_length[49]|xss_clean');
+        $this->form_validation->set_rules('email', 'Email address', 'trim|max_length[49]|email|xss_clean');
+        $this->form_validation->set_rules('address', 'Address', 'trim|max_length[49]|xss_clean');
+        $this->form_validation->set_rules('phone', 'Phone no', 'trim|max_length[49]|xss_clean|callback_digit_check');
+
+
+        if ($this->form_validation->run() == FALSE)
+        {
+                $this->add_a_student();
+        }
+        else{
+
+                $S_Id=$this->input->post('S_Id');
+                $Name=  $this->input->post('Name');
+                $Dept_id=$this->input->post('Dept_id');
+                $sLevel=$this->input->post('sLevel');
+                $Term=$this->input->post('Term');
+                $Sec=$this->input->post('Sec');
+                $Advisor=$this->input->post('Advisor');
+                $Curriculam=$this->input->post('Curriculam');
+                $Password=$this->input->post('Password');
+                $father_name=$this->input->post('father_name');
+                $email=$this->input->post('email');
+                $address=$this->input->post('address');
+                $phone=$this->input->post('phone');
+
+                $config=array();
+
+                if($S_Id){
+                    $config['S_Id']=$S_Id;
+                }
+                if($Name){
+                    $config['Name']=$Name;
+                }
+                if($Dept_id){
+                    $config['Dept_id']=$Dept_id;
+                }
+                if($sLevel){
+                    $config['sLevel']=$sLevel;
+                }
+                if($Term){
+                    $config['Term']=$Term;
+                }
+                if($Sec){
+                    $config['Sec']=$Sec;
+                }
+                if($Advisor){
+                    $config['Advisor']=$Advisor;
+                }
+                if($Curriculam){
+                    $config['Curriculam']=$Curriculam;
+                }
+                if($Password){
+                    $config['Password']=$Password;
+                }
+                if($father_name){
+                    $config['father_name']=$father_name;
+                }
+                if($email){
+                    $config['email']=$email;
+                }
+                if($address){
+                    $config['address']=$address;
+                }
+                if($phone){
+                    $config['phone']=$phone;
+                }
+
+               //print_r($config);
+
+               $create=$this->student_model->create_student($config);
+
+               $info=NULL;
+               if($create){
+                   $info='success';
+               }
+               else{
+                   $info='error';
+               }
+
+               $this->add_a_student($info);
+        }
+        
     }
 }
