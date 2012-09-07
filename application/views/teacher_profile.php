@@ -6,7 +6,7 @@
 <div class="wrapper row1">
   <div id="header" class="clear">
     <div class="fl_left">
-      <h1>Course Management System</h1>      
+      <h1>Course Management System</h1>
     </div>
   </div>
 </div>
@@ -15,7 +15,7 @@
   <div id="topnav">
     <ul>
       <li><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
-      <li><a href="style-demo.html">Style Demo</a></li>
+
       <li  class="active"><a href="<?php echo base_url();?>index.php/teacher_home/show_profile">Profile</a></li>
       <li><a href="#">Assigned Course</a>
         <ul>
@@ -29,9 +29,8 @@
         ?>
         </ul>
       </li>
-      <li><a href="3-columns.html">3 Columns</a></li>
-      <li class="last"><a href="gallery.html">Gallery</a></li>
-    </ul>
+      <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
+      </ul>
     <div  class="clear"></div>
   </div>
 </div>
@@ -40,11 +39,20 @@
   <div id="container" class="clear">
     <!-- ####################################################################################################### -->
     <?php $row=$this->teacher->get_info();?>
-    
-    <br /><label for="Name">Name:</label><input type="text" name="Name" value="<?php echo $row->Name;?>" disabled="true"/>
-    <br /><br /><label for="Dept">Dept:</label><input type="text" name="Dept" value="<?php echo $row->Dept_Id;?>" disabled="true"/>
-    <br /><br /><label for="Designation">Designation:</label><input type="text" name="Designation" value="<?php echo $row->Designation;?>" disabled="true"/>
-    
+
+     <?php $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" style="width:50%">',
+                        'heading_row_start'   => '<tr class="dark">',
+                        'heading_row_end'     => '</tr>',
+                        'row_start'           => '<tr class="light">',
+                        'row_end'             => '</tr>',
+                        'row_alt_start'       => '<tr class="dark">',
+                        'row_alt_end'         => '</tr>');
+        $this->table->set_template($tmpl);
+        $this->table->add_row('Name',$row->Name);
+        $this->table->add_row('Department',$row->Dept_Id);
+        $this->table->add_row('Designation',$row->Designation);
+        echo $this->table->generate();
+    ?>
     <!-- ####################################################################################################### -->
     <div class="clear"></div>
   </div>

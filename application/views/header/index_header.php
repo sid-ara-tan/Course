@@ -53,6 +53,16 @@
 	</script>
 
 <script type="text/javascript" src="<?php echo base_url();?>jquery/form_valid.js"></script>
+ <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.accordion.js"></script>
+        <script>
+	$(function() {
+		$( "#accordion" ).accordion({
+
+                        collapsible: true,
+                        fillSpace: true
+		});
+	});
+	</script>
 <!--************************************************************************************************************* -->
 
 </head>

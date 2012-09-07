@@ -1,8 +1,21 @@
 function checkNull(frm)
 {
-    if((frm.message.value=="")||(frm.subject.value==""))
+    if(frm.subject.value=="")
     {
+        document.getElementById('subject_div').innerHTML="<font color='red'>*** Write A subject First</font>";
+        document.getElementById('subject').style.background="red";
+        frm.subject.focus();
     }
+    
+    else if(frm.message.value=="")
+    {
+        document.getElementById('message_div').innerHTML="<font color='red'>*** Write Message First</font>";
+        document.getElementById('message').style.background="red";
+        frm.message.focus();
+        document.getElementById('subject_div').innerHTML="";
+        document.getElementById('subject').style.background="";
+    }
+    
     else frm.submit();
 }
         

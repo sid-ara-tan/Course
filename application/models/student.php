@@ -59,5 +59,33 @@ class Student extends CI_model {
             return FALSE;
         }
     }
+    
+    function get_studentformarks($courseno,$sec){
+        if($sec=='all'){
+            $query=$this->db->query("
+                select s.S_Id,Name
+                from takencourse t,student s
+                where t.CourseNo='$courseno'and status='Running'
+                    and t.S_Id=s.S_Id
+                ");
+        }else{
+            $sec.='%';
+            $query=$this->db->query("
+                select s.S_Id,Name
+                from takencourse t,student s
+                where t.CourseNo='$courseno'and status='Running'
+                    and Sec like '$sec' and t.S_Id=s.S_Id
+                ");
+        }
+
+        if($query->num_rows()>0){
+            foreach($query->result() as $row){
+                $data[]=$row;
+            }
+            return $data;
+        }else{
+            return FALSE;
+        }
+    }
 
 }

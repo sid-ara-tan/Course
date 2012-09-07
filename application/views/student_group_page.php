@@ -71,6 +71,8 @@ $row_std = $query_student_info->row();
                     <li><a href="#tabs-2">Course Content</a></li>
 
                     <li><a href="#tabs-3">View Marks</a></li>
+                    
+                    <li><a href="#tabs-5">Group Members</a></li>
 
                 </ul>
 
@@ -86,11 +88,13 @@ $row_std = $query_student_info->row();
                                 <p>
                                     <?php echo form_label('Subject', 'subject_label');?>
                                     <br>
-                                    <input type="text" name="subject" value="" size="50" />
+                                    <input type="text" name="subject" id="subject" value="" size="50" />
+                                    <div id="subject_div"></div>
                                     <br>
                                     <?php echo form_label('Message', 'message_label');?>
                                     <br>
-                                    <textarea name="message" rows="5" cols="70" maxlenth="1000" ></textarea>
+                                    <textarea name="message" id="message" rows="5" cols="70" maxlenth="1000" ></textarea>
+                                    <div id="message_div"></div>
                                 </p>
 
                                 <p>
@@ -233,10 +237,16 @@ $row_std = $query_student_info->row();
                         ?>
                      </div>
                  </div>
+                
+                 <div id = "tabs-5">
+                     
+                 </div>
 
-                    </div>
-                    </div>
-                    </div>
+    </div>
+  </div>
+</div>
+    
+
 
 
                    

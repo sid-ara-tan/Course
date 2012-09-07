@@ -4,8 +4,8 @@ class Student_home_group extends CI_controller {
 
     private $query_student='';
     private $query_taken_course='';
-    private $notification_file='';
-    private $notification='';
+    //private $notification_file='';
+    //private $notification='';
     
     function __construct() {
         parent::__construct();
