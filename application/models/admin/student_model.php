@@ -12,6 +12,15 @@
         return FALSE;
     }
 
+    function get_student_by_id($id=NULL){
+        $this->db->where('S_Id',$id);
+        $result=$this->db->get('student');
+
+        if($result->num_rows==1){
+            return $result;
+        }
+        return FALSE;
+    }
     function get_student_by_like_id($id=NULL) {
         $this->db->like('S_Id',$id,'after');
         $result=$this->db->get('student');
@@ -78,5 +87,59 @@
         else{
             return FALSE;
         }
+    }
+
+    function get_range_of_student($Data=NULL,$start=NULL,$end=NULL){
+        $config=array(
+            'S_id >='=>$start,
+            'S_id <='=>$end
+        );
+
+        $this->db->where($Data);
+        $this->db->where($config);
+        $result=$this->db->get('student');
+
+        if($result->num_rows>0){
+            return $result;
+        }
+        return FALSE;
+
+    }
+
+    function get_valid_student_from_query($config=NULL,$s_id=NULL){
+        $this->db->where($config);
+        $this->db->where('S_Id',$s_id);
+        $delete=$this->db->delete('student');
+        if($delete){
+            return $delete;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    function is_group_student_Exists($config=NULL,$s_id=NULL){
+        $this->db->where($config);
+        $this->db->where('S_Id',$s_id);
+        
+        $result=$this->db->get('student');
+        if($result->num_rows==1){
+            return $result;
+        }
+        return FALSE;
+    }
+
+    function update_student_group($where=NULL,$data=NULL,$start=NULL,$end=NULL){
+
+        $config=array(
+            'S_id >='=>$start,
+            'S_id <='=>$end
+        );
+
+        $this->db->where($where);
+        $this->db->where($config);
+        $update=$this->db->update('student',$data);
+
+        return $update;
     }
 }

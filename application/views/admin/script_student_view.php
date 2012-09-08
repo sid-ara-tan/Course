@@ -4,7 +4,7 @@
 		"aaSorting": [[ 0, "asc" ]],
 		"bJQueryUI": true,
 		"sPaginationType": "full_numbers",
-                "aLengthMenu": [[5,10, 25, 50, -1], [5,10, 25, 50, "All"]],
+                "aLengthMenu": [[5,10,15,30,50,60,100, -1], [5,10,15,30,50,60,100,"All"]],
                  "sScrollX": "100%",
                 "sScrollXInner": "150%",
                 "bScrollCollapse": true,

@@ -19,7 +19,7 @@
                         });*/
                     </script>
                     
-		<footer>
+		<footer id="stickyFooter">
 			<hr />
 			<p><strong>Contact Info</strong></p>
 			<p>siddhartha047@gmail.com</p>

@@ -56,7 +56,11 @@
 
         if ($this->form_validation->run() == FALSE)
         {
-            echo validation_errors('<article class="module width_full shadow "><div class="full_width_sid_error" style="text-align:center;">','</div></article>');
+            echo '<article class="module width_full shadow ">';
+            echo '<div class="full_width_sid_error" style="text-align:center;font-size:1.1em">';
+            echo validation_errors('<div>','</div>');
+            echo '</div>';
+            echo '</article>';
         }
         else{
             $data=array();
@@ -380,4 +384,355 @@
         }
         
     }
+
+    function manage_group_of_student($param=NULL){
+         $data=array(
+            'msg'=>'Manage group of students',
+            'info'=>'',
+            'title'=>'Group of students'
+        );
+
+        $data['all_departments']= $this->department_model->get_all_department();
+        $this->load->view('admin/group_of_student_view',$data);
+    }
+
+    function ajax_get_data_group(){
+        $this->form_validation->set_rules('Dept_id', 'Deartment id', 'required|trim');
+        $this->form_validation->set_rules('Sec', 'Section', 'required|trim|max_length[4]|xss_clean');
+        $this->form_validation->set_rules('std_code', 'Student prefix code', 'required|trim|max_length[4]|xss_clean|callback_digit_check');
+        $this->form_validation->set_rules('start_code', 'Start code', 'required|trim|max_length[3]|xss_clean|callback_digit_check');
+        $this->form_validation->set_rules('end_code', 'End code', 'required|trim|max_length[3]|xss_clean|callback_digit_check');
+
+        $error=FALSE;
+        $error_msg='';
+        $config=array();
+        $data=array();
+        
+        if($this->form_validation->run()==FALSE){
+            $error_msg='<article class="module width_full shadow ">';
+            $error_msg=$error_msg.'<div style="font-size:1.1em">';
+            $error_msg=$error_msg.validation_errors('<div>','</div>');
+            $error_msg=$error_msg.'</div>';
+            $error_msg=$error_msg.'</article>';
+            $error=TRUE;
+        }
+        else{
+                $Dept_id=$this->input->post('Dept_id');
+                $sLevel=$this->input->post('sLevel');
+                $Term=$this->input->post('Term');
+                $Sec=$this->input->post('Sec');
+                $Advisor=$this->input->post('Advisor');
+                $Curriculam=$this->input->post('Curriculam');
+
+                $std_code=  $this->input->post('std_code');
+                $start_code=  $this->input->post('start_code');
+                $end_code=  $this->input->post('end_code');
+
+                if($Dept_id){
+                    $data['Dept_id']=$Dept_id;
+                }
+                if($sLevel){
+                    $data['sLevel']=$sLevel;
+                }
+                if($Term){
+                    $data['Term']=$Term;
+                }
+                if($Sec){
+                    $data['Sec']=$Sec;
+                }
+                if($Advisor){
+                    $data['Advisor']=$Advisor;
+                }
+                if($Curriculam){
+                    $data['Curriculam']=$Curriculam;
+                }
+
+                if($start_code){
+                    $config['std_code']=$std_code;
+                }
+                if($start_code){
+                    $config['start_code']=$start_code;
+                }
+                if($end_code){
+                    $config['end_code']=$end_code;
+                }
+        }
+
+        $complete=array(
+            'data'=>$data,
+            'config'=>$config,
+            'error_msg'=>$error_msg,
+            'error'=>$error
+        );
+
+        return $complete;
+    }
+
+    function number_pad($number,$n) {
+            return str_pad((int) $number,$n,"0",STR_PAD_LEFT);
+    }
+
+    function ajax_create_group(){
+        $complete=$this->ajax_get_data_group();
+
+        if($complete['error']==TRUE){
+            echo $complete['error_msg'];
+        }
+        else{
+            $config=$complete['config'];
+            $data=$complete['data'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $i=intval($start_code);
+            $j=intval($end_code);
+            
+            $std_id='';
+            $output='';
+            $no_of_succes=0;
+            $no_of_warning=0;
+            $no_of_error=0;
+
+            $div_error_msg='<div style="padding:5px;">';
+            $div_error_msg.='<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px"/>';
+
+            $div_success_msg='<div style="padding:5px;">';
+            $div_success_msg.='<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+
+            $div_warning_msg='<div style="padding:5px;">';
+            $div_warning_msg.='<img src="'.base_url().'/images/admin/warning.png'.'" width="16px" height="16px" />';
+
+            $div_message_end='</div>';
+
+            for($i;$i<=$j;$i++){
+                $std_id=$std_code.$this->number_pad($i,3);
+
+                $check_exist=  $this->student_model->is_student_Exists($std_id);
+
+                if($check_exist){
+                    $output.=$div_warning_msg;
+                    $output.=$std_id." "."this student id already exists";
+                    $output.=$div_message_end;
+                    $no_of_warning++;
+                    continue;
+                }
+
+                $data['S_Id']=$std_id;
+                $data['Password']=random_string('alnum',10);
+                $insert=$this->student_model->create_student($data);
+
+
+                if($insert){
+                    $output.=$div_success_msg;
+                    $output.=$std_id." "."successfully created";
+                    $output.=$div_message_end;
+                    $no_of_succes++;
+                }
+                else{
+                    $output.=$div_error_msg;
+                    $output.=$std_id.' '.'student creation failed';
+                    $output.=$div_message_end;
+                    $no_of_error++;
+                }
+                $output.=br();
+            }
+
+            $data_passed_to_view['output']=$output;
+            $data_passed_to_view['no_success']=$no_of_succes;
+            $data_passed_to_view['no_error']=$no_of_error;
+            $data_passed_to_view['no_warning']=$no_of_warning;
+
+            
+            $output_article=$this->load->view('admin/group_create_status_view',$data_passed_to_view,TRUE);
+            echo $output_article;
+        }
+    }
+
+    function ajax_show_group(){
+        
+        $complete=$this->ajax_get_data_group();
+
+        if($complete['error']==TRUE){
+            echo $complete['error_msg'];
+        }
+
+        else{
+            $config=$complete['config'];
+            $data=$complete['data'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $start_s_id=$std_code.$start_code;
+            $end_s_id=$std_code.$end_code;            
+
+            $info['all_students']=$this->student_model->get_range_of_student($data,$start_s_id,$end_s_id);
+            
+            $info['all_departments']= $this->department_model->get_all_department();
+            $msg=$this->load->view('admin/group_student_view',$info,TRUE);
+            echo $msg;
+        }
+    }
+
+    function ajax_delete_group(){
+        $complete=$this->ajax_get_data_group();
+        
+        if($complete['error']==TRUE){
+            echo $complete['error_msg'];
+        }
+        else{
+            $config=$complete['config'];
+            $data=$complete['data'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $i=intval($start_code);
+            $j=intval($end_code);
+
+            $div_error_msg='<div style="padding:5px;">';
+            $div_error_msg.='<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px"/>';
+
+            $div_success_msg='<div style="padding:5px;">';
+            $div_success_msg.='<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+
+            $div_warning_msg='<div style="padding:5px;">';
+            $div_warning_msg.='<img src="'.base_url().'/images/admin/warning.png'.'" width="16px" height="16px" />';
+
+            $div_message_end='</div>';
+
+            $std_id='';
+            $output='';
+            $no_of_succes=0;
+            $no_of_warning=0;
+            $no_of_error=0;
+
+            for($i;$i<=$j;$i++){
+                $std_id=$std_code.$this->number_pad($i,3);
+
+                 $check_exist=  $this->student_model->is_group_student_Exists($data,$std_id);
+
+                if($check_exist==FALSE){
+                    $output.=$div_warning_msg;
+                    $output.=$std_id." "."this student id doesn't match query.";
+                    $output.=$div_message_end;
+                    $no_of_warning++;
+                    continue;
+                }
+
+                $delete=$this->delete_student_by_id($std_id);
+
+                if($delete){
+                    $output.=$div_success_msg;
+                    $output.=$std_id." "."successfully deleted";
+                    $output.=$div_message_end;
+                    $no_of_succes++;
+                }
+                else{
+                    $output.=$div_error_msg;
+                    $output.=$std_id.' '.'student deletion failed';
+                    $output.=$div_message_end;
+                    $no_of_error++;
+                }
+                $output.=br();
+            }
+
+            $data_passed_to_view['output']=$output;
+            $data_passed_to_view['no_success']=$no_of_succes;
+            $data_passed_to_view['no_error']=$no_of_error;
+            $data_passed_to_view['no_warning']=$no_of_warning;
+
+
+            $output_article=$this->load->view('admin/group_delete_status_view',$data_passed_to_view,TRUE);
+            echo $output_article;
+        }
+
+    }
+
+    function delete_student_by_id($S_Id=NULL){
+        //perform some checking before deletion
+
+        $delete=$this->student_model->delete_info($S_Id);
+        if($delete){
+            return $delete;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    function get_update_form_group(){
+        $Dept_id=$this->input->post('Dept_id');
+        $data['all_teachers']= $this->teacher_model->get_teacher_by_dept_id($Dept_id);
+        $msg=$this->load->view('admin/update_form_student_group_view',$data,TRUE);
+        echo $msg;
+    }
+
+    function ajax_update_group(){
+
+        $complete=$this->ajax_get_data_group();
+
+        if($complete['error']==TRUE){
+            echo $complete['error_msg'];
+        }
+        else{
+            $config=$complete['config'];
+            $where=$complete['data'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $start_s_id=$std_code.$start_code;
+            $end_s_id=$std_code.$end_code;
+
+            $sLevel=  $this->input->post('update_sLevel');
+            $Term=  $this->input->post('update_Term');
+            $Sec=  $this->input->post('update_Sec');
+            $Advisor=  $this->input->post('update_Advisor');
+            $Curriculam=$this->input->post('update_Curriculam');
+
+            $data=array();
+            
+            if($sLevel){
+                $data['sLevel']=$sLevel;
+            }
+            if($Term){
+                $data['Term']=$Term;
+            }
+            if($Sec){
+                $data['Sec']=$Sec;
+            }
+            if($Advisor){
+                $data['Advisor']=$Advisor;
+            }
+            if($Curriculam){
+                $data['Curriculam']=$Curriculam;
+            }
+
+            $update=$this->student_model->update_student_group($where,$data,$start_s_id,$end_s_id);
+
+            $show_msg_to_view=array();
+
+            if($update){
+                $show_msg_to_view['msg']='Update successful';
+            }
+            else{
+                $show_msg_to_view['msg']='Update failed';
+            }
+
+            $msg=$this->load->view('admin/student_group_update_view',$show_msg_to_view,TRUE);
+            echo $msg;
+        }
+
+    }
+
+    function get_assign_course_group(){
+        echo 'Loading assign course info.....';
+    }
+
 }
