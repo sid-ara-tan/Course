@@ -733,7 +733,6 @@
 
     function get_assign_course_group(){
         echo 'Loading assign course info.....';
-        echo 'sid';
+        echo 'siddhartha shankar das';
     }
-
 }

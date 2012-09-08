@@ -1,4 +1,4 @@
-<?php class Student extends CI_Controller{
+﻿<?php class Student extends CI_Controller{
     function  __construct() {
         parent::__construct();
         $this->my_library->check_logged_in();
@@ -733,6 +733,6 @@
 
     function get_assign_course_group(){
         echo 'Loading assign course info.....';
-        echo 'sid';
+        echo 'siddhartha shankar das';
     }
 }
