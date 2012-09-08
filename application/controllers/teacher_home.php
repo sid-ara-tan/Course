@@ -19,24 +19,26 @@ class Teacher_home extends CI_controller{
         $data['designation']=$this->designation;
         $this->load->model('teacher');
         $this->load->model('classinfo');
-        
+        $this->load->model('teacher');
+        $this->load->model('exam');
         $this->load->view('classroutine_view',$data);
-        
+
     }
-    
+
     function class_content($course,$message=''){
-        
+
         $this->load->model('teacher');
         $this->load->model('content');
+        $this->load->model('student');
         $this->load->library('pagination');
 	$this->load->helper('url');
-          
-        $record=$this->content->get_content($course,2,$this->uri->segment(4,0));
+
+        $record=$this->content->get_content($course,4,$this->uri->segment(4,0));
         $data['record']=$record;
         $data['name']=$this->name;
         $data['designation']=$this->designation;
         $data['message']=$message;
-           
+
         // for pagination
         $this->db->where('CourseNo',$course);
         $this->db->from('Content');
@@ -45,20 +47,63 @@ class Teacher_home extends CI_controller{
         $config['per_page'] ='2';
         $config['uri_segment'] = 4;
         $config['full_tag_open'] = '<p>';
-        $config['full_tag_close'] = '</p>';      
+        $config['full_tag_close'] = '</p>';
 	$this->pagination->initialize($config);
-        
-       /* $this->load->view('header');
-        $this->load->view('teacher_view',$data);
-        $this->load->view('footer');*/
         $this->load->view('course_view',$data);
-        
+
+    }
+
+    function process_form($courseno,$sec){
+        $data['sec']=$sec;
+        $data['courseno']=$courseno;
+        $this->load->model('student');
+        $this->load->model('exam');
+        $this->load->view('exam_list',$data);
+    }
+
+    function upload_marks(){
+        $this->load->model('exam');
+        $this->load->model('student');
+        if($this->input->post('task')=='upload'){
+            $this->exam->upload_marks();
+        }else{
+            $this->exam->edit_marks();
+        }
+
+    }
+
+    function marks_list($courseno,$sec,$exam_ID){
+        $data['sec']=$sec;
+        $data['courseno']=$courseno;
+        $data['exam_ID']=$exam_ID;
+        $this->load->model('student');
+        $this->load->model('exam');
+        $this->load->view('marks_list',$data);
+    }
+
+
+    function schedule_exam($courseno){
+        $this->load->library('form_validation');
+        $this->load->helper('date');
+        $this->form_validation->set_rules('Title','Title','required|max_length[30]');
+        $this->form_validation->set_rules('Date','Date','required');
+        $this->form_validation->set_rules('Duration','Duration','required|numeric|max_length[5]');
+        $this->form_validation->set_rules('Location','Location','required|max_length[15]');
+        if($this->form_validation->run()== FALSE){
+            $this->class_content($courseno,'Exam Scheduling Failed');
+        }
+        else{
+            $this->load->model('Exam');
+            $this->Exam->schedule_exam($courseno);
+            $this->class_content($courseno,'Exam Scheduling Succesful');
+        }
+
     }
 
     function upload_file($courseno){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('Topic','Topic','required');
-        
+
         $author=$this->input->post('Author');
         $topic=$this->input->post('Topic');
         $description=$this->input->post('Description');
@@ -66,7 +111,7 @@ class Teacher_home extends CI_controller{
 
         if($this->form_validation->run() == FALSE){
            $this->class_content($courseno,'Uploading Failed');
-           
+
         }
         else{
 
@@ -78,14 +123,14 @@ class Teacher_home extends CI_controller{
 
             if (!$this->upload->do_upload("somefile")){
                     $message =$this->upload->display_errors();
-                    $this->class_content($courseno,$message);                    
+                    $this->class_content($courseno,$message);
             }
             else{
                 $data=$this->upload->data();
                 $message='File:'.$data['file_name'].' is successfully Uploaded'.'<br />';
                 $this->load->model('content');
                 $this->content->insert_content($courseno,$author,$topic,$description,$data['file_name']);
-                $this->class_content($courseno,$message);             
+                $this->class_content($courseno,$message);
 	    }
         }
     }
@@ -96,12 +141,12 @@ class Teacher_home extends CI_controller{
         $this->load->helper('url');
         $data = file_get_contents("uploads/$courseno/$filename");
         $name = $filename;
-       
+
         force_download($name, $data);
-        
-        
+
+
     }
-    
+
     function delete_content($courseno,$id,$filename){
         echo $courseno.'|'.$id.'|'.$filename;
         $this->load->helper('file');
@@ -109,8 +154,8 @@ class Teacher_home extends CI_controller{
         $this->content->delete_content($courseno,$id);
         unlink("uploads/$courseno/$filename");
         redirect("teacher_home/class_content/$courseno");
-         
-        
+
+
     }
 
     function show_profile(){
@@ -122,7 +167,7 @@ class Teacher_home extends CI_controller{
         $data['valid_message']="";
         $this->load->view('teacher_profile',$data);
     }
-    
+
     function edit_profile($task='blank'){
         if($task=='blank'){
             $query=$this->db->get('department');
@@ -137,7 +182,7 @@ class Teacher_home extends CI_controller{
         }
         else{
                 $this->load->library('form_validation');
-                
+
                 $this->form_validation->set_rules('password','Password','trim|required|min_length[4]|max_length[32]');
                 $this->form_validation->set_rules('password2','Password Confirm','trim|matches[password]');
                 $this->form_validation->set_rules('name','Name','trim|required|max_length[40]');

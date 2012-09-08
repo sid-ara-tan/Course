@@ -37,9 +37,7 @@ class Student_home extends CI_controller {
     
     function profile()
     {
-        if($this->uri->segment(3)=='updated')$data['notification']="Profile Information Is Updated";
-        else $data['notification']="";
-        
+        $data['notification']=$this->session->flashdata('notification');        
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         $row=$this->query_student->row();
@@ -52,20 +50,65 @@ class Student_home extends CI_controller {
     {
         $this->load->model('student');
         $update=$this->student->edit_profile();
-        if($update)redirect('student_home/profile/updated');
-        else echo "error";
+        
+        if($update)
+        {
+            $this->session->set_flashdata('notification',"Profile has been updated successfully");
+            redirect('student_home/profile');
+        }
+        else echo "error occured";
     }
     
     function course_registration()
     {
+        $this->load->model('course');
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
+        
+        $isRegiPeriod=true;
+        $isDropPeriod=false;
+        
+        if($isRegiPeriod)
+        {
+            $data['query_offered']=$this->course->get_offered_courses();
+            $data['query_retake']=$this->course->get_retake_courses();
+            $data['query_optional']=$this->course->get_optional_courses();
+            $data['is_taken_pending']=$this->course->get_taken_courses_pending();
+        }
+        else $data['query_offered']='Not Period';
+        
+        if($isDropPeriod)
+        {
+            $data['query_drop']=$this->course->get_drop_courses();
+            $data['is_drop_pending']=$this->course->get_drop_courses_status();
+        }
+        else $data['query_drop']='Not Period';
+        
+        $data['notification']=$this->session->flashdata('notification');
         $this->load->view('student_course_registration', $data);
     }
     
+    function course_selected()
+    {
+        $this->load->model('course');
+        $this->course->store_selected_courses();
+        $this->session->set_flashdata('notification',"Registration Request Submitted Successfully");
+        redirect('student_home/course_registration');
+    }
+    
+    function course_dropped()
+    {
+        $this->load->model('course');
+        $this->course->store_dropped_courses();
+        $this->session->set_flashdata('notification',"Drop Request Submitted Successfully");
+        redirect('student_home/course_registration');  
+    }
+
+
+
     function result()
     {
-
+        echo "Under construction";
     }
     
 

@@ -34,9 +34,13 @@ class Classinfo extends CI_Model {
         $ID = $this->session->userdata['ID'];
         $query = $this->db->query("
                     SELECT *
-                    FROM course, classinfo, teacher
+                    FROM takencourse, classinfo, teacher,course
                     WHERE T_Id = by_teacher
-                    AND course.courseno = classinfo.courseno
+                    AND takencourse.courseno = classinfo.courseno
+                    AND classinfo.courseno = course.courseno
+                    AND takencourse.courseno = course.courseno
+                    AND S_Id='$ID'
+                    AND takencourse.Status='Running'
                     AND cDay = '$day'
                     AND (
                     sec = '$sec'

@@ -80,9 +80,10 @@
                             foreach($record as $row){
                                 $this->table->add_row($row->Period,$row->CourseNo,$row->CourseName,$row->Name,$row->cTime,$row->Duration,$row->Location);
                             }
+                            echo $this->table->generate();
                         }
             
-                echo $this->table->generate();
+                
             ?>
           </div>
       </dd>
@@ -106,9 +107,10 @@
                             foreach($record as $row){
                                 $this->table->add_row($row->Period,$row->CourseNo,$row->CourseName,$row->Name,$row->cTime,$row->Duration,$row->Location);
                             }
+                            echo $this->table->generate();
                         }
             
-                echo $this->table->generate();
+                
             ?>
           </div>
       </dd>
@@ -132,9 +134,10 @@
                             foreach($record as $row){
                                 $this->table->add_row($row->Period,$row->CourseNo,$row->CourseName,$row->Name,$row->cTime,$row->Duration,$row->Location);
                             }
+                            echo $this->table->generate();
                         }
             
-                echo $this->table->generate();
+                
             ?>
           </div>
       </dd>
@@ -158,9 +161,10 @@
                             foreach($record as $row){
                                 $this->table->add_row($row->Period,$row->CourseNo,$row->CourseName,$row->Name,$row->cTime,$row->Duration,$row->Location);
                             }
+                            echo $this->table->generate();
                         }
             
-                echo $this->table->generate();
+                
             ?>
           </div>
       </dd>
@@ -184,9 +188,10 @@
                             foreach($record as $row){
                                 $this->table->add_row($row->Period,$row->CourseNo,$row->CourseName,$row->Name,$row->cTime,$row->Duration,$row->Location);
                             }
+                            echo $this->table->generate();
                         }
             
-                echo $this->table->generate();
+                
             ?>
           </div>
       </dd>

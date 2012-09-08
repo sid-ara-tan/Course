@@ -15,7 +15,7 @@
   <div id="topnav">
     <ul>
         <li class="active"><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
-      <li><a href="style-demo.html">Style Demo</a></li>
+
       <li><a href="<?php echo base_url();?>index.php/teacher_home/show_profile">Profile</a></li>
       <li><a href="#">Assigned Course</a>
         <ul>
@@ -29,14 +29,14 @@
         ?>
         </ul>
       </li>
-      <li><a href="3-columns.html">3 Columns</a></li>
-      <li class="last"><?php echo anchor('course/logout','Log Out');?></li>
-    </ul>
+      <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
+      </ul>
     <div  class="clear"></div>
   </div>
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper row3">
+
   <div id="featured_slide">
     <!-- ####################################################################################################### -->
     <dl class="slidedeck">
@@ -160,9 +160,50 @@
       </dd>
     </dl>
   </div>
-  <!-- ####################################################################################################### -->
+
+
 </div>
+  <!-- ####################################################################################################### -->
+<div align="center" >
+        <h1>Exam routine</h1>
+        <div class="demo" style="width:800px" align="left">
+            <div id="accordion">
+                <?php
+                $rows=$this->teacher->get_courses();
+                foreach($rows as $row){
+                    echo '<h1><a href="#">'.$row->CourseName.'</a></h1><div>';
+                    $rows=$this->exam->get_routine($row->CourseNo);
+                    $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
+                                'heading_row_start'   => '<tr class="dark">',
+                                'heading_row_end'     => '</tr>',
+                                'row_start'           => '<tr class="light">',
+                                'row_end'             => '</tr>',
+                                'row_alt_start'       => '<tr class="dark">',
+                                'row_alt_end'         => '</tr>');
+                    $this->table->set_template($tmpl);
+
+                    if($rows==FALSE){
+                        echo '<h1>No exam scheduled</h1>';
+                    }else{
+                        $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Syllabus');
+                        foreach ($rows as $row) {
+                            $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location);
+                        }
+                        echo $this->table->generate();
+                    }
+                    echo '</div>';
+                }
+                ?>
+
+
+
+         </div>
+        </div>
+</div>
+
 <!-- ####################################################################################################### -->
+
+
 
 <!-- ####################################################################################################### -->
 <?php $this->load->view('footer/footer');?>

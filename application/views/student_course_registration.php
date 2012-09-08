@@ -7,6 +7,14 @@ $this->load->view('header/index_header', $data);
 $row_std = $query_student_info->row();
 ?>
 
+    <script type="text/javascript">
+    $(document).ready(function(){
+    $("p.flip").click(function(){
+    $("div.panel").slideToggle("slow");
+    });
+    });
+    </script>
+
 <body id="top">
     <div class="wrapper row1">
         <div id="header" class="clear">
@@ -73,90 +81,214 @@ $row_std = $query_student_info->row();
                 </ul>
 
                 <div id="tabs-1">
+                    <?php
+                        $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
+                                'heading_row_start'   => '<tr class="dark">',
+                                'heading_row_end'     => '</tr>',
+                                'row_start'           => '<tr class="light">',
+                                'row_end'             => '</tr>',
+                                'row_alt_start'       => '<tr class="dark">',
+                                'row_alt_end'         => '</tr>');
+                                            
+                    if($query_drop!='Not Period')echo "<b><font color='red'>Course Drop Period Is Running</font></b>";
+                    elseif($query_offered!='Not Period')echo "<b><font color='red'>Course Registration Period Is Running</font></b>";
+                    else
+                    {
 
-                    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
 
+                         if($taken_course_query!=FAlSE)
+                         {
+                         
+                            $sum_credit=0;
+                            $this->table->set_template($tmpl);
+                            $this->table->set_heading('Course No','Course Name','Level','Term','Credit Hour', 'Curriculam','Comment');
+                            //var_dump($query_marks);
+                             foreach($taken_course_query->result_array() as $row_taken_course)
+                             {
+                                $this->table->add_row($row_taken_course['CourseNo'],$row_taken_course['CourseName'],$row_taken_course['sLevel'],$row_taken_course['Term'],$row_taken_course['Credit'],$row_taken_course['Curriculam'],$row_taken_course['Status']);
+                                //echo '<br>';
+                                $sum_credit+=$row_taken_course['Credit'];
+                                //$i++;
+                             }
+                             
+                             $this->table->add_row('','Total Credit Hour :','','',$sum_credit,'','');
+                             echo "<b><font color='red'>For This Level/Term : </font></b>";
+                             echo $this->table->generate();
+                             
+                            // $js = 'onClick="some_function()"';
+
+                             
+                         }
+                         else echo "<b><font color='red'>No Taken Course Found</font></b>";
+                    }
+                    ?>
                 </div>
 
                 <div id="tabs-2">
+                    <div class="demo">
+                     <?php 
+                     
+                        //course registration
 
-                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+                     
+                     if($query_offered!='Not Period')
+                     {
+                         if($is_taken_pending==FALSE)
+                         {
+                                $i=1;
+                                $attributes = array('id' => 'regi_form','name' => 'regi_form');
+                                echo form_open('student_home/course_selected',$attributes);
+                                if($query_offered!=FAlSE)
+                                {
 
+                                    $sum_credit=0;
+                                    $this->table->set_template($tmpl);
+                                    $this->table->set_heading('Course No','Course Name','Credit Hour', 'Curriculam','Select','Comment');
+                                    //var_dump($query_marks);
+                                    foreach($query_offered->result_array() as $row_offered_course)
+                                    {
+                                        $this->table->add_row($row_offered_course['CourseNo'],$row_offered_course['CourseName'],$row_offered_course['Credit'],$row_offered_course['Curriculam'],form_checkbox('selected_course'.$i,$row_offered_course['CourseNo']),'');
+                                        //echo '<br>';
+                                        $sum_credit+=$row_offered_course['Credit'];
+                                        $i++;
+                                    }
+
+                                    $this->table->add_row('','Total Credit Hour :',$sum_credit,'','','');
+                                    
+                                    echo "<b><font color='red'>For Level/Term : ".$row_offered_course['sLevel'].' / '.$row_offered_course['Term']."</font></b>";
+                                    echo $this->table->generate();
+
+                                    // $js = 'onClick="some_function()"';
+
+
+                                }
+                                else echo "<b><font color='red'>No Course Offered For Registration</font></b>";
+                                //////////////////////////////////////////////////////////////////////////////
+                                echo '<hr><hr>';
+                                if($query_retake!=FAlSE)
+                                {
+
+                                    $this->table->set_template($tmpl);
+                                    $this->table->set_heading('Course No','Course Name','Level','Term','Credit Hour', 'Curriculam','Select','Comment');
+                                    //var_dump($query_marks);
+                                    foreach($query_retake->result_array() as $row_retake_course)
+                                    {
+                                        $this->table->add_row($row_retake_course['CourseNo'],$row_retake_course['CourseName'],$row_retake_course['sLevel'],$row_retake_course['Term'],$row_retake_course['Credit'],$row_retake_course['Curriculam'],form_checkbox('selected_course'.$i,$row_retake_course['CourseNo']),'');
+                                        $i++;
+                                    }
+
+                                    echo "<p class='flip'><b><font color='red'>For Retake Course (Click) </font></b></p>";
+                                    echo "<div class='panel' style='display:none'>".$this->table->generate().'</div>';
+
+
+
+                                }
+                                else echo "<b><font color='red'>No Course Offered For ReTake</font></b><br>";
+                                //////////////////////////////////////////////////////////////////////////////
+                                echo '<hr><hr>';
+                                if($query_optional!=FAlSE)
+                                {
+
+                                    $this->table->set_template($tmpl);
+                                    $this->table->set_heading('Course No','Course Name','Level','Term','Credit Hour', 'Curriculam','Select','Comment');
+                                    //var_dump($query_marks);
+                                    foreach($query_optional->result_array() as $row_optional_course)
+                                    {
+                                        $this->table->add_row($row_optional_course['CourseNo'],$row_optional_course['CourseName'],$row_optional_course['sLevel'],$row_optional_course['Term'],$row_optional_course['Credit'],$row_optional_course['Curriculam'],form_checkbox('selected_course'.$i,$row_optional_course['CourseNo']),'');
+                                        $i++;
+                                    }
+
+                                    echo "<p class='flip'><b><font color='red'>For Optional Course (Click) </font></b></p>";
+                                    echo "<div class='panel' style='display:none'>".$this->table->generate().'</div>';
+
+
+
+                                }
+                                else echo "<b><font color='red'>No Optional Course Offered</font></b><br>";
+
+                                    echo '<hr><hr>';
+                                    echo form_hidden('count', $i);
+                                    $js = 'onClick="check_selected()"';
+                                    if(($query_optional!=FAlSE)||($query_retake!=FAlSE)||($query_offered!=FAlSE))echo form_button('submit_selected', 'Submit',$js);
+                                    echo form_close();
+                         }
+                         
+                         else
+                         {
+                                    $sum_credit=0;
+                                    $this->table->set_template($tmpl);
+                                    $this->table->set_heading('Course No','Course Name','Level','Term','Credit Hour', 'Curriculam','Comment');
+                                    //var_dump($query_marks);
+                                    foreach($is_taken_pending->result_array() as $row_taken_course_pending)
+                                    {
+                                        $this->table->add_row($row_taken_course_pending['CourseNo'],$row_taken_course_pending['CourseName'],$row_taken_course_pending['sLevel'],$row_taken_course_pending['Term'],$row_taken_course_pending['Credit'],$row_taken_course_pending['Curriculam'],$row_taken_course_pending['Status']);                                        //echo '<br>';
+                                        $sum_credit+=$row_taken_course_pending['Credit'];
+                                        //$i++;
+                                    }
+
+                                    $this->table->add_row('','Total Credit Hour :','','',$sum_credit,'','');
+                                    echo "<b><font color='blue'>".$notification."</font></b><br>";
+                                    echo "<b><font color='red'>Requested Course List</font></b>";
+                                    echo $this->table->generate();  
+                         }
+                         
+                     }
+                     else echo "<b><font color='red'>This is Not Course Registration Period</font></b>";
+                     ?>
+                     
+                    </div>
                 </div>
 
                 <div id="tabs-3">
+                    <div class="demo">
+                     <?php 
+                     
+                                  //course drop
+                     if($query_drop!='Not Period')
+                     {
+                        
+                         $i=1;
+                         $attributes = array('id' => 'regi_form','name' => 'regi_form');
+                         echo form_open('student_home/course_dropped',$attributes);
+                         if($query_drop!=FAlSE)
+                         {
 
-                    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+                            $this->table->set_template($tmpl);
+                            $this->table->set_heading('Course No','Course Name','Credit Hour', 'Curriculam','Select','Comment');
+                            //var_dump($query_marks);
+                             foreach($query_drop->result_array() as $row_query_drop)
+                             {
+                                 if($is_drop_pending==TRUE)$this->table->add_row($row_query_drop['CourseNo'],$row_query_drop['CourseName'],$row_query_drop['Credit'],$row_query_drop['Curriculam'],'',$row_query_drop['Status']);
+                                 else $this->table->add_row($row_query_drop['CourseNo'],$row_query_drop['CourseName'],$row_query_drop['Credit'],$row_query_drop['Curriculam'],form_checkbox('selected_course'.$i,$row_query_drop['CourseNo']),$row_query_drop['Status']);
+                                $i++;
+                             }
+                             
+                             echo "<b><font color='blue'>".$notification."</font></b><br>";
+                             echo "<b><font color='red'>Course For Drop</font></b>";
+                             echo $this->table->generate();
+                             
+                             echo form_hidden('count', $i);
+                             echo '<hr><hr>';
+                             
+                             $js = 'onClick="check_selected()"';
+                             if($is_drop_pending==FALSE)echo form_button('submit_drop','SUBMIT',$js);
+                                 /*<!--<input type="submit" value="SUBMIT" onclick="check_selected(this.form,<?php echo $i;?>)" />*/
+                          
+                             echo form_close();
 
-                    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+                             
+                         }
+                         else echo "<b><font color='red'>No Course For Drop</font></b>";
+                         //////////////////////////////////////////////////////////////////////////////
 
+                         
+                     }
+                     else echo "<b><font color='red'>This is Not Course Drop Period</font></b>";
+                     ?>
+                     
+                    </div>
                 </div>
 
             </div>
         </div>
     </div>
-
-
-    <!-- ####################################################################################################### -->
-    <div class="wrapper row4">
-        <div id="container" class="clear">
-            <!-- ####################################################################################################### -->
-            <div id="homepage" class="clear">
-                <div class="fl_left">
-                    <h2 class="title">Quick Links</h2>
-                    <div id="hpage_quicklinks">
-                        <ul class="clear">
-                            <li><a href="#">Academic departments</a></li>
-                            <li><a href="#">Alumni</a></li>
-                            <li><a href="#">Business &amp; Enterprise</a></li>
-                            <li><a href="#">Departments A-Z</a></li>
-                            <li><a href="#">Events</a></li>
-                            <li><a href="#">Graduate Courses</a></li>
-                            <li><a href="#">International Students</a></li>
-                            <li><a href="#">Job opportunities</a></li>
-                            <li><a href="#">Lifelong Learning</a></li>
-                            <li><a href="#">Maps and Directions</a></li>
-                            <li><a href="#">Online Courses</a></li>
-                            <li><a href="#">Parents</a></li>
-                            <li><a href="#">Postgraduate research</a></li>
-                            <li><a href="#">Postgraduate taught</a></li>
-                            <li><a href="#">Prospective Students</a></li>
-                            <li><a href="#">Research</a></li>
-                            <li><a href="#">Students</a></li>
-                            <li><a href="#">Teaching &amp; Learning</a></li>
-                            <li><a href="#">Undergraduate Courses</a></li>
-                            <li><a href="#">Videos</a></li>
-                            <li><a href="#">Visiting the University</a></li>
-                            <li><a href="#">What's On</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- ############### -->
-                <div class="fl_right">
-                    <h2 class="title">Latest News</h2>
-                    <div id="hpage_latestnews">
-                        <ul>
-                            <li>
-                                <div class="imgl"><img src="<?php echo base_url(); ?>template/images/demo/160x80.gif" alt="" /></div>
-                                <p class="latestnews">This is a W3C compliant free website template from <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a>. This template is distributed using a <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>.</p>
-                                <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-                            </li>
-                            <li>
-                                <div class="imgl"><img src="<?php echo base_url(); ?>template/images/demo/160x80.gif" alt="" /></div>
-                                <p class="latestnews">You can use and modify the template for both personal and commercial use. You must keep all copyright information and credit links in the template and associated files. For more CSS templates visit <a href="http://www.os-templates.com/">Free Website Templates</a>.</p>
-                                <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-                            </li>
-                            <li class="last">
-                                <div class="imgl"><img src="<?php echo base_url(); ?>template/images/demo/160x80.gif" alt="" /></div>
-                                <p class="latestnews">Attincidunt vel nam a maurisus lacinia consectetus magnisl sed ac morbi. Inmaurisus habitur pretium eu et ac vest penatibus id lacus parturpis. Maecenaset adipiscinia tellentum nullam velit et a convallis curabitae vitae laoreet niseros ligula sem sed susp en at.</p>
-                                <p class="readmore"><a href="#">Continue Reading &raquo;</a></p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- ####################################################################################################### -->
-            </div>
-        </div>
-
-        <!-- ####################################################################################################### -->
-        <?php $this->load->view('footer/footer'); ?>

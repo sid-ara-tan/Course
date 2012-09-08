@@ -4,6 +4,8 @@ class Student_home_group extends CI_controller {
 
     private $query_student='';
     private $query_taken_course='';
+    //private $notification_file='';
+    //private $notification='';
     
     function __construct() {
         parent::__construct();
@@ -16,9 +18,12 @@ class Student_home_group extends CI_controller {
         $this->query_taken_course=$this->course->get_courses();
     }
 
-    function group($course='',$notification='') {
+    function group($course='') {
         if($this->uri->segment(3)!=null)$courseno=$this->uri->segment(3);
         else $courseno=$course;
+  
+        /*  
+        $data['notification_file']='';
         
         if($this->uri->segment(4)=='posted')
         {
@@ -32,20 +37,22 @@ class Student_home_group extends CI_controller {
         }
         elseif($this->uri->segment(4)=='uploaded')
         {
-            $data['notification']="File : ".$this->uri->segment(5)." Has Been Uploaded Successfully";
+            $data['notification']="";
+            $data['notification_file']="File : ".$this->uri->segment(5)." Has Been Uploaded Successfully";
             $offset=0;
         }
-    /*    elseif($course!='') 
+       elseif($course!='') 
         {
             $data['notification']=$notification;
             $offset=0;
         }
       */  
-        else 
-        {
-            $data['notification']=$notification;
-            $offset=$this->uri->segment(4,0);
-        }
+        //var_dump($this->notification);
+        //var_dump($this->notification_file);
+        $data['notification']=$this->session->flashdata('notification');
+        $data['notification_file']=$this->session->flashdata('notification_file');
+        $offset=$this->uri->segment(4,0);
+        
         
         $this->load->model('content');
         $this->load->model('message');
@@ -74,13 +81,7 @@ class Student_home_group extends CI_controller {
             //var_dump($data);               
         }
         
-        foreach ($this->query_taken_course->result_array() as $value) {
-            if($courseno==$value['CourseNo'])
-            {
-                $data['coursename']=$value['CourseName'];
-                $data['courseno']=$courseno;
-            }
-        }
+
         //echo $courseno;
         $user_id=$this->session->userdata['ID'];
         $data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
@@ -110,8 +111,17 @@ class Student_home_group extends CI_controller {
             //var_dump($data);               
         }
         
-        
-        $this->load->view('student_group_page', $data);
+        foreach ($this->query_taken_course->result_array() as $value) {
+            if($courseno==$value['CourseNo'])
+            {
+                $data['coursename']=$value['CourseName'];
+                $data['courseno']=$courseno;
+                $this->load->view('student_group_page', $data);
+            }
+            
+
+        }
+
     }
     
     function group_message()
@@ -125,8 +135,8 @@ class Student_home_group extends CI_controller {
 
             $this->message->insert($sub,$msg,$this->input->post('courseno'));
 
-            //echo $this->input->post('courseno');
-            redirect('student_home_group/group/'.$this->input->post('courseno').'/posted');
+            $this->session->set_flashdata('notification',"Message has been posted successfully");
+            redirect('student_home_group/group/'.$this->input->post('courseno'));
         }
         
         if($this->uri->segment(3)=='delete')
@@ -135,7 +145,8 @@ class Student_home_group extends CI_controller {
             $msg_id=$this->uri->segment(4);
             $courseno=$this->uri->segment(5);
             $this->message->delete($msg_id,$courseno);
-            redirect('student_home_group/group/'.$courseno.'/deleted');
+            $this->session->set_flashdata('notification',"Message has been deleted successfully");
+            redirect('student_home_group/group/'.$courseno);
             
         }
     }
@@ -149,21 +160,8 @@ class Student_home_group extends CI_controller {
         $user_id=$this->session->userdata['ID'];
         $data['query_student_name']=$this->db->query("select Name from Student where S_Id='$user_id'");
         
-        if($this->uri->segment(5)=='posted')
-        {
-            $data['notification']="Comment has been posted";
-            $offset=0;
-        }
-        elseif($this->uri->segment(5)=='deleted')
-        {
-            $data['notification']="Comment has been deleted";
-            $offset=0;
-        }
-        else 
-        {
-            $data['notification']="";
-            $offset=$this->uri->segment(5,0);
-        }
+        $data['notification']=$this->session->flashdata('notification');;
+        $offset=$this->uri->segment(5,0);
         
         $data['query_student_info'] = $this->query_student;
         $msg_id=$this->uri->segment(3);
@@ -201,8 +199,9 @@ class Student_home_group extends CI_controller {
 
         $this->comment->insert($body,$this->input->post('courseno'),$this->input->post('msg_no'));
 
-        //echo $this->input->post('courseno');
-        redirect('student_home_group/comment/'.$this->input->post('msg_no').'/'.$this->input->post('courseno').'/posted'); 
+        $this->session->set_flashdata('notification',"Comment has been posted successfully");
+
+        redirect('student_home_group/comment/'.$this->input->post('msg_no').'/'.$this->input->post('courseno')); 
     }
     
     function comment_delete()
@@ -214,7 +213,8 @@ class Student_home_group extends CI_controller {
         $comment_id=$this->uri->segment(5);
 
         $this->comment->delete($comment_id);
-        redirect('student_home_group/comment/'.$msg_id.'/'.$courseno.'/deleted');
+        $this->session->set_flashdata('notification',"Comment has been deleted successfully");
+        redirect('student_home_group/comment/'.$msg_id.'/'.$courseno);
     }
     
     function do_upload()
@@ -231,9 +231,10 @@ class Student_home_group extends CI_controller {
         
         if ( ! $this->upload->do_upload("file_upload"))
         {
-            $file_notification=$this->upload->display_errors();
-            
-            $this->group($courseno, $file_notification);
+            //$this->notification_file=$this->upload->display_errors();
+            //$this->group($courseno);
+            $this->session->set_flashdata('notification_file',$this->upload->display_errors());
+            redirect('student_home_group/group/'.$courseno);
         }
         
         else
@@ -242,7 +243,8 @@ class Student_home_group extends CI_controller {
             //$file_notification='File:'.$file_info['file_name'].' is successfully Uploaded';
             $this->load->model('file');
             $this->file->insert_file($courseno,$topic,$description,$file_info['file_name'],1);
-            redirect('student_home_group/group/'.$courseno.'/uploaded/'.$file_info['file_name']);
+            $this->session->set_flashdata('notification_file',"File : ".$file_info['file_name']. " has been uploaded successfully");
+            redirect('student_home_group/group/'.$courseno);
         }
     }
     
@@ -270,7 +272,9 @@ class Student_home_group extends CI_controller {
         $this->load->model('file');
         $this->file->delete_file($courseno,$filename);
         unlink("uploads/$courseno/$filename");
-        redirect('student_home_group/group/'.$courseno.'/deleted');
+        
+        $this->session->set_flashdata('notification_file',"File : ".$filename. " has been deleted successfully");
+        redirect('student_home_group/group/'.$courseno);
          
         
     }
