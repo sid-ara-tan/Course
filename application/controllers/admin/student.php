@@ -735,5 +735,4 @@
         echo 'Loading assign course info.....';
         echo 'sid';
     }
-
 }
