@@ -50,6 +50,11 @@
             'link'=>  site_url('admin/student/view_student'),
             'class'=>'icn_categories'
         ),
+        'manage_student_group'=>array(
+            'name'=>'Manage student group',
+            'link'=>  site_url('admin/student/manage_group_of_student'),
+            'class'=>'icn_view_users'
+        ),
         'add_student'=>array(
             'name'=>'Creat a student',
             'link'=>  site_url('admin/student/add_a_student'),

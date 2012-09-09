@@ -158,26 +158,29 @@
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
             $('#search_submit').click(function(){
-                 var form_data ={
-                    Dept_id: $('#Dept_id').val(),
-                    S_Id: $('#S_Id').val(),
-                    Name:$('#Name').val(),
-                    sLevel:$('#sLevel').val(),
-                    Term:$('#Term').val(),
-                    Sec:$('#Sec').val(),
-                    Advisor:$('#Advisor').val(),
-                    Curriculam:$('#Curriculam').val()
-            };
+               if ($("#searh_student_form").valid()){
+                       var form_data ={
+                        Dept_id: $('#Dept_id').val(),
+                        S_Id: $('#S_Id').val(),
+                        Name:$('#Name').val(),
+                        sLevel:$('#sLevel').val(),
+                        Term:$('#Term').val(),
+                        Sec:$('#Sec').val(),
+                        Advisor:$('#Advisor').val(),
+                        Curriculam:$('#Curriculam').val()
+                    };
 
-            $.ajax({
-                url:"<?php echo site_url('admin/student/search_result'); ?>",
-                type:'POST',
-                data:form_data,
-                success:function(msg){
-                    $('#search_result_show').html(msg);
-                }
-            });
-            $('#search_div').hide();
+                    $.ajax({
+                        url:"<?php echo site_url('admin/student/search_result'); ?>",
+                        type:'POST',
+                        data:form_data,
+                        success:function(msg){
+                            $('#search_result_show').html(msg);
+                        }
+                    });
+                    $('#search_div').hide();
+               }
+                 
             return false;
         });
     });
@@ -304,7 +307,7 @@
 
         <div id="search_result_show"></div>
         
-        <?php echo br(75);?>
+        <?php echo br(200);?>
 </section>
 
 <?php $this->load->view('admin/template/footer');?>

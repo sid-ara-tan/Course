@@ -114,6 +114,20 @@ background-color: rgb(240,249,232);
 padding: 10px;
 }
 
+
+.full_width_sid_warning {
+display: block;
+
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+border-radius: 5px;
+background-position: 10px 10px;
+border: 1px solid rgb(177,224,135);
+background-color:#ffff99;
+padding: 10px;
+}
+
+
 #tooltip{
     width:auto;
     max-width:300px;
@@ -163,4 +177,20 @@ padding: 10px;
 .shadow{
     -webkit-box-shadow: 0 0 8px #aaaaaa;
     -moz-box-shadow: 0 0 8px #aaaaaa;
+}
+
+
+.ui-autocomplete {
+        max-height: 100px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+}
+/* IE 6 doesn't support max-height
+ * we use height instead, but this forces the menu to always be this tall
+ */
+* html .ui-autocomplete {
+        height: 100px;
 }

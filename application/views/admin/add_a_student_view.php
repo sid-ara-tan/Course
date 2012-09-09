@@ -171,7 +171,7 @@
             <article class="module width_full shadow ">
                 <div  style="text-align:center;font-size: 1.1em;font-family:Verdana,Arial,sans-serif;">
                     <?php if($info=='success'):?>
-                    <div class="full_width_sid_success"><img src="<?php echo base_url();?>/template/admin/images/icn_alert_success.png"/>  student created successfully</div>
+                    <div class="full_width_sid_success"><img src="<?php echo base_url();?>/images/admin/valid.png"/>student created successfully</div>
                     <?php elseif($info=='error'):?>
                     <div class="full_width_sid_error">student creation failed</div>
                     <?php else:?>
@@ -205,8 +205,13 @@
                             </tr>
                             <?php
                                 $options=array();
-                                foreach ($all_departments->result() as $at) {
-                                    $options[$at->Dept_id]=$at->Dept_id.' - '.$at->Name;
+                                if($all_departments){
+                                    foreach ($all_departments->result() as $at) {
+                                        $options[$at->Dept_id]=$at->Dept_id.' - '.$at->Name;
+                                    }
+                                }
+                                else{
+                                    $options=array(''=>'No Department currently avilable');
                                 }
                             ?>
                             <tr>

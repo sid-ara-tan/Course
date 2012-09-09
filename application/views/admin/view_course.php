@@ -4,28 +4,109 @@
 ?>
 
 <?php include 'template/scr_sty_tab_data.php'; ?>
+<style type="text/css" media="screen">
+.search_note{
+    font-family:Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    display: table-cell;
+}
+.group_button{
+        cursor:pointer;
+	width:150px;
+	height: 30px;
+	color: white;
+	background:#4d90fe;
+	border: 1px solid #3079ED;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+}
+
+.group_button:hover {
+	background:#357AE8;
+	border: 1px solid #2F5BB7;
+}
+#search_tool_show{
+    border: 1px ridge white;background:#666666;height:20px;text-align: center;color: white;padding:5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius:5px;
+    cursor: pointer;
+}
+</style>
 
 <script type="text/javascript" charset="utf-8">
             $(document).ready(function(){
                 $(function(){
-                    $('select#select_dept').selectmenu({
-                                style:'popup',
-                                width: '50%',
-                                format: addressFormatting,
-                                select: function(event, options) {
-                                    $.ajax({
-						data: "Dept_id=" + options.value,
-						type: "POST",
-						url: "<?php echo site_url('admin/course/view_all_course_by_dept_id');?>",
-						success: function(value) {
-                                                        //alert(value);
-							$("#custom_table").html(value);
-						}
-                                    });
-                                }
-                    });
+                        $('select#sel_Dept_id').selectmenu({
+                                width:300,
+                                menuWidth: 300,
+                                format: addressFormatting
+                        });
+
+                        $('select#sel_Curriculam').selectmenu({
+                                    //style:'popup',
+                                    width:300,
+                                    menuWidth: 300,
+                                    format: addressFormatting
+                        });
+
+
+
+                        $('select#sel_sLevel').selectmenu({
+                                    //style:'popup',
+                                    width:300,
+                                    menuWidth: 300,
+                                    format: addressFormatting
+                        });
+
+
+                        $('select#sel_Term').selectmenu({
+                                    //style:'popup',
+                                    width:300,
+                                    menuWidth: 300,
+                                    format: addressFormatting
+                        });
+
+                        $('select#sel_Type').selectmenu({
+                                    //style:'popup',
+                                    width:300,
+                                    menuWidth: 300,
+                                    format: addressFormatting
+                        });
+
+                         $("#view_course_form").validate({
+                            rules:  {
+                               sel_Dept_id:{
+                                   required:true
+                               }
+                            },
+                            messages:{}
+                        });
+
+                        $('#sel_course_submit').click(function(){
+                            if($('#view_course_form').valid()){
+                                 var form_data ={
+                                    sel_Dept_id: $('#sel_Dept_id').val(),
+                                    sel_sLevel:$('#sel_sLevel').val(),
+                                    sel_Term:$('#sel_Term').val(),
+                                    sel_Curriculam:$('#sel_Curriculam').val(),
+                                    sel_Type:$('#sel_Type').val()
+                                };
+
+                                $.ajax({
+                                    url:"<?php echo site_url('admin/course/view_all_course_by_dept_id'); ?>",
+                                    type:'POST',
+                                    data:form_data,
+                                    success:function(msg){
+                                        $('#custom_table').html(msg);
+                                    }
+                                });
+
+                            }
+                            return false;
+                       });
+
                 });
-            });
+});
 </script>
 
 </head>
@@ -56,37 +137,80 @@
                             <div >
                                     <?php if($all_departments):?>
                                     <h2>Customize course information.</h2>
-                                    <fieldset class="shadow">
-                                            <label for="select_dept">Select any Department:</label>
-                                            <select name="select_dept" id="select_dept">
-                                                <option value="NONE" selected="selected">Please select.. - Please select a department to show it's course</option>
-                                                <option value="ALL" >All Courses.. - Show all courses that has been already created.</option>
-                                                <?php foreach ($all_departments->result() as $single_department):?>
-                                                <option value="<?php echo $single_department->Dept_id;?>">
-                                                <?php
-                                                                echo $single_department->Dept_id;
-                                                                echo ' - ';
-                                                                echo $single_department->Name;
+                                         <div id="search_group_bar">
+                                                <?php echo form_open('','id="view_course_form"');?>
 
-                                                                echo ' | ';
-                                                                $single_techer_info=$this->teacher_model->get_teacher_by_id($single_department->Head_of_dept_id);
+                                                    <table cellpadding="0" cellspacing="20" border="0"  class="ui-widget" align="center" id="create_table">
+                                                    <?php
+                                                        $options=array(''=>'Must Select...');
+                                                        foreach ($all_departments->result() as $at) {
+                                                            $options[$at->Dept_id]=$at->Dept_id.' - '.$at->Name;
+                                                        }
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo form_label('Select Department','sel_Dept_id');?></td>
+                                                        <td><?php echo form_dropdown('sel_Dept_id',$options, set_select('sel_Dept_id'),'id="sel_Dept_id"');?></td>
+                                                        <td class="search_note">Select a department</td>
+                                                    </tr>
 
-                                                                if($single_techer_info){
-                                                                    $a_teacher=$single_techer_info->row();
-                                                                    echo $single_department->Head_of_dept_id;
-                                                                    echo '-';
-                                                                    echo $a_teacher->Name;
-                                                                    echo '-';
-                                                                    echo $a_teacher->Designation;
-                                                                }
-                                                                else{
-                                                                    echo $single_department->Head_of_dept_id.' - Currently Unavailable... ';
-                                                                }
-                                                        ?>
-                                                </option>
-                                                <?php endforeach;?>
-                                            </select>
-                                    </fieldset>
+                                                     <?php
+                                                        $options=array(''=>'Please Select',
+                                                            '1'=>'1',
+                                                            '2'=>'2',
+                                                            '3'=>'3',
+                                                            '4'=>'4',
+                                                            '5'=>'5'
+                                                        );
+                                                    ?>
+
+                                                    <tr>
+                                                        <td><?php echo form_label('Level','sel_sLevel');?></td>
+                                                        <td><?php echo form_dropdown('sel_sLevel',$options,set_select('sel_sLevel'),'id="sel_sLevel"');?></td>
+                                                        <td class="search_note">Default will not asign any at any level</td>
+                                                    </tr>
+                                                    <?php
+                                                    $options=array(''=>'Please Select',
+                                                            '1'=>'1',
+                                                            '2'=>'2',
+                                                            '3'=>'3',
+                                                            '4'=>'4'
+                                                        );
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo form_label('Term','sel_Term');?></td>
+                                                        <td><?php echo form_dropdown('sel_Term',$options,set_value('sel_Term'),'id="sel_Term"');?></td>
+                                                        <td class="search_note">Default will not not asign any term</td>
+                                                    </tr>
+                                   
+                                                    <?php
+                                                         $options=array(''=>'Please select...');
+                                                         for ($i = 2000; $i < 2021; $i++) {
+                                                            $options[$i]=$i;
+                                                         }
+                                                    ?>
+                                                    <tr>
+                                                        <td><?php echo form_label('Select Curriculam','sel_Curriculam');?></td>
+                                                        <td><?php echo form_dropdown('sel_Curriculam',$options,set_select('sel_Curriculam'),'id="sel_Curriculam"');?></td>
+                                                        <td class="search_note">ex 2005 those who studying under same curriculum</td>
+                                                    </tr>
+                                                    <?php $options=array(
+                                                        ''=>'Please select',
+                                                        'TT'=>'Theory',
+                                                        'S'=>'Sessional'
+                                                    );?>
+                                                    <tr>
+                                                        <td><?php echo form_label('Select Type','sel_Type');?></td>
+                                                        <td><?php echo form_dropdown('sel_Type',$options,set_select('sel_Type'),'id="sel_Type"');?></td>
+                                                        <td class="search_note">Select course type</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td><?php echo form_submit('sel_course_submit','Search','id="sel_course_submit"');?></td>
+                                                    </tr>
+                                                </table>
+                                                <?php echo form_close();?>
+                                            </div>
                                     <?php else:?>
                                     <p>No department currently available add a department first.</p>
                                     <?php endif;?>
@@ -114,10 +238,7 @@
                         </div>
                         <div id="course_info_tabs_2">
                             the quick brown fox jumps over the lazy dog;
-                            
                         </div>
-
-
                     </div>
 		</article><!-- end of stats article -->
                 <?php echo br(75);?>
