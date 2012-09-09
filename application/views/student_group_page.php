@@ -1,8 +1,18 @@
 <?php
 $data['title'] = "Student Group Page";
-$this->load->view('header/index_header', $data);
+$this->load->view('header/style_demo_header',$data);
 ?>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
+        <script>
+	$(function() {
 
+		$( "input:submit, button,input:button", ".demo" ).button();
+
+		//$( "a", ".demo" ).click(function() { return false; });
+
+	});
+
+	</script>
 <?php
 $row_std = $query_student_info->row();
 ?>
@@ -57,8 +67,10 @@ $row_std = $query_student_info->row();
     <!-- ####################################################################################################### -->
 
 
-    <div class="wrapper row3">
-        <div id="featured_slide">
+<div class="wrapper row4">
+  <div id="container" class="clear">
+    <!-- ####################################################################################################### -->
+    
             <p><b><?php echo $coursename; ?> Group</b></p>
             <div id="tabs">
 
@@ -151,9 +163,10 @@ $row_std = $query_student_info->row();
                         foreach($record_content as $row_record){
                         ?>
                         <h3><?php echo anchor('student_home_group/download_file/'.$courseno.'/'.$row_record->File_Path, $row_record->Topic); ?></h3>
+                        <?php echo '<p>'.$row_record->Description.'</p>';?>
                         <?php echo "<br />uploaded by <font color='red'>".$row_record->Uploader.'</font>' ?>
-                        <?php echo $row_record->Upload_Time; ?>
-                        <?php echo $row_record->Description.'<hr>';
+                        <?php echo $row_record->Upload_Time.'<hr>'; 
+                        
 
                         }
                     }
@@ -175,11 +188,11 @@ $row_std = $query_student_info->row();
                         'row_alt_start'       => '<tr class="dark">',
                         'row_alt_end'         => '</tr>');
                     $this->table->set_template($tmpl);
-                    $this->table->set_heading('Exam Type','Section','Exam Date', 'Exam Time','Duration','Location','Topic','Marks');
+                    $this->table->set_heading('Exam Type','Exam Date', 'Exam Time','Duration','Location','Topic','Marks','Out Of');
                     //var_dump($query_marks);
                     if($query_marks!=FALSE){
                                 foreach($query_marks->result_array() as $row){
-                                    $this->table->add_row($row['exam_type'],$row['Sec'],$row['eDate'],$row['eTime'],$row['Duration'],$row['Location'],$row['Topic'],$row['marks']);
+                                    $this->table->add_row($row['eType'],$row['eDate'],$row['eTime'],$row['Duration'],$row['Location'],$row['Topic'],$row['Marks'],$row['Total']);
                                 }
                             echo $this->table->generate();
                             }
@@ -252,4 +265,4 @@ $row_std = $query_student_info->row();
                    
 
         <!-- ####################################################################################################### -->
-        <?php //$this->load->view('footer/footer'); ?>
+        <?php $this->load->view('footer/footer'); ?>

@@ -65,7 +65,7 @@ class Student_home extends CI_controller {
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
-        $isRegiPeriod=true;
+        $isRegiPeriod=false;
         $isDropPeriod=false;
         
         if($isRegiPeriod)

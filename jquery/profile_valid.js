@@ -78,22 +78,22 @@ function std_profile_submit(frm)
     if((frm.user_email.value=="")&&(frm.Fname.value=="")&&(frm.password1.value==""))alert("Enter Father's Name,Email Address,Password First ");
     else if(frm.user_email.value=="")
         {
-            alert("Enter EMAIL Address");
+            document.getElementById('email_error').innerHTML="<font color='red'>Enter Email Address</font>";
             frm.user_email.focus();
         }
     else if(frm.Fname.value=="")
         {
-            alert("Enter Father's Name");
+            document.getElementById('fname_error').innerHTML="<font color='red'>Enter Fathers Name</font>";
             frm.Fname.focus();
         }
     else if(frm.password1.value=="")
         {
-            alert("Enter PASSWORD");
+            document.getElementById('pass1').innerHTML="<font color='red'>Enter Password</font>";
             frm.password1.focus();
         }
     else if(frm.password2.value=="")
         {
-            alert("Re Type PASSWORD");
+            document.getElementById('pass2').innerHTML="<font color='red'>Retype Password</font>";
             frm.password2.focus();
         }
 

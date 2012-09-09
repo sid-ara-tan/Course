@@ -107,7 +107,8 @@ $row_std = $query_student_info->row();
                     <div>
                         Father's Name:
                         <br>
-                        <input type="text" name="Fname" size="50" maxlength="50" value="<?php echo $row_std->father_name; ?>" />
+                        <input type="text" name="Fname" id="fname" size="50" maxlength="50" value="<?php echo $row_std->father_name; ?>" />
+                        <p id="fname_error"></p>
                     </div>
                     <br>
                     <div>
