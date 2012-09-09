@@ -732,7 +732,38 @@
     }
 
     function get_assign_course_group(){
-        echo 'Loading assign course info.....';
-        echo 'siddhartha shankar das';
+        
+        $complete=$this->ajax_get_data_group();
+
+        if($complete['error']==TRUE){
+            echo $complete['error_msg'];
+        }
+        else{
+            $config=$complete['config'];
+            $data=$complete['data'];
+            
+            $sLevel=$data['sLevel'];
+            $Term=$data['Term'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $all_course=$this->course_model->get_course_by_level_term($sLevel,$Term);
+            
+            
+            $view_data['all_course']=$all_course;
+            $html_val=$this->load->view('admin/check_taken_courses_view',$view_data,TRUE);
+
+            echo $html_val;
+        }
+
+    }
+
+    function get_taken_course_list(){
+        
+        $check_data=$this->input->post('check_data');
+
+        print_r($check_data);
     }
 }

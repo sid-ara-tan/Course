@@ -1,37 +1,33 @@
 <script type="text/javascript" charset="utf-8">
- $(function(){
-        $("#formAddNewRow").validate({
-            rules:  {
-                CourseNo:    {
-                                required: true,
-                                maxlength: 9,
-                                remote: {
-                                            url:"<?php echo site_url('admin/course/form_is_unique_course_no');?>",
-                                            type:"post"
-                                        }
-                            },
-                CourseName:  {
-                                required: true,
-                                maxlength: 49
-                            }
-
-            },
-            messages:{
-                CourseNo:    {
-                                remote:"Error this ID already exists",
-                                maxlength: "Enter at most 9 characters"
-                            },
-
-                CourseName: {
-                                maxlength: "Enter at most 49 characters"
-                            }
-            }
-        });
-  });
-</script>
-
-<script type="text/javascript" charset="utf-8">
        $(document).ready(function() {
+            $("#formAddNewRow").validate({
+                    rules:  {
+                        CourseNo:    {
+                                        required: true,
+                                        maxlength: 9,
+                                        remote: {
+                                                    url:"<?php echo site_url('admin/course/form_is_unique_course_no');?>",
+                                                    type:"post"
+                                                }
+                                    },
+                        CourseName:  {
+                                        required: true,
+                                        maxlength: 49
+                                    }
+
+                    },
+                    messages:{
+                        CourseNo:    {
+                                        remote:"Error this ID already exists",
+                                        maxlength: "Enter at most 9 characters"
+                                    },
+
+                        CourseName: {
+                                        maxlength: "Enter at most 49 characters"
+                                    }
+                    }
+                });
+
             $('#id_datatable').dataTable({
 		"aaSorting": [[ 0, "asc" ]],
 		"bJQueryUI": true,

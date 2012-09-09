@@ -51,20 +51,33 @@
 
 
     function view_all_course_by_dept_id($param="ALL") {
-        $Dept_id=$this->input->post('Dept_id');
-        if($Dept_id){
-            $param=$Dept_id;
+
+        $Dept_id=$this->input->post('sel_Dept_id');
+        $sLevel=$this->input->post('sel_sLevel');
+        $Term=$this->input->post('sel_Term');
+        $Curriculam=$this->input->post('sel_Curriculam');
+        $Type=  $this->input->post('sel_Type');
+
+        $config=array();
+        if($Dept_id)
+        {
+            $config['Dept_id']=$Dept_id;
+        }
+        if($sLevel){
+            $config['sLevel']=$sLevel;
+        }
+        if($Term){
+            $config['Term']=$Term;
+        }
+        if($Curriculam){
+            $config['Curriculam']=$Curriculam;
+        }
+        if($Type){
+            $config['Type']=$Type;
         }
 
         $data['all_departments']= $this->department_model->get_all_department();
-
-        if($Dept_id=='ALL'){
-            $data['all_course']= $this->course_model->get_all_course();
-        }
-        else{
-            $data['all_course']= $this->course_model->get_course_by_dept($param);
-        }
-        
+        $data['all_course']= $this->course_model->get_course_by_query($config);
         $msg=$this->load->view('admin/single_course_view',$data,TRUE);
         
         echo $msg;

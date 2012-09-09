@@ -249,10 +249,17 @@
 
          $("#assign_course_group").click(function() {
             if ($("#group_student_form").valid()){
-                var form_data ={
+
+               var form_data ={
                     Dept_id: $('#Dept_id').val(),
                     sLevel:$('#sLevel').val(),
-                    Term:$('#Term').val()
+                    Term:$('#Term').val(),
+                    Sec:$('#Sec').val(),
+                    Advisor:$('#Advisor').val(),
+                    Curriculam:$('#Curriculam').val(),
+                    std_code:$('#std_code').val(),
+                    start_code:$('#start_code').val(),
+                    end_code:$('#end_code').val()
                 };
 
                 $.ajax({
@@ -412,9 +419,9 @@
     </div>
 </article>
 
-<div id="group_update_result"></div>
 <div id="group_show_result"></div>
-
+<div id="group_update_result"></div>
+<div id="group_course_show_result"></div>
 <?php echo br(200);?>
 </section>
 <?php $this->load->view('admin/template/footer');?>
