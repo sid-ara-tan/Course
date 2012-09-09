@@ -92,12 +92,13 @@
                           <h2>Upload Content</h2>
                           <div id="respond">
                                 <?php
-                                echo $message."<br />";
-                                echo validation_errors();
+                                echo '<font color="red">'.$message."</font><br />";
+                                //echo validation_errors();
                                 echo form_open_multipart('teacher_home/upload_file/'.$courseno);
                                 ?>
                                  <input type="text" name="Topic" maxlength="30" size="40" style="width:20%" />
-                                 <label for="Topic"><small>Topic (required)</small></label>
+                                 <label for="Topic"><small>Topic (required)</small></label><br />
+                                 <?php echo form_error('Topic','<font color="red">','</font>');?>
                                 <textarea name="Description" rows="10" cols="60"></textarea>
                                 <label for="Description"><small>Description</small></label><br/>
                                 <?php
@@ -148,8 +149,8 @@
 
                         echo form_open_multipart('teacher_home/schedule_exam/'.$courseno);
 
-                                echo $message."<br />";
-                                echo validation_errors();
+                                echo '<font color="red">'.$message."</font><br />";
+                                //echo validation_errors();
                         $query=$this->db->query("
                             SELECT Sec
                             FROM AssignedCourse
@@ -163,6 +164,7 @@
 
                         }
                         echo form_dropdown('Sec', $options);
+                        
                      ?>
                     <label for="Sec"><small>Section</small></label><br/>
                     <?php
@@ -180,15 +182,15 @@
                         }
                         echo form_dropdown('Type', $options);
                     ?>
-                    <label for="Type"><small>Type</small></label><br/>
-                    <input type="text" name="Title" maxlength="30" size="50" style="width:40%" />
+                    <label for="Type"><small>Type</small></label><br/>                    
+                    <input type="text" name="Title" maxlength="30" size="50" style="width:40%" />                    
                     <label for="Title"><small>Title</small></label><br/>
+                    <?php echo form_error('Title','<font color="red">', '</font><br />');?>
                     <textarea name="Syllabus" rows="10" cols="60"></textarea>
-                    <label for="Syllabus"><small>Syllabus</small></label><br/>
+                    <label for="Syllabus"><small>Syllabus</small></label><br/>                    
                     <input type="text" name="Date" id="datepicker">
                     <label for="Date"><small>Date</small></label><br/>
-
-
+                    <?php echo form_error('Date','<font color="red">', '</font><br />');?>
                     <?php
                     $options=array();
                     for($i=1;$i<=12;$i++){
@@ -210,12 +212,15 @@
                     echo form_dropdown('meridian', $options);
 
                     ?>
-                    <label for="Time"><small>Time</small></label><br/>
+                    <label for="Time"><small>Time</small></label><br/>                    
                     <input type="text" name="Duration" maxlength="30" />
                     <label for="Duration"><small>Duration(minute)</small></label><br/>
+                    <?php echo form_error('Duration','<font color="red">', '</font><br />');?>
                     <input type="text" name="Location" maxlength="30" />
                     <label for="Location"><small>Location</small></label><br/>
+                    <?php echo form_error('Location','<font color="red">', '</font><br />');?>
                     <input type="submit" value="Sumbit" />
+                    
                     <?php
                     echo form_close();
                     ?>

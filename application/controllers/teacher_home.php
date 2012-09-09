@@ -91,6 +91,7 @@ class Teacher_home extends CI_controller{
         $this->form_validation->set_rules('Location','Location','required|max_length[15]');
         if($this->form_validation->run()== FALSE){
             $this->class_content($courseno,'Exam Scheduling Failed');
+           
         }
         else{
             $this->load->model('Exam');

@@ -24,7 +24,7 @@
     <input type="hidden" name="CourseNo" id="CourseNo" value="<?php echo $courseno?>" />
     <input type="hidden" name="Sec" id="Sec" value="<?php echo $sec?>" />
     <div id="marks_list">
-<input type="text" name="total"
+    <input type="text" name="total"
        value="<?php if($total_marks!=FALSE)echo $total_marks;?>" />
     <label for="total"><small>Total Marks</small></label><br/><br />
 
@@ -65,5 +65,10 @@
     ?>
     </div>
     <?php endif;?>
+    <?php
+    echo '<br /><h1>';
+    echo anchor('teacher_home/class_content/'.$courseno, 'Back');
+    echo '</h1>';
+    ?>
 
 </div>
