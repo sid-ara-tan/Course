@@ -207,32 +207,17 @@
     <!-- ####################################################################################################### -->
     <div id="homepage" class="clear">
       <div class="fl_left">
-        <h2 class="title">Quick Links</h2>
+        <h2 class="title">Exam Calender</h2>
         <div id="hpage_quicklinks">
-          <ul class="clear">
-            <li><a href="#">Academic departments</a></li>
-            <li><a href="#">Alumni</a></li>
-            <li><a href="#">Business &amp; Enterprise</a></li>
-            <li><a href="#">Departments A-Z</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">Graduate Courses</a></li>
-            <li><a href="#">International Students</a></li>
-            <li><a href="#">Job opportunities</a></li>
-            <li><a href="#">Lifelong Learning</a></li>
-            <li><a href="#">Maps and Directions</a></li>
-            <li><a href="#">Online Courses</a></li>
-            <li><a href="#">Parents</a></li>
-            <li><a href="#">Postgraduate research</a></li>
-            <li><a href="#">Postgraduate taught</a></li>
-            <li><a href="#">Prospective Students</a></li>
-            <li><a href="#">Research</a></li>
-            <li><a href="#">Students</a></li>
-            <li><a href="#">Teaching &amp; Learning</a></li>
-            <li><a href="#">Undergraduate Courses</a></li>
-            <li><a href="#">Videos</a></li>
-            <li><a href="#">Visiting the University</a></li>
-            <li><a href="#">What's On</a></li>
-          </ul>
+            <?php
+              $data = array(
+               3  => 'http://example.com/news/article/2006/03/',
+               7  => 'http://example.com/news/article/2006/07/',
+               13 => 'http://example.com/news/article/2006/13/',
+               26 => 'http://example.com/news/article/2006/26/'
+             );  
+            echo $this->calendar->generate($this->uri->segment(5), $this->uri->segment(6),$data); ?>
+        
         </div>
       </div>
       <!-- ############### -->

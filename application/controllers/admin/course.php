@@ -9,7 +9,7 @@
     }
 
     public function index($param=NULL){
-        
+
     }
 
     public function view_course() {
@@ -43,7 +43,7 @@
            $options['Credit']=$row->Credit;
            $row_set[]=$options;
         }
-        
+
         echo '{ "aaData":';
         echo json_encode($row_set);
         echo '}';
@@ -79,7 +79,7 @@
         $data['all_departments']= $this->department_model->get_all_department();
         $data['all_course']= $this->course_model->get_course_by_query($config);
         $msg=$this->load->view('admin/single_course_view',$data,TRUE);
-        
+
         echo $msg;
     }
 
@@ -141,7 +141,7 @@
     public function load_department_info(){
         $query= $this->department_model->get_all_department();
         $options=array();
-        
+
         foreach ($query->result() as $row) {
             $options[$row->Dept_id]=$row->Dept_id.'-'.$row->Name;
         }
@@ -193,4 +193,134 @@
         }
 
     }
+
+    function assign_teacher_for_these_course(){
+         $data=array(
+            'msg'=>'View course for assign teacher',
+            'info'=>'',
+            'title'=>'View Course'
+        );
+
+        $data['all_departments']= $this->department_model->get_all_department();
+        $data['all_teacher']= $this->teacher_model->get_all_teacher();
+        $data['all_courses']=  $this->course_model->get_all_course();
+        $this->load->view('admin/view_course_for_assign_teacher',$data);
+    }
+
+    function select_individual_course_for_teacher(){
+        $Dept_id=$this->input->post('sel_Dept_id');
+        $sLevel=$this->input->post('sel_sLevel');
+        $Term=$this->input->post('sel_Term');
+        $Curriculam=$this->input->post('sel_Curriculam');
+        $Type=  $this->input->post('sel_Type');
+
+        $config=array();
+        if($Dept_id)
+        {
+            $config['Dept_id']=$Dept_id;
+        }
+        if($sLevel){
+            $config['sLevel']=$sLevel;
+        }
+        if($Term){
+            $config['Term']=$Term;
+        }
+        if($Curriculam){
+            $config['Curriculam']=$Curriculam;
+        }
+        if($Type){
+            $config['Type']=$Type;
+        }
+
+        $data['all_departments']= $this->department_model->get_all_department();
+        $data['all_course']= $this->course_model->get_course_by_query($config);
+        $msg=$this->load->view('admin/single_course_view_for_assign_teacher',$data,TRUE);
+
+        echo $msg;
+    }
+
+    function assign_teacher_for_this_course(){
+        $CourseNo=$this->input->get('CourseNo');
+        $Dept_id=$this->input->get('Dept_id');
+
+        $data=array(
+            'msg'=>'Assign Course to teacher',
+            'info'=>'',
+            'title'=>'Assign Course'
+        );
+
+        $data['assign_course_info']= $this->course_model->get_course_by_courseno($CourseNo);
+        $data['department_info']=  $this->department_model->get_department_info($Dept_id);
+        $data['all_teachers']=  $this->teacher_model->get_teacher_by_dept_id($Dept_id);
+        $data['currently_assigned_teacher']=  $this->course_model->get_current_assigned_teacher($CourseNo);
+
+        $this->load->view('admin/assign_course_view',$data);
+        
+    }
+
+    function assign_course_to_teacher(){
+        $config=array(
+          'CourseNo'=>  $this->input->post('CourseNo'),
+            'T_Id'=>  $this->input->post('T_Id'),
+            'Sec'=>  $this->input->post('Sec')
+        );
+        $output='';
+        $success=FALSE;
+        $check=$this->course_model->is_this_course_already_assigned($config);
+        if($check){
+            $output.= '<div class="sid_error">';
+            $output.= 'This Course is already assigned';
+            $output.= '</div>';
+        }
+        else{
+
+            $insert=$this->course_model->assigned_course($config);
+            if($insert){
+                $output.= '<div class="sid_success">';
+                $output.= 'Successfully assigned';
+                $output.= '</div>';
+                $success=TRUE;
+            }
+            else{
+                 $output.= '<div class="sid_error">';
+                 $output.= 'Database Insertion failed';
+                 $output.= '</div>';
+            }
+            
+        }
+
+        $ajax_output=array(
+            'output'=>$output,
+            'success'=>$success
+            );
+
+        echo json_encode($ajax_output);
+    }
+
+    function delete_assign_course(){
+        $config=array(
+          'CourseNo'=>  $this->input->get('CourseNo'),
+            'T_Id'=>  $this->input->get('T_Id'),
+            'Sec'=>  $this->input->get('Sec')
+        );
+
+        $output='';        
+        
+        $delete=$this->course_model->delete_assign_course($config);
+
+        if($delete){
+            $output.= '<div class="sid_success">';
+            $output.= 'Successfully Deleted';
+            $output.= '</div>';
+        }
+        else{
+            $output.= '<div class="sid_error">';
+            $output.= 'Deletion failed';
+            $output.= '</div>';
+        }
+        
+        
+        echo $output;
+    }
+
 }

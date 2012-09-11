@@ -22,33 +22,6 @@ class Student_home_group extends CI_controller {
         if($this->uri->segment(3)!=null)$courseno=$this->uri->segment(3);
         else $courseno=$course;
   
-        /*  
-        $data['notification_file']='';
-        
-        if($this->uri->segment(4)=='posted')
-        {
-            $data['notification']="Message has been posted";
-            $offset=0;
-        }
-        elseif($this->uri->segment(4)=='deleted')
-        {
-            $data['notification']="Has been deleted Successfully";
-            $offset=0;
-        }
-        elseif($this->uri->segment(4)=='uploaded')
-        {
-            $data['notification']="";
-            $data['notification_file']="File : ".$this->uri->segment(5)." Has Been Uploaded Successfully";
-            $offset=0;
-        }
-       elseif($course!='') 
-        {
-            $data['notification']=$notification;
-            $offset=0;
-        }
-      */  
-        //var_dump($this->notification);
-        //var_dump($this->notification_file);
         $data['notification']=$this->session->flashdata('notification');
         $data['notification_file']=$this->session->flashdata('notification_file');
         $offset=$this->uri->segment(4,0);
@@ -277,6 +250,35 @@ class Student_home_group extends CI_controller {
         redirect('student_home_group/group/'.$courseno);
          
         
+    }
+    
+    function load_file()
+    {
+        $this->load->model('file');
+        $this->load->model('comment');
+        
+        $user_id=$this->session->userdata['ID'];
+        $data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
+        
+        $courseno=$this->input->post('courseno');
+        $data['courseno']=$courseno;
+        
+        $record_file=$this->file->get_file($courseno,100,0);
+        $data['record_file']=$record_file;
+        
+        if($data['record_file']!=FALSE)
+        {
+            foreach ($data['record_file'] as $row)
+            {
+            $fileid=$row->file_id;
+            $data['commentoffile'.$fileid]=$this->comment->comment_number($courseno,$fileid);
+            }
+            //var_dump($data);               
+        }
+        
+        $msg=$this->load->view('student_group_page_file', $data,TRUE);
+        
+        echo $msg;
     }
 
 }

@@ -23,11 +23,11 @@ $row_std = $query_student_info->row();
     <div class="wrapper row2">
         <div id="topnav">
             <ul>
-                <li class="active"><a href="<?php echo base_url(); ?>index.php/student_home">Home</a></li>
-                <li><a href=""><?php echo $row_std->Name; ?></a>
+                <li><a href="<?php echo base_url(); ?>index.php/student_home">Home</a></li>
+                <li class="active"><a href=""><?php echo $row_std->Name; ?></a>
                     <ul>
                         <?php
-                        echo "<li>";
+                        echo '<li>';
                         echo anchor("student_home/profile", "Edit Profile") . "</li>";
                         ?>
                     </ul>
@@ -107,7 +107,8 @@ $row_std = $query_student_info->row();
                     <div>
                         Father's Name:
                         <br>
-                        <input type="text" name="Fname" size="50" maxlength="50" value="<?php echo $row_std->father_name; ?>" />
+                        <input type="text" name="Fname" id="fname" size="50" maxlength="50" value="<?php echo $row_std->father_name; ?>" />
+                        <p id="fname_error"></p>
                     </div>
                     <br>
                     <div>

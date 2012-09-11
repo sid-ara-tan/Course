@@ -25,31 +25,74 @@
 
             $('#take_this_course').click(function(){
                 var check_data=new Array();
-
                 $('#id_taken_course_table tr').filter(':has(:checkbox:checked)').each(function() {
                     check_data.push(this.id);
                 });
-
-                
-
-                var ajax_data ={
-                    'check_data':check_data
-                };
+                var ajax_data ={'check_data':check_data};
 
                 $.ajax({
-                    url:"<?php echo site_url('admin/student/get_taken_course_list'); ?>",
-                    type:'POST',
-                    data:ajax_data,
-                    success:function(msg){
-                        $('#group_update_result').html(msg);
-                    }
+                        url:"<?php echo site_url('admin/student/taken_course_confirmation_dialog'); ?>",
+                        type:'POST',
+                        data:ajax_data,
+                        success:function(msg){
+                            $('#dialog_confirm_course_list').html(msg);
+                        }
                 });
+
+                $( "#dialog:ui-dialog" ).dialog( "destroy" );
+		$( "#dialog-confirm" ).dialog({
+			resizable: false,
+			height:"auto",
+                        width:"auto",
+			modal: true,
+                        show: "blind",
+                        hide: "explode",
+			buttons: {
+				"Assign These Course": function() {
+					$( this ).dialog( "close" );
+                                        
+                                          var form_data ={
+                                                Dept_id: $('#Dept_id').val(),
+                                                sLevel:$('#sLevel').val(),
+                                                Term:$('#Term').val(),
+                                                Sec:$('#Sec').val(),
+                                                Advisor:$('#Advisor').val(),
+                                                Curriculam:$('#Curriculam').val(),
+                                                std_code:$('#std_code').val(),
+                                                start_code:$('#start_code').val(),
+                                                end_code:$('#end_code').val(),
+                                                check_data:check_data
+                                            };
+
+                                        $.ajax({
+                                            url:"<?php echo site_url('admin/student/get_taken_course_list'); ?>",
+                                            type:'POST',
+                                            data:form_data,
+                                            success:function(msg){
+                                                $('#group_update_result').html(msg);
+                                            }
+                                        });
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+
+                
             });
             
        });
 </script>
 
 <article class="module width_full shadow " id="page_tabs">
+    <div id="dialog-confirm" title="Assign the following Course" style="display:none;">
+        <div id="dialog_confirm_course_list">
+
+        </div>
+	<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>These items will be  Assigned.Are you sure?</p>
+    </div>
+
     <div>
             <div>
                  <table id="id_taken_course_table" cellpadding="0" cellspacing="0" border="0" class="display">

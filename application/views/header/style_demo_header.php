@@ -27,6 +27,7 @@
 				// store cookie for a day, without, it would be a session cookie
 				expires: 1
 			}
+                    
 		});
 	});
     </script>

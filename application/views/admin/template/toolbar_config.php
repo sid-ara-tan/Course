@@ -34,6 +34,12 @@
             'link'=>  site_url('admin/course/view_course'),
             'class'=>'icn_categories'
         ),
+
+        'assign_teacher_course'=>array(
+            'name'=>'Assign teacher for Course',
+            'link'=>  site_url('admin/course/assign_teacher_for_these_course'),
+            'class'=>'icn_settings'
+        ),
     );
 
     $teacher=array(
