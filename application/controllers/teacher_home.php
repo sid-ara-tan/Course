@@ -61,7 +61,7 @@ class Teacher_home extends CI_controller{
         $this->load->view('exam_list',$data);
     }
 
-    function upload_marks(){
+    function upload_marks($courseno){
         $this->load->model('exam');
         $this->load->model('student');
         if($this->input->post('task')=='upload'){
@@ -69,7 +69,7 @@ class Teacher_home extends CI_controller{
         }else{
             $this->exam->edit_marks();
         }
-
+        $this->class_content($courseno,'Marks Uploading Succesful');
     }
 
     function marks_list($courseno,$sec,$exam_ID){
