@@ -85,6 +85,8 @@
               $("#marks_list").load(x.concat(y,"/",z,"/",exam_ID));
             }
          </script>
+
+        <script type="text/javascript" src="<?php echo base_url();?>jquery/marks_validation.js"></script>
 <!--************************************************************************************************************* -->
 
 </head>
