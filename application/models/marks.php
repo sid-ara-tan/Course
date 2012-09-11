@@ -18,14 +18,11 @@ class Marks extends CI_model {
                     select *
                     from marks,exam
                     where
-                    marks.CourseNo=exam.CourseNo and eType=exam_type
+                    marks.CourseNo=exam.CourseNo and Exam_ID=ID
                     and
                     marks.CourseNo='$courseno' and S_Id='$user_id'
-                    AND (
-                    Sec = '$row->Sec'
-                    OR Sec=substr('$row->Sec',1,1)
-                    )
-                ");
+                    ORDER BY eDate
+                     ");
 
         if ($query->num_rows() > 0)
             return $query;
