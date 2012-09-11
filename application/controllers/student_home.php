@@ -20,6 +20,16 @@ class Student_home extends CI_controller {
         $this->load->model('student');
         $this->load->model('classinfo');
         
+        $prefs = array (
+               'start_day'    => 'saturday',
+               'month_type'   => 'long',
+               'day_type'     => 'short',
+               'show_next_prev'=> TRUE,
+               'next_prev_url'   =>base_url().'index.php/student_home/index/calendar/show/'
+             );
+        
+        $this->load->library('calendar',$prefs);
+        
         
         $data['query_student_info'] = $this->query_student;
         

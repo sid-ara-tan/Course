@@ -31,7 +31,7 @@ $row_std = $query_student_info->row();
 <div class="wrapper row2">
   <div id="topnav">
     <ul>
-      <li class="active"><a href="<?php echo base_url();?>index.php/student_home">Home</a></li>
+      <li><a href="<?php echo base_url();?>index.php/student_home">Home</a></li>
       <li><a href=""><?php echo $row_std->Name;?></a>
          <ul>
             <?php
@@ -40,7 +40,7 @@ $row_std = $query_student_info->row();
              ?>
         </ul>
       </li>
-      <li><?php echo anchor("student_home/course_registration","Course Registration")?></li>
+      <li class="active"><?php echo anchor("student_home/course_registration","Course Registration")?></li>
       <li><a href="#">Course Group</a>
         <ul>
             <?php

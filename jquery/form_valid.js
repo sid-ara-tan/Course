@@ -3,14 +3,14 @@ function checkNull(frm)
     if(frm.subject.value=="")
     {
         document.getElementById('subject_div').innerHTML="<font color='red'>*** Write A subject First</font>";
-        document.getElementById('subject').style.background="red";
+        document.getElementById('subject').style.background="pink";
         frm.subject.focus();
     }
     
     else if(frm.message.value=="")
     {
         document.getElementById('message_div').innerHTML="<font color='red'>*** Write Message First</font>";
-        document.getElementById('message').style.background="red";
+        document.getElementById('message').style.background="pink";
         frm.message.focus();
         document.getElementById('subject_div').innerHTML="";
         document.getElementById('subject').style.background="";
@@ -34,6 +34,8 @@ function checkNullComment(frm)
     
     if(frm.comment.value=="")
     {
+        frm.comment.focus();
+        document.getElementById('comment').style.background="pink";
     }
     else frm.submit();
 }
