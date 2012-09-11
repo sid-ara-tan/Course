@@ -901,4 +901,71 @@
         $html_val=$this->load->view('admin/group_taken_course_status_view',$view_data,TRUE);
         echo $html_val;
     }
+
+    function  pending_request(){
+        $data=array(
+            'msg'=>'Student Information',
+            'info'=>'',
+            'title'=>'View Students'
+        );
+
+        $data['all_students']=  $this->student_model->get_pending_request();
+        $data['all_departments']= $this->department_model->get_all_department();
+        $this->load->view('admin/pending_student_view',$data);
+    }
+
+    function student_pending_request(){
+        $id=$this->input->get('id');
+
+        $data=array(
+            'msg'=>'Pending requests',
+            'info'=>'',
+            'title'=>'Pending requests'
+        );
+
+        if($this->is_student_exists($id)){
+            $data['student_info']=  $this->student_model->get_student_by_id($id);
+            $data['all_pending_requsts']= $this->student_model->get_all_pending_request_by_id($id);
+            $data['all_running_course']=  $this->student_model->get_all_running_course($id);
+            $this->load->view('admin/single_student_pending_request_view', $data);
+
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    function assign_course(){
+        $CourseNo=$this->input->post('CourseNo');
+        $S_Id=$this->input->post('S_Id');
+
+        $running=$this->student_model->running_course($CourseNo,$S_Id);
+
+        if($running){
+            echo '<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+            echo 'Assigned';
+        }
+        else{
+            echo '<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px" />';
+            echo 'Failed';
+        }
+    }
+
+    function drop_course(){
+        $CourseNo=$this->input->post('CourseNo');
+        $S_Id=$this->input->post('S_Id');
+
+        $dropped=$this->student_model->drop_course($CourseNo,$S_Id);
+
+        if($dropped){
+            echo '<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+            echo 'Dropped';
+        }
+        else{
+            echo '<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px" />';
+            echo 'Failed';
+        }
+
+
+    }
 }

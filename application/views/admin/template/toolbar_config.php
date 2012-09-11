@@ -56,6 +56,7 @@
             'link'=>  site_url('admin/student/view_student'),
             'class'=>'icn_categories'
         ),
+
         'manage_student_group'=>array(
             'name'=>'Manage student group',
             'link'=>  site_url('admin/student/manage_group_of_student'),
@@ -65,7 +66,12 @@
             'name'=>'Creat a student',
             'link'=>  site_url('admin/student/add_a_student'),
             'class'=>'icn_new_article'
-        )
+        ),
+        'taken_course'=>array(
+            'name'=>'Pending Request',
+            'link'=>  site_url('admin/student/pending_request'),
+            'class'=>'icn_categories'
+        ),
     );
 
     $data['navigator']=array(
