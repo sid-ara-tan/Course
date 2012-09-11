@@ -9,7 +9,7 @@
                 "sScrollXInner": "150%",
                 "bScrollCollapse": true,
                 "bStateSave": true,
-                "iDisplayLength":30,
+                "iDisplayLength":15,
                 "sDom": '<"top"iflp<"clear">>rt<"bottom"ifp<"clear">>',
                 "aoColumnDefs": [ {
 				"sClass": "center",

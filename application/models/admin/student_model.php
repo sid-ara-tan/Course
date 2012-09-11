@@ -142,4 +142,25 @@
 
         return $update;
     }
+
+    function is_already_course_taken($S_id=NULL,$CourseNo=NULL){
+            $this->db->where('S_Id',$S_id);
+            $this->db->where('CourseNo',$CourseNo);
+            $result=$this->db->get('takencourse');
+
+            if($result->num_rows==1){
+                return $result;
+            }
+            return FALSE;
+    }
+
+    function take_course($data=NULL){
+        if($data){
+            $insert=$this->db->insert('takencourse', $data);
+            return $insert;
+        }
+        else{
+            return FALSE;
+        }
+    }
 }
