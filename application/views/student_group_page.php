@@ -104,11 +104,11 @@ $row_std = $query_student_info->row();
 
                     <li><a href="#tabs-1">Message Board</a></li>
 
-                    <li><a id="file" href="#tabs-4">All Files</a></li>
-
                     <li><a id="c_content" href="#tabs-2">Course Content</a></li>
 
                     <li><a id="marks" href="#tabs-3">View Marks</a></li>
+                    
+                    <li><a id="file" href="#tabs-4">All Files</a></li>
                     
                     <li><a id="members" href="#tabs-5">Group Members</a></li>
 

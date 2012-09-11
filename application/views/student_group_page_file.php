@@ -1,5 +1,5 @@
                    <div class="demo">
-                    <!-- <b><font color="red"><?php echo $notification_file; ?></font></b> -->
+                    <b><font color="red"><?php echo $notification_file; ?></font></b>
                     <p><h1>All Course files : </h1></p>
                         <hr /><hr />
 

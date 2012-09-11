@@ -23,14 +23,14 @@ class Student_home_group extends CI_controller {
         else $courseno=$course;
   
         $data['notification']=$this->session->flashdata('notification');
-        $data['notification_file']=$this->session->flashdata('notification_file');
+        
         $offset=$this->uri->segment(4,0);
         
         
         $this->load->model('content');
         $this->load->model('message');
         $this->load->model('comment');
-        $this->load->model('file'); 
+        //$this->load->model('file'); 
         $this->load->model('marks'); 
         
         $data['query_marks']=$this->marks->get_all($courseno);
@@ -41,10 +41,10 @@ class Student_home_group extends CI_controller {
         $record=$this->content->get_content($courseno,100,0);
         $data['record_content']=$record;
         
-        $record_file=$this->file->get_file($courseno,100,0);
-        $data['record_file']=$record_file;
+        //$record_file=$this->file->get_file($courseno,100,0);
+        //$data['record_file']=$record_file;
         //file comment
-        if($data['record_file']!=FALSE)
+       /* if($data['record_file']!=FALSE)
         {
             foreach ($data['record_file'] as $row)
             {
@@ -53,7 +53,7 @@ class Student_home_group extends CI_controller {
             }
             //var_dump($data);               
         }
-        
+        */
 
         //echo $courseno;
         $user_id=$this->session->userdata['ID'];
@@ -207,6 +207,7 @@ class Student_home_group extends CI_controller {
             //$this->notification_file=$this->upload->display_errors();
             //$this->group($courseno);
             $this->session->set_flashdata('notification_file',$this->upload->display_errors());
+            //$this->session->keep_flashdata('notification_file');
             redirect('student_home_group/group/'.$courseno);
         }
         
@@ -217,6 +218,7 @@ class Student_home_group extends CI_controller {
             $this->load->model('file');
             $this->file->insert_file($courseno,$topic,$description,$file_info['file_name'],1);
             $this->session->set_flashdata('notification_file',"File : ".$file_info['file_name']. " has been uploaded successfully");
+           // $this->session->keep_flashdata('notification_file');
             redirect('student_home_group/group/'.$courseno);
         }
     }
@@ -275,7 +277,8 @@ class Student_home_group extends CI_controller {
             }
             //var_dump($data);               
         }
-        
+        $data['notification_file']=$this->session->flashdata('notification_file');
+ 
         $msg=$this->load->view('student_group_page_file', $data,TRUE);
         
         echo $msg;
