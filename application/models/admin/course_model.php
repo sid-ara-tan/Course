@@ -56,4 +56,54 @@
         return $result;
     }
 
+    function get_credit_by_course_no($courseno=NULL){
+        $this->db->where('CourseNo',$courseno);
+        $result=$this->db->get('course');
+        return $result;
+    }
+
+     function get_course_by_courseno($courseno=NULL){
+        $this->db->where('CourseNo',$courseno);
+        $result=$this->db->get('course');
+        return $result;
+    }
+
+    function get_current_assigned_teacher($courseno=NULL){
+        $this->db->select('*');
+        $this->db->where('CourseNo',$courseno);
+        $this->db->from('assignedcourse');
+        $this->db->join('teacher', 'teacher.T_Id=assignedcourse.T_Id');
+        $query = $this->db->get();
+        return $query;
+    }
+
+    function is_this_course_already_assigned($config=NULL){
+        $this->db->where($config);
+        $check=$this->db->get('assignedcourse');
+
+        if($check->num_rows==1){
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    function assigned_course($config=NULL){
+        if($config==NULL){
+            return FALSE;
+        }
+        $insert=$this->db->insert('assignedcourse',$config);
+        if($insert){
+            return $insert;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    function delete_assign_course($config=NULL){
+        $this->db->where($config);
+        $delete=$this->db->delete('assignedcourse');
+        return $delete;
+    }
+
 }

@@ -142,4 +142,76 @@
 
         return $update;
     }
+
+    function is_already_course_taken($S_id=NULL,$CourseNo=NULL){
+            $this->db->where('S_Id',$S_id);
+            $this->db->where('CourseNo',$CourseNo);
+            $result=$this->db->get('takencourse');
+
+            if($result->num_rows==1){
+                return $result;
+            }
+            return FALSE;
+    }
+
+    function take_course($data=NULL){
+        if($data){
+            $insert=$this->db->insert('takencourse', $data);
+            return $insert;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    function get_pending_request(){
+        
+        $this->db->like('Status','Pending','after');
+        $this->db->group_by('S_Id');
+        $result=$this->db->get('takencourse');
+
+        if($result->num_rows>0){
+                return $result;
+        }
+        return FALSE;
+    }
+
+    function get_all_pending_request_by_id($id=NULL){
+        $this->db->where('S_Id',$id);
+        $this->db->like('Status','Pending','after');
+        $result=$this->db->get('takencourse');
+        return $result;
+    }
+
+    function running_course($CourseNo=NULL,$S_Id=NULL){
+
+        $this->db->where('CourseNo',$CourseNo);
+        $this->db->where('S_Id',$S_Id);
+        $data = array(
+               'Status' =>'Running'
+         );
+        $update= $this->db->update('takencourse',$data);
+        return $update;
+    }
+    
+    function drop_course($CourseNo=NULL,$S_Id=NULL){
+
+        $this->db->where('CourseNo',$CourseNo);
+        $this->db->where('S_Id',$S_Id);
+        $data = array(
+               'Status' =>'Dropped'
+        );
+        $update= $this->db->update('takencourse',$data);
+        return $update;
+    }
+
+    function get_all_running_course($S_Id=NULL){
+        $this->db->where('S_Id', $S_Id);
+        $this->db->where('Status','Running');
+        $result=$this->db->get('takencourse');
+        return $result;
+    }
+
+
+
 }

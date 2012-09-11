@@ -130,8 +130,6 @@
         else{
             echo "Database deletion failed";
         }
-
     }
-
 }
 

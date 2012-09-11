@@ -38,12 +38,21 @@ $this->load->view('header/style_demo_header',$data);
 
 	});
 
+        function myfunction(){
+
+            var $tabs = $('#tabs').tabs();
+            var selected = $tabs.tabs('option', 'selected');
+            $('#tabs').tabs('select', selected).trigger("click");
+
+
+        }
+
 	</script>
 <?php
 $row_std = $query_student_info->row();
 ?>
 
-<body id="top">
+<body id="top" onload="myfunction()">
     <div class="wrapper row1">
         <div id="header" class="clear">
             <div class="fl_left">

@@ -422,6 +422,6 @@
 <div id="group_show_result"></div>
 <div id="group_update_result"></div>
 <div id="group_course_show_result"></div>
-<?php echo br(200);?>
+<?php echo br(500);?>
 </section>
 <?php $this->load->view('admin/template/footer');?>

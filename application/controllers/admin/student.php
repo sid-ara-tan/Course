@@ -760,10 +760,212 @@
 
     }
 
+    function taken_course_confirmation_dialog(){
+        $check_data=$this->input->post('check_data');
+
+        $this->load->library('table');
+        $this->table->set_heading(array('Course No ', 'Course Name', 'Credit'));
+
+        $total_credit=0;
+
+        if(empty ($check_data)){
+            echo 'None selected';
+        }
+        else{
+                foreach($check_data as $course){
+                    $sin_course=$this->course_model->get_credit_by_course_no($course);
+                    $single_course=$sin_course->row();
+                    $this->table->add_row(array($single_course->CourseNo,$single_course->CourseName,$single_course->Credit));
+                    $total_credit+=$single_course->Credit;
+                }
+
+            $this->table->add_row(array('','<b>Total</b>',"<b>$total_credit</b>"));
+
+            echo $this->table->generate();
+        }
+
+        
+    }
+
     function get_taken_course_list(){
         
         $check_data=$this->input->post('check_data');
+        $complete=$this->ajax_get_data_group();
+        $output='';
+        $div_error_msg='<div style="padding:5px;">';
+        $div_error_msg.='<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px"/>';
 
-        print_r($check_data);
+        $div_success_msg='<div style="padding:5px;">';
+        $div_success_msg.='<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+
+        $div_warning_msg='<div style="padding:5px;">';
+        $div_warning_msg.='<img src="'.base_url().'/images/admin/warning.png'.'" width="16px" height="16px" />';
+
+        $div_message_end='</div>';
+
+        /* if($check_exist==FALSE){
+                    $output.=$div_warning_msg;
+                    $output.=$std_id." "."this student id doesn't match query.";
+                    $output.=$div_message_end;
+                    $no_of_warning++;
+                    continue;
+                }
+
+                $delete=$this->delete_student_by_id($std_id);
+
+                if($delete){
+                    $output.=$div_success_msg;
+                    $output.=$std_id." "."successfully deleted";
+                    $output.=$div_message_end;
+                    $no_of_succes++;
+                }
+                else{
+                    $output.=$div_error_msg;
+                    $output.=$std_id.' '.'student deletion failed';
+                    $output.=$div_message_end;
+                    $no_of_error++;
+                }*/
+
+        if($complete['error']==TRUE){
+             echo $complete['error_msg'];
+        }
+        elseif(empty ($check_data)){
+             $output.='None selected';
+        }
+        else{
+            $config=$complete['config'];
+            $data=$complete['data'];
+
+            $sLevel=$data['sLevel'];
+            $Term=$data['Term'];
+
+            $std_code=$config['std_code'];
+            $start_code=$config['start_code'];
+            $end_code=$config['end_code'];
+
+            $i=intval($start_code);
+            $j=intval($end_code);
+
+            $std_id='';
+            
+
+            for($i;$i<=$j;$i++){
+                $std_id=$std_code.$this->number_pad($i,3);
+                $output.="<b>$std_id</b>";
+
+                $check_exist=  $this->student_model->is_group_student_Exists($data,$std_id);
+
+                if($check_exist==FALSE){
+                    $output.=$div_error_msg;
+                    $output.=$std_id." "."this student id doesn't match query.<br/>";
+                    $output.=$div_message_end;
+                    continue;
+                }
+
+                else{
+                    foreach($check_data as $courseno){
+
+                        $check_taken=  $this->student_model->is_already_course_taken($std_id,$courseno);
+                        if($check_taken){
+                            $output.=$div_warning_msg;
+                            $output.=$std_id." ".$courseno." "." Already taken<br/>";
+                            $output.=$div_message_end;
+                        }
+                        else{
+                            $insert_data=array(
+                            'S_Id'=>$std_id,
+                            'CourseNo'=>$courseno,
+                            'Status'=>'Running'
+                            );
+                            $insert=$this->student_model->take_course($insert_data);
+                            if($insert){
+                                $output.=$div_success_msg;
+                                $output.=$std_id." ".$courseno." "." successfully taken<br/>";
+                                $output.=$div_message_end;
+                            }
+                            else{
+                                $output.=$div_error_msg;
+                                $output.=$std_id." ".$courseno." "."insertion failed<br/>";
+                                $output.=$div_message_end;
+                            }
+                        }
+                    }
+                }
+
+                $output.=br(2);
+
+            }
+        }
+
+        $view_data['output']=$output;
+        $html_val=$this->load->view('admin/group_taken_course_status_view',$view_data,TRUE);
+        echo $html_val;
+    }
+
+    function  pending_request(){
+        $data=array(
+            'msg'=>'Student Information',
+            'info'=>'',
+            'title'=>'View Students'
+        );
+
+        $data['all_students']=  $this->student_model->get_pending_request();
+        $data['all_departments']= $this->department_model->get_all_department();
+        $this->load->view('admin/pending_student_view',$data);
+    }
+
+    function student_pending_request(){
+        $id=$this->input->get('id');
+
+        $data=array(
+            'msg'=>'Pending requests',
+            'info'=>'',
+            'title'=>'Pending requests'
+        );
+
+        if($this->is_student_exists($id)){
+            $data['student_info']=  $this->student_model->get_student_by_id($id);
+            $data['all_pending_requsts']= $this->student_model->get_all_pending_request_by_id($id);
+            $data['all_running_course']=  $this->student_model->get_all_running_course($id);
+            $this->load->view('admin/single_student_pending_request_view', $data);
+
+        }
+        else{
+            $this->index();
+        }
+    }
+
+    function assign_course(){
+        $CourseNo=$this->input->post('CourseNo');
+        $S_Id=$this->input->post('S_Id');
+
+        $running=$this->student_model->running_course($CourseNo,$S_Id);
+
+        if($running){
+            echo '<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+            echo 'Assigned';
+        }
+        else{
+            echo '<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px" />';
+            echo 'Failed';
+        }
+    }
+
+    function drop_course(){
+        $CourseNo=$this->input->post('CourseNo');
+        $S_Id=$this->input->post('S_Id');
+
+        $dropped=$this->student_model->drop_course($CourseNo,$S_Id);
+
+        if($dropped){
+            echo '<img src="'.base_url().'/images/admin/valid.png'.'" width="16px" height="16px" />';
+            echo 'Dropped';
+        }
+        else{
+            echo '<img src="'.base_url().'/images/admin/error.png'.'" width="16px" height="16px" />';
+            echo 'Failed';
+        }
+
+
     }
 }
