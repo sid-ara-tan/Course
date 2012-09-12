@@ -59,4 +59,10 @@
         $delete=$this->db->delete('teacher');
         return $delete;
     }
+
+    function get_teacher_by_T_id($id=NULL){
+        $this->db->where('T_Id',$id);
+        $query=$this->db->get('teacher');
+        return $query;
+    }
 }

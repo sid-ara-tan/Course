@@ -125,6 +125,11 @@
     });
 </script>
 
+<!--Time Picker-->
+
+<link rel="stylesheet" href="<?php echo base_url();?>jquery/admin/Timepicker/jquery.ui.timepicker.css" type="text/css" media="screen" />
+<script src="<?php echo base_url();?>jquery/admin/Timepicker/jquery.ui.timepicker.js" type="text/javascript"></script>
+
 <style type="text/css" media="screen">
     .error{
             display: block;

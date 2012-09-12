@@ -106,4 +106,10 @@
         return $delete;
     }
 
+    function get_assigned_teacher($CourseNo=NULL){
+        $this->db->where('CourseNo',$CourseNo);
+        $result=$this->db->get('assignedcourse');
+        return $result;
+    }
+
 }

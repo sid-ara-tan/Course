@@ -26,6 +26,11 @@
             'link'=>  site_url('admin/department/view_department'),
             'class'=>'icn_categories'
         ),
+        'make_routine'=>array(
+            'name'=>'Make Routine',
+            'link'=>  site_url('admin/department/make_routine'),
+            'class'=>'icn_settings'
+        )
     );
 
     $course=array(

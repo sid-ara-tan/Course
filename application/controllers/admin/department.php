@@ -4,6 +4,7 @@
         $this->my_library->check_logged_in();
         $this->load->model('admin/department_model');
         $this->load->model('admin/teacher_model');
+        $this->load->model('admin/course_model');
         $this->load->library('form_validation');
     }
 
@@ -176,5 +177,113 @@
         echo '{ "aaData":';
         echo json_encode($row_set);
         echo '}';
+    }
+
+    function make_routine(){
+        $data=array(
+            'msg'=>'Make Routine',
+            'info'=>'',
+            'title'=>'Make Routine'
+        );
+        $data['all_departments']= $this->department_model->get_all_department();
+        $this->load->view('admin/view_make_routine',$data);
+    }
+
+    function make_routine_for_this(){
+        $config=array(
+            'Dept_id'=>  $this->input->get('Dept_id'),
+            'sLevel'=>  $this->input->get('sLevel'),
+            'Term'=>  $this->input->get('Term'),
+            'Sec'=>  $this->input->get('Sec')
+        );
+       
+        $current_classinfo=$this->department_model->get_all_classinfo($config);
+
+
+         $data=array(
+            'msg'=>'Departments Information',
+            'info'=>'',
+            'title'=>'Make Routine'
+        );
+
+        $data['current_classinfo']=$current_classinfo;
+        $data['Dept_id']=$config['Dept_id'];
+        $data['sLevel']=$config['sLevel'];
+        $data['Term']=$config['Term'];
+        $data['Sec']=$config['Sec'];
+
+        $data['all_teachers']=  $this->teacher_model->get_teacher_by_dept_id($config['Dept_id']);
+
+        $config_course=array(
+            'Dept_ID'=>  $this->input->get('Dept_id'),
+            'sLevel'=>  $this->input->get('sLevel'),
+            'Term'=>  $this->input->get('Term')
+        );
+        $data['all_courses']=  $this->course_model->get_course_by_query($config_course);
+
+        $this->load->view('admin/view_routine',$data);
+    }
+
+    function assigned_teacher_by_course(){
+        $CourseNo=$this->input->post('CourseNo');
+        $data['all_teachers']=$this->course_model->get_assigned_teacher($CourseNo);
+        $msg=$this->load->view('admin/assign_teacher_dropdown_view',$data,TRUE);
+        echo $msg;
+    }
+
+    function add_classinfo_entry(){
+        $config=array(
+            'Dept_id'=>  $this->input->post('Dept_id'),
+            'CourseNo'=>  $this->input->post('CourseNo'),
+            'cDay'=>  $this->input->post('cDay'),
+            'Period'=>  $this->input->post('Period'),
+            'Sec'=>  $this->input->post('Sec'),
+            'cTime'=>  $this->input->post('cTime'),
+            'Location'=>  $this->input->post('Location'),
+            'Duration'=>  $this->input->post('Duration'),
+            'by_teacher'=>  $this->input->post('by_teacher'),
+            'sLevel'=>  $this->input->post('sLevel'),
+            'Term'=>  $this->input->post('Term')
+        );
+
+       $output="";
+       $success=FALSE;
+
+       $consist_config=array(
+            'CourseNo'=>  $this->input->post('CourseNo'),
+            'cDay'=>  $this->input->post('cDay'),
+            'Sec'=>  $this->input->post('Sec'),
+            'Period'=>  $this->input->post('Period'),
+            'by_teacher'=>  $this->input->post('by_teacher'),
+       );
+
+       $check= $this->department_model->check_consistency($consist_config);
+       
+       if($check){
+            $output.= '<div class="sid_error">';
+            $output.= 'This time slot already assigned';
+            $output.= '</div>';
+       }
+       else{
+            $insert=$this->department_model->add_classinfo_entry($config);
+           if($insert){
+                $output.= '<div class="sid_success">';
+                $output.= 'Successfully Added';
+                $output.= '</div>';
+                $success=TRUE;
+            }
+            else{
+                $output.= '<div class="sid_error">';
+                $output.= 'Deletion failed';
+                $output.= '</div>';
+            }
+       }
+        
+        $Json_Output=array(
+          'output'=>$output,
+           'success'=>$success
+        );
+
+        echo json_encode($Json_Output);
     }
 }

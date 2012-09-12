@@ -40,4 +40,28 @@
         $query=$this->db->get('department');
         return $query;
     }
+
+    function get_all_classinfo($config=NULl){
+        $this->db->where($config);
+        $result=$this->db->get('classinfo');
+        return $result;
+    }
+
+    function add_classinfo_entry($config=NULL){
+        $insert=$this->db->insert('classinfo',$config);
+        return $insert;
+    }
+
+    function check_consistency($config=NULL){
+        $this->db->where($config);
+        $check=$this->db->get('classinfo');
+
+         if($check->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+        
+    }
 }
