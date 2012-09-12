@@ -30,6 +30,11 @@
             'name'=>'Make Routine',
             'link'=>  site_url('admin/department/make_routine'),
             'class'=>'icn_settings'
+        ),
+        'schedule_period'=>array(
+            'name'=>'Schedule Task',
+            'link'=>  site_url('admin/department/schedule_period'),
+            'class'=>'icn_settings'
         )
     );
 

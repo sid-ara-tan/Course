@@ -97,16 +97,27 @@
                     dataType: 'json',
                     success:function(msg){
                         $('#show_error_message').html(msg['output']);
-                        if(msg['success']){
-                            window.location.reload();
-                        }
                     }
                 });
              }
              return false;
         });
+
+        $(".delete_this").click(function(){
+            var url=$(this).attr('href');
+            $.ajax({
+                url:url,
+                dataType:'json',
+                success:function(msg){
+                    $('#delete_success_message').html(msg['output']);
+                }
+            });
+            $(this).parent().parent().hide('slow');
+            return false;
+        });
     });
 </script>
+
 </head>
 
 <body>
@@ -127,13 +138,32 @@
 
 <section id="main" class="column">
 <article class="module width_full shadow ">
+<div>
+    <?php
+        $week=array(
+             'Sunday'=>'Sunday',
+             'Monday'=>'Monday',
+             'Tuesday'=>'Tuesday',
+             'Wednesday'=>'Wednesday',
+             'Thursday'=>'Thursday',
+             'Friday'=>'Friday',
+             'Saturday'=>'Saturday'
+         );
+    ?>
+    <?php foreach($week as $key=>$value):?>
+    <?php endforeach;?>
+</div>
+</article>
+<article class="module width_full shadow ">
+    <div id="delete_success_message" align="center"></div>
     <header><h3 class="tabs_involved">Make Routine</h3>
     <ul class="tabs">
         <li><a href="#tab1">Current routine</a></li>
         <li><a href="#tab2">Add entry</a></li>
     </ul>
     </header>
-    <div class="tab_container">
+
+    <div class="tab_container">        
         <div id="tab1" class="tab_content">
             <table class="tablesorter" cellspacing="0">
             <thead>
@@ -147,6 +177,7 @@
             <th>Duration</th>
             <th>Location</th>
             <th>Teacher</th>
+            <th>Actions</th>
             </thead>
             <tbody>
                 <?php foreach($current_classinfo->result()as $the_current_classinfo):?>
@@ -165,6 +196,21 @@
                     <td><?php echo $the_current_classinfo->Duration;?></td>
                     <td><?php echo $the_current_classinfo->Location;?></td>
                     <td><?php echo $the_current_classinfo->by_teacher;?></td>
+                    <td>
+                            <a href="<?php
+                                echo site_url('admin/department/delete_classinfo');
+                                echo '?CourseNo=';
+                                echo $the_current_classinfo->CourseNo;
+                                echo '&cDay=';
+                                echo $the_current_classinfo->cDay;
+                                echo '&Sec=';
+                                echo $the_current_classinfo->Sec;
+                                echo '&Period=';
+                                echo $the_current_classinfo->Period;
+                                echo '&by_teacher=';
+                                echo $the_current_classinfo->by_teacher;
+                            ?>" class="delete_this" ><img  src="<?php echo base_url();?>template/admin/images/icn_trash.png" title="Trash"/></a>
+                        </td>
                 </tr>
                 <?php endforeach;?>
             </tbody>

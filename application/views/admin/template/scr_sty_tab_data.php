@@ -135,3 +135,5 @@
             display: block;
         }
 </style>
+
+<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.accordion.js" type="text/javascript"></script>

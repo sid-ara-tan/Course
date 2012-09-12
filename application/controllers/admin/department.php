@@ -253,8 +253,7 @@
             'CourseNo'=>  $this->input->post('CourseNo'),
             'cDay'=>  $this->input->post('cDay'),
             'Sec'=>  $this->input->post('Sec'),
-            'Period'=>  $this->input->post('Period'),
-            'by_teacher'=>  $this->input->post('by_teacher'),
+            'Period'=>  $this->input->post('Period')
        );
 
        $check= $this->department_model->check_consistency($consist_config);
@@ -286,4 +285,152 @@
 
         echo json_encode($Json_Output);
     }
+
+    function delete_classinfo(){
+        $consist_config=array(
+            'CourseNo'=>  $this->input->get('CourseNo'),
+            'cDay'=>  $this->input->get('cDay'),
+            'Sec'=>  $this->input->get('Sec'),
+            'Period'=>  $this->input->get('Period'),
+            'by_teacher'=>  $this->input->get('by_teacher'),
+       );
+       
+       $check= $this->department_model->check_consistency($consist_config);
+       $output='';
+       $success=FALSE;
+
+       if($check){
+            $delete=$this->department_model->delete_courseinfo($consist_config);
+
+            if($delete){
+                $output.= '<div class="sid_success">';
+                $output.= 'Successfully deleted';
+                $output.= '</div>';
+                $success=TRUE;
+            }
+            else{
+                $output.= '<div class="sid_error">';
+                $output.= 'Deletion failed';
+                $output.= '</div>';
+            }
+       }
+       else{
+                $output.= '<div class="sid_error">';
+                $output.= 'Invalid';
+                $output.= '</div>';
+       }
+
+       $json=array(
+           'output'=>$output,
+           'success'=>$success
+       );
+
+       echo json_encode($json);
+    }
+
+    function schedule_period(){
+        $data=array(
+            'msg'=>'Departments Information',
+            'info'=>'',
+            'title'=>'Sechodule Tasks'
+        );
+        $data['all_departments']= $this->department_model->get_all_department();
+        $data['all_schedule']= $this->department_model->get_all_schedule();
+        $this->load->view('admin/view_schedule_tasks',$data);
+    }
+
+    function update_schedule(){
+          $id = $this->input->post('id');
+          $value = $this->input->post('value');
+          $column = $this->input->post('columnName');
+          $columnPosition = $this->input->post('columnPosition');
+          $columnId = $this->input->post('columnId');
+          $rowId = $this->input->post('rowId');
+
+          $data=array(
+              $column=>$value
+          );
+
+          $config=$this->strip($id);
+          
+          $update=$this->department_model->update_schedule_info($config,$data);
+
+          if($update){
+              echo $value;
+          }
+          else{
+              echo "Database update falied";
+          }
+    }
+
+    function strip($param=NULL){
+        $Dept_id=substr($param, 0, -2);
+        $sLevel=substr($param,-2,1);
+        $Term=substr($param,-1);
+
+        $config=array(
+            'Dept_id'=>$Dept_id,
+            'sLevel'=>$sLevel,
+            'Term'=>$Term
+            );
+        return $config;
+    }
+
+    function delete_schedule(){
+        $id = $this->input->post('id');
+        /*further deletion task will be done here.*/
+
+        $config=$this->strip($id);
+
+        $delete=$this->department_model->delete_schedule($config);
+        if($delete){
+            echo "ok";
+        }
+        else{
+            echo "Database deletion failed";
+        }
+    }
+    
+    function add_schedule(){
+        $Dept_id = $this->input->post('Dept_id');
+        $sLevel=$this->input->post('sLevel');
+        $Term=$this->input->post('Term');
+        $period=$this->input->post('period');
+
+        $data=array(
+            'Dept_id'=>$Dept_id,
+            'sLevel'=>$sLevel,
+            'Term'=>$Term,
+            'period'=> $period
+        );
+        $config=array(
+            'Dept_id'=>$Dept_id,
+            'sLevel'=>$sLevel,
+            'Term'=>$Term
+        );
+
+       $output='';
+       $success=FALSE;
+
+       $check=$this->department_model->check_schedule($config);
+       
+       if($check){
+                $output.= '<div class="sid_error">';
+                $output.= 'Already Exists';
+                $output.= '</div>';
+       }
+       else{
+                $insert=$this->department_model->add_schedule($data);
+                $output.= '<div class="sid_success">';
+                $output.= 'Successfuly Created';
+                $output.= '</div>';
+                $success=TRUE;
+       }
+       $json=array(
+           'output'=>$output,
+           'success'=>$success
+       );
+       echo json_encode($json);
+    }
+
 }
