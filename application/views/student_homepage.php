@@ -24,7 +24,7 @@
   <div id="topnav">
     <ul>
       <li class="active"><a href="<?php echo base_url();?>index.php/student_home">Home</a></li>
-      <li><a href=""><?php echo $row_std->Name;?></a>
+      <li><a href=""><?php echo $row_std->S_Id;?></a>
          <ul>
             <?php
                     echo "<li>";

@@ -89,7 +89,7 @@ class Teacher extends CI_model{
             $row=$result->row();
             return $row->Name;
         }else{
-            return FALSE;
+            return null;
         }
         
     }
