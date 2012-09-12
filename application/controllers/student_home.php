@@ -52,7 +52,8 @@ class Student_home extends CI_controller {
         $data['taken_course_query'] = $this->query_taken_course;
         $row=$this->query_student->row();
         $this->load->model('teacher');
-        $data['advisor_name']=$this->teacher->get_name($row->Advisor);
+        if($row->Advisor!=null)$data['advisor_name']=$this->teacher->get_name($row->Advisor);
+        else $data['advisor_name']='';
         $this->load->view('student_profile', $data);
     }
     

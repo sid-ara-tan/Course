@@ -13,7 +13,7 @@ class Student_home_group extends CI_controller {
         $this->load->model('student');
         $this->load->model('course');
         $this->my_library->is_logged_in();
-        
+        $this->session->keep_flashdata('notification_file');
         $this->query_student = $this->student->get_info();
         $this->query_taken_course=$this->course->get_courses();
     }
@@ -27,19 +27,18 @@ class Student_home_group extends CI_controller {
         $offset=$this->uri->segment(4,0);
         
         
-        $this->load->model('content');
+        
         $this->load->model('message');
         $this->load->model('comment');
         //$this->load->model('file'); 
-        $this->load->model('marks'); 
+
         
-        $data['query_marks']=$this->marks->get_all($courseno);
+
         
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
-        $record=$this->content->get_content($courseno,100,0);
-        $data['record_content']=$record;
+
         
         //$record_file=$this->file->get_file($courseno,100,0);
         //$data['record_file']=$record_file;
@@ -141,7 +140,7 @@ class Student_home_group extends CI_controller {
         $courseno=$this->uri->segment(4);
         
         
-                //Pagination
+        //Pagination
         $config['total_rows'] =$this->comment->comment_number($courseno,$msg_id);
         $config['base_url'] = base_url().'index.php/student_home_group/comment/'.$msg_id.'/'.$courseno;
         $config['per_page'] ='10';
@@ -278,10 +277,48 @@ class Student_home_group extends CI_controller {
             //var_dump($data);               
         }
         $data['notification_file']=$this->session->flashdata('notification_file');
- 
+        
         $msg=$this->load->view('student_group_page_file', $data,TRUE);
         
         echo $msg;
+    }
+    
+    function load_content()
+    {
+       $this->load->model('content');
+      
+       $courseno=$this->input->post('courseno');
+       $data['courseno']=$courseno;
+       
+       $record=$this->content->get_content($courseno,100,0);
+       $data['record_content']=$record;
+       
+       $msg=$this->load->view('student_group_page_content', $data,TRUE);
+        
+       echo $msg;
+    }
+    
+    function load_marks()
+    {
+         $this->load->model('marks'); 
+            $courseno=$this->input->post('courseno');
+            $data['courseno']=$courseno;
+            $data['query_student_info'] = $this->query_student;
+            $data['taken_course_query'] = $this->query_taken_course;
+            $data['query_marks']=$this->marks->get_all($courseno);
+            
+         foreach ($this->query_taken_course->result_array() as $value) {
+            if($courseno==$value['CourseNo'])
+            {
+                $data['coursename']=$value['CourseName'];
+                $data['courseno']=$courseno;
+                $msg=$this->load->view('student_group_page_marks', $data,TRUE);
+                echo $msg;
+                break;
+            }
+            
+
+        }
     }
 
 }

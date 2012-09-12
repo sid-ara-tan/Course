@@ -24,7 +24,7 @@ $row_std = $query_student_info->row();
         <div id="topnav">
             <ul>
                 <li><a href="<?php echo base_url(); ?>index.php/student_home">Home</a></li>
-                <li class="active"><a href=""><?php echo $row_std->Name; ?></a>
+                <li class="active"><a href=""><?php echo $row_std->S_Id; ?></a>
                     <ul>
                         <?php
                         echo '<li>';
@@ -101,14 +101,15 @@ $row_std = $query_student_info->row();
                     <div>
                         Name:
                         <br>
-                        <input type="text" name="std_name" size="50" maxlength="50" value="<?php echo $row_std->Name; ?>" readonly="readonly" />
+                        <input type="text" name="std_name" size="50" maxlength="50" value="<?php echo $row_std->Name; ?>" />
+                        <p id="name_error"></p>
                     </div>
                     <br>
                     <div>
                         Father's Name:
                         <br>
                         <input type="text" name="Fname" id="fname" size="50" maxlength="50" value="<?php echo $row_std->father_name; ?>" />
-                        <p id="fname_error"></p>
+                        
                     </div>
                     <br>
                     <div>

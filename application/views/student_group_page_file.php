@@ -35,9 +35,9 @@
                                     if($row_record_file->uploader==$row_std_name->Name)
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br>< '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename,"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
+                                        echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename," <font color='red'>Delete</font> ",'onclick=" return check()"').' #';  
                                     }
-                                echo ' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,"< <font color='red'>".${'commentoffile'.$row_record_file->file_id}." Comment</font> >").'<br>';
+                                echo ' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno," <font color='red'>".${'commentoffile'.$row_record_file->file_id}." Comment</font> ").'<br>';
                                   
                                 echo '<hr>';
 
