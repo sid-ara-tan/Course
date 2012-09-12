@@ -10,6 +10,12 @@ $this->load->view('header/style_demo_header',$data);
         $("div#tabs-4").ajaxStart(function(){
             $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
         });
+        $("div#tabs-2").ajaxStart(function(){
+            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+        });
+        $("div#tabs-3").ajaxStart(function(){
+            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+        });
 
         $("a#file").click(function(){
                                         //alert("ddd");
@@ -28,6 +34,43 @@ $this->load->view('header/style_demo_header',$data);
 
 
         });
+        
+        $("a#c_content").click(function(){
+                                        //alert("ddd");
+                                $.ajax({
+                                        type: "POST",
+                                        data: "courseno=" + $("input#courseno_hidden").val(),
+
+                                        url: "<?php echo site_url('student_home_group/load_content');?>",
+                                        success: function(msg){
+
+                                                $("div#tabs-2").html(msg);
+
+                                        }
+
+                                });
+
+
+        });
+        
+        $("a#marks").click(function(){
+                                        //alert("ddd");
+                                $.ajax({
+                                        type: "POST",
+                                        data: "courseno=" + $("input#courseno_hidden").val(),
+
+                                        url: "<?php echo site_url('student_home_group/load_marks');?>",
+                                        success: function(msg){
+
+                                                $("div#tabs-3").html(msg);
+
+                                        }
+
+                                });
+
+
+        });
+        
         });
     
 	$(function() {
@@ -42,8 +85,10 @@ $this->load->view('header/style_demo_header',$data);
 
             var $tabs = $('#tabs').tabs();
             var selected = $tabs.tabs('option', 'selected');
-            $('#tabs').tabs('select', selected).trigger("click");
-
+            //$('#tabs').tabs('select', selected).trigger("click");
+            if(selected==3)$("a#file").click();
+            else if(selected==1)$("a#c_content").click();
+            else if(selected==2)$("a#marks").click();
 
         }
 
@@ -69,7 +114,7 @@ $row_std = $query_student_info->row();
         <div id="topnav">
             <ul>
                 <li><a href="<?php echo base_url(); ?>index.php/student_home">Home</a></li>
-                <li><a href=""><?php echo $row_std->Name; ?></a>
+                <li><a href=""><?php echo $row_std->S_Id; ?></a>
                     <ul>
                         <?php
                         echo "<li>";
@@ -113,11 +158,11 @@ $row_std = $query_student_info->row();
 
                     <li><a href="#tabs-1">Message Board</a></li>
 
-                    <li><a id="file" href="#tabs-4">All Files</a></li>
-
                     <li><a id="c_content" href="#tabs-2">Course Content</a></li>
 
                     <li><a id="marks" href="#tabs-3">View Marks</a></li>
+                    
+                    <li><a id="file" href="#tabs-4">All Files</a></li>
                     
                     <li><a id="members" href="#tabs-5">Group Members</a></li>
 
@@ -169,12 +214,12 @@ $row_std = $query_student_info->row();
                                     if($row->SenderInfo==$row_std_name->Name)
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br>< '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,"< <font color='red'>Delete</font> >",'onclick=" return check()"').' >';  
+                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno," <font color='red'>Delete</font> ",'onclick=" return check()"').' ';  
                                     }
                                     
                                     
                                     
-                                    echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,"< <font color='red'>".${'commentof'.$row->MessageNo}." Comment</font> >").'<br>';
+                                    echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,"# <font color='red'>".${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
                                     echo '<hr/>';
 
                                     }
@@ -190,58 +235,13 @@ $row_std = $query_student_info->row();
                       </div>
                 </div>
 
-                <div id="tabs-2">
+                <div id="tabs-2"></div>
 
-                    <p> <h1>All Course content :- </h1><br></p>
-                    <?php
-                    if($record_content!=FALSE){
-
-                        foreach($record_content as $row_record){
-                        ?>
-                        <h3><?php echo anchor('student_home_group/download_file/'.$courseno.'/'.$row_record->File_Path, $row_record->Topic); ?></h3>
-                        <?php echo '<p>'.$row_record->Description.'</p>';?>
-                        <?php echo "<br />uploaded by <font color='red'>".$row_record->Uploader.'</font>' ?>
-                        <?php echo $row_record->Upload_Time.'<hr>'; 
-                        
-
-                        }
-                    }
-                    
-                    else echo "<font color='red'> No Content Available".'</font>';
-                    ?>
-                </div>
-
-                <div id = "tabs-3">
-
-                    <p><h1>All Given Marks Of <?php echo $coursename; ?></h1></p>
-                
-                    <?php
-                        $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
-                        'heading_row_start'   => '<tr class="dark">',
-                        'heading_row_end'     => '</tr>',
-                        'row_start'           => '<tr class="light">',
-                        'row_end'             => '</tr>',
-                        'row_alt_start'       => '<tr class="dark">',
-                        'row_alt_end'         => '</tr>');
-                    $this->table->set_template($tmpl);
-                    $this->table->set_heading('Exam Type','Exam Date', 'Exam Time','Duration','Location','Topic','Marks','Out Of');
-                    //var_dump($query_marks);
-                    if($query_marks!=FALSE){
-                                foreach($query_marks->result_array() as $row){
-                                    $this->table->add_row($row['eType'],$row['eDate'],$row['eTime'],$row['Duration'],$row['Location'],$row['Topic'],$row['Marks'],$row['Total']);
-                                }
-                            echo $this->table->generate();
-                            }
-                    else echo "<font color='red'> No Data Available".'</font>';      
-                    
-                    ?>
-                </div>
+                <div id = "tabs-3"></div>
 
                 <div id = "tabs-4"></div>
                 
-                 <div id = "tabs-5">
-                     
-                 </div>
+                 <div id = "tabs-5"></div>
 
     </div>
   </div>

@@ -44,6 +44,7 @@ class Student extends CI_model {
         
 
         $data = array(
+               'Name' => $this->input->post('std_name'),
                'father_name' => $this->input->post('Fname'),
                'email' => $this->input->post('user_email'),
                'address' => $this->input->post('user_address'),

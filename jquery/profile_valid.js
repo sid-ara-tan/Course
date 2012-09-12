@@ -75,16 +75,16 @@ function passCheck(frm)
 
 function std_profile_submit(frm)
 {   
-    if((frm.user_email.value=="")&&(frm.Fname.value=="")&&(frm.password1.value==""))alert("Enter Father's Name,Email Address,Password First ");
+    if((frm.user_email.value=="")&&(frm.std_name.value=="")&&(frm.password1.value==""))alert("Enter Name,Email Address,Password First ");
     else if(frm.user_email.value=="")
         {
             document.getElementById('email_error').innerHTML="<font color='red'>Enter Email Address</font>";
             frm.user_email.focus();
         }
-    else if(frm.Fname.value=="")
+    else if(frm.std_name.value=="")
         {
-            document.getElementById('fname_error').innerHTML="<font color='red'>Enter Fathers Name</font>";
-            frm.Fname.focus();
+            document.getElementById('name_error').innerHTML="<font color='red'>Enter Name</font>";
+            frm.std_name.focus();
         }
     else if(frm.password1.value=="")
         {
