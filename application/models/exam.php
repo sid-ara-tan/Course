@@ -44,7 +44,7 @@ class Exam extends CI_Model{
 
     function  get_routine($courseno){
         $query=$this->db->query("
-            select Sec,eDate,eTime,eType,Duration,Location,Topic,Syllabus
+            select Sec,eDate,eTime,eType,Duration,Location,Topic,Syllabus,Scheduler_ID,ID
             from exam
             where CourseNo='$courseno'
             ");
@@ -128,5 +128,57 @@ class Exam extends CI_Model{
         }else{
             return FALSE;
         }
+    }
+
+    function add_exam($courseno){
+        $data=array(
+          'CourseNo' => $courseno,
+          'etype' => $this->input->post('exam_type'),
+          'Description' => $this->input->post('Description')
+        );
+        $this->db->insert('exam_type',$data);
+    }
+
+    function delete_exam($courseno,$exam_type){
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('etype',$exam_type);
+        $this->db->delete('Exam_Type');
+
+    }
+
+    function get_exam_type($courseno){
+        $query=$this->db->query("
+            Select etype,Description
+            From exam_type
+            Where CourseNo='$courseno'
+            ");
+        if($query->num_rows()>0){
+             foreach($query->result() as $row){
+                $data[]=$row;
+            }
+            return $data;
+        }else{
+            return FALSE;
+        }
+    }
+
+    function is_scheduled($courseno,$exam_type){
+        $query=$this->db->query("
+            Select Sec
+            From exam
+            Where CourseNo='$courseno' and eType='$exam_type'
+            ");
+        if($query->num_rows()>0){
+            return TRUE;
+        }else{
+            return FALSE;
+        }
+    }
+
+    function delete_scheduled($courseno,$sec,$ID){
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('Sec',$sec);
+        $this->db->where('ID',$ID);
+        $this->db->delete('exam');
     }
 }

@@ -31,5 +31,24 @@ function check_marks(frm,students){
     }
 }
 
+function check_content(frm){
+    
+    if(frm.Topic.value==""){
+        document.getElementById("content_error").innerHTML="<font color='red'>!!!Topic required</font>";
+        document.getElementById('Topic').style.background="yellow";
+        frm.Topic.focus();        
+    }else{
+        frm.submit();
+    }
+}
 
+function check_addexam(frm){
+    if(frm.exam_type.value==""){
+        document.getElementById("addexam_error").innerHTML="<font color='red'>!!!Name required</font>";
+        document.getElementById('exam_type').style.background="yellow";
+        frm.exam_type.focus();
+    }else{
+        frm.submit();
+    }
+}
 

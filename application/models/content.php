@@ -2,7 +2,7 @@
 class Content extends CI_model{
     
     function insert_content($courseno,$author,$topic,$description,$filename){
-        
+        $T_ID=$ID=$this->session->userdata['ID'];
         $query=$this->db->query("
                 SELECT MAX(ID) as ID
                 FROM content
@@ -21,6 +21,7 @@ class Content extends CI_model{
             'CourseNo'=>$courseno,
             'ID'=>$id,
             'Uploader'=>$author,
+            'Uploader_ID'=>$T_ID,
             'Topic'=>$topic,
             'Description'=>$description,
             'File_Path'=>$filename,

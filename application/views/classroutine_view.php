@@ -20,6 +20,7 @@
       <li><a href="#">Assigned Course</a>
         <ul>
           <?php
+                $T_ID=$this->session->userdata['ID'];
                 $course_record=$this->teacher->get_courses();
 
                 foreach($course_record as $row){
@@ -171,6 +172,7 @@
                 <?php
                 $rows=$this->teacher->get_courses();
                 foreach($rows as $row){
+                    $courseno=$row->CourseNo;
                     echo '<h1><a href="#">'.$row->CourseName.'</a></h1><div>';
                     $rows=$this->exam->get_routine($row->CourseNo);
                     $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
@@ -185,9 +187,14 @@
                     if($rows==FALSE){
                         echo '<h1>No exam scheduled</h1>';
                     }else{
-                        $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Syllabus');
+                        $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Action');
                         foreach ($rows as $row) {
-                            $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location);
+                            if($T_ID==$row->Scheduler_ID && $this->exam->total_marks($courseno,$row->Sec,$row->ID)==FALSE){
+                                $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,
+                                        anchor('teacher_home/delete_scheduled/'.$courseno.'/'.$row->Sec.'/'.$row->ID,'Delete'));
+                            }else{
+                                $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,'NA');
+                            }
                         }
                         echo $this->table->generate();
                     }
