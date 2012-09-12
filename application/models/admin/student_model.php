@@ -170,10 +170,7 @@
         $this->db->group_by('S_Id');
         $result=$this->db->get('takencourse');
 
-        if($result->num_rows>0){
-                return $result;
-        }
-        return FALSE;
+        return $result;
     }
 
     function get_all_pending_request_by_id($id=NULL){
