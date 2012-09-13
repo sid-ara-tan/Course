@@ -200,18 +200,19 @@ $row_std = $query_student_info->row();
                                 <hr />
                                 <hr /><hr />
                                 <?php
-                                $row_std_name=$query_student->row();
+                                //$row_std_name=$query_student->row();
                                 if($querymsg!=FALSE)
                                 {
 
                                 foreach ($querymsg as $row)
                                     {
-                                    echo '<b>'.$row->SenderInfo.'</b>'.' says :';
+                                    if($row->senderType=='student')echo "<b><font color='green'>".${'nameof'.$row->MessageNo}.'</font></b>'.' says :';
+                                    elseif($row->senderType=='teacher')echo "<b><font color='red'>".${'nameof'.$row->MessageNo}.'</font></b>'.' says :';
                                     echo '('.$row->mTime.')';
                                     echo br(2);;
                                     echo "<font color='blue'><h3><b>".$row->Subject.'</b></h3></font><br>';
                                     echo $row->mBody.'<br><br>';
-                                    if($row->SenderInfo==$row_std_name->Name)
+                                    if($row->SenderInfo==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
                                         echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno," <font color='red'>Delete</font> ",'onclick=" return check()"').' ';  

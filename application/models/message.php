@@ -32,29 +32,11 @@ class Message extends CI_model {
 
         $uptime = strftime("%Y-%m-%d %H:%M:%S", time());
 
-        if ($this->session->userdata['type'] == 'teacher') {
-            $query = $this->db->query("
-            SELECT Name
-            FROM teacher
-            WHERE T_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        } else {
-            $query = $this->db->query("
-            SELECT Name
-            FROM student
-            WHERE S_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        }
-
 
         $data = array(
             'CourseNo' => $courseno,
             'MessageNo' => $id,
-            'SenderInfo' => $name,
+            'SenderInfo' => $user_id,
             'senderType' => $this->session->userdata['type'],
             'Subject' => $subject,
             'Mbody' => $message,
@@ -67,7 +49,7 @@ class Message extends CI_model {
     function getallmessage($courseno,$limit,$offset) {
         $query = $this->db->query("
                 select * 
-                from message_group_student 
+                from message_group_student
                 where CourseNo='$courseno' and status=1
                 order by mTime desc
                 LIMIT $limit OFFSET $offset");
@@ -87,17 +69,9 @@ class Message extends CI_model {
         $user_id = $this->session->userdata['ID'];
 
         $query = $this->db->query("
-            SELECT Name
-            FROM student
-            WHERE S_Id='$user_id'
-            ");
-        $result = $query->row();
-        $name = $result->Name;
-
-        $query = $this->db->query("
             UPDATE message_group_student 
             SET status=0
-            where CourseNo='$courseno' and MessageNo=$msg_id and SenderInfo='$name'
+            where CourseNo='$courseno' and MessageNo=$msg_id and SenderInfo='$user_id'
             ");
 
     }
