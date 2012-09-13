@@ -25,42 +25,17 @@ class Student_home_group extends CI_controller {
         $data['notification']=$this->session->flashdata('notification');
         
         $offset=$this->uri->segment(4,0);
-        
-        
-        
         $this->load->model('message');
         $this->load->model('comment');
-        //$this->load->model('file'); 
+        $this->load->model('student');
+        $this->load->model('teacher');
 
-        
-
-        
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
-
-        
-        //$record_file=$this->file->get_file($courseno,100,0);
-        //$data['record_file']=$record_file;
-        //file comment
-       /* if($data['record_file']!=FALSE)
-        {
-            foreach ($data['record_file'] as $row)
-            {
-            $fileid=$row->file_id;
-            $data['commentoffile'.$fileid]=$this->comment->comment_number($courseno,$fileid);
-            }
-            //var_dump($data);               
-        }
-        */
-
-        //echo $courseno;
         $user_id=$this->session->userdata['ID'];
-        $data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
-        
-        
-
-        
+        //$data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
+      
         //Pagination
         $config['total_rows'] =$this->message->count_results($courseno);
         $config['base_url'] = base_url().'index.php/student_home_group/group/'.$courseno;
@@ -77,8 +52,11 @@ class Student_home_group extends CI_controller {
         {
             foreach ($data['querymsg'] as $row)
             {
-            $msgno=$row->MessageNo;
-            $data['commentof'.$msgno]=$this->comment->comment_number($courseno,$msgno);
+                
+                $msgno=$row->MessageNo;
+                $data['commentof'.$msgno]=$this->comment->comment_number($courseno,$msgno);
+                if($row->senderType=='student')$data['nameof'.$msgno]=$this->student->get_name($row->SenderInfo);
+                elseif($row->senderType=='teacher')$data['nameof'.$msgno]=$this->teacher->get_name($row->SenderInfo);
             }
             //var_dump($data);               
         }
@@ -127,10 +105,12 @@ class Student_home_group extends CI_controller {
     {
         $this->load->model('message');
         $this->load->model('comment');
+        $this->load->model('student');
+        $this->load->model('teacher');
         $this->load->model('file');
         
-        $user_id=$this->session->userdata['ID'];
-        $data['query_student_name']=$this->db->query("select Name from Student where S_Id='$user_id'");
+        //$user_id=$this->session->userdata['ID'];
+        //$data['query_student_name']=$this->db->query("select Name from Student where S_Id='$user_id'");
         
         $data['notification']=$this->session->flashdata('notification');;
         $offset=$this->uri->segment(5,0);
@@ -152,13 +132,36 @@ class Student_home_group extends CI_controller {
         
         $data['querycomment'] =$this->comment->getall($courseno,$msg_id,$config['per_page'],$offset);
         
-        $data['query_post']=$this->message->get($msg_id,$courseno);
+        if($data['querycomment']!=FALSE)
+        {
+            foreach ($data['querycomment']->result_array() as $row)
+            {
+                
+                $commentno=$row['id'];
+                if($row['senderType']=='student')$data['nameof'.$commentno]=$this->student->get_name($row['commentBy']);
+                elseif($row['senderType']=='teacher')$data['nameof'.$commentno]=$this->teacher->get_name($row['commentBy']);
+            }
+            //var_dump($data);               
+        }
+        
         $data['isfile']=false;
+        $data['query_post']=$this->message->get($msg_id,$courseno);
+ 
         
         if($data['query_post']==FALSE)
         {
             $data['query_post']=$this->file->get($msg_id,$courseno);
             $data['isfile']=true;
+            $row=$data['query_post']->row();
+            if($row->senderType=='student')$data['nameof']=$this->student->get_name($row->uploader);
+            elseif($row->senderType=='teacher')$data['nameof']=$this->teacher->get_name($row->uploader);
+        }
+        
+        else
+        {
+            $row=$data['query_post']->row();
+            if($row->senderType=='student')$data['nameof']=$this->student->get_name($row->SenderInfo);
+            elseif($row->senderType=='teacher')$data['nameof']=$this->teacher->get_name($row->SenderInfo);   
         }
         
         $this->load->view('student_group_page_comment', $data);
@@ -257,9 +260,11 @@ class Student_home_group extends CI_controller {
     {
         $this->load->model('file');
         $this->load->model('comment');
+        $this->load->model('student');
+        $this->load->model('teacher');
         
         $user_id=$this->session->userdata['ID'];
-        $data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
+        //$data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
         
         $courseno=$this->input->post('courseno');
         $data['courseno']=$courseno;
@@ -271,8 +276,10 @@ class Student_home_group extends CI_controller {
         {
             foreach ($data['record_file'] as $row)
             {
-            $fileid=$row->file_id;
-            $data['commentoffile'.$fileid]=$this->comment->comment_number($courseno,$fileid);
+                $fileid=$row->file_id;
+                $data['commentoffile'.$fileid]=$this->comment->comment_number($courseno,$fileid);
+                if($row->senderType=='student')$data['nameof'.$fileid]=$this->student->get_name($row->uploader);
+                elseif($row->senderType=='teacher')$data['nameof'.$fileid]=$this->teacher->get_name($row->uploader);
             }
             //var_dump($data);               
         }

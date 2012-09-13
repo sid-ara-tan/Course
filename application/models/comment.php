@@ -10,29 +10,11 @@ class Comment extends CI_model {
 
         $uptime = strftime("%Y-%m-%d %H:%M:%S", time());
 
-        if ($this->session->userdata['type'] == 'teacher') {
-            $query = $this->db->query("
-            SELECT Name
-            FROM teacher
-            WHERE T_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        } else {
-            $query = $this->db->query("
-            SELECT Name
-            FROM student
-            WHERE S_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        }
-
 
         $data = array(
             'CourseNo' => $courseno,
             'msg_no' => $msgno,
-            'commentBy' => $name,
+            'commentBy' => $user_id,
             'senderType' => $this->session->userdata['type'],
             'body' => $body,
             'status' => 1,
@@ -59,17 +41,9 @@ class Comment extends CI_model {
         $user_id = $this->session->userdata['ID'];
 
         $query = $this->db->query("
-            SELECT Name
-            FROM student
-            WHERE S_Id='$user_id'
-            ");
-        $result = $query->row();
-        $name = $result->Name;
-
-        $query = $this->db->query("
             UPDATE comment 
             SET status=0
-            where id=$id and commentBy='$name'
+            where id=$id and commentBy='$user_id'
             ");
 
     }

@@ -88,5 +88,20 @@ class Student extends CI_model {
             return FALSE;
         }
     }
+    
+    function get_name($id){
+
+        $result=$this->db->query("
+                                    select Name from student
+                                    where S_Id='$id';
+                                    ");
+        if($result){
+            $row=$result->row();
+            return $row->Name;
+        }else{
+            return null;
+        }
+        
+    }
 
 }

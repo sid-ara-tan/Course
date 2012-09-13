@@ -4,7 +4,7 @@
                         <hr /><hr />
 
                         <?php
-                        $row_std_name=$query_student->row();
+                        //$row_std_name=$query_student->row();
                         echo form_open_multipart('student_home_group/do_upload');?>
                         <?php echo form_label('Topic', 'topic_label');?>
                         <br>
@@ -30,9 +30,10 @@
                             ?>
                             <h3><?php echo anchor('student_home_group/download_file/'.$courseno.'/'.$row_record_file->filename, $row_record_file->topic); ?></h3>
                             <?php echo $row_record_file->description.'<br>';
-                                echo "<br />uploaded by <font color='red'> ".$row_record_file->uploader.'</font>';
+                                if($row_record_file->senderType=='student')echo "<br />uploaded by <font color='green'> ".${'nameof'.$row_record_file->file_id}.'</font>';
+                                elseif($row_record_file->senderType=='teacher')echo "<br />uploaded by <font color='red'> ".${'nameof'.$row_record_file->file_id}.'</font>';
                                 echo ' '.$row_record_file->time.'<br>';
-                                    if($row_record_file->uploader==$row_std_name->Name)
+                                    if($row_record_file->uploader==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
                                         echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename," <font color='red'>Delete</font> ",'onclick=" return check()"').' #';  
