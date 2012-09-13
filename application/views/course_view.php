@@ -1,6 +1,8 @@
 <?php
     $data['title']="Course Content";
     $this->load->view('header/style_demo_header',$data);
+    $T_ID=$this->session->userdata['ID'];
+    $info=$this->teacher->get_info();
 ?>
 
 <body id="top">
@@ -8,6 +10,7 @@
   <div id="header" class="clear">
     <div class="fl_left">
       <h1>Course Management System</h1>
+      <h3><font color="green"><?php echo $info->Name;?></font></h3>
     </div>
   </div>
 </div>
@@ -30,6 +33,7 @@
         ?>
         </ul>
       </li>
+      <li><a href="<?php echo base_url();?>index.php/teacher_home/message">Message</a></li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
 
     </ul>
@@ -72,8 +76,8 @@
                                             <span class="wrote"><?php echo "<br />uploaded by ".$row->Uploader?></span>
                                         </div>
                                         <div class="submitdate"><?php echo $row->Upload_Time;?></div>
-                                        <p><pre><?php echo $row->Description;?></pre></p>
-                                        <p><?php if($T_ID==$row->Uploader_ID)echo anchor('teacher_home/delete_content/'.$courseno.'/'.$row->ID.'/'.$row->File_Path,' [Delete]').'<br />';?></p>
+                                        <pre><?php echo $row->Description;?></pre>
+                                        <p><?php if($T_ID==$row->Uploader_ID)echo anchor('teacher_home/delete_content/'.$courseno.'/'.$row->ID.'/'.$row->File_Path,' [Delete]','onclick=" return check()"').'<br />';?></p>
                                     </li>
                                 <?php
                                                /* echo "<fieldset>";
@@ -245,27 +249,93 @@
                 <input type="text" name="exam_type" id="exam_type" maxlength="20"/>
                 <label for="Location"><small>Name of Exam</small></label><br/>
                 <div id="addexam_error"></div>
+                <select name="Marks_Type">
+                    <option value="Best">Best Count</option>
+                    <option value="Percentage">Percentage</option>
+                </select>
+                <label for="Marks_Type"><small>Marks_Type</small></label><br/>
                 <textarea name="Description" rows="10" cols="60"></textarea>
                 <label for="Description"><small>Description</small></label><br/>
                 <input type="button" value="Add Exam" onclick="check_addexam(this.form);" />
                 <?php echo form_close();?>
                 <br/>
-                <h1>Available Exam</h1>                
+
+
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                    $("p.flip").click(function(){
+                    $("div.panel").slideToggle("slow");
+                    });
+                    });
+
+                    function showdiv(str){                        
+                        str="#".concat(str);                        
+                        $(str).slideToggle("slow");
+                    }
+                 </script>
+                <div style="background-color:whitesmoke; width: 50%">
+                <h1>Combined Marks Distribution</h1>
+                <div id="editexam_error"></div>
                 <?php
                 $rows=$this->exam->get_exam_type($courseno);
-                echo '<ul class="commentlist">';
+
                 if($rows!=FALSE){
+
+                    echo form_open('teacher_home/marks_distribution/'.$courseno);
+                    $exam_array=array();
+                    echo '<ul>';
                     foreach ($rows as $row) {
-                        echo "<fieldset>";
-                        echo '<li class="comment_even">'.$row->etype;
-                        if($this->exam->is_scheduled($courseno,$row->etype)==FALSE) echo anchor('teacher_home/delete_exam/'.$courseno.'/'.$row->etype,'   [Delete]');
-                        echo '<p><pre>'.$row->Description.'</pre></p></li>';                                              
+                        $exam_array[]=$row->etype;
+                        $str="div".$row->etype;
+                        echo '<li><b><span onclick="showdiv(\''.$str.'\');">'.$row->etype.'</span></b>';
+                        if($this->exam->is_scheduled($courseno,$row->etype)==FALSE)
+                                echo anchor('teacher_home/delete_exam/'.$courseno.'/'.$row->etype,
+                                        '   [Delete]','onclick=" return check()"');
+                        echo '<div style="display:none" id="div'.$row->etype.'"><pre>'.$row->Description.'</pre>';
+                        echo form_open('teacher_home/set_marks_percentage/'.$courseno);
+                        if($row->Marks_Type=='Best'){
+
+                        }else{
+                            
+                        }
+                        echo form_close();
+                        echo '</div>';
+
+                        echo '<br /><input type="text" name="'.$row->etype.'" id="'.$row->etype.'"
+                            value="'.$row->Percentage.'" size="5px" maxlength="5"/>% <br/>  ';
+                        $data=array(
+                                'Best'=>'Best Count',
+                                'Percentage'=>'Percentage'
+                                );
+                        
+                        echo form_dropdown('Marks_Type'.$row->etype,$data,set_value('Marks_Type',$row->Marks_Type));                        
+                        echo '</li>';                        
+                        
                     }
+                    echo '</ul>';
+                    $exam_str=implode(",", $exam_array);                    
+                    echo '<input type="button" value="Edit" onclick="check_percentage(this.form,\''.$exam_str.'\');"><br/><br/>';
+                    echo form_close();
                 }else{
-                    echo 'No Exam Added';
+                    echo '<font color="red">No exam added</font>';
                 }
-                echo '</ul>';
                 ?>
+                </div>
+                <div style="background-color:wheat; width: 50%">
+                    <h1>Individual Marks Distribution</h1>
+                    <?php
+                    $rows=$this->exam->get_exam_type($courseno);
+                    if($row!=FALSE){
+                        $data=array();
+                        foreach ($rows as $row) {
+                            $data[$row->etype]=$row->etype;
+                        }
+                        echo form_dropdown('etype', $data);
+                        
+                    }
+                    ?>
+                </div>
+                
             </div>
         </div>
 

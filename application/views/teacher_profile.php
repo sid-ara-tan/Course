@@ -1,12 +1,15 @@
 <?php
     $data['title']="Teacher profile";
     $this->load->view('header/full_width_header',$data);
+    $T_ID=$this->session->userdata['ID'];
+    $info=$this->teacher->get_info();
 ?>
 <body id="top">
 <div class="wrapper row1">
   <div id="header" class="clear">
     <div class="fl_left">
       <h1>Course Management System</h1>
+      <h3><font color="green"><?php echo $info->Name;?></font></h3>
     </div>
   </div>
 </div>
@@ -29,6 +32,7 @@
         ?>
         </ul>
       </li>
+      <li><a href="<?php echo base_url();?>index.php/teacher_home/message">Message</a></li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
       </ul>
     <div  class="clear"></div>

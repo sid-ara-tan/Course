@@ -224,5 +224,20 @@ class Teacher_home extends CI_controller{
         }
     }
 
+    function message(){
+        $this->load->view('message_view');
+    }
+
+    function marks_distribution($courseno){
+        $this->load->model('exam');
+        $total=$this->exam->get_exam_type($courseno);
+        foreach($total as $row){
+            $this->exam->edit_marks_distribution($courseno,$row->etype);
+        }
+        $this->session->set_flashdata('addexam_message', 'Marks distributed Succesfully');
+        redirect("teacher_home/class_content/$courseno");
+        
+    }
+
     
 }

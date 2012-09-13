@@ -1,12 +1,15 @@
 <?php
     $data['title']="Teacher Home Page";
     $this->load->view('header/index_header',$data);
+    $T_ID=$this->session->userdata['ID'];
+    $info=$this->teacher->get_info();
 ?>
 <body id="top">
 <div class="wrapper row1">
   <div id="header" class="clear">
     <div class="fl_left">
       <h1>Course Management System</h1>
+      <h3><font color="green"><?php echo $info->Name;?></font></h3>
     </div>
   </div>
 </div>
@@ -30,6 +33,7 @@
         ?>
         </ul>
       </li>
+      <li><a href="<?php echo base_url();?>index.php/teacher_home/message">Message</a></li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
       </ul>
     <div  class="clear"></div>
@@ -165,9 +169,9 @@
 
 </div>
   <!-- ####################################################################################################### -->
-<div align="center" >
+<div align="center"  >
         <h1>Exam routine</h1>
-        <div class="demo" style="width:800px" align="left">
+        <div class="demo" style="width:800px;height:300px;" align="left">
             <div id="accordion">
                 <?php
                 $rows=$this->teacher->get_courses();
@@ -191,7 +195,7 @@
                         foreach ($rows as $row) {
                             if($T_ID==$row->Scheduler_ID && $this->exam->total_marks($courseno,$row->Sec,$row->ID)==FALSE){
                                 $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,
-                                        anchor('teacher_home/delete_scheduled/'.$courseno.'/'.$row->Sec.'/'.$row->ID,'Delete'));
+                                        anchor('teacher_home/delete_scheduled/'.$courseno.'/'.$row->Sec.'/'.$row->ID,'Delete','onclick=" return check()"'));
                             }else{
                                 $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,'NA');
                             }

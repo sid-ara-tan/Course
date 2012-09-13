@@ -11,14 +11,14 @@ class Classinfo extends CI_Model {
              ");
         // ei query te prob ase
         
-        /*
-        $query = $this->db->query("
+        
+        /*$query = $this->db->query("
                 SELECT C.CourseNo,Period,C.Sec,cTime,Location,Duration
                 FROM ClassInfo C
                 WHERE cDay='$day' and by_teacher='$ID' order by period
-             ");
-         * 
-         */
+             ");*/
+          
+         
 
         if ($query->num_rows() > 0) {
             foreach ($query->result() as $row) {

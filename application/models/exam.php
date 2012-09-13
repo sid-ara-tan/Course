@@ -3,6 +3,7 @@
 class Exam extends CI_Model{
 
     function schedule_exam($courseno){
+        $T_ID=$this->session->userdata['ID'];
         $query=$this->db->query("
                 SELECT MAX(ID) as ID
                 FROM exam
@@ -35,7 +36,7 @@ class Exam extends CI_Model{
             'Duration'=>$this->input->post('Duration'),
             'eDate'=>$date,
             'eTime'=>$time,
-            'FileLocation'=>NULL,
+            'Scheduler_ID'=>$T_ID,
             'eType'=>$this->input->post('Type')
         );
         
@@ -134,7 +135,8 @@ class Exam extends CI_Model{
         $data=array(
           'CourseNo' => $courseno,
           'etype' => $this->input->post('exam_type'),
-          'Description' => $this->input->post('Description')
+          'Description' => $this->input->post('Description'),
+          'Marks_Type'=>  $this->input->post('Marks_Type')
         );
         $this->db->insert('exam_type',$data);
     }
@@ -146,9 +148,20 @@ class Exam extends CI_Model{
 
     }
 
+    function edit_marks_distribution($courseno,$etype){
+        $data=array(
+            'Percentage'=>$this->input->post($etype),
+            'Marks_Type'=>$this->input->post('Marks_Type'.$etype)
+
+        );
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('etype',$etype);
+        $this->db->update('Exam_Type',$data);
+    }
+
     function get_exam_type($courseno){
         $query=$this->db->query("
-            Select etype,Description
+            Select etype,Description,Percentage,Marks_Type
             From exam_type
             Where CourseNo='$courseno'
             ");
