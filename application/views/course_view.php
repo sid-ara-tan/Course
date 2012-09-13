@@ -54,8 +54,10 @@
                         <li><a href="#tabs-2">Upload Marks</a></li>
                         <li><a href="#tabs-3">Schedule Exam</a></li>
                         <li><a href="#tabs-4">Exam settings</a></li>
+                        <li><a href="#tabs-5">test</a></li>
                         
                 </ul>
+            <div id="tabs-5">arafat</div>
                 <div id="tabs-1">
                         <div id="comments">
 
@@ -273,6 +275,7 @@
                         $(str).slideToggle("slow");
                     }
                  </script>
+                
                 <div style="background-color:whitesmoke; width: 50%">
                 <h1>Combined Marks Distribution</h1>
                 <div id="editexam_error"></div>
@@ -321,7 +324,7 @@
                 }
                 ?>
                 </div>
-                <div style="background-color:wheat; width: 50%">
+                <div style="background-color:wheat; width: 50%;">
                     <h1>Individual Marks Distribution</h1>
                     <?php
                     $rows=$this->exam->get_exam_type($courseno);

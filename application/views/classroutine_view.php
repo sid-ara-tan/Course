@@ -139,7 +139,7 @@
             ?>
           </div>
       </dd>
-      <dt>Wednessday</dt>
+      <dt>Wednesday</dt>
       <dd>
           <div style="height:360px; background-color:#494949">
 
@@ -153,7 +153,7 @@
                                 'row_alt_end'         => '</tr>');
                 $this->table->set_template($tmpl);
                 $this->table->set_heading('CourseNo', 'Sec','Period', 'Time','Duration','Location');
-                $record=$this->classinfo->get_routine('Wednessday');
+                $record=$this->classinfo->get_routine('Wednesday');
                 if($record!=FALSE){
                             foreach($record as $row){
                                 $this->table->add_row($row->CourseNo,$row->Sec,$row->Period,$row->cTime,$row->Duration,$row->Location);
