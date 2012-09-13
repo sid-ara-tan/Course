@@ -40,23 +40,23 @@ $row_std = $query_student_info->row();
                 <?php
                 if($isfile==false)
                 {
-                ?>
-                <h1><?php echo $row_post->Subject;?></h1>
-                <p><?php echo $row_post->mBody;?></p>
-                <hr>
-                <p><?php echo "by ".$row_post->SenderInfo.' at '.$row_post->mTime;?></p>
-                <hr>
-                <?php
+                    ?>
+                    <h1><?php echo $row_post->Subject;?></h1>
+                    <p><?php echo $row_post->mBody;?></p>
+                    <hr>
+                    <p><?php echo "by ".$nameof.' at '.$row_post->mTime;?></p>
+                    <hr>
+                    <?php
                 }
                 else
                 {
-                ?>
-                <h3><?php echo anchor('student_home_group/download_file/'.$this->uri->segment(4).'/'.$row_post->filename, $row_post->topic); ?></h3>
-                <p><?php echo $row_post->description;?></p>
-                <hr>
-                <p><?php echo "by ".$row_post->uploader.' at '.$row_post->time;?></p>
-                <hr>
-                <?php
+                    ?>
+                    <h3><?php echo anchor('student_home_group/download_file/'.$this->uri->segment(4).'/'.$row_post->filename, $row_post->topic); ?></h3>
+                    <p><?php echo $row_post->description;?></p>
+                    <hr>
+                    <p><?php echo "by ".$nameof.' at '.$row_post->time;?></p>
+                    <hr>
+                    <?php
                 }
 ?>
                 
@@ -69,11 +69,12 @@ $row_std = $query_student_info->row();
                         foreach ($querycomment->result_array() as $row)
                         {?>
                             <li class="comment_even">
-                                <div class="author"><img class="avatar" src="images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#"><?php echo $row['commentBy'];?></a></span> <span class="wrote">wrote:</span></div>
+                                <div class="author"><img class="avatar" src="images/demo/avatar.gif" width="32" height="32" alt="" /><span class="name"><a href="#"><?php echo ${'nameof'.$row['id']};?></a></span> <span class="wrote">wrote:</span></div>
+                                <?php if($row['senderType']=='teacher')echo " (admin)<br>" ?>
                                 <div class="submitdate"><a href="#"><?php echo $row['time'];?></a></div>
                                 <p><?php echo $row['body'].'</p>';
-                                    $row_name_std=$query_student_name->row();
-                                    if($row['commentBy']==$row_name_std->Name)
+                                    //$row_name_std=$query_student_name->row();
+                                    if($row['commentBy']==$this->session->userdata['ID'])
                                     {
                                         echo '<br>< '.anchor('student_home_group/comment_delete/'.$row['msg_no'].'/'.$row['CourseNo'].'/'.$row['id'],'Delete','onclick=" return check()"').' >';
                                     }?>

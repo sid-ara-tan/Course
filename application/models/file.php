@@ -4,24 +4,6 @@ class File extends CI_model{
     function insert_file($courseno,$topic,$description,$filename,$status){
          
         $user_id = $this->session->userdata['ID'];
-        if ($this->session->userdata['type'] == 'teacher') {
-            $query = $this->db->query("
-            SELECT Name
-            FROM teacher
-            WHERE T_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        } else {
-            $query = $this->db->query("
-            SELECT Name
-            FROM student
-            WHERE S_Id='$user_id'
-            ");
-            $result = $query->row();
-            $name = $result->Name;
-        }
-        
         
         $query1=$this->db->query("
         SELECT MAX(MessageNo) as ID1
@@ -51,7 +33,8 @@ class File extends CI_model{
         
         $data=array(
             'CourseNo'=>$courseno,
-            'uploader'=>$name,
+            'uploader'=>$user_id,
+            'senderType' => $this->session->userdata['type'],
             'topic'=>$topic,
             'description'=>$description,
             'filename'=>$filename,
@@ -85,6 +68,7 @@ class File extends CI_model{
     function delete_file($courseno,$filename){
         $this->db->where('CourseNo',$courseno);
         $this->db->where('filename',$filename);
+        $this->db->where('uploader',$this->session->userdata['ID']);
         $this->db->delete('file');
         
     }

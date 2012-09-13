@@ -73,13 +73,14 @@ class Student_home extends CI_controller {
     function course_registration()
     {
         $this->load->model('course');
+        $this->load->model('schedule');
+        
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
-        $isRegiPeriod=TRUE;
-        $isDropPeriod=FALSE;
+        $Period=$this->schedule->get_schedule_student();
         
-        if($isRegiPeriod)
+        if($Period->period=='registration_request')
         {
             $data['query_offered']=$this->course->get_offered_courses();
             $data['query_retake']=$this->course->get_retake_courses();
@@ -88,7 +89,7 @@ class Student_home extends CI_controller {
         }
         else $data['query_offered']='Not Period';
         
-        if($isDropPeriod)
+        if($Period->period=='drop_request')
         {
             $data['query_drop']=$this->course->get_drop_courses();
             $data['is_drop_pending']=$this->course->get_drop_courses_status();
