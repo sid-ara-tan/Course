@@ -65,6 +65,7 @@ class Teacher_home extends CI_controller{
     function upload_marks($courseno){
         $this->load->model('exam');
         $this->load->model('student');
+        $this->exam->Edit_Total();
         if($this->input->post('task')=='upload'){
             $this->exam->upload_marks();
         }else{
@@ -237,6 +238,28 @@ class Teacher_home extends CI_controller{
         $this->session->set_flashdata('addexam_message', 'Marks distributed Succesfully');
         redirect("teacher_home/class_content/$courseno");
         
+    }
+
+    function view_percentage_form(){
+        $this->load->model('exam');
+        $this->load->view('percentage_form');
+    }
+
+    function set_individual_percentage($courseno,$sec){     
+        $exam_array=explode(",", $this->input->post('Exam_ID'));
+        $this->load->model('exam');
+        foreach ($exam_array as $Exam_ID) {
+            $this->exam->set_individual_percentage($courseno,$sec,$Exam_ID);
+        }
+        $this->session->set_flashdata('addexam_message', 'Percentage set Succesfully');
+        redirect("teacher_home/class_content/$courseno");
+    }
+
+    function set_best_count($courseno,$sec,$etype){
+        $this->load->model('exam');
+        $this->exam->set_best_count($courseno,$sec,$etype);
+        $this->session->set_flashdata('addexam_message', 'Best count set Succesfully');
+        redirect("teacher_home/class_content/$courseno");
     }
 
     

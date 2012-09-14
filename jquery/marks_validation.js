@@ -85,4 +85,43 @@ function check_percentage(frm,exam){
     }
 }
 
+function check_individualpercentage(frm,exam){
+    exam=exam.split(",");
+    flag=true;
+    str="";
+    total=0;
+    for(i=0;i<exam.length;i++){
+        document.getElementById(exam[i]).style.background="white";
+        if(document.getElementById(exam[i]).value=="" || isNaN(document.getElementById(exam[i]).value) ||
+            parseFloat(document.getElementById(exam[i]).value)<0){
+            document.getElementById(exam[i]).style.background="yellow";
+            if(flag==true)str=str.concat("<font color='red'>!!! Percentage of ",exam[i]);
+                else str=str.concat(", ",exam[i]);
+                flag=false;
+        }else{
+            total=total+parseFloat(document.getElementById(exam[i]).value);
+        }
+    }
+    if(flag==true){
+        if(total > 100)document.getElementById('setpercentage_error').innerHTML=
+            "<font color='red'>!!!Sum of percentage can't be greater than 100</font>";
+        else frm.submit();
+    }
+    else{
+        str=str.concat(" must be valid number </font>")
+        document.getElementById('setpercentage_error').innerHTML="<font color='red'>Not a valid number</font><br/>";
+    }
+}
+
+function check_individualbest(frm,total){
+    str=frm.best_count.value;
+    if(str=="" ||isNaN(str) || str.indexOf(".")!= -1 || parseInt(str)> parseInt(total)){       
+        document.getElementById('best_count').style.background="yellow";
+        document.getElementById('setpercentage_error').innerHTML="<font color='red'>Not a valid integer</font><br/>";
+        frm.best_count.focus();
+    }else {       
+        frm.submit();
+    }
+}
+
 

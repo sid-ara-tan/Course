@@ -61,7 +61,7 @@ class Exam extends CI_Model{
 
     function get_exam($courseno,$sec){
         $query=$this->db->query("
-            select Topic,ID,eDate,eType
+            select Topic,ID,eDate,eType,eTime,Percentage
             from exam
             where CourseNo='$courseno' and Sec='$sec'
             ");
@@ -72,6 +72,17 @@ class Exam extends CI_Model{
             return $data;
         }
         else return FALSE;
+    }
+
+    function Edit_Total(){
+        $this->db->where('CourseNo', $this->input->post('CourseNo'));
+        $this->db->where('Sec', $this->input->post('Sec'));
+        $this->db->where('ID',$this->input->post('Exam_ID'));
+        $data=array(
+                'Total'=>$this->input->post('total')
+
+            );
+        $this->db->update('Exam',$data);
     }
 
     function upload_marks(){
@@ -88,6 +99,7 @@ class Exam extends CI_Model{
             $this->db->insert('marks',$data);
         }
     }
+
     function edit_marks(){
         $rows=$this->student->get_studentformarks($this->input->post('CourseNo'),$this->input->post('Sec'));
         foreach ($rows as $row) {
@@ -121,8 +133,8 @@ class Exam extends CI_Model{
     function total_marks($courseno,$sec,$exam_ID){
         $query=$this->db->query("
             select Total
-            from marks
-            where CourseNo='$courseno' and Sec='$sec' and Exam_ID='$exam_ID'
+            from exam
+            where CourseNo='$courseno' and Sec='$sec' and ID='$exam_ID'
             ");
         if($query->num_rows()>0){
             return $query->row()->Total;
@@ -175,6 +187,14 @@ class Exam extends CI_Model{
         }
     }
 
+    function get_Marks_Type($courseno,$etype){
+        $query=$this->db->query("
+            Select Marks_Type From exam_type where CourseNo='$courseno' and etype='$etype'
+            ");
+        if($query->num_rows==1)return $query->row()->Marks_Type;
+        else return FALSE;
+    }
+
     function is_scheduled($courseno,$exam_type){
         $query=$this->db->query("
             Select Sec
@@ -193,5 +213,35 @@ class Exam extends CI_Model{
         $this->db->where('Sec',$sec);
         $this->db->where('ID',$ID);
         $this->db->delete('exam');
+    }
+
+    function set_individual_percentage($courseno,$sec,$Exam_ID){
+        $data=array(
+            'Percentage'=>$this->input->post($Exam_ID)
+        );
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('Sec',$sec);
+        $this->db->where('ID',$Exam_ID);
+
+        $this->db->update('exam',$data);
+    }
+
+    function set_best_count($courseno,$sec,$etype){
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('Sec',$sec);
+        $this->db->where('eType',$etype);
+        $data=array('Best'=>$this->input->post('best_count'));
+        $this->db->update('exam',$data);
+        
+    }
+
+    function get_best_count($courseno,$sec,$etype){
+        $this->db->where('CourseNo',$courseno);
+        $this->db->where('Sec',$sec);
+        $this->db->where('eType',$etype);
+        $this->db->select('Best');
+        $query=$this->db->get('exam');
+        if($query->num_rows()>0)return $query->row()->Best;
+        else return FALSE;
     }
 }

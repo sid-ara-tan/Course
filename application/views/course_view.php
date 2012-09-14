@@ -54,10 +54,8 @@
                         <li><a href="#tabs-2">Upload Marks</a></li>
                         <li><a href="#tabs-3">Schedule Exam</a></li>
                         <li><a href="#tabs-4">Exam settings</a></li>
-                        <li><a href="#tabs-5">test</a></li>
                         
                 </ul>
-            <div id="tabs-5">arafat</div>
                 <div id="tabs-1">
                         <div id="comments">
 
@@ -136,7 +134,7 @@
                             WHERE CourseNo='$courseno' AND T_Id='$T_ID'
                             ");
                         $options=array(''=>'Select a section');
-                        $options['all']='ALL';
+                        
                         if($query->num_rows()>0){
                             foreach($query->result() as $row ){
                                 $options[$row->Sec]=$row->Sec;
@@ -170,7 +168,7 @@
                                 FROM AssignedCourse
                                 WHERE CourseNo='$courseno' AND T_Id='$T_ID'
                                 ");
-                            $options=array('all'=>'ALL');
+                            $options=array();
                             if($query->num_rows()>0){
                                 foreach($query->result() as $row ){
                                     $options[$row->Sec]=$row->Sec;
@@ -263,17 +261,36 @@
                 <br/>
 
 
-                <script type="text/javascript">
-                    $(document).ready(function(){
-                    $("p.flip").click(function(){
-                    $("div.panel").slideToggle("slow");
-                    });
-                    });
+                <script type="text/javascript" charset="utf-8">
 
                     function showdiv(str){                        
                         str="#".concat(str);                        
                         $(str).slideToggle("slow");
                     }
+
+                    $(document).ready(function(){
+                        $('#search_for_exam').click(function(){
+                            var courseno='<?php echo $courseno;?>';
+                            //alert(document.getElementById('etype').value);
+                            var form_data={
+                                CourseNo: courseno,
+                                etype: $('#etype').val(),
+                                Sec: $('#Sec').val()
+                            };
+                            
+                            $.ajax({
+                                url: "<?php echo site_url('teacher_home/view_percentage_form')?>",
+                                type: 'POST',
+                                data: form_data,
+                                success:function(message){
+                                    $('#percentage_form').html(message);
+                                }
+                            });
+                            return false;
+                        });
+                    });
+
+
                  </script>
                 
                 <div style="background-color:whitesmoke; width: 50%">
@@ -295,48 +312,60 @@
                                 echo anchor('teacher_home/delete_exam/'.$courseno.'/'.$row->etype,
                                         '   [Delete]','onclick=" return check()"');
                         echo '<div style="display:none" id="div'.$row->etype.'"><pre>'.$row->Description.'</pre>';
-                        echo form_open('teacher_home/set_marks_percentage/'.$courseno);
-                        if($row->Marks_Type=='Best'){
-
-                        }else{
-                            
-                        }
-                        echo form_close();
                         echo '</div>';
 
-                        echo '<br /><input type="text" name="'.$row->etype.'" id="'.$row->etype.'"
-                            value="'.$row->Percentage.'" size="5px" maxlength="5"/>% <br/>  ';
+                        echo '<br /><br />Percentage:<input type="text" name="'.$row->etype.'" id="'.$row->etype.'"
+                            value="'.$row->Percentage.'" size="5px" maxlength="5"/>%   Type:  ';
                         $data=array(
                                 'Best'=>'Best Count',
                                 'Percentage'=>'Percentage'
                                 );
                         
                         echo form_dropdown('Marks_Type'.$row->etype,$data,set_value('Marks_Type',$row->Marks_Type));                        
-                        echo '</li>';                        
+                        echo '<br /><br /><hr /></li>';
                         
                     }
                     echo '</ul>';
                     $exam_str=implode(",", $exam_array);                    
-                    echo '<input type="button" value="Edit" onclick="check_percentage(this.form,\''.$exam_str.'\');"><br/><br/>';
+                    echo '<div style="float:right;">
+                        <input type="button" value="Save Change" onclick="check_percentage(this.form,\''.$exam_str.'\');">
+                            </div><br/><br/>';
                     echo form_close();
                 }else{
                     echo '<font color="red">No exam added</font>';
                 }
                 ?>
                 </div>
-                <div style="background-color:wheat; width: 50%;">
+
+                <script type="text/javascript" charset="utf-8">
+                </script>
+                <div style="background-color:azure; width: 50%;">
                     <h1>Individual Marks Distribution</h1>
+                    <div id="setpercentage_error"></div>
+                    <div id="percentage_form">
                     <?php
+                    echo form_open();
                     $rows=$this->exam->get_exam_type($courseno);
                     if($row!=FALSE){
                         $data=array();
                         foreach ($rows as $row) {
                             $data[$row->etype]=$row->etype;
                         }
-                        echo form_dropdown('etype', $data);
-                        
+                        echo form_dropdown('etype', $data,'','id="etype"');
+
+                        $data=array();                        
+                        $rows2=$this->teacher->get_assigned_sec($courseno);
+
+                        foreach ($rows2 as $row) {
+                            $data[$row->Sec]=$row->Sec;
+                        }
+
+                        echo form_dropdown('Sec',$data,'','id="Sec"');
+                        echo form_submit('search_for_exam','Search','id="search_for_exam"');
+                        echo form_close();
                     }
                     ?>
+                    </div>
                 </div>
                 
             </div>

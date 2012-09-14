@@ -15,7 +15,7 @@
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper row2">
-  <div id="topnav">
+  <div id="topnav" >
     <ul>
         <li class="active"><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
 
