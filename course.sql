@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2012 at 04:47 PM
+-- Generation Time: Sep 12, 2012 at 05:32 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -203,7 +203,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `msg_no` (`msg_no`),
   KEY `CourseNo` (`CourseNo`),
   KEY `commentBy` (`commentBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=60 ;
 
 --
 -- Dumping data for table `comment`
@@ -267,7 +267,8 @@ INSERT INTO `comment` (`id`, `msg_no`, `CourseNo`, `time`, `commentBy`, `body`, 
 (55, 1, 'CSE321', '2012-09-06 10:43:44', 'Tanzir Ul Islam Senior', 'cc', 1, 'student'),
 (56, 11, 'CSE309', '2012-09-06 12:47:10', 'Tanzir Ul Islam', 'ty', 1, 'student'),
 (57, 11, 'CSE309', '2012-09-06 12:50:39', 'Tanzir Ul Islam', 'now using flash', 1, 'student'),
-(58, 12, 'CSE310', '2012-09-06 14:20:28', 'Tanzir Ul Islam', 'gjh', 1, 'student');
+(58, 12, 'CSE310', '2012-09-06 14:20:28', 'Tanzir Ul Islam', 'gjh', 1, 'student'),
+(59, 46, 'CSE309', '2012-09-12 01:35:30', 'Md. Arafat Imtiaz', 'asjfhjsdafdsfa', 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -281,6 +282,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `Topic` varchar(30) DEFAULT NULL,
   `Description` text,
   `Uploader` varchar(50) DEFAULT NULL,
+  `Uploader_ID` varchar(50) NOT NULL,
   `Upload_Time` timestamp NULL DEFAULT NULL,
   `File_Path` varchar(100) DEFAULT NULL,
   `status` int(1) NOT NULL,
@@ -292,19 +294,13 @@ CREATE TABLE IF NOT EXISTS `content` (
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Upload_Time`, `File_Path`, `status`) VALUES
-('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings.txt', 1),
-('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-07-31 18:00:00', '8C736EAE00613.txt', 1),
-('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt', 1),
-('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt', 1),
-('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt', 1),
-('CSE309', '10', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:48', 'SMS_application1.pdf', 0),
-('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png', 1),
-('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png', 1),
-('CSE309', '6', 'ZX', 'as', 'Rajkumar Das', '2012-08-28 11:14:38', 'Ideas_of_Democracy.docx', 1),
-('CSE309', '7', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:23', 'Ideas_of_Democracy1.docx', 1),
-('CSE309', '8', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:41', 'Calendar_AA20102011[rev.docx', 1),
-('CSE309', '9', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:32', 'SMS_application.pdf', 0);
+INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Uploader_ID`, `Upload_Time`, `File_Path`, `status`) VALUES
+('CSE300', '10', 'Distributed Database', '', 'Sumaiya Iqbal', '05008', '2012-09-12 09:38:01', 'Server_list_of_LAN2.txt', 0),
+('CSE300', '6', 'test', '', 'Sumaiya Iqbal', '05008', '2012-09-11 14:10:09', 'httpsgithub.comsid-ara-t.txt', 0),
+('CSE300', '7', 'aaa', '', 'Sumaiya Iqbal', '05008', '2012-09-12 01:13:42', 'Server_list_of_LAN.txt', 0),
+('CSE300', '8', 'with_ID', 'check this out\r\n:)', 'Sumaiya Iqbal', '05008', '2012-09-12 09:30:05', 'httpsgithub.comsid-ara-t1.txt', 0),
+('CSE300', '9', 'try', 'df', 'Sumaiya Iqbal', '05008', '2012-09-12 09:37:46', 'Server_list_of_LAN1.txt', 0),
+('CSE305', '1', 'arafat imtiaz', 'its me', 'Mahfuza Sarmin', '05003', '2012-09-12 09:35:41', '8C736EAE0061.txt', 0);
 
 -- --------------------------------------------------------
 
@@ -387,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `exam` (
   `eType` varchar(20) NOT NULL DEFAULT '',
   `Topic` varchar(30) DEFAULT NULL,
   `Syllabus` text NOT NULL,
-  `FileLocation` varchar(30) DEFAULT NULL,
+  `Scheduler_ID` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`CourseNo`,`Sec`,`ID`),
   KEY `CourseNo` (`CourseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -396,18 +392,17 @@ CREATE TABLE IF NOT EXISTS `exam` (
 -- Dumping data for table `exam`
 --
 
-INSERT INTO `exam` (`CourseNo`, `Sec`, `ID`, `eDate`, `eTime`, `Duration`, `Location`, `eType`, `Topic`, `Syllabus`, `FileLocation`) VALUES
-('CSE300', 'A1', 1, '2012-08-21', '11:0AM', '60', 'classroom', 'quiz', 'quiz1', 'arafat', NULL),
-('CSE300', 'A1', 2, '2012-08-29', '11:0AM', '60', 'classroom', 'presentation', 'presentation 1', 'arafat', NULL),
-('CSE300', 'A1', 3, '2012-08-20', '12:0AM', '2', 'sd', 'assignment', 'asd', 'sad', NULL),
-('CSE300', 'A1', 8, '2012-09-25', '01:00AM', '14', 'kk', 'quiz', 'fsd', 'df', NULL),
-('CSE300', 'all', 4, '2012-08-30', '12:0AM', '12', 's', 'assignment', 'Ass1', 'sad', NULL),
-('CSE300', 'B2', 5, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE300', 'B2', 6, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE300', 'B2', 7, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE305', 'A', 1, '2012-08-28', '1:50AM', '50', 'sd', 'ct', 'CT1', 'ads', NULL),
-('CSE305', 'all', 2, '2012-08-20', '1:1AM', '12', '307', 'ct', 'ct2', '', NULL),
-('CSE305', 'all', 3, '2012-08-28', '01:05AM', '50', 'ds', 'ct', 'ct3', 'asd', NULL);
+INSERT INTO `exam` (`CourseNo`, `Sec`, `ID`, `eDate`, `eTime`, `Duration`, `Location`, `eType`, `Topic`, `Syllabus`, `Scheduler_ID`) VALUES
+('CSE300', 'A1', 1, '2012-08-21', '11:0AM', '60', 'classroom', 'quiz', 'quiz1', 'arafat', '05008'),
+('CSE300', 'A1', 2, '2012-08-29', '11:0AM', '60', 'classroom', 'presentation', 'presentation 1', 'arafat', '05008'),
+('CSE300', 'A1', 3, '2012-08-20', '12:0AM', '2', 'sd', 'assignment', 'asd', 'sad', '05008'),
+('CSE300', 'A1', 8, '2012-09-25', '01:00AM', '14', 'kk', 'quiz', 'fsd', 'df', '05008'),
+('CSE300', 'all', 4, '2012-08-30', '12:0AM', '12', 's', 'assignment', 'Ass1', 'sad', '05008'),
+('CSE300', 'B2', 5, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008'),
+('CSE300', 'B2', 6, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008'),
+('CSE300', 'B2', 7, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008'),
+('CSE305', 'A', 1, '2012-08-28', '1:50AM', '50', 'sd', 'ct', 'CT1', 'ads', '05008'),
+('CSE305', 'all', 2, '2012-08-20', '1:1AM', '12', '307', 'ct', 'ct2', '', '05008');
 
 -- --------------------------------------------------------
 
@@ -428,9 +423,12 @@ CREATE TABLE IF NOT EXISTS `exam_type` (
 
 INSERT INTO `exam_type` (`CourseNo`, `etype`, `Description`) VALUES
 ('CSE300', 'assignment', 'four assignment will be taken'),
+('CSE300', 'Online', 'Online problem solving'),
 ('CSE300', 'presentation', 'one presentation will be taken'),
 ('CSE300', 'quiz', '1 quiz will be taken'),
-('CSE305', 'ct', 'Four ct will be taken best 3 will be counted');
+('CSE300', 'viva', 'one viva'),
+('CSE305', 'ct', 'Four ct will be taken best 3 will be counted'),
+('CSE309', 'ct', '3 ct will be counted');
 
 -- --------------------------------------------------------
 
@@ -518,28 +516,40 @@ CREATE TABLE IF NOT EXISTS `marks` (
 --
 
 INSERT INTO `marks` (`CourseNo`, `Sec`, `Exam_ID`, `S_ID`, `Total`, `Marks`) VALUES
-('CSE300', 'A1', 1, '0805001', 10, 1),
-('CSE300', 'A1', 1, '0805002', 10, 2),
+('CSE300', 'A1', 1, '0805001', 10, 7),
+('CSE300', 'A1', 1, '0805002', 10, 6),
 ('CSE300', 'A1', 2, '0805001', 5, 2),
 ('CSE300', 'A1', 2, '0805002', 5, 2),
 ('CSE300', 'A1', 3, '0805001', 10, 2),
 ('CSE300', 'A1', 3, '0805002', 10, 8),
 ('CSE300', 'A1', 8, '0805001', 12, 1),
 ('CSE300', 'A1', 8, '0805002', 12, 2),
-('CSE300', 'all', 4, '0805001', 10, 9),
-('CSE300', 'all', 4, '0805002', 10, 7.5),
+('CSE300', 'all', 4, '0805001', 10, 5),
+('CSE300', 'all', 4, '0805002', 10, 5),
 ('CSE300', 'all', 4, '0805048', 10, 10),
 ('CSE300', 'all', 4, '0805049', 10, 9),
-('CSE300', 'all', 4, '0805067', 10, 9),
+('CSE300', 'all', 4, '0805067', 10, 10),
 ('CSE300', 'all', 4, '0805086', 10, 9),
 ('CSE300', 'all', 4, '0805102', 10, 8.5),
 ('CSE300', 'all', 4, '0805114', 10, 8),
-('CSE300', 'B2', 5, '0805102', 10, 10),
-('CSE300', 'B2', 5, '0805114', 10, 9),
+('CSE300', 'B2', 5, '0805102', 20, 12),
+('CSE300', 'B2', 5, '0805114', 20, 9),
+('CSE300', 'B2', 6, '0805102', 10.2, 10),
+('CSE300', 'B2', 6, '0805114', 10.2, 2),
+('CSE300', 'B2', 7, '0805102', 10, 10),
+('CSE300', 'B2', 7, '0805114', 10, 9),
 ('CSE305', 'A', 1, '0805001', 10, 1),
 ('CSE305', 'A', 1, '0805002', 10, 2),
 ('CSE305', 'A', 1, '0805048', 10, 3),
-('CSE305', 'A', 1, '0805049', 10, 4);
+('CSE305', 'A', 1, '0805049', 10, 4),
+('CSE305', 'all', 2, '0805001', 20, 10),
+('CSE305', 'all', 2, '0805002', 20, 10),
+('CSE305', 'all', 2, '0805048', 20, 10),
+('CSE305', 'all', 2, '0805049', 20, 10),
+('CSE305', 'all', 2, '0805067', 20, 10),
+('CSE305', 'all', 2, '0805086', 20, 10),
+('CSE305', 'all', 2, '0805102', 20, 10),
+('CSE305', 'all', 2, '0805114', 20, 10);
 
 -- --------------------------------------------------------
 
@@ -606,6 +616,8 @@ INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderIn
 ('CSE309', 43, '2012-09-06 12:37:33', 'Tanzir Ul Islam', 'student', 'flash', 'posted noti saved in flash', 1),
 ('CSE309', 44, '2012-09-06 12:42:18', 'Tanzir Ul Islam', 'student', 'exam', 'j', 1),
 ('CSE309', 45, '2012-09-07 06:57:15', 'Tanzir Ul Islam', 'student', 'fggggg', 'hello world', 1),
+('CSE309', 46, '2012-09-12 01:34:52', 'Md. Arafat Imtiaz', 'student', '8', 'jj', 1),
+('CSE309', 47, '2012-09-12 01:37:26', 'Md. Arafat Imtiaz', 'student', 'llll', 'lllll', 1),
 ('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1),
 ('CSE310', 5, '2012-08-27 16:28:52', 'Md. Arafat Imtiaz', 'student', '1254', 'were', 1),
 ('CSE310', 6, '2012-08-30 13:20:02', 'Tanzir Ul Islam', 'student', 'wer', 'werewrwerwv cwer sdf swfew', 1),
@@ -882,12 +894,6 @@ ALTER TABLE `course`
   ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`Dept_ID`) REFERENCES `department` (`Dept_id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `exam`
---
-ALTER TABLE `exam`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `file`
 --
 ALTER TABLE `file`
@@ -899,13 +905,6 @@ ALTER TABLE `file`
 ALTER TABLE `hascourse`
   ADD CONSTRAINT `hascourse_ibfk_1` FOREIGN KEY (`Dept_Id`) REFERENCES `department` (`Dept_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hascourse_ibfk_2` FOREIGN KEY (`course_no`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `marks`
---
-ALTER TABLE `marks`
-  ADD CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `exam` (`CourseNo`),
-  ADD CONSTRAINT `marks_ibfk_2` FOREIGN KEY (`S_ID`) REFERENCES `student` (`S_Id`);
 
 --
 -- Constraints for table `message_group_student`

@@ -93,4 +93,20 @@ class Teacher extends CI_model{
         }
         
     }
+
+    function get_assigned_sec($courseno){
+       $T_ID=$this->session->userdata['ID'];
+       $query=$this->db->query("
+            SELECT Sec
+            FROM AssignedCourse
+            WHERE CourseNo='$courseno' AND T_Id='$T_ID'
+            ");
+              
+        if($query->num_rows()>0){
+            foreach($query->result() as $row ){
+                $data[]=$row;
+            }
+            return $data;
+        }
+    }
 }
