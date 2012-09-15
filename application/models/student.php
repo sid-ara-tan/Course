@@ -104,4 +104,19 @@ class Student extends CI_model {
         
     }
 
+    function get_sec($id){
+
+        $result=$this->db->query("
+                                    select Sec from student
+                                    where S_Id='$id';
+                                    ");
+        if($result->num_rows()==1){
+            $row=$result->row();
+            return $row->Sec;
+        }else{
+            return null;
+        }
+
+    }
+
 }
