@@ -21,7 +21,7 @@ echo validation_errors();
                         'row_alt_end'         => '</tr>');
         $this->table->set_template($tmpl);
         $this->table->set_heading('Student_ID','Name','Marks');
-        if($total_marks==FALSE){
+        if($total_marks==0){
             foreach ($rows as $row) {
                 $student_array[]=$row->S_Id;
 

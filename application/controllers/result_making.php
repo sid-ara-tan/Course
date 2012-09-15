@@ -17,9 +17,66 @@ class Result_making extends CI_Controller{
     function  calculate_marks($S_ID='0805001',$courseno='CSE300'){
         $this->load->model('result');
         $this->load->model('exam');
-        $marks=$this->result->get_Marks_by_Course($courseno,$S_ID);
-        foreach ($marks as $mark) {
-            echo $mark->Marks.'<br/>';
+        $this->load->model('student');
+        
+        $sec=$this->student->get_sec($S_ID);        
+        $exam_types=$this->exam->get_exam_type($courseno);
+        $total=0;
+        if($exam_types!=FALSE){
+            foreach ($exam_types as $exam_type) {
+                $exams=$this->result->get_exam($courseno,$sec,$exam_type->etype);
+                if($exams!=FALSE){
+                    if($exam_type->Marks_Type=='Percentage'){                        
+                            $inside_total=0;
+                            foreach ($exams as $exam){
+                                $marks=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID);
+                                $inside_total+=($marks*$exam->Percentage)/($exam->Total*100);
+                            }                            
+                    }else{                        
+                            $marks_array=array();
+                            $best=0;
+                            $inside_total=0;;
+                            foreach ($exams as $exam){
+                                $best=$exam->Best;
+                                $marks_array[]=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID)/$exam->Total;
+                            }
+                            rsort($marks_array);
+                            for($i=0;$i<$best;$i++){
+                                $inside_total+=$marks_array[$i];
+                                echo $marks_array[$i];
+                            }
+                            if($best>0)$inside_total/=$best;                          
+                    }
+                    $total+=$inside_total*$exam_type->Percentage;                       
+                }
+            }
         }
+
+        $gpa=0;
+        if($total>79.5){
+            $gpa=4.00;
+        }  elseif ($total>74.5) {
+            $gpa=3.75;
+        }  elseif ($total>69.5) {
+            $gpa=3.50;
+        }  elseif ($total>64.5) {
+            $gpa=3.25;
+        }  elseif ($total>59.5) {
+            $gpa=3.00;
+        } elseif ($total>54.5) {
+            $gpa=2.75;
+        }elseif ($total>49.5) {
+            $gpa=2.50;
+        }elseif ($total>44.5) {
+            $gpa=2.25;
+        }elseif ($total>39.5) {
+            $gpa=2.00;
+        }else{
+            $gpa=0.00;
+        }
+
+       $this->result->set_GPA($courseno,$S_ID,$gpa);
+
+
     }
 }

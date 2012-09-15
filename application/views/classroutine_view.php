@@ -193,7 +193,7 @@
                     }else{
                         $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Action');
                         foreach ($rows as $row) {
-                            if($T_ID==$row->Scheduler_ID && $this->exam->total_marks($courseno,$row->Sec,$row->ID)==FALSE){
+                            if($T_ID==$row->Scheduler_ID && $this->exam->total_marks($courseno,$row->Sec,$row->ID)==0){
                                 $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,
                                         anchor('teacher_home/delete_scheduled/'.$courseno.'/'.$row->Sec.'/'.$row->ID,'Delete','onclick=" return check()"'));
                             }else{
