@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 07, 2012 at 04:47 PM
+-- Generation Time: Sep 15, 2012 at 04:53 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -123,15 +123,18 @@ INSERT INTO `authentication` (`username`, `password`, `email`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `classinfo` (
+  `Dept_id` varchar(10) NOT NULL,
   `CourseNo` varchar(10) NOT NULL DEFAULT '',
   `cDay` varchar(12) NOT NULL DEFAULT '',
-  `Period` int(11) DEFAULT NULL,
+  `Period` int(11) NOT NULL DEFAULT '0',
   `Sec` varchar(2) NOT NULL DEFAULT '',
-  `cTime` varchar(10) DEFAULT NULL,
+  `cTime` varchar(10) NOT NULL DEFAULT '',
   `Location` varchar(15) DEFAULT NULL,
   `Duration` varchar(5) DEFAULT NULL,
-  `by_teacher` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`CourseNo`,`cDay`,`Sec`),
+  `by_teacher` varchar(10) NOT NULL DEFAULT '',
+  `sLevel` varchar(10) NOT NULL,
+  `Term` varchar(10) NOT NULL,
+  PRIMARY KEY (`CourseNo`,`cDay`,`Sec`,`by_teacher`,`Period`),
   KEY `CourseNo` (`CourseNo`),
   KEY `by_teacher` (`by_teacher`),
   KEY `by_teacher_2` (`by_teacher`)
@@ -141,48 +144,48 @@ CREATE TABLE IF NOT EXISTS `classinfo` (
 -- Dumping data for table `classinfo`
 --
 
-INSERT INTO `classinfo` (`CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`, `by_teacher`) VALUES
-('CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50', '05001'),
-('CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50', '05001'),
-('CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50', '05001'),
-('CSE303', 'Tuesday', 3, 'B', '10:00 am', 'CSE102', '50', '05001'),
-('CSE303', 'Wednesday', 2, 'A', '09:00 am', 'CSE102', '50', '05002'),
-('CSE303', 'Wednesday', 1, 'B', '08:00 am', 'CSE102', '50', '05002'),
-('CSE304', 'Monday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05001'),
-('CSE304', 'Saturday', 7, 'B1', '02:30 pm', 'CSE109', '150', '05002'),
-('CSE304', 'Sunday', 7, 'A1', '02:30 pm', 'CSE109', '150', '05001'),
-('CSE305', 'Monday', 1, 'A', '08:00 am', 'CSE102', '50', '05003'),
-('CSE305', 'Saturday', 5, 'B', '12:00 pm', 'CSE109', '50', '05003'),
-('CSE305', 'Sunday', 1, 'A', '08:00 am', 'CSE102', '50', '05003'),
-('CSE305', 'Sunday', 4, 'B', '11:00 am', 'CSE102', '50', '05003'),
-('CSE305', 'Tuesday', 3, 'A', '10:00 am', 'CSE102', '50', '05003'),
-('CSE305', 'Tuesday', 1, 'B', '08:00 am', 'CSE102', '50', '05003'),
-('CSE307', 'Monday', 4, 'A', '11:00 am', 'CSE102', '50', '05004'),
-('CSE307', 'Monday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004'),
-('CSE307', 'Saturday', 1, 'A', '08:00 am', 'CSE109', '50', '05004'),
-('CSE307', 'Saturday', 4, 'B', '11:00 pm', 'CSE109', '50', '05004'),
-('CSE307', 'Sunday', 4, 'A', '11:00 am', 'CSE102', '50', '05004'),
-('CSE307', 'Sunday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004'),
-('CSE307', 'Wednesday', 1, 'A', '08:00 am', 'CSE102', '50', '05004'),
-('CSE307', 'Wednesday', 3, 'B', '10:00 am', 'CSE102', '50', '05004'),
-('CSE308', 'Tuesday', 4, 'A1', '11:00 am', 'CSE102', '150', '05004'),
-('CSE308', 'Wednesday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05005'),
-('CSE308', 'Wednesday', 4, 'B1', '11:00 am', 'CSE109', '150', '05004'),
-('CSE309', 'Monday', 2, 'A', '09:00 am', 'CSE102', '50', '05006'),
-('CSE309', 'Monday', 3, 'B', '10:00 am', 'CSE102', '50', '05006'),
-('CSE309', 'Saturday', 2, 'A', '09:00 am', 'CSE109', '50', '05006'),
-('CSE309', 'Saturday', 3, 'B', '10:00 am', 'CSE109', '50', '05006'),
-('CSE309', 'Sunday', 2, 'A', '09:00 am', 'CSE102', '50', '05007'),
-('CSE309', 'Sunday', 3, 'B', '10:00 am', 'CSE102', '50', '05007'),
-('CSE310', 'Saturday', 7, 'A1', '02:30 pm', 'CSE109', '50', '05007'),
-('CSE310', 'Saturday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05008'),
-('CSE310', 'Tuesday', 4, 'B1', '11:00 am', 'CSE102', '150', '05007'),
-('CSE311', 'Monday', 3, 'A', '10:00 am', 'CSE102', '50', '05009'),
-('CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50', '05009'),
-('CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50', '05010'),
-('CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010'),
-('CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50', '05009'),
-('CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009');
+INSERT INTO `classinfo` (`Dept_id`, `CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`, `by_teacher`, `sLevel`, `Term`) VALUES
+('CSE', 'CSE300', 'Wednesday', 3, 'A', '11:00 PM', 'CSE102', '50', '05008', '3', '1'),
+('CSE', 'CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50', '05001', '3', '1'),
+('CSE', 'CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
+('CSE', 'CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
+('CSE', 'CSE303', 'Tuesday', 3, 'B', '10:00 am', 'CSE102', '50', '05001', '3', '1'),
+('CSE', 'CSE303', 'Wednesday', 2, 'A', '09:00 am', 'CSE102', '50', '05002', '3', '1'),
+('CSE', 'CSE303', 'Wednesday', 1, 'B', '08:00 am', 'CSE102', '50', '05002', '3', '1'),
+('CSE', 'CSE304', 'Monday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05001', '3', '1'),
+('CSE', 'CSE304', 'Saturday', 7, 'B1', '02:30 pm', 'CSE109', '150', '05002', '3', '1'),
+('CSE', 'CSE304', 'Sunday', 7, 'A1', '02:30 pm', 'CSE109', '150', '05001', '3', '1'),
+('CSE', 'CSE305', 'Monday', 1, 'A', '08:00 am', 'CSE102', '50', '05003', '3', '1'),
+('CSE', 'CSE305', 'Saturday', 5, 'B', '12:00 pm', 'CSE109', '50', '05003', '3', '1'),
+('CSE', 'CSE305', 'Sunday', 1, 'A', '08:00 am', 'CSE102', '50', '05003', '3', '1'),
+('CSE', 'CSE305', 'Sunday', 4, 'B', '11:00 am', 'CSE102', '50', '05003', '3', '1'),
+('CSE', 'CSE305', 'Tuesday', 3, 'A', '10:00 am', 'CSE102', '50', '05003', '3', '1'),
+('CSE', 'CSE305', 'Tuesday', 1, 'B', '08:00 am', 'CSE102', '50', '05003', '3', '1'),
+('CSE', 'CSE307', 'Monday', 4, 'A', '11:00 am', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Monday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Saturday', 1, 'A', '08:00 am', 'CSE109', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Saturday', 4, 'B', '11:00 pm', 'CSE109', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Sunday', 4, 'A', '11:00 am', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Sunday', 5, 'B', '12:00 pm', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Wednesday', 1, 'A', '08:00 am', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE307', 'Wednesday', 3, 'B', '10:00 am', 'CSE102', '50', '05004', '3', '1'),
+('CSE', 'CSE308', 'Tuesday', 4, 'A1', '11:00 am', 'CSE102', '150', '05004', '3', '1'),
+('CSE', 'CSE308', 'Wednesday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05005', '3', '1'),
+('CSE', 'CSE308', 'Wednesday', 4, 'B1', '11:00 am', 'CSE109', '150', '05004', '3', '1'),
+('CSE', 'CSE309', 'Monday', 2, 'A', '09:00 am', 'CSE102', '50', '05006', '3', '1'),
+('CSE', 'CSE309', 'Monday', 3, 'B', '10:00 am', 'CSE102', '50', '05006', '3', '1'),
+('CSE', 'CSE309', 'Saturday', 2, 'A', '09:00 am', 'CSE109', '50', '05006', '3', '1'),
+('CSE', 'CSE309', 'Saturday', 3, 'B', '10:00 am', 'CSE109', '50', '05006', '3', '1'),
+('CSE', 'CSE309', 'Sunday', 2, 'A', '09:00 am', 'CSE102', '50', '05007', '3', '1'),
+('CSE', 'CSE309', 'Sunday', 3, 'B', '10:00 am', 'CSE102', '50', '05007', '3', '1'),
+('CSE', 'CSE310', 'Saturday', 7, 'A1', '02:30 pm', 'CSE109', '50', '05007', '3', '1'),
+('CSE', 'CSE310', 'Saturday', 7, 'A2', '02:30 pm', 'CSE109', '150', '05008', '3', '1'),
+('CSE', 'CSE310', 'Tuesday', 4, 'B1', '11:00 am', 'CSE102', '150', '05007', '3', '1'),
+('CSE', 'CSE311', 'Monday', 3, 'A', '10:00 am', 'CSE102', '50', '05009', '3', '1'),
+('CSE', 'CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1'),
+('CSE', 'CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50', '05010', '3', '1'),
+('CSE', 'CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010', '3', '1'),
+('CSE', 'CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1');
 
 -- --------------------------------------------------------
 
@@ -203,71 +206,25 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `msg_no` (`msg_no`),
   KEY `CourseNo` (`CourseNo`),
   KEY `commentBy` (`commentBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
 
 --
 -- Dumping data for table `comment`
 --
 
 INSERT INTO `comment` (`id`, `msg_no`, `CourseNo`, `time`, `commentBy`, `body`, `status`, `senderType`) VALUES
-(1, 8, 'CSE309', '2012-08-27 21:39:31', 'Tanzir Ul Islam', 'gh', 1, 'student'),
-(2, 10, 'CSE309', '2012-08-27 15:41:08', 'Tanzir Ul Islam', 'tai naki ?<br />\r\nvaloi', 1, 'student'),
-(3, 10, 'CSE309', '2012-08-27 15:41:19', 'Tanzir Ul Islam', 'tai naki ?<br />\r\nvaloi', 1, 'student'),
-(4, 10, 'CSE309', '2012-08-27 15:42:08', 'Tanzir Ul Islam', 'tgh', 1, 'student'),
-(5, 10, 'CSE309', '2012-08-27 15:47:12', 'Tanzir Ul Islam', 'good', 1, 'student'),
-(6, 10, 'CSE309', '2012-08-27 15:50:26', 'Md. Arafat Imtiaz', 'hd', 1, 'student'),
-(7, 11, 'CSE309', '2012-08-27 15:54:28', 'Md. Arafat Imtiaz', 'cuyk', 1, 'student'),
-(8, 11, 'CSE309', '2012-08-27 15:54:51', 'Md. Arafat Imtiaz', 'dfgdfgdf dfg', 1, 'student'),
-(9, 11, 'CSE309', '2012-08-27 15:54:56', 'Md. Arafat Imtiaz', 'dfg ddfg dfg ', 1, 'student'),
-(10, 11, 'CSE309', '2012-08-27 22:26:22', 'Md. Arafat Imtiaz', '55345aaaaaaaaaaaaaa asddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd', 0, 'student'),
-(11, 11, 'CSE309', '2012-08-27 15:55:14', 'Md. Arafat Imtiaz', 'fgggggggggggggggggg', 1, 'student'),
-(12, 11, 'CSE309', '2012-08-27 15:55:21', 'Md. Arafat Imtiaz', 'dghggggggggggggggggggggggg', 1, 'student'),
-(13, 11, 'CSE309', '2012-08-27 22:24:43', 'Tanzir Ul Islam', 'sdf sdf ??? ???? ?', 0, 'student'),
-(14, 11, 'CSE309', '2012-08-28 20:57:13', 'Tanzir Ul Islam', 'hig yu fy', 0, 'student'),
-(15, 11, 'CSE309', '2012-08-27 16:24:36', 'Tanzir Ul Islam', 'fhgfv c', 1, 'student'),
-(16, 11, 'CSE309', '2012-08-27 16:26:48', 'Md. Arafat Imtiaz', 'dd t', 1, 'student'),
-(17, 4, 'CSE310', '2012-08-27 16:28:08', 'Md. Arafat Imtiaz', 'he ehe eh', 1, 'student'),
-(18, 5, 'CSE310', '2012-08-27 16:29:08', 'Md. Arafat Imtiaz', '??', 1, 'student'),
-(19, 3, 'CSE309', '2012-08-27 17:50:52', 'Md. Arafat Imtiaz', 'he he he', 1, 'student'),
-(20, 3, 'CSE309', '2012-08-27 23:55:51', 'Tanzir Ul Islam', 'asf', 0, 'student'),
-(21, 8, 'CSE309', '2012-08-28 01:22:43', 'Tanzir Ul Islam', 'hello everybody', 1, 'student'),
-(22, 2, 'CSE304', '2012-08-28 16:36:45', 'Ishat-E-Rabban', 'urgent reply needed :(', 0, 'student'),
-(23, 2, 'CSE304', '2012-08-28 10:36:54', 'Ishat-E-Rabban', 'reply needed', 1, 'student'),
-(24, 11, 'CSE309', '2012-08-28 10:39:25', 'Ishat-E-Rabban', 'hmm', 1, 'student'),
-(25, 11, 'CSE309', '2012-08-28 14:35:44', 'Tanzir Ul Islam', '4err ', 1, 'student'),
-(26, 11, 'CSE309', '2012-08-28 14:35:49', 'Tanzir Ul Islam', 'rt reg er g edrre', 1, 'student'),
-(27, 11, 'CSE309', '2012-08-28 14:46:55', 'Tanzir Ul Islam', 'sdf', 1, 'student'),
-(28, 11, 'CSE309', '2012-08-28 14:47:43', 'Tanzir Ul Islam', 'sdf', 1, 'student'),
-(29, 11, 'CSE309', '2012-09-06 18:51:13', 'Tanzir Ul Islam', 'asd guag uaul;kjhsli l', 0, 'student'),
-(30, 11, 'CSE309', '2012-08-28 14:57:44', 'Tanzir Ul Islam', 'ase', 1, 'student'),
-(31, 20, 'CSE309', '2012-08-28 15:01:13', 'Tanzir Ul Islam', 'ser', 1, 'student'),
-(32, 11, 'CSE309', '2012-08-30 17:50:06', 'Ishat-E-Rabban', 'df', 0, 'student'),
-(33, 23, 'CSE309', '2012-08-30 11:50:39', 'Ishat-E-Rabban', 'fdjuujjjj', 1, 'student'),
-(34, 26, 'CSE309', '2012-08-30 15:18:32', 'Tanzir Ul Islam', 'df', 1, 'student'),
-(35, 28, 'CSE309', '2012-08-30 21:19:03', 'Tanzir Ul Islam', 'fg', 0, 'student'),
-(36, 28, 'CSE309', '2012-08-30 15:19:11', 'Tanzir Ul Islam', 'rttrrt', 1, 'student'),
-(37, 28, 'CSE309', '2012-08-31 10:31:36', 'Md. Arafat Imtiaz', ' ', 1, 'student'),
-(38, 28, 'CSE309', '2012-08-31 10:32:00', 'Md. Arafat Imtiaz', 're', 1, 'student'),
-(39, 28, 'CSE309', '2012-08-31 10:32:03', 'Md. Arafat Imtiaz', 'et', 1, 'student'),
-(40, 28, 'CSE309', '2012-08-31 10:32:06', 'Md. Arafat Imtiaz', 'ete', 1, 'student'),
-(41, 28, 'CSE309', '2012-08-31 10:32:10', 'Md. Arafat Imtiaz', 'eeeeeeeeeeee', 1, 'student'),
-(42, 28, 'CSE309', '2012-08-31 10:32:14', 'Md. Arafat Imtiaz', 'eeeettttttttttttt', 1, 'student'),
-(43, 28, 'CSE309', '2012-08-31 10:32:18', 'Md. Arafat Imtiaz', 'ttttttttttttttttttttttttttttttt', 1, 'student'),
-(44, 28, 'CSE309', '2012-08-31 10:32:23', 'Md. Arafat Imtiaz', 'ttttttttttttttttttttttttttttttttttttt', 1, 'student'),
-(45, 28, 'CSE309', '2012-08-31 16:33:13', 'Md. Arafat Imtiaz', 't', 0, 'student'),
-(46, 28, 'CSE309', '2012-08-31 10:32:29', 'Md. Arafat Imtiaz', 'tty', 1, 'student'),
-(47, 26, 'CSE309', '2012-08-31 10:33:02', 'Md. Arafat Imtiaz', 'jk', 1, 'student'),
-(48, 8, 'CSE310', '2012-08-31 10:56:44', 'Md. Arafat Imtiaz', 'nb', 1, 'student'),
-(49, 8, 'CSE310', '2012-08-31 10:56:50', 'Md. Arafat Imtiaz', 'bh', 1, 'student'),
-(50, 35, 'CSE309', '2012-09-02 07:40:17', 'Tanzir Ul Islam', 'd', 1, 'student'),
-(51, 26, 'CSE309', '2012-09-02 15:46:50', 'Md. Arafat Imtiaz', 'l', 0, 'student'),
-(52, 26, 'CSE309', '2012-09-02 09:47:00', 'Tanzir Ul Islam', 'hello world', 1, 'student'),
-(53, 26, 'CSE309', '2012-09-02 09:47:14', 'Md. Arafat Imtiaz', 'comment', 1, 'student'),
-(54, 4, 'CSE310', '2012-09-06 10:39:08', 'Tanzir Ul Islam Senior', 'hu', 1, 'student'),
-(55, 1, 'CSE321', '2012-09-06 10:43:44', 'Tanzir Ul Islam Senior', 'cc', 1, 'student'),
-(56, 11, 'CSE309', '2012-09-06 12:47:10', 'Tanzir Ul Islam', 'ty', 1, 'student'),
-(57, 11, 'CSE309', '2012-09-06 12:50:39', 'Tanzir Ul Islam', 'now using flash', 1, 'student'),
-(58, 12, 'CSE310', '2012-09-06 14:20:28', 'Tanzir Ul Islam', 'gjh', 1, 'student');
+(64, 52, 'CSE309', '2012-09-13 02:52:47', '0805049', 'hi', 1, 'student'),
+(65, 52, 'CSE309', '2012-09-13 09:28:37', '0805048', 'kjh', 0, 'student'),
+(66, 52, 'CSE309', '2012-09-13 09:30:20', '05008', 'gh', 1, 'teacher'),
+(69, 2, 'CSE310', '2012-09-13 04:28:27', '0805048', 'dsfdsf', 1, 'student'),
+(70, 3, 'CSE310', '2012-09-13 10:30:59', '0805048', 'dhdf', 0, 'student'),
+(71, 3, 'CSE310', '2012-09-13 04:31:24', '0805048', 'vhmjgh', 1, 'student'),
+(74, 1, 'CSE300', '2012-09-13 04:35:03', '0805048', 'zdf', 1, 'student'),
+(75, 2, 'CSE300', '2012-09-13 10:40:40', '0805048', 'zxcvz', 0, 'student'),
+(76, 2, 'CSE300', '2012-09-13 04:40:45', '0805048', 'cbc', 1, 'student'),
+(77, 2, 'CSE300', '2012-09-13 11:37:28', '0805049', 'zcfzs', 0, 'student'),
+(78, 56, 'CSE309', '2012-09-13 05:28:41', '0805049', 'eryter', 1, 'student'),
+(79, 2, 'CSE300', '2012-09-13 05:37:24', '0805049', 'ghjfjfg', 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -298,6 +255,7 @@ INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Up
 ('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt', 1),
 ('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt', 1),
 ('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt', 1),
+('CSE305', '1', 'New', 'tanzir', 'Sumaiya Iqbal', '2012-09-07 12:44:14', 'Untitled.png', 0),
 ('CSE309', '10', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:48', 'SMS_application1.pdf', 0),
 ('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png', 1),
 ('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png', 1),
@@ -445,32 +403,24 @@ CREATE TABLE IF NOT EXISTS `file` (
   `topic` varchar(50) NOT NULL,
   `description` text,
   `uploader` varchar(50) NOT NULL,
+  `senderType` varchar(20) NOT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `filename` varchar(100) NOT NULL,
   `status` int(11) NOT NULL,
   PRIMARY KEY (`id`,`CourseNo`),
   KEY `CourseNo` (`CourseNo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=32 ;
 
 --
 -- Dumping data for table `file`
 --
 
-INSERT INTO `file` (`id`, `file_id`, `CourseNo`, `topic`, `description`, `uploader`, `time`, `filename`, `status`) VALUES
-(7, 25, 'CSE309', 'ffffffffffffffffff', ' mmmmmmmmmmmmmmmmmm', 'Tanzir Ul Islam', '2012-08-30 14:45:10', 'JQuery-DataTables-Editable-Samples.1_.3_1.zip', 1),
-(10, 7, 'CSE310', 'cv', 'bbbbbbbbbbbxdcv zxc dgdfg df', 'Md. Arafat Imtiaz', '2012-08-31 10:35:31', 'Koala.jpg', 1),
-(11, 29, 'CSE309', 'j', '', 'Md. Arafat Imtiaz', '2012-08-31 10:41:12', 'Lighthouse.jpg', 1),
-(12, 32, 'CSE309', ',.k', '', 'Md. Arafat Imtiaz', '2012-08-31 10:51:48', 'RESUME.doc', 1),
-(13, 33, 'CSE309', 'b', '', 'Md. Arafat Imtiaz', '2012-08-31 10:53:28', 'RESUME1.doc', 1),
-(14, 35, 'CSE309', 'kj', '', 'Md. Arafat Imtiaz', '2012-08-31 10:55:35', 'RESUME2.doc', 1),
-(15, 8, 'CSE310', 'ki', '', 'Md. Arafat Imtiaz', '2012-08-31 10:56:26', 'PeaceMaker.doc', 1),
-(16, 1, 'CSE305', 'cookie fuiel', '', 'Tanzir Ul Islam', '2012-09-04 07:58:28', 'syllabus01670292377mathsphysicsoptional_.zip', 1),
-(17, 3, 'CSE305', 'ques', '', 'Tanzir Ul Islam', '2012-09-04 08:00:25', 'Physics_w10_qp_21.pdf', 1),
-(18, 39, 'CSE309', 'cookie chrome', '', 'Md. Arafat Imtiaz', '2012-09-04 08:02:27', 'Physics_w10_qp_22.pdf', 1),
-(19, 1, 'CSE300', 'b', '', 'Tanzir Ul Islam', '2012-09-04 08:07:51', 'Physics_w10_qp_22.pdf', 1),
-(20, 9, 'CSE310', 'ques', '', 'Tanzir Ul Islam', '2012-09-04 08:17:35', 'Physics_w10_qp_22.pdf', 1),
-(21, 13, 'CSE310', 'ques', '', 'Tanzir Ul Islam', '2012-09-06 12:20:01', 'Untitled.jpg', 1),
-(22, 14, 'CSE310', 'mmmm', '', 'Tanzir Ul Islam', '2012-09-06 12:20:39', 'Untitled1.jpg', 1);
+INSERT INTO `file` (`id`, `file_id`, `CourseNo`, `topic`, `description`, `uploader`, `senderType`, `time`, `filename`, `status`) VALUES
+(25, 1, 'CSE310', 'ques', '', '0805048', 'student', '2012-09-13 04:11:11', 'Untitled.png', 1),
+(26, 3, 'CSE310', 'ques', '', '0805048', 'student', '2012-09-13 04:28:49', 'Untitled1.png', 1),
+(28, 2, 'CSE300', 'queshfghdhdfhdfghdfg', '', '05001', 'teacher', '2012-09-13 11:33:43', 'Koala.jpg', 1),
+(30, 57, 'CSE309', 'b', '', '0805049', 'student', '2012-09-13 04:54:20', 'Lighthouse.jpg', 1),
+(31, 58, 'CSE309', 'dfg', '', '0805049', 'student', '2012-09-13 04:56:45', 'Untitled1.png', 1);
 
 -- --------------------------------------------------------
 
@@ -539,7 +489,15 @@ INSERT INTO `marks` (`CourseNo`, `Sec`, `Exam_ID`, `S_ID`, `Total`, `Marks`) VAL
 ('CSE305', 'A', 1, '0805001', 10, 1),
 ('CSE305', 'A', 1, '0805002', 10, 2),
 ('CSE305', 'A', 1, '0805048', 10, 3),
-('CSE305', 'A', 1, '0805049', 10, 4);
+('CSE305', 'A', 1, '0805049', 10, 6),
+('CSE305', 'all', 2, '0805001', 20, 15),
+('CSE305', 'all', 2, '0805002', 20, 16),
+('CSE305', 'all', 2, '0805048', 20, 17),
+('CSE305', 'all', 2, '0805049', 20, 18),
+('CSE305', 'all', 2, '0805067', 20, 19),
+('CSE305', 'all', 2, '0805086', 20, 20),
+('CSE305', 'all', 2, '0805102', 20, 20),
+('CSE305', 'all', 2, '0805114', 20, 19.2);
 
 -- --------------------------------------------------------
 
@@ -565,62 +523,15 @@ CREATE TABLE IF NOT EXISTS `message_group_student` (
 --
 
 INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
-('CSE300', 2, '2012-09-04 08:09:12', 'Tanzir Ul Islam', 'student', 'mk', 'm,', 1),
-('CSE304', 1, '2012-08-18 16:06:39', 'Tanzir Ul Islam', 'student', 'cfg', 'gfh', 1),
-('CSE304', 2, '2012-08-28 10:35:14', 'Ishat-E-Rabban', 'student', 'About Next Online', 'online 2 kobe hobe ?', 1),
-('CSE305', 2, '2012-09-04 07:58:48', 'Tanzir Ul Islam', 'student', 'cfg', 'fc', 1),
-('CSE305', 4, '2012-09-04 08:15:11', 'Tanzir Ul Islam', 'student', 'vb', 'v', 1),
-('CSE307', 1, '2012-09-04 08:13:56', 'Tanzir Ul Islam', 'student', 'h', 'gh', 1),
-('CSE308', 1, '2012-08-27 17:55:03', 'Md. Arafat Imtiaz', 'student', 'fsd', 'gggg gg g g g', 1),
-('CSE309', 3, '2012-08-18 16:07:08', 'Md. Arafat Imtiaz', 'student', 'dfg', 'df gdg dfg j<br />\r\nhukj b<br />\r\nik.p[/ fjhfg', 1),
-('CSE309', 4, '2012-08-18 16:21:43', 'Md. Arafat Imtiaz', 'student', 'gfggggggggwswwwww', 'sf fds', 0),
-('CSE309', 5, '2012-08-19 02:19:53', 'Tanzir Ul Islam', 'student', 'hello', 'lkjasd sd;fsdfsfj ;sdfjoaksjdghls<br />\r\nsdfkljhkljfdg', 0),
-('CSE309', 6, '2012-08-19 02:36:04', 'Tanzir Ul Islam', 'student', 'c', 'c', 0),
-('CSE309', 7, '2012-08-19 02:36:18', 'Tanzir Ul Islam', 'student', 'xx', 'cx', 1),
-('CSE309', 8, '2012-08-19 02:37:05', 'Tanzir Ul Islam', 'student', 'SOFT', 'ss', 1),
-('CSE309', 9, '2012-08-19 03:27:49', 'Md. Arafat Imtiaz', 'student', 'sd', '???? ??? ????', 0),
-('CSE309', 10, '2012-08-19 03:40:16', 'Md. Arafat Imtiaz', 'student', 'asd', 'adkjh a;o \\<br />\r\ndfkljhdf a a<br />\r\ndsfuygfd afdhl<br />\r\nsdakljfhdfsdkjhf ;sdf<br />\r\nsidf', 0),
-('CSE309', 11, '2012-08-22 11:46:39', 'Tanzir Ul Islam', 'student', 'cxc', 'cvc vcb hthcvb bcfb ', 1),
-('CSE309', 12, '2012-08-27 15:18:21', 'Tanzir Ul Islam', 'student', 'd', 'd', 0),
-('CSE309', 13, '2012-08-27 16:07:40', 'Md. Arafat Imtiaz', 'student', 'wer', 'werewrwerwer', 0),
-('CSE309', 14, '2012-08-28 14:15:08', 'Tanzir Ul Islam', 'student', 'hello', 'we ffrffewr fsd ', 1),
-('CSE309', 15, '2012-08-28 14:17:19', 'Tanzir Ul Islam', 'student', 'dfgdfg', 'g', 1),
-('CSE309', 16, '2012-08-28 14:18:56', 'Tanzir Ul Islam', 'student', 'dfgdfg', 'g', 1),
-('CSE309', 17, '2012-08-28 14:20:49', 'Tanzir Ul Islam', 'student', 'sfdg', 'fgdfgvx dfg fgfdg ', 1),
-('CSE309', 18, '2012-08-28 14:21:19', 'Tanzir Ul Islam', 'student', 'dfg', 'dfg dfg', 1),
-('CSE309', 19, '2012-08-28 14:21:33', 'Tanzir Ul Islam', 'student', 'dfg45', '45455445', 1),
-('CSE309', 20, '2012-08-28 15:00:53', 'Tanzir Ul Islam', 'student', 'sfgsdgfdg ', 'fsdg121111111111111', 0),
-('CSE309', 21, '2012-08-30 11:22:09', 'Ishat-E-Rabban', 'student', 'f', 'ff', 0),
-('CSE309', 22, '2012-08-30 11:48:27', 'Ishat-E-Rabban', 'student', 'wer', 'wer', 0),
-('CSE309', 23, '2012-08-30 11:50:28', 'Ishat-E-Rabban', 'student', 'dfgdfg', 'g', 1),
-('CSE309', 24, '2012-08-30 11:51:01', 'Ishat-E-Rabban', 'student', 'df', 'df', 1),
-('CSE309', 26, '2012-08-30 14:54:59', 'Tanzir Ul Islam', 'student', 'g', 'tyee', 1),
-('CSE309', 30, '2012-08-31 10:41:28', 'Md. Arafat Imtiaz', 'student', 'g', 'g', 1),
-('CSE309', 31, '2012-08-31 10:48:15', 'Md. Arafat Imtiaz', 'student', 'xcfv', 'xcv', 1),
-('CSE309', 34, '2012-08-31 10:54:45', 'Md. Arafat Imtiaz', 'student', 'n', 'n', 1),
-('CSE309', 36, '2012-09-04 07:52:41', 'Tanzir Ul Islam', 'student', 'fff', 'f', 1),
-('CSE309', 37, '2012-09-04 07:54:37', 'Tanzir Ul Islam', 'student', 'z', 'z', 1),
-('CSE309', 38, '2012-09-04 08:00:02', 'Tanzir Ul Islam', 'student', 'ddnew', 'sd', 1),
-('CSE309', 40, '2012-09-04 08:02:42', 'Md. Arafat Imtiaz', 'student', 'b', 'v', 1),
-('CSE309', 41, '2012-09-06 12:22:43', 'Tanzir Ul Islam', 'student', 'ff', 'ff', 1),
-('CSE309', 43, '2012-09-06 12:37:33', 'Tanzir Ul Islam', 'student', 'flash', 'posted noti saved in flash', 1),
-('CSE309', 44, '2012-09-06 12:42:18', 'Tanzir Ul Islam', 'student', 'exam', 'j', 1),
-('CSE309', 45, '2012-09-07 06:57:15', 'Tanzir Ul Islam', 'student', 'fggggg', 'hello world', 1),
-('CSE310', 4, '2012-08-18 16:05:13', 'Tanzir Ul Islam', 'student', 'dfg', 'dfhg ', 1),
-('CSE310', 5, '2012-08-27 16:28:52', 'Md. Arafat Imtiaz', 'student', '1254', 'were', 1),
-('CSE310', 6, '2012-08-30 13:20:02', 'Tanzir Ul Islam', 'student', 'wer', 'werewrwerwv cwer sdf swfew', 1),
-('CSE310', 10, '2012-09-04 08:18:00', 'Tanzir Ul Islam', 'student', 'dfgdfg', ' nj', 1),
-('CSE310', 11, '2012-09-04 08:18:17', 'Tanzir Ul Islam', 'student', 'g', ' ', 1),
-('CSE310', 12, '2012-09-06 12:18:21', 'Tanzir Ul Islam', 'student', 'ya hello', 'sdf', 1),
-('CSE310', 15, '2012-09-06 12:21:11', 'Tanzir Ul Islam', 'student', 'kkkk', 'j', 1),
-('CSE310', 16, '2012-09-06 14:19:47', 'Tanzir Ul Islam', 'student', 'fgh', 'gtfh', 1),
-('CSE321', 1, '2012-09-06 10:43:38', 'Tanzir Ul Islam Senior', 'student', 'fd', 'fd', 1),
-('CSE321', 2, '2012-09-06 11:15:59', 'Tanzir Ul Islam Senior', 'student', 'v', 'vvb', 1),
-('CSE321', 3, '2012-09-06 11:18:44', 'Tanzir Ul Islam Senior', 'student', 'cfg', ' b', 1),
-('CSE321', 4, '2012-09-06 11:19:13', 'Tanzir Ul Islam Senior', 'student', 'ggg', 'g', 1),
-('CSE321', 5, '2012-09-06 11:46:15', 'Tanzir Ul Islam Senior', 'student', ',', ',l', 1),
-('CSE321', 6, '2012-09-06 11:47:28', 'Tanzir Ul Islam Senior', 'student', 'gnhjg', 'jgg ', 1),
-('CSE321', 7, '2012-09-06 12:05:39', 'Tanzir Ul Islam Senior', 'student', 'by variable', 'pass by private variable', 1);
+('CSE300', 1, '2012-09-13 04:35:37', '0805048', 'student', 'hkjkhk', 'hjk', 1),
+('CSE309', 50, '2012-09-13 02:23:30', '0805049', 'student', 'fggggg', 'dfgdfgdf', 1),
+('CSE309', 51, '2012-09-13 02:35:34', '0805049', 'student', 'wer', 'fs', 1),
+('CSE309', 52, '2012-09-13 08:37:32', '05001', 'teacher', 'ase', 'aer', 1),
+('CSE309', 53, '2012-09-13 03:26:05', '0805048', 'student', 'k[', '[k]i][', 0),
+('CSE309', 54, '2012-09-13 03:30:39', '0805048', 'student', 'sdg', 'dfgd', 1),
+('CSE309', 55, '2012-09-13 03:30:47', '0805048', 'student', 'dgfdg', 'gdggdfgdfgjdmu,krjythn', 1),
+('CSE309', 56, '2012-09-13 03:30:53', '0805048', 'student', 'ya hello', 'dfg', 1),
+('CSE310', 2, '2012-09-13 04:28:23', '0805048', 'student', 'aedaw', 'ewqeqweqwe', 0);
 
 -- --------------------------------------------------------
 
@@ -647,6 +558,33 @@ INSERT INTO `prerequisite` (`course_no_1`, `course_no_2`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE IF NOT EXISTS `schedule` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Dept_id` varchar(10) NOT NULL,
+  `sLevel` varchar(10) NOT NULL,
+  `Term` varchar(10) NOT NULL,
+  `period` varchar(200) NOT NULL DEFAULT 'idle',
+  PRIMARY KEY (`id`,`Dept_id`,`sLevel`,`Term`),
+  KEY `Dept_id` (`Dept_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Dumping data for table `schedule`
+--
+
+INSERT INTO `schedule` (`id`, `Dept_id`, `sLevel`, `Term`, `period`) VALUES
+(2, 'CSE', '3', '2', 'term_final_period'),
+(3, 'CSE', '1', '1', 'registration_request'),
+(4, 'CSE', '1', '2', 'result_show_period'),
+(5, 'CSE', '2', '1', 'idle'),
+(10, 'CSE', '3', '1', 'idle');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `student`
 --
 
@@ -663,7 +601,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `father_name` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
   `address` varchar(50) NOT NULL,
-  `phone` int(50) NOT NULL,
+  `phone` varchar(50) NOT NULL,
   PRIMARY KEY (`S_Id`),
   KEY `Dept_id` (`Dept_id`),
   KEY `Advisor` (`Advisor`)
@@ -674,21 +612,128 @@ CREATE TABLE IF NOT EXISTS `student` (
 --
 
 INSERT INTO `student` (`S_Id`, `Name`, `Dept_id`, `sLevel`, `Term`, `Sec`, `Advisor`, `Curriculam`, `Password`, `father_name`, `email`, `address`, `phone`) VALUES
-('0705049', 'Tanzir Ul Islam Senior', 'CSE', 3, 2, 'A2', '05002', 2005, '1234', '', '', '', 0),
-('0706049', 'Tanzir EEE', 'EEE', 3, 2, 'A2', NULL, 2005, '1234', '', '', '', 0),
-('0805001', 'Ishat-E-Rabban', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', 0),
-('0805002', 'Radi Moahammad Reza', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', 0),
-('0805007', 'kausar ahmed', 'CSE', 3, 2, 'A1', '05001', 2008, '1234', '', '', '', 0),
-('0805038', 'saikar chakraborty', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', 0),
-('0805039', 'Madhududan bashak', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', 0),
-('0805040', 'Mir Tazbinur sharif', 'CSE', 3, 2, 'A2', '05004', 2008, '1234', 'Abul Hosain', 'tashjg@yy.cc', '', 1674123456),
-('0805047', 'Siddhartha Shankar Das', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
-('0805048', 'Md. Arafat Imtiaz', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', 0),
-('0805049', 'Tanzir Ul Islam', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', 'Tazul Islam', 'tanzir.b@gmail.com', 'titumir hall 3008 buet dhaka,bangladesh', 1674894025),
-('0805067', 'Jahangir Alam', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
-('0805086', 'Faruk Hossen', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', 0),
-('0805102', 'Ovi', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', 0),
-('0805114', 'Sakib', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', 0);
+('0705049', 'Tanzir Ul Islam Senior', 'CSE', 3, 2, 'A2', '05002', 2005, '1234', 'asd', 'tanzir@yahoo.com', '', '0'),
+('0706049', 'Tanzir EEE', 'EEE', 3, 2, 'A2', NULL, 2005, '1234', '', '', '', '0'),
+('0805001', 'Ishat-E-Rabban', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', '0'),
+('0805002', 'Radi Moahammad Reza', 'CSE', 3, 1, 'A1', '05001', 2005, '1234', '', '', '', '0'),
+('0805003', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '9TNi2kgVjD', '', '', '', '0'),
+('0805004', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'pxNUQ9Ip1d', '', '', '', '0'),
+('0805005', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'mVh0aGDGq9', '', '', '', '0'),
+('0805006', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '6Lc8eqWEyc', '', '', '', '0'),
+('0805007', 'kausar ahmed', 'CSE', 3, 2, 'A1', '05001', 2008, '1234', '', '', '', '0'),
+('0805008', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'RfYf5QQoO4', '', '', '', '0'),
+('0805009', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'yxce90aQZo', '', '', '', '0'),
+('0805010', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '0dmnqHMvvv', '', '', '', '0'),
+('0805011', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '4INuvdBuV2', '', '', '', '0'),
+('0805012', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Qmt4mW2aX4', '', '', '', '0'),
+('0805013', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'MuHdAz0kpZ', '', '', '', '0'),
+('0805014', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'fdBj3KWXGw', '', '', '', '0'),
+('0805015', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'pZhaKj1ijy', '', '', '', '0'),
+('0805016', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'o5HjgoxOBV', '', '', '', '0'),
+('0805017', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '8ptjeHmAZm', '', '', '', '0'),
+('0805018', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Tlr4TXf3ku', '', '', '', '0'),
+('0805019', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'jwElUNyVm3', '', '', '', '0'),
+('0805020', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '3qy1I8kI8v', '', '', '', '0'),
+('0805021', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '0B7StglKpk', '', '', '', '0'),
+('0805022', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'sjOi6GoY6G', '', '', '', '0'),
+('0805023', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Zu3koX8XVv', '', '', '', '0'),
+('0805024', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '7GCl4jpLz0', '', '', '', '0'),
+('0805025', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'yWHyC8FUOt', '', '', '', '0'),
+('0805026', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'oHbwRI602A', '', '', '', '0'),
+('0805027', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Nr0zMFthFE', '', '', '', '0'),
+('0805028', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'feDWbDapBe', '', '', '', '0'),
+('0805029', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'zL0z5uT308', '', '', '', '0'),
+('0805030', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '6dWr64qykk', '', '', '', '0'),
+('0805031', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'oBmSfUF77w', '', '', '', '0'),
+('0805032', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'DlCZT1QzWM', '', '', '', '0'),
+('0805033', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'iNbCvloLdt', '', '', '', '0'),
+('0805034', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'LXlX4Pje5T', '', '', '', '0'),
+('0805035', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'ViDnbkLoqq', '', '', '', '0'),
+('0805036', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'zkhQoxiWEz', '', '', '', '0'),
+('0805037', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'nP2suGzVAP', '', '', '', '0'),
+('0805038', 'saikar chakraborty', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', '0'),
+('0805039', 'Madhududan bashak', 'CHE', 1, 1, 'A1', '05001', 1990, '1234', '', '', '', '0'),
+('0805040', 'Mir Tazbinur sharif', 'CSE', 3, 2, 'A2', '05004', 2008, '1234', 'Abul Hosain', 'tashjg@yy.cc', '', '1674123456'),
+('0805041', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '8p9q5iJlLq', '', '', '', '0'),
+('0805042', 'Ratul Sarkar', 'CSE', 3, 1, 'A', NULL, NULL, '1234', 'SS Sarkar', 'tanzir@yahoo.com', '', '+8801674225566'),
+('0805043', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'wfr91TRq72', '', '', '', '0'),
+('0805044', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'ugL8grNikZ', '', '', '', '0'),
+('0805045', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Z6SYRwO5xn', '', '', '', '0'),
+('0805046', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'CQnxHTyIs7', '', '', '', '0'),
+('0805047', 'Siddhartha Shankar Das', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', '', '', '0'),
+('0805048', 'Md. Arafat Imtiaz Sagor H', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', '', 'tanzir@yahoo.com', '', '0'),
+('0805049', 'Tanzir Ul Islam Nishat', 'CSE', 3, 1, 'A2', '05001', 2005, '1234', 'Tazul Islam', 'tanzir.b@gmail.com', 'titumir hall 3008 buet dhaka,bangladesh', '01674894024'),
+('0805050', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'ztlZaX7Vrz', '', '', '', '0'),
+('0805051', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'yDBFI1qcXD', '', '', '', '0'),
+('0805052', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'welFGoBXJZ', '', '', '', '0'),
+('0805053', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'stTclpwMEU', '', '', '', '0'),
+('0805054', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'YPs0lDTqja', '', '', '', '0'),
+('0805055', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Q18Rpoh9Cd', '', '', '', '0'),
+('0805056', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'sjCORvj3YV', '', '', '', '0'),
+('0805057', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'kGsbnsFJyL', '', '', '', '0'),
+('0805058', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'LwzcTuaWvm', '', '', '', '0'),
+('0805059', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Z1bTITtOOk', '', '', '', '0'),
+('0805060', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'TZUfOlBObU', '', '', '', '0'),
+('0805061', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'z3XErXHoT1', '', '', '', '0'),
+('0805062', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '7fz31oespT', '', '', '', '0'),
+('0805063', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'xSt1SNhxa1', '', '', '', '0'),
+('0805064', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '2dXIXOUDHe', '', '', '', '0'),
+('0805065', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'UW7G3VgskG', '', '', '', '0'),
+('0805066', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'gldPmVWnSF', '', '', '', '0'),
+('0805067', 'Jahangir Alam', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', '0'),
+('0805068', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'BAMRqYCcPm', '', '', '', '0'),
+('0805069', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '9lYnY9AKt1', '', '', '', '0'),
+('0805070', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'VLTZFMb4C1', '', '', '', '0'),
+('0805071', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'kRVI7SRZDi', '', '', '', '0'),
+('0805072', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'd5mtBNmj9h', '', '', '', '0'),
+('0805073', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'telCZqWQRM', '', '', '', '0'),
+('0805074', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'zPXCHB6Sht', '', '', '', '0'),
+('0805075', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'cvPIL36OyE', '', '', '', '0'),
+('0805076', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '6uvVKYb3OP', '', '', '', '0'),
+('0805077', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'V91H49Cb41', '', '', '', '0'),
+('0805078', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'oOt0yFNpA4', '', '', '', '0'),
+('0805079', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'LL63WgHdlJ', '', '', '', '0'),
+('0805080', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'IGIMUyi8Dj', '', '', '', '0'),
+('0805081', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '14nMIyklnZ', '', '', '', '0'),
+('0805082', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'drHiEtdyVg', '', '', '', '0'),
+('0805083', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'ho7h2PSsCX', '', '', '', '0'),
+('0805084', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'izwef6nF5f', '', '', '', '0'),
+('0805085', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'NQtn4gH6W7', '', '', '', '0'),
+('0805086', 'Faruk Hossen', 'CSE', 3, 1, 'B1', '05002', 2005, '1234', '', '', '', '0'),
+('0805087', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'eAbErFg9mY', '', '', '', '0'),
+('0805088', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'fj1L0K9wae', '', '', '', '0'),
+('0805089', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'nFK6qUVqdj', '', '', '', '0'),
+('0805090', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'imjDTp7Mt1', '', '', '', '0'),
+('0805091', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'bE0TJveVKJ', '', '', '', '0'),
+('0805092', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '7JvhfX6SbE', '', '', '', '0'),
+('0805093', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'aCtxNYx8Td', '', '', '', '0'),
+('0805094', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'n5UNkw7mXO', '', '', '', '0'),
+('0805095', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'XkAJhBzBup', '', '', '', '0'),
+('0805096', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '3CM42WiiHZ', '', '', '', '0'),
+('0805097', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '0nfPjschph', '', '', '', '0'),
+('0805098', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'o380ga95uC', '', '', '', '0'),
+('0805099', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'YGhL13AWCF', '', '', '', '0'),
+('0805100', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'TNrX7HvFO8', '', '', '', '0'),
+('0805101', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'vKP7rqU7oO', '', '', '', '0'),
+('0805102', 'Ovi', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', '0'),
+('0805103', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'gbPiwN3q0A', '', '', '', '0'),
+('0805104', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'hM2nN3oAOX', '', '', '', '0'),
+('0805105', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'ikGPAJ9jpM', '', '', '', '0'),
+('0805106', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Epc1F8xwmP', '', '', '', '0'),
+('0805107', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'wA1ANAsedF', '', '', '', '0'),
+('0805108', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'bnePwdSdRQ', '', '', '', '0'),
+('0805109', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'QbKJilXVru', '', '', '', '0'),
+('0805110', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'pAiwW205Vo', '', '', '', '0'),
+('0805111', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'SO1ZpVzAQf', '', '', '', '0'),
+('0805112', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'sZBx75xYoE', '', '', '', '0'),
+('0805113', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'sRXnQOq9aj', '', '', '', '0'),
+('0805114', 'Sakib', 'CSE', 3, 1, 'B2', '05002', 2005, '1234', '', '', '', '0'),
+('0805115', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'Xa41XQYJu6', '', '', '', '0'),
+('0805116', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'z0ena8LKEk', '', '', '', '0'),
+('0805117', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'zx5ljHXe3B', '', '', '', '0'),
+('0805118', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '4ULKQJHHBe', '', '', '', '0'),
+('0805119', NULL, 'CSE', 3, 1, 'A', NULL, NULL, 'VLPC9wr4qZ', '', '', '', '0'),
+('0805120', NULL, 'CSE', 3, 1, 'A', NULL, NULL, '4pPnF4uMSE', '', '', '', '0');
 
 -- --------------------------------------------------------
 
@@ -710,8 +755,10 @@ CREATE TABLE IF NOT EXISTS `takencourse` (
 --
 
 INSERT INTO `takencourse` (`Status`, `GPA`, `CourseNo`, `S_Id`) VALUES
-('failed', 0.00, 'CSE309', '0705049'),
+('Running', 0.00, 'CSE309', '0705049'),
 ('passed', 2.75, 'CSE310', '0705049'),
+('Running', NULL, 'CSE321', '0705049'),
+('Running', NULL, 'CSE322', '0705049'),
 ('Running', NULL, 'CSE300', '0805001'),
 ('Running', NULL, 'CSE303', '0805001'),
 ('Running', NULL, 'CSE304', '0805001'),
@@ -730,6 +777,9 @@ INSERT INTO `takencourse` (`Status`, `GPA`, `CourseNo`, `S_Id`) VALUES
 ('Running', NULL, 'CSE309', '0805002'),
 ('Running', NULL, 'CSE310', '0805002'),
 ('Running', NULL, 'CSE311', '0805002'),
+('Running', NULL, 'CSE311', '0805042'),
+('Running', NULL, 'CSE401', '0805042'),
+('Running', NULL, 'CSE402', '0805042'),
 ('Running', NULL, 'CSE300', '0805048'),
 ('Running', NULL, 'CSE303', '0805048'),
 ('Running', NULL, 'CSE304', '0805048'),
@@ -867,7 +917,7 @@ ALTER TABLE `classinfo`
 -- Constraints for table `comment`
 --
 ALTER TABLE `comment`
-  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `message_group_student` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `content`
@@ -919,6 +969,12 @@ ALTER TABLE `message_group_student`
 ALTER TABLE `prerequisite`
   ADD CONSTRAINT `prerequisite_ibfk_1` FOREIGN KEY (`course_no_1`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `prerequisite_ibfk_2` FOREIGN KEY (`course_no_2`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD CONSTRAINT `schedule_ibfk_1` FOREIGN KEY (`Dept_id`) REFERENCES `department` (`Dept_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`
