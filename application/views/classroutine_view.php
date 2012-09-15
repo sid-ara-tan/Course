@@ -1,18 +1,21 @@
 <?php
     $data['title']="Teacher Home Page";
     $this->load->view('header/index_header',$data);
+    $T_ID=$this->session->userdata['ID'];
+    $info=$this->teacher->get_info();
 ?>
 <body id="top">
 <div class="wrapper row1">
   <div id="header" class="clear">
     <div class="fl_left">
       <h1>Course Management System</h1>
+      <h3><font color="green"><?php echo $info->Name;?></font></h3>
     </div>
   </div>
 </div>
 <!-- ####################################################################################################### -->
 <div class="wrapper row2">
-  <div id="topnav">
+  <div id="topnav" >
     <ul>
         <li class="active"><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
 
@@ -20,6 +23,7 @@
       <li><a href="#">Assigned Course</a>
         <ul>
           <?php
+                $T_ID=$this->session->userdata['ID'];
                 $course_record=$this->teacher->get_courses();
 
                 foreach($course_record as $row){
@@ -29,6 +33,7 @@
         ?>
         </ul>
       </li>
+      <li><a href="<?php echo base_url();?>index.php/teacher_home/message">Message</a></li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
       </ul>
     <div  class="clear"></div>
@@ -134,7 +139,7 @@
             ?>
           </div>
       </dd>
-      <dt>Wednessday</dt>
+      <dt>Wednesday</dt>
       <dd>
           <div style="height:360px; background-color:#494949">
 
@@ -148,7 +153,7 @@
                                 'row_alt_end'         => '</tr>');
                 $this->table->set_template($tmpl);
                 $this->table->set_heading('CourseNo', 'Sec','Period', 'Time','Duration','Location');
-                $record=$this->classinfo->get_routine('Wednessday');
+                $record=$this->classinfo->get_routine('Wednesday');
                 if($record!=FALSE){
                             foreach($record as $row){
                                 $this->table->add_row($row->CourseNo,$row->Sec,$row->Period,$row->cTime,$row->Duration,$row->Location);
@@ -164,13 +169,14 @@
 
 </div>
   <!-- ####################################################################################################### -->
-<div align="center" >
+<div align="center"  >
         <h1>Exam routine</h1>
-        <div class="demo" style="width:800px" align="left">
+        <div class="demo" style="width:800px;height:300px;" align="left">
             <div id="accordion">
                 <?php
                 $rows=$this->teacher->get_courses();
                 foreach($rows as $row){
+                    $courseno=$row->CourseNo;
                     echo '<h1><a href="#">'.$row->CourseName.'</a></h1><div>';
                     $rows=$this->exam->get_routine($row->CourseNo);
                     $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
@@ -185,9 +191,14 @@
                     if($rows==FALSE){
                         echo '<h1>No exam scheduled</h1>';
                     }else{
-                        $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Syllabus');
+                        $this->table->set_heading('Section','Title','Type','Date','Time','Duration','Location','Action');
                         foreach ($rows as $row) {
-                            $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location);
+                            if($T_ID==$row->Scheduler_ID && $this->exam->total_marks($courseno,$row->Sec,$row->ID)==0){
+                                $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,
+                                        anchor('teacher_home/delete_scheduled/'.$courseno.'/'.$row->Sec.'/'.$row->ID,'Delete','onclick=" return check()"'));
+                            }else{
+                                $this->table->add_row($row->Sec,$row->Topic,$row->eType,$row->eDate,$row->eTime,$row->Duration,$row->Location,'NA');
+                            }
                         }
                         echo $this->table->generate();
                     }

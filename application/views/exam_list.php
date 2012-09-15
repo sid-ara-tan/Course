@@ -64,7 +64,7 @@
     }
 
     $student_str=  implode(',',$student_array);
-    if($total_marks==FALSE){
+    if($total_marks==0){
         echo form_hidden('task','upload');
         //echo form_submit('','Upload Marks');
         ?>
