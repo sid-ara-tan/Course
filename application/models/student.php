@@ -95,7 +95,7 @@ class Student extends CI_model {
                                     select Name from student
                                     where S_Id='$id';
                                     ");
-        if($result){
+        if($result->num_rows()>0){
             $row=$result->row();
             return $row->Name;
         }else{

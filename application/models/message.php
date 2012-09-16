@@ -97,4 +97,40 @@ class Message extends CI_model {
         return $query->num_rows();
     }
 
+    function get_message_for_all($limit,$offset) {
+        $T_ID=$this->session->userdata('ID');
+        $query = $this->db->query("
+                select *
+                from message_group_student
+                where CourseNo in (Select a.CourseNo from assignedcourse a where a.T_ID='$T_ID') and status=1
+                order by mTime desc
+                LIMIT $limit OFFSET $offset");
+
+        if($query->num_rows()>0){
+            foreach($query->result() as $row){
+                $data[]=$row;
+            }
+            return $data;
+        }
+        else{
+            return FALSE;
+        }
+    }
+
+    function get_message_count_for_all() {
+        $T_ID=$this->session->userdata('ID');
+        $query = $this->db->query("
+                select CourseNo
+                from message_group_student
+                where CourseNo in (Select a.CourseNo from assignedcourse a where a.T_ID='$T_ID') and status=1
+                ");
+
+        if($query->num_rows()>0){
+            return $query->num_rows();
+        }
+        else{
+            return FALSE;
+        }
+    }
+
 }

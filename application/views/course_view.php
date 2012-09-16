@@ -33,7 +33,7 @@
         ?>
         </ul>
       </li>
-      <li><a href="<?php echo base_url();?>index.php/teacher_home/message">Message</a></li>
+      <li><a href="<?php echo base_url();?>index.php/teacher_message">Message</a></li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
 
     </ul>
