@@ -34,7 +34,7 @@
         'schedule_period'=>array(
             'name'=>'Schedule Task',
             'link'=>  site_url('admin/department/schedule_period'),
-            'class'=>'icn_settings'
+            'class'=>'icn_photo'
         )
     );
 
