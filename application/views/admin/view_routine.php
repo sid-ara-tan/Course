@@ -117,7 +117,31 @@
         });
     });
 </script>
+<style type="text/css" media="screen">
 
+.routine table{
+width: 100%;
+margin: -5px 0 0 0;
+}
+
+.routine td{
+margin: 10px;
+padding: 10px;
+border: 1px dotted #ccc;
+}
+
+.routine thead tr {
+height: 34px;
+text-align: left;
+text-indent: 10px;
+cursor: pointer;
+}
+
+.routine td {
+padding: 15px 10px;
+}
+
+</style>
 </head>
 
 <body>
@@ -149,10 +173,49 @@
              'Friday'=>'Friday',
              'Saturday'=>'Saturday'
          );
+
+        $time=array(
+            '08:00am',
+            '09:00am',
+            '10:00am',
+            '11:00am',
+            '12:00pm',
+            '01:00pm',
+            '02:00pm',
+            '03:00pm',
+            '04:00pm',
+            '05:00pm'
+        );
     ?>
-    <?php foreach($week as $key=>$value):?>
-    <?php endforeach;?>
+    <table id="routine_day" class="routine">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <?php foreach($time as $tm):?>
+                <th><?php echo $tm;?></th>
+                <?php endforeach;?>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach($week as $key=>$value):?>
+            <tr>
+                <td><?php  echo $value;?></td>
+                <?php foreach($time as $tm):?>
+                <td>
+                    CSE300 <br/>
+                    SI <br/>
+                    OAB 110
+                </td>
+                <?php endforeach;?>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+         <tfoot>
+        </tfoot>
+    </table>
 </div>
+    
 </article>
 <article class="module width_full shadow ">
     <div id="delete_success_message" align="center"></div>

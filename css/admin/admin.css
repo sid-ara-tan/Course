@@ -194,3 +194,20 @@ padding: 10px;
 * html .ui-autocomplete {
         height: 100px;
 }
+
+.chat_users{
+
+    min-width: 200px;
+    min-height:250px;
+    height: auto;
+    padding: 20px;
+    right:20px;
+    position: absolute;
+    z-index: 10;
+    background-image:url(../../images/admin/gradient2.png);
+    background-repeat: repeat-x;
+     -moz-box-shadow: 0 0 10px #aaaaaa;
+    -webkit-box-shadow: 0 0 10px #aaaaaa;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+}
