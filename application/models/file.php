@@ -87,4 +87,9 @@ class File extends CI_model{
         else
             return FALSE;
     }
+
+    function count_result($courseno){
+        $query = $this->db->get_where('file', array('CourseNo' => $courseno,'status'=>1));
+        return $query->num_rows();
+    }
 }

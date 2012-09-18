@@ -34,6 +34,18 @@
         </ul>
       </li>
       <li><a href="<?php echo base_url();?>index.php/teacher_message">Message</a></li>
+      <li><a href="#">File</a>
+        <ul>
+          <?php
+                $course_record=$this->teacher->get_courses();
+
+                foreach($course_record as $row){
+                    echo "<li>";
+                    echo anchor("teacher_message/show_file/{$row->CourseNo}",$row->CourseName)."</li>" ;
+                }
+        ?>
+        </ul>
+       </li>
       <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
       </ul>
     <div  class="clear"></div>
