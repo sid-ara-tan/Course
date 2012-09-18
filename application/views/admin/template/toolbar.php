@@ -16,8 +16,8 @@
     <hgroup>
             <h1 class="site_title"><a href="index.html">Website Admin</a></h1>
             <h2 class="section_title">Course Management System(CMS)</h2>
-            <div style="top:15px;position:relative;">
-                <button onclick="return show_users();">Chat</button>
+            <div class="nice_button" style="top:15px;position:relative;">
+                <button  onclick="return show_users();">Chat</button>
                 <div id="show_chat_users" class="chat_users" style="display:none;"></div>
             </div>
             

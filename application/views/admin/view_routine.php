@@ -131,7 +131,7 @@ border: 1px dotted #ccc;
 }
 
 .routine thead tr {
-height: 34px;
+height: auto;
 text-align: left;
 text-indent: 10px;
 cursor: pointer;
@@ -165,33 +165,32 @@ padding: 15px 10px;
 <div>
     <?php
         $week=array(
+             'Saturday'=>'Saturday',
              'Sunday'=>'Sunday',
              'Monday'=>'Monday',
              'Tuesday'=>'Tuesday',
              'Wednesday'=>'Wednesday',
              'Thursday'=>'Thursday',
-             'Friday'=>'Friday',
-             'Saturday'=>'Saturday'
+             'Friday'=>'Friday'
          );
 
-        $time=array(
-            '08:00am',
-            '09:00am',
-            '10:00am',
-            '11:00am',
-            '12:00pm',
-            '01:00pm',
-            '02:00pm',
-            '03:00pm',
-            '04:00pm',
-            '05:00pm'
+       
+
+        $period=array(
+            '1'=>'Period 1',
+            '2'=>'Period 2',
+            '3'=>'Period 3',
+            '4'=>'Period 4',
+            '5'=>'Period 5',
+            '6'=>'Period 6',
+            '7'=>'Period 7'
         );
     ?>
     <table id="routine_day" class="routine">
         <thead>
             <tr>
                 <th>Day</th>
-                <?php foreach($time as $tm):?>
+                <?php foreach($period as $tm):?>
                 <th><?php echo $tm;?></th>
                 <?php endforeach;?>
             </tr>
@@ -201,11 +200,28 @@ padding: 15px 10px;
             <?php foreach($week as $key=>$value):?>
             <tr>
                 <td><?php  echo $value;?></td>
-                <?php foreach($time as $tm):?>
+                <?php foreach($period as $key_period=>$tm):?>
+                <?php
+
+                    $routine_config=array(
+                        'Dept_id'=>$Dept_id,
+                        'sLevel'=>$sLevel,
+                        'Term'=>$Term,
+                        'Sec'=>$Sec,
+                        'period'=>$key_period,
+                        'cDay'=>$key
+                    );
+
+                    $daily_routine=$this->department_model->get_daily_course($routine_config);
+                ?>
+
                 <td>
-                    CSE300 <br/>
-                    SI <br/>
-                    OAB 110
+                    <?php if($daily_routine):?>
+                        <?php echo $daily_routine->CourseNo;?><br/>
+                        <?php echo $daily_routine->cTime;?><br/>
+                        <?php echo $daily_routine->Duration;?> minutes<br/>
+                        Location: <?php echo $daily_routine->Location;?><br/>
+                    <?php endif;?>
                 </td>
                 <?php endforeach;?>
             </tr>
@@ -221,12 +237,20 @@ padding: 15px 10px;
     <div id="delete_success_message" align="center"></div>
     <header><h3 class="tabs_involved">Make Routine</h3>
     <ul class="tabs">
+        <li><a href="#tab3">Info</a></li>
         <li><a href="#tab1">Current routine</a></li>
         <li><a href="#tab2">Add entry</a></li>
     </ul>
     </header>
 
-    <div class="tab_container">        
+    <div class="tab_container">
+        <div id="tab3" class="tab_content">
+            <ul><strong>Note:</strong>
+                <li>Here you can create routine.</li>
+                <li>Delete Routine</li>
+                <li>Before Creating routine first assigned teacher</li>
+            </ul>
+        </div>
         <div id="tab1" class="tab_content">
             <table class="tablesorter" cellspacing="0">
             <thead>

@@ -9,7 +9,7 @@
 </div>
 
 <div>
-    <ol>
+    <ul>
     <?php foreach($all_users->result() as $user):?>
     <?php if($user->username==$me){continue;}?>
         <li><a href="javascript:void(0)" onclick="javascript:chatWith('<?php echo $user->username;?>')">
@@ -17,5 +17,5 @@
         </a></li>
     <br/>
     <?php endforeach;?>
-    </ol>
+    </ul>
 </div>
