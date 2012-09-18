@@ -73,6 +73,70 @@ class Exam extends CI_Model{
         }
         else return FALSE;
     }
+    
+    function get_exam_on_date($date){
+        $user=$this->session->userdata['ID'];
+        $query_std_sec=$this->db->query("
+                                        select *
+                                        from student
+                                        where S_Id='$user'
+                                        ");
+        $row_std=$query_std_sec->row();
+        
+        $query=$this->db->query("
+            select *
+            from exam,course,takencourse
+            where course.CourseNo=takencourse.CourseNo
+            AND exam.CourseNo=takencourse.CourseNo
+            AND (
+                    exam.Sec = substr( '$row_std->Sec', 1, 1 )
+                    OR exam.Sec = '$row_std->Sec'
+                    OR exam.Sec = 'all'
+                    )
+            AND S_Id = '$user'
+            AND eDate ='$date'
+            ORDER BY eTime
+            ");
+       // $datatata=(string)$date;
+       // var_dump($datatata);
+        if($query->num_rows()>0){
+            return $query;
+        }
+        else return FALSE;
+    }
+    
+    function get_all_list($current_month,$current_year){
+        $user=$this->session->userdata['ID'];
+        $query_std_sec=$this->db->query("
+                                        select *
+                                        from student
+                                        where S_Id='$user'
+                                        ");
+        $row_std=$query_std_sec->row();
+        $query=$this->db->query("
+                    SELECT *
+                    FROM exam, takencourse
+                    WHERE exam.CourseNo = takencourse.CourseNo
+                    AND (
+                    Sec = substr('$row_std->Sec',1,1)
+                    OR Sec = '$row_std->Sec'
+                    OR Sec = 'all'
+                    )
+                    AND S_Id = '$user'
+                    AND (
+                    substr( eDate, 6, 2 ) = '$current_month'
+                    AND substr( eDate, 1, 4 ) = '$current_year'
+                    )
+                    ORDER BY `eDate`
+            ");
+        if($query->num_rows()>0){
+            foreach($query->result() as $row){
+                $data[]=$row;
+            }
+            return $data;
+        }
+        else return FALSE;
+    }
 
     function Edit_Total(){
         $this->db->where('CourseNo', $this->input->post('CourseNo'));

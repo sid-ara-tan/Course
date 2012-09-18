@@ -32,6 +32,10 @@
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.position.js"></script>
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.resizable.js"></script>
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.dialog.js"></script>
+        
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.core.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.blind.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.explode.js"></script>
                 
         <script src="<?php echo base_url();?>jqueryUI/external/jquery.cookie.js"></script>
         <script src="<?php echo base_url();?>jqueryUI/external/jquery.bgiframe-2.1.2.js"></script>

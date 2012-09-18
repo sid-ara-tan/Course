@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 15, 2012 at 04:59 PM
+-- Generation Time: Sep 18, 2012 at 04:36 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -145,7 +145,6 @@ CREATE TABLE IF NOT EXISTS `classinfo` (
 --
 
 INSERT INTO `classinfo` (`Dept_id`, `CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`, `by_teacher`, `sLevel`, `Term`) VALUES
-('CSE', 'CSE300', 'Wednesday', 3, 'A', '11:00 PM', 'CSE102', '50', '05008', '3', '1'),
 ('CSE', 'CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50', '05001', '3', '1'),
 ('CSE', 'CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
 ('CSE', 'CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
@@ -185,6 +184,7 @@ INSERT INTO `classinfo` (`Dept_id`, `CourseNo`, `cDay`, `Period`, `Sec`, `cTime`
 ('CSE', 'CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1'),
 ('CSE', 'CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50', '05010', '3', '1'),
 ('CSE', 'CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010', '3', '1'),
+('CSE', 'CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50', '05009', '3', '1'),
 ('CSE', 'CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1');
 
 -- --------------------------------------------------------
@@ -345,7 +345,10 @@ CREATE TABLE IF NOT EXISTS `exam` (
   `eType` varchar(20) NOT NULL DEFAULT '',
   `Topic` varchar(30) DEFAULT NULL,
   `Syllabus` text NOT NULL,
-  `FileLocation` varchar(30) DEFAULT NULL,
+  `Scheduler_ID` varchar(30) DEFAULT NULL,
+  `Percentage` double NOT NULL,
+  `Best` int(11) NOT NULL,
+  `Total` double NOT NULL,
   PRIMARY KEY (`CourseNo`,`Sec`,`ID`),
   KEY `CourseNo` (`CourseNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -354,18 +357,18 @@ CREATE TABLE IF NOT EXISTS `exam` (
 -- Dumping data for table `exam`
 --
 
-INSERT INTO `exam` (`CourseNo`, `Sec`, `ID`, `eDate`, `eTime`, `Duration`, `Location`, `eType`, `Topic`, `Syllabus`, `FileLocation`) VALUES
-('CSE300', 'A1', 1, '2012-08-21', '11:0AM', '60', 'classroom', 'quiz', 'quiz1', 'arafat', NULL),
-('CSE300', 'A1', 2, '2012-08-29', '11:0AM', '60', 'classroom', 'presentation', 'presentation 1', 'arafat', NULL),
-('CSE300', 'A1', 3, '2012-08-20', '12:0AM', '2', 'sd', 'assignment', 'asd', 'sad', NULL),
-('CSE300', 'A1', 8, '2012-09-25', '01:00AM', '14', 'kk', 'quiz', 'fsd', 'df', NULL),
-('CSE300', 'all', 4, '2012-08-30', '12:0AM', '12', 's', 'assignment', 'Ass1', 'sad', NULL),
-('CSE300', 'B2', 5, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE300', 'B2', 6, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE300', 'B2', 7, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', NULL),
-('CSE305', 'A', 1, '2012-08-28', '1:50AM', '50', 'sd', 'ct', 'CT1', 'ads', NULL),
-('CSE305', 'all', 2, '2012-08-20', '1:1AM', '12', '307', 'ct', 'ct2', '', NULL),
-('CSE305', 'all', 3, '2012-08-28', '01:05AM', '50', 'ds', 'ct', 'ct3', 'asd', NULL);
+INSERT INTO `exam` (`CourseNo`, `Sec`, `ID`, `eDate`, `eTime`, `Duration`, `Location`, `eType`, `Topic`, `Syllabus`, `Scheduler_ID`, `Percentage`, `Best`, `Total`) VALUES
+('CSE300', 'A1', 1, '2012-08-21', '11:0AM', '60', 'classroom', 'quiz', 'quiz1', 'arafat', '05008', 45.5, 0, 10),
+('CSE300', 'A1', 2, '2012-08-29', '11:0AM', '60', 'classroom', 'presentation', 'presentation 1', 'arafat', '05008', 0, 0, 5),
+('CSE300', 'A1', 3, '2012-08-20', '12:0AM', '2', 'sd', 'assignment', 'asd', 'sad', '05008', 0, 0, 10),
+('CSE300', 'A1', 8, '2012-09-25', '01:00AM', '14', 'kk', 'quiz', 'fsd', 'df', '05008', 54.5, 0, 12),
+('CSE300', 'B2', 5, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008', 0, 2, 20),
+('CSE300', 'B2', 6, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008', 0, 2, 10),
+('CSE300', 'B2', 7, '2012-08-29', '1:0AM', '12', 'classroom', 'assignment', 'aas', 'as', '05008', 0, 2, 10),
+('CSE305', 'A', 1, '2012-08-28', '1:50AM', '50', 'sd', 'ct', 'CT1', 'ads', '05008', 0, 0, 10),
+('CSE305', 'A', 3, '2012-09-18', '01:00AM', '12', 'qwe', 'ct', 'A ct', 'a', '05008', 0, 0, 0),
+('CSE309', 'A', 1, '2012-09-18', '01:00AM', '5', 'gg', 'ct', 'dsfs', 'bkhgkghkjhk', '05001', 0, 0, 0),
+('CSE309', 'A', 2, '2012-09-17', '01:00AM', '3', 'sad', 'ct', 'gyigyiyuighui', 'ghkhjkhjkjh', '05001', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -377,6 +380,8 @@ CREATE TABLE IF NOT EXISTS `exam_type` (
   `CourseNo` varchar(10) NOT NULL,
   `etype` varchar(20) NOT NULL,
   `Description` text NOT NULL,
+  `Marks_Type` varchar(10) NOT NULL,
+  `Percentage` double NOT NULL,
   PRIMARY KEY (`CourseNo`,`etype`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -384,11 +389,15 @@ CREATE TABLE IF NOT EXISTS `exam_type` (
 -- Dumping data for table `exam_type`
 --
 
-INSERT INTO `exam_type` (`CourseNo`, `etype`, `Description`) VALUES
-('CSE300', 'assignment', 'four assignment will be taken'),
-('CSE300', 'presentation', 'one presentation will be taken'),
-('CSE300', 'quiz', '1 quiz will be taken'),
-('CSE305', 'ct', 'Four ct will be taken best 3 will be counted');
+INSERT INTO `exam_type` (`CourseNo`, `etype`, `Description`, `Marks_Type`, `Percentage`) VALUES
+('CSE300', 'assignment', 'four assignment will be taken', 'Best', 10),
+('CSE300', 'offline', 'wow\r\noffline\r\n', 'Percentage', 0),
+('CSE300', 'presentation', 'one presentation will be taken', 'Percentage', 20),
+('CSE300', 'quiz', '1 quiz will be taken', 'Percentage', 20),
+('CSE300', 'viva', '', 'Percentage', 25),
+('CSE305', 'ct', 'Four ct will be taken best 3 will be counted', 'Best', 0),
+('CSE309', 'ct', '3 ct will be counted', 'Best', 0),
+('CSE309', 'xc', '', 'Percentage', 0);
 
 -- --------------------------------------------------------
 
@@ -459,6 +468,7 @@ CREATE TABLE IF NOT EXISTS `marks` (
   `S_ID` varchar(10) NOT NULL,
   `Total` double NOT NULL,
   `Marks` double NOT NULL,
+  `Percentage` double NOT NULL,
   PRIMARY KEY (`CourseNo`,`Sec`,`Exam_ID`,`S_ID`),
   KEY `S_ID` (`S_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -467,37 +477,25 @@ CREATE TABLE IF NOT EXISTS `marks` (
 -- Dumping data for table `marks`
 --
 
-INSERT INTO `marks` (`CourseNo`, `Sec`, `Exam_ID`, `S_ID`, `Total`, `Marks`) VALUES
-('CSE300', 'A1', 1, '0805001', 10, 1),
-('CSE300', 'A1', 1, '0805002', 10, 2),
-('CSE300', 'A1', 2, '0805001', 5, 2),
-('CSE300', 'A1', 2, '0805002', 5, 2),
-('CSE300', 'A1', 3, '0805001', 10, 2),
-('CSE300', 'A1', 3, '0805002', 10, 8),
-('CSE300', 'A1', 8, '0805001', 12, 1),
-('CSE300', 'A1', 8, '0805002', 12, 2),
-('CSE300', 'all', 4, '0805001', 10, 9),
-('CSE300', 'all', 4, '0805002', 10, 7.5),
-('CSE300', 'all', 4, '0805048', 10, 10),
-('CSE300', 'all', 4, '0805049', 10, 9),
-('CSE300', 'all', 4, '0805067', 10, 9),
-('CSE300', 'all', 4, '0805086', 10, 9),
-('CSE300', 'all', 4, '0805102', 10, 8.5),
-('CSE300', 'all', 4, '0805114', 10, 8),
-('CSE300', 'B2', 5, '0805102', 10, 10),
-('CSE300', 'B2', 5, '0805114', 10, 9),
-('CSE305', 'A', 1, '0805001', 10, 1),
-('CSE305', 'A', 1, '0805002', 10, 2),
-('CSE305', 'A', 1, '0805048', 10, 3),
-('CSE305', 'A', 1, '0805049', 10, 6),
-('CSE305', 'all', 2, '0805001', 20, 15),
-('CSE305', 'all', 2, '0805002', 20, 16),
-('CSE305', 'all', 2, '0805048', 20, 17),
-('CSE305', 'all', 2, '0805049', 20, 18),
-('CSE305', 'all', 2, '0805067', 20, 19),
-('CSE305', 'all', 2, '0805086', 20, 20),
-('CSE305', 'all', 2, '0805102', 20, 20),
-('CSE305', 'all', 2, '0805114', 20, 19.2);
+INSERT INTO `marks` (`CourseNo`, `Sec`, `Exam_ID`, `S_ID`, `Total`, `Marks`, `Percentage`) VALUES
+('CSE300', 'A1', 1, '0805001', 10, 7, 0),
+('CSE300', 'A1', 1, '0805002', 10, 6, 0),
+('CSE300', 'A1', 2, '0805001', 5, 2, 0),
+('CSE300', 'A1', 2, '0805002', 5, 2, 0),
+('CSE300', 'A1', 3, '0805001', 10, 2, 0),
+('CSE300', 'A1', 3, '0805002', 10, 8, 0),
+('CSE300', 'A1', 8, '0805001', 12, 1, 0),
+('CSE300', 'A1', 8, '0805002', 12, 2, 0),
+('CSE300', 'B2', 5, '0805102', 20, 20, 0),
+('CSE300', 'B2', 5, '0805114', 20, 9, 0),
+('CSE300', 'B2', 6, '0805102', 10, 2, 0),
+('CSE300', 'B2', 6, '0805114', 10, 2, 0),
+('CSE300', 'B2', 7, '0805102', 10, 10, 0),
+('CSE300', 'B2', 7, '0805114', 10, 9, 0),
+('CSE305', 'A', 1, '0805001', 10, 3, 0),
+('CSE305', 'A', 1, '0805002', 10, 2, 0),
+('CSE305', 'A', 1, '0805048', 10, 3, 0),
+('CSE305', 'A', 1, '0805049', 10, 4, 0);
 
 -- --------------------------------------------------------
 
@@ -531,6 +529,7 @@ INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderIn
 ('CSE309', 54, '2012-09-13 03:30:39', '0805048', 'student', 'sdg', 'dfgd', 1),
 ('CSE309', 55, '2012-09-13 03:30:47', '0805048', 'student', 'dgfdg', 'gdggdfgdfgjdmu,krjythn', 1),
 ('CSE309', 56, '2012-09-13 03:30:53', '0805048', 'student', 'ya hello', 'dfg', 1),
+('CSE309', 59, '2012-09-17 09:36:41', '0805049', 'student', 'fghgfhfghfg', 'fh', 1),
 ('CSE310', 2, '2012-09-13 04:28:23', '0805048', 'student', 'aedaw', 'ewqeqweqwe', 0);
 
 -- --------------------------------------------------------
@@ -580,7 +579,7 @@ INSERT INTO `schedule` (`id`, `Dept_id`, `sLevel`, `Term`, `period`) VALUES
 (3, 'CSE', '1', '1', 'registration_request'),
 (4, 'CSE', '1', '2', 'result_show_period'),
 (5, 'CSE', '2', '1', 'idle'),
-(10, 'CSE', '3', '1', 'idle');
+(10, 'CSE', '3', '1', 'registration_request');
 
 -- --------------------------------------------------------
 
@@ -929,13 +928,7 @@ ALTER TABLE `content`
 -- Constraints for table `course`
 --
 ALTER TABLE `course`
-  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`Dept_ID`) REFERENCES `department` (`Dept_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `exam`
---
-ALTER TABLE `exam`
-  ADD CONSTRAINT `exam_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `course_ibfk_1` FOREIGN KEY (`Dept_ID`) REFERENCES `department` (`Dept_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `file`
@@ -949,13 +942,6 @@ ALTER TABLE `file`
 ALTER TABLE `hascourse`
   ADD CONSTRAINT `hascourse_ibfk_1` FOREIGN KEY (`Dept_Id`) REFERENCES `department` (`Dept_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `hascourse_ibfk_2` FOREIGN KEY (`course_no`) REFERENCES `course` (`CourseNo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `marks`
---
-ALTER TABLE `marks`
-  ADD CONSTRAINT `marks_ibfk_1` FOREIGN KEY (`CourseNo`) REFERENCES `exam` (`CourseNo`),
-  ADD CONSTRAINT `marks_ibfk_2` FOREIGN KEY (`S_ID`) REFERENCES `student` (`S_Id`);
 
 --
 -- Constraints for table `message_group_student`

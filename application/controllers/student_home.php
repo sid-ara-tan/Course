@@ -41,7 +41,7 @@ class Student_home extends CI_controller {
                             {cal_cell_content_today}<div class="day_num highlight"><a href="{content}">{day}</a></div>{/cal_cell_content_today}
 
                             {cal_cell_no_content}
-                            <div class="day_num">{day}</div>
+                            <div class="">{day}</div>
                             {/cal_cell_no_content}
                             {cal_cell_no_content_today}<div class="day_num highlight">{day}</div>{/cal_cell_no_content_today}
 
@@ -63,17 +63,25 @@ class Student_home extends CI_controller {
     function index() {
         $this->load->model('student');
         $this->load->model('classinfo');
+        $this->load->model('exam');
         ///////////////////////////////////////////////////////////////////////////////////////////////
-
+        $uptime = strftime("%Y-%m-%d %H:%M:%S", time());
+        $current_year=  substr($uptime,0,4);
+        $current_month=  substr($uptime,5,2);
+        
+        if($this->uri->segment(5)==''||$this->uri->segment(6)=='')$exam_query=$this->exam->get_all_list($current_month,$current_year);
+        else $exam_query=$this->exam->get_all_list( $this->uri->segment(6),$this->uri->segment(5));
+        
+        //var_dump($exam_query);
         $this->load->library('calendar',$this->prefs_calender);
-              $date= array(
-               3  => 'http://example.com/news/article/2006/03/',
-               7  => 'http://example.com/news/article/2006/07/',
-               13 => 'http://example.com/news/article/2006/13/',
-               26 => 'http://example.com/news/article/2006/26/'
-             );  
-              
-         $data['my_calender']=$this->calendar->generate($this->uri->segment(5), $this->uri->segment(6),$date);
+        if($exam_query!=false)
+        {
+             foreach ($exam_query as $row) {
+                 $date[substr($row->eDate,8,2)]='#';
+             }
+        }
+        else $date[]='';
+        $data['my_calender']=$this->calendar->generate($this->uri->segment(5), $this->uri->segment(6),$date);
         
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         $data['query_student_info'] = $this->query_student;
@@ -82,6 +90,29 @@ class Student_home extends CI_controller {
         $data['taken_course_query'] = $this->query_taken_course;
         
         $this->load->view('student_homepage', $data);
+    }
+    
+    function load_exam_calender()
+    {
+        $this->load->model('exam');
+        $uptime = strftime("%Y-%m-%d %H:%M:%S", time());
+
+        if($this->input->post('year')==null)
+        {
+             $current_year=  substr($uptime,0,4);
+             $current_month=  substr($uptime,5,2);
+             $date=$current_year.'-'.$current_month.'-'.substr($this->input->post('date'),12,2);
+        }
+        else 
+        {
+             $date=$this->input->post('year').'-'.$this->input->post('month').'-'.substr($this->input->post('date'),12,2);
+
+        }
+      
+             // var_dump($date);
+        $data['query_exam']=$this->exam->get_exam_on_date($date);
+        if($data['query_exam']!=FALSE)echo $this->load->view('student_home_page_exam_calender', $data,TRUE);
+        else echo "No Exam Today";
     }
     
     function group()

@@ -7,30 +7,51 @@
     $row_std=$query_student_info->row();
 ?>
 <script>
+        $.fx.speeds._default = 1000;
+
         $(document).ready(function(){
+            
+            
+        $( "#dialog-message" ).dialog({
+
+                        minWidth:720,
+                        modal:true,
+			autoOpen: false,
+
+			show: "blind",
+
+			hide: "explode"
+
+		});
 
         $('.calender .day').click(function(){
              
-             ddd=$(this).find('.day_num').html();
-             document.getElementById('data_in_dialog').innerHTML="<span class='ui-icon ui-icon-circle-check' style='float:left; margin:0 7px 50px 0;'></span>\n\
-                                                                     Your selected : "+ddd;
-                     
-                $( "#dialog:ui-dialog" ).dialog( "destroy" );
-		$( "#dialog-message" ).dialog({
+             date=$(this).find('.day_num').html();
+             //ddd=document.getElementById('linku').innerHTML;
 
-			modal: true,
+                if(date!=null){  
+                        $.ajax({
+                                type: "POST",
+                                data: {
+                                    year: "<?php echo $this->uri->segment(5);?>",
+                                    month: "<?php echo $this->uri->segment(6);?>",
+                                    date: date
+                                },
 
-			buttons: {
+                                url: "<?php echo site_url('student_home/load_exam_calender');?>",
+                                success: function(msg){
+                                        //document.getElementById('data_in_dialog').innerHTML="<span class='ui-icon ui-icon-circle-check' style='float:left; margin:0 7px 50px 0;'></span>\n\
+                                                                   //  Your selected : "+msg;
+                                        document.getElementById('data_in_dialog').innerHTML=msg;
+                                        $( "#dialog-message" ).dialog( "open" );
 
-				Ok: function() {
+                                        return false;
 
-					$( this ).dialog( "close" );
+                                }
 
-				}
+                        });
 
-			}
-
-		});
+                }
               });
         });
        
@@ -246,7 +267,11 @@
         <h2 class="title">Exam Calender</h2>
         <div id="hpage_quicklinks">
             <?php echo $my_calender;?>
-            
+                    <p>
+                        <span class='ui-icon ui-icon-circle-check' style='float:left; margin:0 7px 50px 0;'></span>
+                        Click On A date To see the exam list on that day..
+                        
+                    </p>
             <div id="dialog-message" title="Exam Schedule">
 
                     <p id="data_in_dialog">
@@ -255,8 +280,7 @@
 
                     </p>
 
-                    <p>
-                    </p>
+
 
             </div>
 
