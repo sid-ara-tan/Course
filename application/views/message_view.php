@@ -55,35 +55,56 @@
                         <li><a href="#tabs-2">Post a message</a></li>
 
                 </ul>
+            <script>
+
+            </script>
                 <div id="tabs-1">
                      <div class="demo">
                          <div id="filter_by_group">
+                             <h1>Showing Messages from <?php echo $show_for; ?></h1>
                      <?php
                         //$row_std_name=$query_student->row();
+                        echo form_open('teacher_message/message_for_group');
+                        $course_record=$this->teacher->get_courses();
+                            $options=array();
+                            $options['ALL']='ALL';
+                            foreach($course_record as $row){
+                                $options[$row->CourseNo]=$row->CourseNo;
+                            }
+                            echo form_label('Show for ', 'course_label');                            
+                            echo form_dropdown('courseno',$options,$show_for,'id="courseNo" onchange="this.form.submit()"').' ';
+                     
+                        //echo form_submit('','Filter message');
+                        echo form_close();
+                        echo '<br/><br/><hr/>';
                         if($querymsg!=FALSE)
                         {
 
                             foreach ($querymsg as $row)
                             {
-                                $name=$this->student->get_name($row->SenderInfo);
-                                if($row->senderType=='student')
+                                
+                                if($row->senderType=='student'){
+                                        $name=$this->student->get_name($row->SenderInfo);
                                         echo "<b><font color='green'>".$name.'</font></b> Posted in ';
-                                elseif($row->senderType=='teacher')
+                                }
+                                elseif($row->senderType=='teacher'){
+                                        $name=$this->teacher->get_name($row->SenderInfo);
                                         echo "<b><font color='red'>".$name.'</font></b> Posted in ';
+                                }
                                 echo '<b>'.$row->CourseNo.'</b>';
                                 echo ' at ('.$row->mTime.')';
                                 echo br(2);;
-                                echo "<font color='blue'><h3><b>".$row->Subject.'</b></h3></font><br>';
+                                echo "<font color='blue' size='4px'><b>".$row->Subject.'</b></font><br>';
                                 echo $row->mBody.'<br><br>';
                                 if($row->SenderInfo==$this->session->userdata['ID'])
                                 {
                                     //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                    echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$row->CourseNo," <font color='red'>Delete</font> ",'onclick=" return check()"').' ';
+                                    echo '<br> '.anchor('teacher_message/group_message/delete/'.$row->MessageNo.'/'.$row->CourseNo," <font color='red'>Delete</font> ",'onclick=" return check()"').' ';
                                 }
 
 
 
-                                echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$row->CourseNo,
+                                echo ' '.anchor('teacher_message/comment/'.$row->MessageNo.'/'.$row->CourseNo,
                                         "# <font color='red'>".$this->comment->comment_number($row->CourseNo,$row->MessageNo)." Comment</font> ").'<br>';
                                 echo '<hr/>';
 
@@ -99,8 +120,8 @@
                 </div>
 
             <div id="tabs-2">
-                <b><font color="red"><?php //echo $notification; ?></font></b>
-                <?php echo form_open('student_home_group/group_message/post');?>
+                <b><font color="red"><?php echo $this->session->flashdata('notification'); ?></font></b>
+                <?php echo form_open('teacher_message/group_message/post');?>
 
                 <br><h1><?php echo ' Wall';?></h1><br>
                      <?php
@@ -110,7 +131,7 @@
                                 $options[$row->CourseNo]=$row->CourseNo;
                             }
                             echo form_label('Post To ', 'course_label');
-                            echo form_dropdown('courseno:',$options).'<br/>';
+                            echo form_dropdown('courseno',$options).'<br/>';
                      ?>
                     <?php echo form_label('Subject', 'subject_label');?>
                     <br>
