@@ -97,6 +97,9 @@
                     dataType: 'json',
                     success:function(msg){
                         $('#show_error_message').html(msg['output']);
+                        if(msg['success']){
+                            window.location.reload();
+                        }
                     }
                 });
              }
@@ -212,19 +215,23 @@ padding: 15px 10px;
                         'cDay'=>$key
                     );
 
-                    $daily_routine=$this->department_model->get_daily_course($routine_config);
+                    $the_daily_routine=$this->department_model->get_daily_course($routine_config);
                 ?>
 
                 <td>
-                    <?php if($daily_routine):?>
+                    <?php foreach ($the_daily_routine->result() as $daily_routine):?>
+                    
                         <?php echo $daily_routine->CourseNo;?><br/>
                         <?php echo $daily_routine->cTime;?><br/>
                         <?php echo $daily_routine->Duration;?> minutes<br/>
-                        <?php $config_ara=array(
+
+                         <?php $config_ara=array(
                             'Sec'=>$Sec,
                             'CourseNo'=>$daily_routine->CourseNo
                         );?>
+
                         <?php $get_assigned_teachers=$this->course_model->get_same_course_teachers($config_ara);?>
+
                         <strong>Teachers:</strong><br/>
                         <?php foreach($get_assigned_teachers->result() as $s_teacher):?>
                                 <?php echo $s_teacher->T_Id;?>
@@ -232,10 +239,11 @@ padding: 15px 10px;
                                 <?php echo $s_teacher->Name;?>
                                 <br/>
                         <?php endforeach;?>
+                                
                         <strong>Location:</strong>
                         <?php echo $daily_routine->Location;?><br/>
-
-                    <?php endif;?>
+                        <br/>
+                   <?php endforeach;?>
                 </td>
                 <?php endforeach;?>
             </tr>

@@ -118,12 +118,6 @@
         $this->db->where($config);
         $result=$this->db->get('classinfo');
 
-        if($result->num_rows==1){
-            return $result->row();
-        }
-        else{
-            return FALSE;
-        }
-
+        return $result;
     }
 }
