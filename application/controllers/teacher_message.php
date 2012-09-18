@@ -189,4 +189,56 @@ class Teacher_message extends CI_Controller{
         $this->session->set_flashdata('notification',"Comment has been deleted successfully");
         redirect('teacher_message/comment/'.$msg_id.'/'.$courseno);
     }
+
+    function show_file($courseno)
+    {
+        $this->load->model('file');
+        $this->load->model('comment');
+        $this->load->model('student');
+        $this->load->model('teacher');
+
+        $user_id=$this->session->userdata['ID'];
+        //$data['query_student']=$this->db->query("select Name from Student where S_Id='$user_id'");
+
+        //$courseno=$this->input->post('courseno');
+        $data['courseno']=$courseno;
+        $config['per_page'] ='5';        
+        $record_file=$this->file->get_file($courseno,$config['per_page'],$this->uri->segment(4,0));
+        $data['record_file']=$record_file;
+
+        if($data['record_file']!=FALSE)
+        {
+            foreach ($data['record_file'] as $row)
+            {
+                $fileid=$row->file_id;
+                $data['commentoffile'.$fileid]=$this->comment->comment_number($courseno,$fileid);
+                if($row->senderType=='student')$data['nameof'.$fileid]=$this->student->get_name($row->uploader);
+                elseif($row->senderType=='teacher')$data['nameof'.$fileid]=$this->teacher->get_name($row->uploader);
+            }
+            //var_dump($data);
+        }
+        $data['notification_file']=$this->session->flashdata('notification_file');
+         $config['total_rows'] =$this->file->count_result($courseno);
+            $config['base_url'] = base_url().'index.php/teacher_home/show_file/'.$courseno.'/';
+            $config['uri_segment'] = 4;
+            $config['full_tag_open'] = '<p>';
+            $config['full_tag_close'] = '</p>';
+            $this->pagination->initialize($config);
+        $msg=$this->load->view('teacher_file_view', $data);
+
+        echo $msg;
+    }
+     function download_file(){
+        $this->load->helper('download');
+        $this->load->helper('url');
+
+        $courseno=$this->uri->segment(3);
+        $filename=$this->uri->segment(4);
+
+        $data = file_get_contents("uploads/$courseno/$filename");
+        $name = $filename;
+
+        force_download($name, $data);
+
+    }
 }
