@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 12, 2012 at 08:12 PM
+-- Generation Time: Sep 18, 2012 at 05:08 PM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `classinfo` (
 --
 
 INSERT INTO `classinfo` (`Dept_id`, `CourseNo`, `cDay`, `Period`, `Sec`, `cTime`, `Location`, `Duration`, `by_teacher`, `sLevel`, `Term`) VALUES
+('CSE', 'CSE300', 'Wednesday', 3, 'A', '11:00 PM', 'CSE102', '50', '05008', '3', '1'),
 ('CSE', 'CSE303', 'Sunday', 3, 'A', '10:00 am', 'CSE102', '50', '05001', '3', '1'),
 ('CSE', 'CSE303', 'Sunday', 2, 'B', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
 ('CSE', 'CSE303', 'Tuesday', 2, 'A', '09:00 am', 'CSE102', '50', '05001', '3', '1'),
@@ -88,7 +89,6 @@ INSERT INTO `classinfo` (`Dept_id`, `CourseNo`, `cDay`, `Period`, `Sec`, `cTime`
 ('CSE', 'CSE311', 'Monday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1'),
 ('CSE', 'CSE311', 'Saturday', 3, 'A', '10:00 am', 'CSE109', '50', '05010', '3', '1'),
 ('CSE', 'CSE311', 'Saturday', 2, 'B', '09:00 am', 'CSE109', '50', '05010', '3', '1'),
-('CSE', 'CSE311', 'Wednesday', 3, 'A', '10:00 am', 'CSE102', '50', '05009', '3', '1'),
 ('CSE', 'CSE311', 'Wednesday', 2, 'B', '09:00 am', 'CSE102', '50', '05009', '3', '1');
 
 --

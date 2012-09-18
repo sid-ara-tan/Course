@@ -77,6 +77,15 @@
         return $query;
     }
 
+     function get_same_course_teachers($config=NULL){
+        $this->db->select('*');
+        $this->db->where($config);
+        $this->db->from('assignedcourse');
+        $this->db->join('teacher', 'teacher.T_Id=assignedcourse.T_Id');
+        $query = $this->db->get();
+        return $query;
+    }
+
     function is_this_course_already_assigned($config=NULL){
         $this->db->where($config);
         $check=$this->db->get('assignedcourse');

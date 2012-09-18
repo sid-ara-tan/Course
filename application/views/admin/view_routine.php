@@ -220,7 +220,21 @@ padding: 15px 10px;
                         <?php echo $daily_routine->CourseNo;?><br/>
                         <?php echo $daily_routine->cTime;?><br/>
                         <?php echo $daily_routine->Duration;?> minutes<br/>
-                        Location: <?php echo $daily_routine->Location;?><br/>
+                        <?php $config_ara=array(
+                            'Sec'=>$Sec,
+                            'CourseNo'=>$daily_routine->CourseNo
+                        );?>
+                        <?php $get_assigned_teachers=$this->course_model->get_same_course_teachers($config_ara);?>
+                        <strong>Teachers:</strong><br/>
+                        <?php foreach($get_assigned_teachers->result() as $s_teacher):?>
+                                <?php echo $s_teacher->T_Id;?>
+                                -
+                                <?php echo $s_teacher->Name;?>
+                                <br/>
+                        <?php endforeach;?>
+                        <strong>Location:</strong>
+                        <?php echo $daily_routine->Location;?><br/>
+
                     <?php endif;?>
                 </td>
                 <?php endforeach;?>
