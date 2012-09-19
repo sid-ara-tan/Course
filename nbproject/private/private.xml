@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/xampp/htdocs/Course/application/controllers/student_home.php</file>
+        <file>file:/C:/xampp/htdocs/Course/application/views/student_homepage.php</file>
+        <file>file:/C:/xampp/htdocs/Course/application/models/exam.php</file>
+        <file>file:/C:/xampp/htdocs/Course/application/views/student_home_page_exam_calender.php</file>
+        <file>file:/C:/xampp/htdocs/Course/application/views/header/index_header.php</file>
+    </open-files>
 </project-private>
