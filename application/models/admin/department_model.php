@@ -43,6 +43,7 @@
 
     function get_all_classinfo($config=NULl){
         $this->db->where($config);
+        $this->db->order_by('cDay');
         $result=$this->db->get('classinfo');
         return $result;
     }
@@ -111,5 +112,12 @@
         else{
             return FALSE;
         }
+    }
+
+    function get_daily_course($config=NULL){
+        $this->db->where($config);
+        $result=$this->db->get('classinfo');
+
+        return $result;
     }
 }

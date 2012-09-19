@@ -121,13 +121,13 @@
         $.validator.addMethod("greater", function( value, element, param ) {
         var val_a = $("#start_code").val();
         return this.optional(element)
-            || (value > val_a);
+            || (value >= val_a);
         },"Must be greater than start code value");
 
         $.validator.addMethod("smaller", function( value, element, param ) {
         var val_a = $("#end_code").val();
         return this.optional(element)
-            || (value < val_a);
+            || (value <= val_a);
         },"Must be smaller than end code value");
   });
 </script>

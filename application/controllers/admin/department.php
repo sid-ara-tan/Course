@@ -250,10 +250,13 @@
        $success=FALSE;
 
        $consist_config=array(
-            'CourseNo'=>  $this->input->post('CourseNo'),
+            'Dept_id'=>  $this->input->post('Dept_id'),
+            'sLevel'=>  $this->input->post('sLevel'),
+            'Term'=>  $this->input->post('Term'),
             'cDay'=>  $this->input->post('cDay'),
             'Sec'=>  $this->input->post('Sec'),
-            'Period'=>  $this->input->post('Period')
+            'Period'=>  $this->input->post('Period'),
+            'by_teacher'=>  $this->input->post('by_teacher'),
        );
 
        $check= $this->department_model->check_consistency($consist_config);

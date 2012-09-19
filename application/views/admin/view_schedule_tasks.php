@@ -100,7 +100,8 @@ $(document).ready( function () {
     $data['toolbar']=array(
         'Home'=>  site_url('admin/admin')
     );
-    $data['current']='Departments';
+    
+    $data['current']='Task Scheduling';
 
     $this->load->view('admin/template/toolbar',$data);
 ?>

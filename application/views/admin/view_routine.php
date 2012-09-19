@@ -97,6 +97,9 @@
                     dataType: 'json',
                     success:function(msg){
                         $('#show_error_message').html(msg['output']);
+                        if(msg['success']){
+                            window.location.reload();
+                        }
                     }
                 });
              }
@@ -117,7 +120,31 @@
         });
     });
 </script>
+<style type="text/css" media="screen">
 
+.routine table{
+width: 100%;
+margin: -5px 0 0 0;
+}
+
+.routine td{
+margin: 10px;
+padding: 10px;
+border: 1px dotted #ccc;
+}
+
+.routine thead tr {
+height: auto;
+text-align: left;
+text-indent: 10px;
+cursor: pointer;
+}
+
+.routine td {
+padding: 15px 10px;
+}
+
+</style>
 </head>
 
 <body>
@@ -141,29 +168,111 @@
 <div>
     <?php
         $week=array(
+             'Saturday'=>'Saturday',
              'Sunday'=>'Sunday',
              'Monday'=>'Monday',
              'Tuesday'=>'Tuesday',
              'Wednesday'=>'Wednesday',
              'Thursday'=>'Thursday',
-             'Friday'=>'Friday',
-             'Saturday'=>'Saturday'
+             'Friday'=>'Friday'
          );
+
+       
+
+        $period=array(
+            '1'=>'Period 1',
+            '2'=>'Period 2',
+            '3'=>'Period 3',
+            '4'=>'Period 4',
+            '5'=>'Period 5',
+            '6'=>'Period 6',
+            '7'=>'Period 7'
+        );
     ?>
-    <?php foreach($week as $key=>$value):?>
-    <?php endforeach;?>
+    <table id="routine_day" class="routine">
+        <thead>
+            <tr>
+                <th>Day</th>
+                <?php foreach($period as $tm):?>
+                <th><?php echo $tm;?></th>
+                <?php endforeach;?>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach($week as $key=>$value):?>
+            <tr>
+                <td><?php  echo $value;?></td>
+                <?php foreach($period as $key_period=>$tm):?>
+                <?php
+
+                    $routine_config=array(
+                        'Dept_id'=>$Dept_id,
+                        'sLevel'=>$sLevel,
+                        'Term'=>$Term,
+                        'Sec'=>$Sec,
+                        'period'=>$key_period,
+                        'cDay'=>$key
+                    );
+
+                    $the_daily_routine=$this->department_model->get_daily_course($routine_config);
+                ?>
+
+                <td>
+                    <?php foreach ($the_daily_routine->result() as $daily_routine):?>
+                    
+                        <?php echo $daily_routine->CourseNo;?><br/>
+                        <?php echo $daily_routine->cTime;?><br/>
+                        <?php echo $daily_routine->Duration;?> minutes<br/>
+
+                         <?php $config_ara=array(
+                            'Sec'=>$Sec,
+                            'CourseNo'=>$daily_routine->CourseNo
+                        );?>
+
+                        <?php $get_assigned_teachers=$this->course_model->get_same_course_teachers($config_ara);?>
+
+                        <strong>Teachers:</strong><br/>
+                        <?php foreach($get_assigned_teachers->result() as $s_teacher):?>
+                                <?php echo $s_teacher->T_Id;?>
+                                -
+                                <?php echo $s_teacher->Name;?>
+                                <br/>
+                        <?php endforeach;?>
+                                
+                        <strong>Location:</strong>
+                        <?php echo $daily_routine->Location;?><br/>
+                        <br/>
+                   <?php endforeach;?>
+                </td>
+                <?php endforeach;?>
+            </tr>
+            <?php endforeach;?>
+        </tbody>
+         <tfoot>
+        </tfoot>
+    </table>
 </div>
+    
 </article>
 <article class="module width_full shadow ">
     <div id="delete_success_message" align="center"></div>
     <header><h3 class="tabs_involved">Make Routine</h3>
     <ul class="tabs">
+        <li><a href="#tab3">Info</a></li>
         <li><a href="#tab1">Current routine</a></li>
         <li><a href="#tab2">Add entry</a></li>
     </ul>
     </header>
 
-    <div class="tab_container">        
+    <div class="tab_container">
+        <div id="tab3" class="tab_content">
+            <ul><strong>Note:</strong>
+                <li>Here you can create routine.</li>
+                <li>Delete Routine</li>
+                <li>Before Creating routine first assigned teacher</li>
+            </ul>
+        </div>
         <div id="tab1" class="tab_content">
             <table class="tablesorter" cellspacing="0">
             <thead>
