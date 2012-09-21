@@ -18,7 +18,7 @@
             <h2 class="section_title">Course Management System(CMS)</h2>
             <div class="nice_button" style="top:15px;position:relative;">
                 <button  onclick="return show_users();">Chat</button>
-                <div id="show_chat_users" class="chat_users" style="display:none;"></div>
+                  <div id="show_chat_users" style="display:none;"></div>
             </div>
             
     </hgroup>

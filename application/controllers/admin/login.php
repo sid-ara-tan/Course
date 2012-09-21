@@ -34,6 +34,8 @@ class Login extends CI_Controller{
             );
             
             $this->session->set_userdata($data);
+            session_start();
+            $_SESSION['username']=$this->session->userdata('username');
             redirect('admin/admin');
         }
 

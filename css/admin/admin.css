@@ -195,25 +195,39 @@ padding: 10px;
         height: 100px;
 }
 
-.chat_users{
-
-    min-width: 200px;
-    min-height:250px;
-    height: auto;
-    padding: 20px;
+.total_div{
     right:20px;
     position: absolute;
     z-index: 10;
-    background-image:url(../../images/admin/gradient.png);
-    background-color: #E0E0E0;
-    color: black;
-    background-repeat: repeat-x;
-     -moz-box-shadow: 0 0 10px #aaaaaa;
-    -webkit-box-shadow: 0 0 10px #aaaaaa;
+
+    -moz-box-shadow: 0 10px 10px #aaaaaa;
+    -webkit-box-shadow: 0 10px 10px #aaaaaa;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
 }
 
+.arrow_up {
+        
+        
+        margin-left:50%;
+    
+	width: 0; 
+	height: 0; 
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid white;
+}
+
+.chat_users{
+    width: 105px;
+    height: auto;
+    padding: 20px;    
+    /*background-image:url(../../images/admin/gradient.png);*/
+    background: white;
+    color: black;
+   
+}
+.chat_users ul { list-style-image: url("../../template/admin/images/icn_profile.png"); }
 .nice_button button {
   background: #3b88d8;
   background: -moz-linear-gradient(0% 100% 90deg, #377ad0, #52a8e8);
