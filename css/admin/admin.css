@@ -200,8 +200,8 @@ padding: 10px;
     position: absolute;
     z-index: 10;
 
-    -moz-box-shadow: 0 10px 10px #aaaaaa;
-    -webkit-box-shadow: 0 10px 10px #aaaaaa;
+    -moz-box-shadow: 0 10px 5px #aaaaaa;
+    -webkit-box-shadow: 0 10px 5px #aaaaaa;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
 }
@@ -210,12 +210,13 @@ padding: 10px;
         
         
         margin-left:50%;
+        
     
 	width: 0; 
 	height: 0; 
-	border-left: 15px solid transparent;
-	border-right: 15px solid transparent;
-	border-bottom: 15px solid white;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid white;
 }
 
 .chat_users{
@@ -225,6 +226,11 @@ padding: 10px;
     /*background-image:url(../../images/admin/gradient.png);*/
     background: white;
     color: black;
+
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    
    
 }
 .chat_users ul { list-style-image: url("../../template/admin/images/icn_profile.png"); }
