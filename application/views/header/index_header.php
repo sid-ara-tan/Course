@@ -18,19 +18,23 @@
 <script type="text/javascript" src="<?php echo base_url();?>template/scripts/jquery-slidedeck.pack.lite.js"></script>
 
 <!--************************************************************************************************************* -->
-	<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/base/jquery.ui.all.css"/>
+	<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/sunny/jquery.ui.all.css"/>
 
 	
 
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.core.js"></script>
-
-	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js"></script>
-
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js"></script>
 	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
-        
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.mouse.js"></script>
         <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
-        
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.accordion.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.draggable.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.position.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.resizable.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.dialog.js"></script>
+                
         <script src="<?php echo base_url();?>jqueryUI/external/jquery.cookie.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/external/jquery.bgiframe-2.1.2.js"></script>
         <script>
 	$(function() {
 		$( "#tabs" ).tabs({
@@ -53,7 +57,7 @@
 	</script>
 
 <script type="text/javascript" src="<?php echo base_url();?>jquery/form_valid.js"></script>
- <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.accordion.js"></script>
+
         <script>
 	$(function() {
 		$( "#accordion" ).accordion({
