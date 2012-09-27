@@ -5,6 +5,20 @@
         $this->my_library->check_logged_in();
     }
 
+    function index(){
+        $fixture = array();
+        $this->assertTrue(count($fixture) == 0);
+
+        $fixture[] = 'element';
+        $this->assertTrue(count($fixture) == 1);
+    }
+
+    function assertTrue($condition){
+        if (!$condition) {
+            throw new Exception('Assertion failed.');
+        }
+    }
+
     function sample(){
         echo 'This is sample test';
         $test = $this->getI(4);
@@ -30,6 +44,11 @@
     function getI($i=5){
         return $i*$i;
     }
+
+
+
+
+    
 
 
 
