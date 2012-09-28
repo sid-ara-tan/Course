@@ -1,7 +1,7 @@
 <div class="wrapper">
   <div id="copyright" class="clear">
-    <p class="fl_left">Copyright &copy; 2011 - All Rights Reserved - <a href="#">Domain Name</a></p>
-    <p class="fl_right">Template by <a href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
+    <p class="fl_left">Copyright &copy; 2012 - All Rights Reserved - <a href="#">Siddhartha Arafat Tanzir</a></p>
+    <p class="fl_right"><a href="http://www.buet.ac.bd.com/" title="Free Website Templates">CSE,BUET</a></p>
   </div>
 </div>
 <script type="text/javascript">$('.slidedeck').slidedeck();</script>

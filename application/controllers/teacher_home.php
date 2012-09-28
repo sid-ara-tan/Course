@@ -31,6 +31,7 @@ class Teacher_home extends CI_controller{
         $this->load->model('content');
         $this->load->model('student');
         $this->load->model('exam');
+        $this->load->model('result');
         $this->load->library('pagination');
 	$this->load->helper('url');
 

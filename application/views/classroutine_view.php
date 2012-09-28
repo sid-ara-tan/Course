@@ -14,7 +14,7 @@
   </div>
 </div>
 <!-- ####################################################################################################### -->
-<div class="wrapper row2">
+<div class="wrapper row2" >
   <div id="topnav" >
     <ul>
         <li class="active"><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
@@ -187,7 +187,7 @@
       </dd>
       <dt>Wednesday</dt>
       <dd>
-          <div style="height:360px; background-color:#ccffcc">
+          <div style="height:360px; background-color:#ffffff">
 
           <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',

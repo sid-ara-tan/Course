@@ -41,9 +41,22 @@ class Result extends CI_Model{
         $this->db->where('CourseNo',$courseno);
         $this->db->where('S_Id',$S_ID);
         $data=array(
-          'GPA'=>$gpa,
-            'Status'=>'gpa_updated'
+          'GPA'=>$gpa
         );
         $this->db->update('takencourse',$data);
+    }
+
+    function get_result($courseno){
+        $query=$this->db->query("
+            Select student.S_Id,Name,GPA
+            from takencourse,student
+            where CourseNo='$courseno' and status='Running' and takencourse.S_Id=student.S_Id
+            ");
+
+        if($query->num_rows()>0){
+            return $query->result();
+        }else{
+            return FALSE;
+        }
     }
 }
