@@ -215,12 +215,13 @@ $row_std = $query_student_info->row();
                                     if($row->SenderInfo==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno," <font color='red'>Delete</font> ",'onclick=" return check()"').' ';  
+                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img(base_url() . 'images/admin/error.png'),'onclick=" return check()"').' ';  
                                     }
                                     
                                     
                                     
-                                    echo ' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,"# <font color='red'>".${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
+                                    echo ${'commentof'.$row->MessageNo}.' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,img(base_url() . 'images/comment.png'));
+                                    //.${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
                                     echo '<hr/>';
 
                                     }
