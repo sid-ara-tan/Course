@@ -5,6 +5,7 @@
         $this->load->model('admin/department_model');
         $this->load->model('admin/teacher_model');
         $this->load->model('admin/course_model');
+        $this->load->model('admin/student_model');
         $this->load->library('form_validation');
     }
 
@@ -51,6 +52,25 @@
     function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/
+        
+        $courses=$this->course_model->get_course_by_dept($id);
+        if($courses->num_rows>0){
+            echo "Clear undelying courses first";
+            return;
+        }
+        $teachers=$this->teacher_model->get_teacher_by_dept_id($id);
+        if($teachers->num_rows>0){
+            echo "Modify Underlying teachers information first";
+            return;
+        }
+
+        $students=$this->student_model->check_student_existence_by_dept($id);
+        if($students){
+            echo "Clear Underlying Student information first";
+            return;
+        }
+
+
         $delete=$this->department_model->delete_info($id);
         if($delete){
             echo "ok";

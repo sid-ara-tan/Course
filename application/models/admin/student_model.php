@@ -208,4 +208,44 @@
         $result=$this->db->get('takencourse');
         return $result;
     }
+
+    function check_student_existence_by_dept($id=NULL){
+        $this->db->where('Dept_id',$id);
+        $result=$this->db->get('student',10);
+        if($result->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+        
+    }
+
+    function check_assigned_student_by_course_no($CourseNo=NULL){
+        $this->db->where('CourseNo',$CourseNo);
+        $this->db->where('Status','Running');
+        $result=$this->db->get('takencourse',10);
+
+        if($result->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+
+    }
+
+    function check_running_assigned_student_by_S_Id($S_Id=NULL){
+        $this->db->where('S_Id',$S_Id);
+        $this->db->where('Status','Running');
+        $result=$this->db->get('takencourse',10);
+
+        if($result->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+
+    }
 }

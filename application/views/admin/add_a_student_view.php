@@ -114,9 +114,11 @@
                                         }
                             },
                 Name:  {
+                                required:true,
                                 maxlength: 49
                             },
                Sec: {
+                    required:true,
                    maxlength:4
                },
                Password:{

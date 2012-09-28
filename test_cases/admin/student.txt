@@ -1,0 +1,38 @@
+-------------------------view students------------
+on "student" controller you can search for student through 'view_students'
+
+1.in studente id fileld after entering 4 prefix characters autocomplete will show you the availability of students
+
+2.On name field after entering 3 characters searching by name will began
+
+3.all other options are avilable for you to searching and student
+
+
+You can remove an student clicking remove:
+Note:
+	You can only remove a student when he doesn't under any running course
+	
+Again by  double click any item you can edit student information
+
+Note:After changing studentid you have to refresh the page or your edit will not be saved
+
+
+
+-------------------Manage student Group---------------	
+You can create a group of students a a time
+1.Enter valid information through the box
+2. "Create group" will create students in that category
+	if some students already exists in that category Error message shown there
+3. "Show group" will show student group who match that information
+4. "Update group" will update information of some group of students
+	ex. Changing level/Term changing advisor information
+5. "Assign course" can assign course to the group of students
+6. "Delete group" can delete group of students
+	note:but before deleting they can't be under any running course.
+
+	---------------Pending request----------
+	You can show the pending request of student for either droping course or requiest for course
+	*Or from check any options you can check any students assigned course status
+	
+	
+	
