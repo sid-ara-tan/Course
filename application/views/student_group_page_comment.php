@@ -76,7 +76,7 @@ $row_std = $query_student_info->row();
                                     //$row_name_std=$query_student_name->row();
                                     if($row['commentBy']==$this->session->userdata['ID'])
                                     {
-                                        echo '<br>< '.anchor('student_home_group/comment_delete/'.$row['msg_no'].'/'.$row['CourseNo'].'/'.$row['id'],'Delete','onclick=" return check()"').' >';
+                                        echo '<br>'.anchor('student_home_group/comment_delete/'.$row['msg_no'].'/'.$row['CourseNo'].'/'.$row['id'],img(base_url() . 'images/admin/error.png'),'onclick=" return check()"');
                                     }?>
                             </li>
                         <?php
