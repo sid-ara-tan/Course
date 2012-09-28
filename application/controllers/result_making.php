@@ -14,6 +14,16 @@ class Result_making extends CI_Controller{
         $this->designation=$row->Designation;
     }
 
+    function make_result_for_course($courseno){
+        $this->load->model('result');
+        $rows=$this->result->get_result($courseno);
+        foreach ($rows as $row) {
+            $this->calculate_marks($row->S_Id,$courseno);
+        }
+
+        redirect('teacher_home/class_content/'.$courseno);
+    }
+
     function  calculate_marks($S_ID='0805001',$courseno='CSE300'){
         $this->load->model('result');
         $this->load->model('exam');

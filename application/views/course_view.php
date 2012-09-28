@@ -66,6 +66,7 @@
                         <li><a href="#tabs-2">Upload Marks</a></li>
                         <li><a href="#tabs-3">Schedule Exam</a></li>
                         <li><a href="#tabs-4">Exam settings</a></li>
+                        <li><a href="#tabs-5">Result</a></li>
                         
                 </ul>
                 <div id="tabs-1">
@@ -380,6 +381,39 @@
                     </div>
                 </div>
                 
+            </div>
+
+            <div id="tabs-5">
+                <div>
+                <h1>Result:<?php echo $courseno;?></h1>
+                <?php
+                $rows=$this->result->get_result($courseno);
+                if($rows!=FALSE){
+                    $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1" style="width:50%">',
+                        'heading_row_start'   => '<tr class="dark">',
+                        'heading_row_end'     => '</tr>',
+                        'row_start'           => '<tr class="light">',
+                        'row_end'             => '</tr>',
+                        'row_alt_start'       => '<tr class="dark">',
+                        'row_alt_end'         => '</tr>');
+                     $this->table->set_template($tmpl);
+                    $this->table->set_heading('Student_ID','Name','Grade Point');
+
+                    foreach ($rows as $row) {
+                        $student_array[]=$row->S_Id;
+
+                        $this->table->add_row($row->S_Id,$row->Name,$row->GPA);
+                    }
+
+                    echo $this->table->generate();
+                }
+
+               
+                echo anchor('result_making/make_result_for_course/'.$courseno,'Make_result');
+                ?>
+                </div>
+                
+
             </div>
         </div>
 

@@ -14,7 +14,7 @@
   </div>
 </div>
 <!-- ####################################################################################################### -->
-<div class="wrapper row2">
+<div class="wrapper row2" >
   <div id="topnav" >
     <ul>
         <li class="active"><a href="<?php echo base_url();?>index.php/teacher_home">Class Routine</a></li>
@@ -52,14 +52,48 @@
   </div>
 </div>
 <!-- ####################################################################################################### -->
-<div class="wrapper row3">
+<div class="wrapper row3" >
+    <div style="width: 70%;margin-left: 200px;left:50%; " >
+ <div id="makeMeScrollable">
 
-  <div id="featured_slide">
+                       <?php
+                            //path to directory to scan. i have included a wildcard for a subdirectory
+                            $directory ="images/admin/slideshow/images/demo/";
+
+                            //echo $directory;
+
+
+                            //get all image files with a .jpg extension.
+                            $images = glob($directory ."*.jpg");
+
+                            $imgs = '';
+                            // create array
+                            foreach($images as $image){
+                                $imgs[] = "$image";
+                            }
+
+                            //shuffle array
+                            shuffle($imgs);
+
+                            //select first 20 images in randomized array
+                            $imgs = array_slice($imgs, 0, 20);
+
+                            ?>
+
+                            <?php $i=0;?>
+                            <?php foreach ($imgs as $img): ?>
+                                <img src="<?php echo base_url().$img;?>" id="sid_<?php $i++;?>"alt="Demo image"/>
+                            <?php endforeach; ?>
+                    </div>
+
+    </div>
+</div>
+<div id="featured_slide">
     <!-- ####################################################################################################### -->
     <dl class="slidedeck">
       <dt>Saturday</dt>
       <dd>
-          <div style="height:360px; background-color:#494949">
+          <div style="height:360px; background-color:#ffffff">
             <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
                                 'heading_row_start'   => '<tr class="dark">',
@@ -83,7 +117,7 @@
       </dd>
       <dt>Sunday</dt>
       <dd>
-          <div style="height:360px; background-color:#494949">
+          <div style="height:360px; background-color:#ffffff">
           <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
                                 'heading_row_start'   => '<tr class="dark">',
@@ -106,7 +140,7 @@
       </dd>
       <dt>Monday</dt>
       <dd>
-          <div style="height:360px; background-color:#494949">
+          <div style="height:360px; background-color:#ffffff">
           <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
                                 'heading_row_start'   => '<tr class="dark">',
@@ -129,7 +163,7 @@
       </dd>
       <dt>Tuesday</dt>
       <dd>
-          <div style="height:360px; background-color:#494949">
+          <div style="height:360px; background-color:#ffffff">
           <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
                                 'heading_row_start'   => '<tr class="dark">',
@@ -153,7 +187,7 @@
       </dd>
       <dt>Wednesday</dt>
       <dd>
-          <div style="height:360px; background-color:#494949">
+          <div style="height:360px; background-color:#ffffff">
 
           <?php
                 $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
@@ -177,9 +211,6 @@
       </dd>
     </dl>
   </div>
-
-
-</div>
   <!-- ####################################################################################################### -->
 <div align="center"  >
         <h1>Exam routine</h1>
