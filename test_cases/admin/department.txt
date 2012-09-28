@@ -1,5 +1,6 @@
 1. At "department" controller method "view_department" initially shows existing department in a table.You can modify department information by double clicking any item.
 
+You can search through item. you can sort them in order by click on the header.
 
 *you can add new department by clicking "+Add" button in toolbar validation done here
 
