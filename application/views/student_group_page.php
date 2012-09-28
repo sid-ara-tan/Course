@@ -215,12 +215,26 @@ $row_std = $query_student_info->row();
                                     if($row->SenderInfo==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img(base_url() . 'images/admin/error.png'),'onclick=" return check()"').' ';  
+                                        $image_properties = array(
+                                            'src' => base_url() . 'images/admin/error.png',
+                                            'alt' => 'delete',
+                                            'width' => '15',
+                                            'height' => '15',
+                                            'title' => 'delete the post...'
+                                         );
+
+                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img($image_properties),'onclick=" return check();"').' ';
                                     }
                                     
+                                    $image_properties = array(
+                                            'src' => base_url() . 'images/comment.png',
+                                            'alt' => 'delete',
+                                            'width' => '20',
+                                            'height' => '20',
+                                            'title' => 'comment here....'
+                                         );
                                     
-                                    
-                                    echo ${'commentof'.$row->MessageNo}.' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,img(base_url() . 'images/comment.png'));
+                                    echo '<span style="font-size:20px;"><strong>'.nbs(3).${'commentof'.$row->MessageNo}.'</strong></span>'.' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,img($image_properties));
                                     //.${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
                                     echo '<hr/>';
 
