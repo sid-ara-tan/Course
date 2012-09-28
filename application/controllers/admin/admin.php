@@ -40,4 +40,34 @@ class Admin extends CI_Controller{
         echo $msg;
     }
 
+    function on_chat_session(){
+        $this->session->set_userdata('chating_state',TRUE);
+        session_start();
+        $_SESSION['username']=$this->session->userdata('username');
+        redirect('admin/admin');
+    }
+
+    function off_chat_session(){
+        $this->session->set_userdata('chating_state',FALSE);
+
+         session_start();
+
+        // Unset all of the session variables.
+        $_SESSION = array();
+
+        // If it's desired to kill the session, also delete the session cookie.
+        // Note: This will destroy the session, and not just the session data!
+        if (ini_get("session.use_cookies")) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+        }
+
+        // Finally, destroy the session.
+        session_destroy();
+        redirect('admin/admin');
+    }
+
 }

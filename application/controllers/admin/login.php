@@ -30,12 +30,13 @@ class Login extends CI_Controller{
         {
             $data=array(
                 'username'=>  $this->input->post('username'),
-                'logged_in' => TRUE
+                'logged_in' => TRUE,
+                'chating_state'=>FALSE
             );
             
             $this->session->set_userdata($data);
-            session_start();
-            $_SESSION['username']=$this->session->userdata('username');
+            //session_start();
+            //$_SESSION['username']=$this->session->userdata('username');
             redirect('admin/admin');
         }
 

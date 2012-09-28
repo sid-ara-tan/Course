@@ -16,11 +16,20 @@
     <hgroup>
             <h1 class="site_title"><a href="index.html">Website Admin</a></h1>
             <h2 class="section_title">Course Management System(CMS)</h2>
-            <div class="nice_button" style="top:15px;position:relative;">
-                <button  onclick="return show_users();">Chat</button>
-                  <div id="show_chat_users" style="display:none;"></div>
-            </div>
-            
+
+            <?php $chating_state=$this->session->userdata['chating_state']; ?>
+
+            <?php if($chating_state):?>
+                <div class="nice_button" style="top:15px;position:relative;">
+                    <button  onclick="return show_users();">Chat</button>
+                    <div id="show_chat_users" style="display:none;"></div>
+                </div>
+            <?php else:?>
+                <div class="btn_view_site">
+                    <a href="<?php echo site_url();?>">Main Site</a>
+                </div>
+            <?php endif;?>)
+                  
     </hgroup>
 </header> <!-- end of header bar -->
 
@@ -30,7 +39,13 @@
             <?php
                 $username=$this->session->userdata('username');
                 echo $username;
-            ?> (<a href="#">No Messages</a>)
+                $chating_state=$this->session->userdata['chating_state'];
+            ?>
+            (<?php if($chating_state):?>
+                Turn <?php echo anchor('admin/admin/off_chat_session','Off');?> chat
+             <?php else:?>
+                Turn <?php echo anchor('admin/admin/on_chat_session','On');?> chat
+             <?php endif;?>)
             (<a href="<?php echo site_url('admin/admin/logout');?>"><span><i>Logout</i></span></a>)
         </p>
             <!-- <a class="logout_user" href="#" title="Logout">Logout</a> -->
