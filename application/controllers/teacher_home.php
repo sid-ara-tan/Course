@@ -262,5 +262,17 @@ class Teacher_home extends CI_controller{
         redirect("teacher_home/class_content/$courseno");
     }
 
+    function unitTest(){
+        $this->load->library('unit_test');
+        $test=$this->squire(4);
+        $expected=17;
+
+        echo $this->unit->run($test,$expected);
+
+        }
+
+    function squire($id=5){
+        return $id*$id;
+    }
     
 }

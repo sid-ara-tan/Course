@@ -41,8 +41,10 @@ class Teacher_message extends CI_Controller{
 
     }
 
-    function message_for_group(){
-        $courseno=$this->input->post('courseno');
+    function message_for_group($courseno=""){
+        if($courseno==""){
+            $courseno=$this->input->post('courseno');
+        }
         if($courseno=='ALL'){
             $this->index();
         }else{
@@ -57,13 +59,13 @@ class Teacher_message extends CI_Controller{
             $this->load->model('exam');
 
             $config['per_page'] ='5';
-            $data['querymsg'] =$this->message->getallmessage($courseno,$config['per_page'],$this->uri->segment(3,0));
+            $data['querymsg'] =$this->message->getallmessage($courseno,$config['per_page'],$this->uri->segment(4,0));
 
             // for pagination
 
             $config['total_rows'] =  $this->message->count_results($courseno);
-            $config['base_url'] = base_url().'index.php/teacher_message/index/';
-            $config['uri_segment'] = 3;
+            $config['base_url'] = base_url().'index.php/teacher_message/message_for_group/'.$courseno;
+            $config['uri_segment'] = 4;
             $config['full_tag_open'] = '<p>';
             $config['full_tag_close'] = '</p>';
             $this->pagination->initialize($config);
