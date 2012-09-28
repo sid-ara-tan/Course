@@ -136,7 +136,7 @@ class Teacher_home extends CI_controller{
         $topic=$this->input->post('Topic');
         $description=$this->input->post('Description');
         $config['upload_path'] = './uploads/'.$courseno;
-        $config['allowed_types'] = 'txt|docx|pptx|gif|jpg|png|pdf';
+        $config['allowed_types'] = 'pdf|rar|txt|docx|pptx|gif|jpg|png';
         $config['max_size']	= '1000';
         $config['max_filename']='28';
         $this->load->library('upload', $config);
