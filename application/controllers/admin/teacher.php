@@ -123,6 +123,12 @@
     function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/
+        $teachers=$this->teacher_model->check_assigned_course_by_teacher_id($id);
+        if($teachers){
+            echo "Unassigned currenly assigned Course first";
+            return;
+        }
+
         $delete=$this->teacher_model->delete_info($id);
         if($delete){
             echo "ok";

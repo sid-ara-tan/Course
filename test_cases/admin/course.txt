@@ -1,0 +1,31 @@
+1. On "Course" controller "view_course" meathod show a searching box for finding course quickly.
+
+Course searching will be done in following category.
+
+*Department Id ex. CSE
+*Level/Term ex. 3/1
+*Curriculam ex. 2005
+*Type ex. Theory/sessional
+
+Search result will be shown in below through ajax request.
+
+You perform following tasks
+1. clicking "+Add" button you can add new courses
+
+*course no conflicts check here.
+*course name no more than 49 chars
+
+
+2.clicking remove button you can remove a course
+
+Note:
+
+3.by double clicking any item you can change course information 
+Note:
+*Again validation is done here.
+
+----------------------------
+
+2. On 'assign_teacher_for_these_course' meathod you again can search for teacher
+Now this time you can select a course and assign teacher for them
+

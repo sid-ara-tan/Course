@@ -36,9 +36,10 @@
                                     if($row_record_file->uploader==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename," <font color='red'>Delete</font> ",'onclick=" return check()"').' #';  
+                                        echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename,img(base_url() . 'images/admin/error.png'),'onclick=" return check()"').' ';  
                                     }
-                                echo ' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno," <font color='red'>".${'commentoffile'.$row_record_file->file_id}." Comment</font> ").'<br>';
+                                echo ${'commentoffile'.$row_record_file->file_id}.' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,img(base_url() . 'images/comment.png'));
+                                        //${'commentoffile'.$row_record_file->file_id}.'<br>';
                                   
                                 echo '<hr>';
 

@@ -4,6 +4,8 @@
             rules:  {
                 T_Id:    {
                                 required: true,
+                                digits:true,
+                                minlength:5,
                                 maxlength: 9,
                                 remote: {
                                             url:"<?php echo site_url('admin/teacher/form_is_unique_teacher_id');?>",
@@ -100,6 +102,8 @@
                                    {
                                        rules:{
                                                value: {
+                                                        digits:true,
+                                                        minlength:5,
                                                         required:true,
                                                         maxlength: 9,
                                                         remote:{

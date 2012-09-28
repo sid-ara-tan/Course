@@ -65,4 +65,27 @@
         $query=$this->db->get('teacher');
         return $query;
     }
+
+    function check_assigned_teacher_by_course_no($CourseNo){
+        $this->db->where('CourseNo',$CourseNo);
+        $result=$this->db->get('assignedcourse',2);
+        if($result->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+
+    }
+
+    function check_assigned_course_by_teacher_id($teacher_id){
+        $this->db->where('T_Id',$teacher_id);
+        $result=$this->db->get('assignedcourse',2);
+        if($result->num_rows>0){
+            return TRUE;
+        }
+        else{
+            return FALSE;
+        }
+    }
 }

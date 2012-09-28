@@ -1,0 +1,12 @@
+you will be provided with a superuser account to begin with.
+It's recommended to change your password and email address after login for the first time
+if you forget your password a new password of 10 characters will be sent to your email address.
+Only you can delete your account other can not
+
+
+-------------------chatting-------------------------
+while editing information you can communicate with other adiministrator
+Just click the "turn on chat" link beside your username you will see a chat button appear on the right corner of your window
+
+click chat button will show available users for chatting 
+select any of them and start chatting.

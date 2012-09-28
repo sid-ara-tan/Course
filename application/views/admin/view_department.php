@@ -328,7 +328,7 @@ $(document).ready( function () {
                                     <li>You can search through your item.</li>
                                     <li>Though pagination and selecting number of entries per page allows you to navigate information nicely.</li>
                                 </ul>
-                            <p style="font-style: italic;color: rgb(119, 186, 206);">Refresh the page after changing Course No.</p>
+                            <p style="font-style: italic;color: rgb(119, 186, 206);">Refresh the page after changing Department ID.</p>
                             </div></div>
                         </div>
 

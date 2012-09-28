@@ -52,15 +52,16 @@
     }
 
 
-    function testing_student(){
-        
+    function testing_student_model(){
+        $this->load->model('admin/student_model');
+        $test="";
+
+        $config=array('0805047'=>'is_object','0805048'=>'is_object','0601412'=>'is_false');
+
+        foreach($config as $test=>$expected){
+            $test=$this->student_model->get_student_by_id($test);
+            echo $this->unit->run($test,$expected,'Testing get_student_by_id_function');
+        }
     }
-
-
-
-
-    
-
-
 
 }

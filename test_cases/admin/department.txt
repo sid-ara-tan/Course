@@ -1,0 +1,54 @@
+1. At "department" controller method "view_department" initially shows existing department in a table.You can modify department information by double clicking any item.
+
+You can search through item. you can sort them in order by click on the header.
+
+*you can add new department by clicking "+Add" button in toolbar validation done here
+
+---Department id---
+-you cannot enter more than 5 characters.
+-if Department id conflicts with existing department error returns.
+
+Ex. 
+CHEMISTY	error
+CSE 		alreadyexists
+
+---Department name---
+*You cannot enter Department name more than 49 characters
+
+---Password---
+*password can't be less than 5 characters.
+
+*You can remove department by clicking "-Remove button"
+
+Note:
+	1.department can't be deleted if it's contains underlying course student or teachers.
+	
+*You can update your department information by double clicking on any item.
+Note:
+	1.Dept id must no more than 5 characters again id conflicts checks here.
+	2.Name no more than 49 characters
+	3.Change Head of department 
+	4.password no less than 5 and no more than 25 characters
+	
+-------------------scheduling---------------------------------
+you can schedule a period for a task for example
+
+if you active the registration request period Course will be offered to student.
+Student can submit their choices then through pending requiest options you can assigne them course.
+
+Same thing goes for droping course.
+First Enable droping request period for a group
+Student can request any course if he want to drop
+you can dropped them.
+
+
+------------------------Routine making -----------------------
+
+Routine making is most important part for starting Course.
+
+On make routine method you first select Dept,level,term,sec then add entry for each of them.
+
+
+
+
+	
