@@ -208,7 +208,4 @@
         $result=$this->db->get('takencourse');
         return $result;
     }
-
-
-
 }
