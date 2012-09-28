@@ -84,6 +84,7 @@
                                    {
                                        rules:{
                                                value: {
+                                                        required:true,
                                                         maxlength: 49
                                                       }
                                        },
@@ -135,6 +136,7 @@
                            {
                                rules:{
                                        value: {
+                                                required:true,
                                                 maxlength: 4
                                               }
                                },

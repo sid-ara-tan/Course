@@ -272,6 +272,11 @@
     function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/
+        $students=  $this->student_model->check_running_assigned_student_by_S_Id($id);
+        if($students){
+            echo 'Unassinged the student form taken course list first';
+            return ;
+        }
         $delete=$this->student_model->delete_info($id);
         if($delete){
             echo "ok";
@@ -656,7 +661,14 @@
     function delete_student_by_id($S_Id=NULL){
         //perform some checking before deletion
 
+        $students=  $this->student_model->check_running_assigned_student_by_S_Id($S_Id);
+        if($students){
+            return FALSE;
+        }
+        
         $delete=$this->student_model->delete_info($S_Id);
+        
+
         if($delete){
             return $delete;
         }

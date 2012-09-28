@@ -6,6 +6,7 @@
         $this->load->model('admin/course_model');
         $this->load->model('admin/department_model');
         $this->load->model('admin/teacher_model');
+        $this->load->model('admin/student_model');
     }
 
     public function index($param=NULL){
@@ -184,6 +185,18 @@
      function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/
+
+        $teachers=$this->teacher_model->check_assigned_teacher_by_course_no($id);
+        if($teachers){
+            echo "Unassigned currenly assigned teachers first";
+            return;
+        }
+        $students=$this->student_model->check_assigned_student_by_course_no($id);
+        if($students){
+            echo "Some students are currenly assigned Under this course.modify them first";
+            return;
+        }
+        
         $delete=$this->course_model->delete_info($id);
         if($delete){
             echo "ok";

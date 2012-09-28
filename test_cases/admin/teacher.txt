@@ -1,0 +1,12 @@
+On "teacher" controller "view_teacher" meathod will show you searching options for teacher
+
+you can add new teacher information by clicking "+Add"
+Note:
+	teacherid have to be minlength 5
+	maxlength 9
+	digits only 
+	cannot conflict with existing teacher id
+
+you can remove teacher information clicking "Remove"
+note:
+	You have unassigned from all courses before deleting a teacher information
