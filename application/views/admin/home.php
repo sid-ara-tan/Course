@@ -119,12 +119,12 @@
                  </div>
                </div>
         </article>
-
+    
         <article class="module width_3_quarter">
 		<header><h3 class="tabs_involved">Content Manager</h3>
 		<ul class="tabs">
-                        <li><a href="#tab2">Teachers</a></li>
-                        <li><a href="#tab3">Students</a></li>
+                        <li><a href="#tab1">Teachers</a></li>
+                        <li><a href="#tab2">Students</a></li>
                         <li><a href="#tab3">Others</a></li>
 		</ul>
 		</header>
@@ -138,14 +138,15 @@
 			</div><!-- end of #tab1 -->
 
 			<div id="tab2" class="tab_content">
-			
+                            <ul>
+                                <li>Search students <?php echo anchor("admin/student/view_student","here");?></li>
+                            </ul>
 			</div><!-- end of #tab2 -->
 
                         <div id="tab3" class="tab_content">
                             <ul>
                                 <li><?php echo anchor("admin/unitTest","Unit testing");?> is done here</li>
                             </ul>
-                            
 			</div><!-- end of #tab2 -->
 
 		</div><!-- end of .tab_container -->

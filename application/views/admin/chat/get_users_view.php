@@ -1,8 +1,7 @@
-<?php
-    session_start();
+<?php 
     $me=$this->session->userdata('username');
-    $_SESSION['username'] = $me; // Must be already set
 ?>
+
 <div class="total_div">
     <div class="arrow_up"></div>
     <div class="chat_users">

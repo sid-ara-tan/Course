@@ -6,6 +6,8 @@
     }
 
     function index(){
+
+
         $fixture = array();
         $this->assertTrue(count($fixture) == 0);
 
@@ -43,6 +45,15 @@
     
     function getI($i=5){
         return $i*$i;
+    }
+
+    function returnTrue(){
+        return TRUE;
+    }
+
+
+    function testing_student(){
+        
     }
 
 
