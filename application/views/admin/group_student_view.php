@@ -26,7 +26,6 @@
                         <?php if($all_students):?>
                         <?php foreach($all_students->result()as $single_student):?>
                         <tr id="<?php echo $single_student->S_Id;?>">
-
                             <td><?php echo $single_student->S_Id;?></td>
                             <td><?php echo $single_student->Name;?></td>
                             <?php if($single_student->Dept_id):?>
