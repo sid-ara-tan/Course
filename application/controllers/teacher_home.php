@@ -13,7 +13,12 @@ class Teacher_home extends CI_controller{
         $this->name=$row->Name;
         $this->designation=$row->Designation;
     }
-    
+
+    /**
+     * This function load the classroutine view of the the teacher
+     * input:null
+     * output:ClassRoutineView
+     */
     function index(){
         $data['name']=$this->name;
         $data['designation']=$this->designation;
@@ -25,6 +30,11 @@ class Teacher_home extends CI_controller{
 
     }
 
+    /**
+     * This function load the courseview
+     * input:CourseNo,Message to print
+     * output:CourseView
+     */
     function class_content($course,$message=''){
 
         $this->load->model('teacher');
@@ -54,6 +64,13 @@ class Teacher_home extends CI_controller{
         $this->load->view('course_view',$data);
 
     }
+    
+    /**
+     * This function process the ajax request for a section
+     * to load the marks list of a Course
+     * input:CourseNo,Section
+     * output:MarksList
+     */
 
     function process_form($courseno,$sec){
         $data['sec']=$sec;
@@ -62,6 +79,13 @@ class Teacher_home extends CI_controller{
         $this->load->model('exam');
         $this->load->view('exam_list',$data);
     }
+
+    /**
+     * this function uploads the marks of the
+     * students of a particular Course
+     * input:CourseNo
+     * output:Uploading message
+     */
 
     function upload_marks($courseno){
         $this->load->model('exam');
@@ -77,6 +101,12 @@ class Teacher_home extends CI_controller{
         //$this->class_content($courseno,'Marks Uploading Succesful');
     }
 
+    /**
+     * This function process the ajax request for a section and exam
+     * to load the marks list of a Course of that exam
+     * input:CourseNo,Section,exam_id
+     * output:MarksList
+     */
     function marks_list($courseno,$sec,$exam_ID){
         $data['sec']=$sec;
         $data['courseno']=$courseno;
@@ -87,6 +117,11 @@ class Teacher_home extends CI_controller{
     }
 
 
+    /**
+     *this function schedule the exam of course taking the form value
+     *input:CourseNo
+     *output:Message of scheduling
+     */
     function schedule_exam($courseno){
         $this->load->library('form_validation');
         $this->load->helper('date');
@@ -111,6 +146,12 @@ class Teacher_home extends CI_controller{
 
     }
 
+    /**
+     *this function delete a scheduled exam from database
+     * if no marks for that exam has been uploaded
+     * input:CourseNo,Section,Exam ID
+     * output:Delete message
+     */
     function delete_scheduled($cousrseno,$sec,$ID){
         $this->load->model('exam');
         $this->exam->delete_scheduled($cousrseno,$sec,$ID);
@@ -118,6 +159,11 @@ class Teacher_home extends CI_controller{
         redirect('teacher_home');
     }
 
+    /**
+     *this function add exam type for course
+     * input:CourseNo
+     * output:Message of exam type add
+     */
     function add_exam($courseno){
       $this->load->model('Exam');
       $this->Exam->add_exam($courseno);
@@ -125,6 +171,11 @@ class Teacher_home extends CI_controller{
       redirect('teacher_home/class_content/'.$courseno);
     }
 
+    /**
+     *this function delete exam type for course
+     * input:CourseNo,Exam type to delete
+     * output:Message of exam type delete
+     */
     function delete_exam($courseno,$exam_type){
       $this->load->model('Exam');
       $this->Exam->delete_exam($courseno,$exam_type);
@@ -132,6 +183,12 @@ class Teacher_home extends CI_controller{
       redirect('teacher_home/class_content/'.$courseno);
     }
 
+    /**
+     * this function upload file for a course
+     * taking input from courseview form
+     * input:CourseNo
+     * output:Message of file uploading
+     */    
     function upload_file($courseno){
         $author=$this->input->post('Author');
         $topic=$this->input->post('Topic');
@@ -161,6 +218,12 @@ class Teacher_home extends CI_controller{
     }
 
 
+    /**
+     *this function download a file when it is clicked
+     * on course view
+     * input:CourseNo,Filename
+     * output:Message of downloading
+     */
     function download_content($courseno,$filename){
         $this->load->helper('download');
         $this->load->helper('url');
@@ -172,6 +235,12 @@ class Teacher_home extends CI_controller{
 
     }
 
+    /**
+     *this function delete a course content when it is asked
+     * to delete from course view
+     * input:CourseNo,id,filename
+     * output:message of deletion
+     */
     function delete_content($courseno,$id,$filename){
         echo $courseno.'|'.$id.'|'.$filename;
         $this->load->helper('file');
@@ -182,7 +251,12 @@ class Teacher_home extends CI_controller{
 
 
     }
-
+    
+    /**
+     * this function loads the profile view of the teacher
+     * input:void
+     * output:teacher_profile view
+     */
     function show_profile(){
         $query=$this->db->get('department');
         $data['department']=$query->result();
@@ -192,6 +266,11 @@ class Teacher_home extends CI_controller{
         $data['valid_message']="";
         $this->load->view('teacher_profile',$data);
     }
+
+    /**
+     *this function edit the profile of teacher
+     * by taking form value of teacher profile
+     */
 
     function edit_profile($task='blank'){
         if($task=='blank'){
@@ -227,6 +306,11 @@ class Teacher_home extends CI_controller{
         }
     }
 
+    /**
+     * this function loads the message view
+     * input: void
+     * output:message_view
+     */
     function message(){
         $this->load->view('message_view');
     }
@@ -242,6 +326,12 @@ class Teacher_home extends CI_controller{
         
     }
 
+    /**
+     * this function loads the ajax request for loading the
+     * form for setting percentage
+     * input:void
+     * output:percentage form
+     */
     function view_percentage_form(){
         $this->load->model('exam');
         $this->load->view('percentage_form');
