@@ -12,7 +12,10 @@
     public function index($param=NULL){
 
     }
-
+    /**
+     * get all department all teacher information and all courses list
+     * first then load the view view course
+     */
     public function view_course() {
         $data=array(
             'msg'=>'Course Information',
@@ -25,6 +28,11 @@
         $data['all_courses']=  $this->course_model->get_all_course();
         $this->load->view('admin/view_course',$data);
     }
+
+    /**
+     *retern course info as json data
+     * @param <type> $param
+     */
 
     public function course_info_json($param='CSE'){
         $query= $this->course_model->get_course_by_dept($param);
@@ -50,6 +58,13 @@
         echo '}';
     }
 
+    /**
+     *this is single department course view
+     * you provide department id
+     * this method will load it underlyilng course accorting
+     * to dept_id/level/term/curriculam/type
+     * @param <type> $param
+     */
 
     function view_all_course_by_dept_id($param="ALL") {
 
@@ -128,7 +143,11 @@
             echo 'true';
         }
     }
-
+    /**
+     * check for unique course no
+     * echo false if this course exists
+     * this is for remote checking for add input form of course
+     */
     function form_is_unique_course_no(){
         $CourseNo=$this->input->post('CourseNo');
 
@@ -140,6 +159,11 @@
         }
     }
 
+    /**
+     *check wheather course exists or not
+     * @param <type> $id
+     * @return <boolean> true if exists
+     */
     function is_course_exists($id=NULL){
         $check=$this->course_model->check_course_exists($id);
         if($check){
@@ -150,6 +174,9 @@
         }
     }
 
+    /**
+     * load department info as json data
+     */
     public function load_department_info(){
         $query= $this->department_model->get_all_department();
         $options=array();
@@ -168,7 +195,10 @@
          }
         echo json_encode($options);
     }
-
+    /**
+     * get information from datatable jeditable input form
+     * add those information to database
+     */
      function add_information(){
 
         $CourseNo=$this->input->post('CourseNo');
@@ -192,7 +222,12 @@
             echo 'Database insertion failed';
         }
     }
-
+    /**
+     * get courseno and checking is done here before deleting a course
+     * if course deleted successfully
+     * this method will  echo ok
+     *
+     */
      function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/

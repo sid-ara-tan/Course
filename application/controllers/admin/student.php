@@ -1,4 +1,11 @@
 ﻿<?php class Student extends CI_Controller{
+    /**
+     * all student related task done here
+     * viewing student
+     * adding a studnt info
+     * manage group of student
+     * construct check login information and load model
+     */
     function  __construct() {
         parent::__construct();
         $this->my_library->check_logged_in();
@@ -10,7 +17,7 @@
     }
 
     public function index($param=NULL) {
-
+        //by default load this 
     }
 
     public function view_student(){
@@ -40,6 +47,11 @@
         echo $msg;
     }
 
+    /**
+     * Searching through database done here
+     * search can be done by this all category
+     * 
+     */
     function  search_result(){
         $Dept_id=$this->input->post('Dept_id');
         $Name=  $this->input->post('Name');
@@ -108,7 +120,11 @@
             echo $msg;
         }
     }
-
+    /**
+     *check wheater the value in the input field is really digit
+     * @param <type> $str
+     * @return <type>
+     */
     function digit_check($str=NULL){
         if(strlen($str)>0){
             if (!ctype_digit($str))
@@ -179,7 +195,12 @@
             return FALSE;
         }
     }
-
+    /**
+     * get searching value by term
+     * check database by like by this term value
+     * echo the search result
+     * on client side this will show autocomplete box
+     */
     function autocomplete_name(){
        $term=$this->input->get('term');
        $data=array();
@@ -202,7 +223,11 @@
 
        echo json_encode($data);
     }
-
+    /**
+     * get term which contains searching info needed for get like
+     * student id
+     * @return json data
+     */
     function autocomplete_id() {
        $term=$this->input->get('term');
        $query=$this->student_model->get_student_by_like_id($term);
@@ -261,6 +286,10 @@
           }
     }
 
+    /**
+     * load teacher info as json data
+     * for drop down list on jquery jeditable
+     */
     function load_teacher_info(){
         $id=$this->input->get('id');
         $query= $this->teacher_model->bool_get_teacher_by_dept_id($id);
@@ -279,7 +308,12 @@
         }
 
     }
-
+    /**
+     *get student i
+     * delete a student information by this student id
+     * only if the student is not currently assigned to any course
+     * @return <type>
+     */
     function delete_information(){
         $id = $this->input->post('id');
         /*further deletion task will be done here.*/
@@ -308,6 +342,11 @@
         $data['all_departments']= $this->department_model->get_all_department();
         $this->load->view('admin/add_a_student_view',$data);
     }
+
+    /**
+     * this function will add a new student
+     * this is needed when there is need for extra student
+     */
 
     function create_a_student(){
 
@@ -412,6 +451,11 @@
         $this->load->view('admin/group_of_student_view',$data);
     }
 
+    /**
+     *  Get searching data group by these following criteria
+     * this meathod will be used by many meathod just to get this searching data
+     * @return boolean
+     */
     function ajax_get_data_group(){
         $this->form_validation->set_rules('Dept_id', 'Deartment id', 'required|trim');
         $this->form_validation->set_rules('Sec', 'Section', 'required|trim|max_length[4]|xss_clean');
