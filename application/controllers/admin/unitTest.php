@@ -62,7 +62,8 @@
         $config=array(
                     '0805047'=>'is_object',
                     '0805048'=>'is_object',
-                    '0601412'=>'is_false'
+                    '0601412'=>'is_false',
+                    '132545'=>'is_true'
             );
 
         foreach($config as $test=>$expected){
@@ -72,5 +73,4 @@
     }
 
     
-
 }

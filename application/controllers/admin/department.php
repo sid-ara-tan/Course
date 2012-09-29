@@ -99,7 +99,10 @@
         }
         
     }
-    
+    /**
+     * Parameters that are accepted by this page need to match input elements you place in Add new record form.
+Page should return id of the new record if row was successfully added. This value will be added as an id of the new row in the table. If page returns error status, response text will be shown as an error message.
+     */
     function add_information(){
         $Dept_id = $this->input->post('Dept_id');
         $Name=$this->input->post('Name');
@@ -120,6 +123,7 @@
         else{
             echo 'Database insertion failed';
         }
+        
     }
 
     /*function load_teacher_info(){

@@ -1,0 +1,30 @@
+for 0805048 CSE303 
+
+ct1 18
+ct2 16
+ct3 17
+ct4 20
+
+best count here so total =20+18+17=55
+
+termfinal 
+section A=90
+section B=80
+
+Attendenc 10 out of 10
+
+attendence=10
+
+total =170
+
+mark out of 70 =(170/210)*70=56.66
+
+total marks=56.66+10+55/3=84.99=85
+
+expected gpa=4.00
+
+
+
+
+
+
