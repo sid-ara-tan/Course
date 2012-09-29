@@ -26,7 +26,7 @@ class Result_making extends CI_Controller{
     }
 
 
-   /* function result_making_unit_test(){
+    function result_making_unit_test(){
 
         $config=array(
             '0805001'=>'CSE303',
@@ -50,9 +50,9 @@ class Result_making extends CI_Controller{
             echo $this->unit->run(round($this->calculate_marks($key,$item),2),$expected[$key],'Get expected '.$expected[$key].' total marks for '.$key.' - '.$item);
         }
         
-    }*/
+    }
 
-   /* function model_get_marks_unit_test(){
+    function model_get_marks_unit_test(){
         $this->load->model('result');
         $test=$this->result->get_Marks('CSE303','A',1,'0805001');
         $expected=20;
@@ -70,7 +70,7 @@ class Result_making extends CI_Controller{
         $expected=18;
         echo $this->unit->run($test,$expected,'Expected getting marks '.$expected. ' for 0805048');
 
-    }*/
+    }
 
     function  calculate_marks($S_ID='0805001',$courseno='CSE300'){
         $this->load->model('result');
@@ -122,7 +122,7 @@ class Result_making extends CI_Controller{
        return $total;
     }
 
-    /*function gpa_unit_test(){
+    function gpa_unit_test(){
 
         $config=array(
             '75.33'=>3.75,
@@ -141,7 +141,7 @@ class Result_making extends CI_Controller{
         foreach($config as $mark=>$gpa){
             echo $this->unit->run($this->return_gpa_from_marks($mark),$gpa,'Expected gpa for marks '.$mark.' gpa '.$gpa);
         }
-    }*/
+    }
 
     function return_gpa_from_marks($total=NULL){
         $gpa=0;
