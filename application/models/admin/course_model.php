@@ -50,6 +50,12 @@
        
     }
 
+    function get_course_by_level_term_dept($config=NULL){
+        $this->db->where($config);
+        $result=$this->db->get('course');
+        return $result;
+    }
+
     function get_course_by_query($config=NULL){
         $this->db->where($config);
         $result=$this->db->get('course');

@@ -12,6 +12,7 @@ class Result_making extends CI_Controller{
         $row=$this->teacher->get_info();
         $this->name=$row->Name;
         $this->designation=$row->Designation;
+        $this->load->library('unit_test');
     }
 
     function make_result_for_course($courseno){
@@ -22,6 +23,53 @@ class Result_making extends CI_Controller{
         }
 
         redirect('teacher_home/class_content/'.$courseno);
+    }
+
+
+    function result_making_unit_test(){
+
+        $config=array(
+            '0805001'=>'CSE303',
+            '0805002'=>'CSE303',
+            '0805048'=>'CSE303',
+            '0805049'=>'CSE303',
+        );
+        $expected=array(
+            '0805001'=>75.33,
+            '0805002'=>75.33,
+            '0805048'=>85,
+            '0805049'=>87,
+        );
+
+      
+
+        foreach($config as $key=>$item){
+            echo br(2);
+            echo $this->calculate_marks($key,$item);
+            echo br(2);
+            echo $this->unit->run(round($this->calculate_marks($key,$item),2),$expected[$key],'Get expected '.$expected[$key].' total marks for '.$key.' - '.$item);
+        }
+        
+    }
+
+    function model_get_marks_unit_test(){
+        $this->load->model('result');
+        $test=$this->result->get_Marks('CSE303','A',1,'0805001');
+        $expected=20;
+        echo $this->unit->run($test,$expected,'Expected getting marks '.$expected. ' for 0805001');
+
+        $test=$this->result->get_Marks('CSE303','A',1,'0805002');
+        $expected=15;
+        echo $this->unit->run($test,$expected,'Expected getting marks '.$expected. ' for 0805002');
+
+        $test=$this->result->get_Marks('CSE303','A',1,'0805048');
+        $expected=17;
+        echo $this->unit->run($test,$expected,'Expected getting marks '.$expected. ' for 0805048');
+
+        $test=$this->result->get_Marks('CSE303','A',1,'0805048');
+        $expected=18;
+        echo $this->unit->run($test,$expected,'Expected getting marks '.$expected. ' for 0805048');
+
     }
 
     function  calculate_marks($S_ID='0805001',$courseno='CSE300'){
@@ -40,6 +88,7 @@ class Result_making extends CI_Controller{
                             $inside_total=0;
                             foreach ($exams as $exam){
                                 $marks=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID);
+                                if($exam->Total>0)
                                 $inside_total+=($marks*$exam->Percentage)/($exam->Total*100);
                             }                            
                     }else{                        
@@ -48,12 +97,15 @@ class Result_making extends CI_Controller{
                             $inside_total=0;;
                             foreach ($exams as $exam){
                                 $best=$exam->Best;
-                                $marks_array[]=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID)/$exam->Total;
+                                if($exam->Total>0)
+                                    $marks_array[]=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID)/$exam->Total;
+                                else
+                                    $marks_array[]=0;
                             }
                             rsort($marks_array);
                             for($i=0;$i<$best;$i++){
                                 $inside_total+=$marks_array[$i];
-                                echo $marks_array[$i];
+                                //echo $marks_array[$i];
                             }
                             if($best>0)$inside_total/=$best;                          
                     }
@@ -62,6 +114,36 @@ class Result_making extends CI_Controller{
             }
         }
 
+        
+       $gpa=$this->return_gpa_from_marks($total);
+
+       $this->result->set_GPA($courseno,$S_ID,$gpa);
+
+       return $total;
+    }
+
+    function gpa_unit_test(){
+
+        $config=array(
+            '75.33'=>3.75,
+            '85'=>4.00,
+            '87'=>4.00,
+            '0'=>0.00,
+            '50.0'=>2.75,
+            '50'=>2.50,
+            '70'=>3.5,
+            '70.0'=>3.75,
+            '75.0'=>3.75,
+            '80.0'=>4.00
+
+        );
+
+        foreach($config as $mark=>$gpa){
+            echo $this->unit->run($this->return_gpa_from_marks($mark),$gpa,'Expected gpa for marks '.$mark.' gpa '.$gpa);
+        }
+    }
+
+    function return_gpa_from_marks($total=NULL){
         $gpa=0;
         if($total>79.5){
             $gpa=4.00;
@@ -85,8 +167,6 @@ class Result_making extends CI_Controller{
             $gpa=0.00;
         }
 
-       $this->result->set_GPA($courseno,$S_ID,$gpa);
-
-
+        return $gpa;
     }
 }

@@ -254,7 +254,7 @@
                 </div>
                
             <div id="tabs-4">
-                <h1>Add a new exam</h1>
+                <h1>Add a new exam:<?php echo $courseno;?></h1>
                 <?php
                      echo '<font color="red">'.$this->session->flashdata('addexam_message')."</font><br />";
                     echo form_open('teacher_home/add_exam/'.$courseno);
@@ -359,7 +359,7 @@
                     <?php
                     echo form_open();
                     $rows=$this->exam->get_exam_type($courseno);
-                    if($row!=FALSE){
+                    if($rows!=FALSE){
                         $data=array();
                         foreach ($rows as $row) {
                             $data[$row->etype]=$row->etype;

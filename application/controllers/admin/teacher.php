@@ -43,6 +43,17 @@
         echo $msg;
     }
 
+    /**
+     *  get 5 parameters from datatable-jeditable features
+     *  update them to database accordingly
+     *  value - contains new text value of the cell that user edited
+     *  id - id of the updated record (id is placed in the tag that surrounds the cell)
+     *  columnId - position of the column of the cell that has been edited (hidden columns are counted also)
+     *  columnPosition - position of the column of the cell that has been edited (hidden columns are not counted)
+     *  rowId - id of the row containing the cell that has been edited
+     * @author siddharth
+     */
+    
     function update_information()
     {
           $id = $this->input->post('id');

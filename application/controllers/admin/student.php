@@ -228,6 +228,17 @@
 
     }
 
+    /**
+     *  get 5 parameters from datatable-jeditable features
+     *  update them to database accordingly
+     *  value - contains new text value of the cell that user edited
+     *  id - id of the updated record (id is placed in the tag that surrounds the cell)
+     *  columnId - position of the column of the cell that has been edited (hidden columns are counted also)
+     *  columnPosition - position of the column of the cell that has been edited (hidden columns are not counted)
+     *  rowId - id of the row containing the cell that has been edited
+     * @author siddharth
+     */
+
     function update_information()
     {
           $id = $this->input->post('id');
@@ -761,7 +772,15 @@
             $start_code=$config['start_code'];
             $end_code=$config['end_code'];
 
-            $all_course=$this->course_model->get_course_by_level_term($sLevel,$Term);
+            //$all_course=$this->course_model->get_course_by_level_term($sLevel,$Term);
+
+            $search_course=array(
+                'sLevel'=>$sLevel,
+                'Term'=>$Term,
+                'Dept_id'=>$data['Dept_id']
+            );
+
+            $all_course=$this->course_model->get_course_by_level_term_dept($search_course);
             
             
             $view_data['all_course']=$all_course;
