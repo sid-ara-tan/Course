@@ -95,17 +95,18 @@ class Teacher_home extends CI_controller{
         $this->form_validation->set_rules('Duration','Duration','required|numeric|max_length[5]');
         $this->form_validation->set_rules('Location','Location','required|max_length[15]');
         if($this->form_validation->run()== FALSE){
-            $this->session->set_flashdata('scheduling_message', 'Exam Scheduling Failed');
-            $this->class_content($courseno,'Exam Scheduling Failed');
-            //redirect('teacher_home/class_content/'.$courseno);
+            $message=validation_errors();
+            $this->session->set_flashdata('scheduling_message', $message);
+            //$this->class_content($courseno,'Exam Scheduling Failed');
+            redirect('teacher_home/class_content/'.$courseno);
            
         }
         else{
             $this->load->model('Exam');
             $this->Exam->schedule_exam($courseno);
             $this->session->set_flashdata('scheduling_message', 'Exam Scheduling Succesful');
-            $this->class_content($courseno,'Exam Scheduling Succesful');
-            //redirect('teacher_home/class_content/'.$courseno);
+            //$this->class_content($courseno,'Exam Scheduling Succesful');
+            redirect('teacher_home/class_content/'.$courseno);
         }
 
     }
