@@ -10,3 +10,9 @@ Just click the "turn on chat" link beside your username you will see a chat butt
 
 click chat button will show available users for chatting 
 select any of them and start chatting.
+
+50 45
+10 10
+10 0
+10 0
+20 20
