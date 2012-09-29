@@ -200,5 +200,25 @@
         else
             return FALSE;
     }
+    
+    function get_std_grade_sheet($level,$term) {
+        $ID = $this->session->userdata['ID'];
+
+        $query_grade_sheet = $this->db->query("
+                select a.CourseNo,CourseName,Credit,GPA
+                from takencourse a,course b
+                where S_Id='$ID' 
+                and a.CourseNo=b.CourseNo 
+                and (Status='Passed' or Status='Failed') 
+                and sLevel=$level and Term=$term
+        ");
+        
+        if ($query_grade_sheet->num_rows() > 0) {
+
+            return $query_grade_sheet;
+        }
+        else
+            return FALSE;
+    }    
 
 }

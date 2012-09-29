@@ -60,6 +60,12 @@ class Student_home extends CI_controller {
 
     }
 
+    /**
+    * This function will load the main page of student after log in.
+    * 
+    * @return student home page.
+    */
+    
     function index() {
         $this->load->model('student');
         $this->load->model('classinfo');
@@ -92,6 +98,12 @@ class Student_home extends CI_controller {
         $this->load->view('student_homepage', $data);
     }
     
+    
+    /**
+    * This function will load a calender containig the exam schedule of his taken course.
+    * 
+    * @return exam calender.
+    */
     function load_exam_calender()
     {
         $this->load->model('exam');
@@ -115,12 +127,24 @@ class Student_home extends CI_controller {
         else echo "No Exam Today";
     }
     
+    /**
+    * This function will redirect to another controller name student_home_group
+    * which contains all the group activity function.
+    * 
+    * @return null.
+    */
+    
     function group()
     {
         $courseno=$this->uri->segment(3);
         redirect('student_home_group/group/'.$courseno);
     }
     
+    /**
+    * This function will load a page containing student profile information.
+    * 
+    * @return student profile page.
+    */
     function profile()
     {
         $data['notification']=$this->session->flashdata('notification');        
@@ -133,6 +157,7 @@ class Student_home extends CI_controller {
         $this->load->view('student_profile', $data);
     }
     
+
     function edit_profile()
     {
         $this->load->model('student');
@@ -146,11 +171,16 @@ class Student_home extends CI_controller {
         else echo "error occured";
     }
     
+    /**
+    * This function will load a page for course regitration of students
+    * only when course registration period will be running.
+    * 
+    * @return null.
+    */
     function course_registration()
     {
         $this->load->model('course');
         $this->load->model('schedule');
-        
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
@@ -197,12 +227,47 @@ class Student_home extends CI_controller {
     function result()
     {
         $this->load->model('course');
-       $data['query_result_list']=$this->course->get_std_result_option();
+        $data['query_result_list']=$this->course->get_std_result_option();
         
         $data['query_student_info'] = $this->query_student;
         $data['taken_course_query'] = $this->query_taken_course;
         
         $this->load->view('student_view_result', $data);
+    }
+    
+    /**
+    * This function calulate CGPA of student from takencourse entity
+    * and show the grade sheet after selecting his/her level term 
+    * 
+    * @return gradesheet of particular level term.
+    */
+    function result_show()
+    {
+        $this->load->model('course');
+        
+        $level=  substr($this->input->post('levelTerm'),0,1);
+        $term=  substr($this->input->post('levelTerm'),1,1);
+        $data['query_grade_sheet']=$this->course->get_std_grade_sheet($level,$term);
+        
+        $crd=0;
+        $mult=0;
+        $flag=0;
+        foreach($data['query_grade_sheet']->result_array() as $row)
+        {
+            $crd+=$row['Credit'];
+            $mult+=$row['Credit']*$row['GPA'];
+            if($row['GPA']==0)$flag=1;
+
+
+        }
+        if($flag==0)$data['gpa']=round($mult/$crd,2);
+        else $data['gpa']=0;
+        $data['credit']=$crd;
+        $data['level']=$level;
+        $data['term']=$term;
+        
+        echo $this->load->view('student_view_gradesheet', $data,TRUE);
+        
     }
     
 

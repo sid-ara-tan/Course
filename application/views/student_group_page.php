@@ -228,7 +228,7 @@ $row_std = $query_student_info->row();
                                     
                                     $image_properties = array(
                                             'src' => base_url() . 'images/comment.png',
-                                            'alt' => 'delete',
+                                            'alt' => 'comment',
                                             'width' => '20',
                                             'height' => '20',
                                             'title' => 'comment here....'

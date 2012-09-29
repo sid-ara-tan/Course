@@ -13,6 +13,26 @@ $this->load->view('header/style_demo_header', $data);
 
 	});
 </script>
+<script type="text/javascript" charset="utf-8">
+    
+function load_grade(val)
+{
+            $("div#show_grade").ajaxStart(function(){
+            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+            });
+            
+            $.ajax({
+                        data: "levelTerm="+val,
+                        type: "POST",
+                        url: "<?php echo site_url('student_home/result_show');?>",
+                        success: function(value) {
+                                //alert(value);
+                                $("div#show_grade").html(value);
+                        }
+            });
+
+}
+</script>
 
 
 <?php
@@ -77,10 +97,10 @@ $row_std = $query_student_info->row();
                         {
                         echo '<div class="demo" align="center" style="border:solid">';
                         echo "<br><h2>Select Level/Term</h2>";
-                        echo form_open('student_home/result_show');
+                        //echo form_open('student_home/result_show');
                         ?>
                         
-                        <select name="selectlt">
+                        <select id="select_lt" name="selectlt" onchange="load_grade(this.value)">
                             <option value="" selected="selected">Select an Option</option>
                             <?php  foreach ($query_result_list->result_array() as $row)
                             { ?>
@@ -89,11 +109,22 @@ $row_std = $query_student_info->row();
                             <?php } ?>
                         </select>
                         
-                        <?php echo '<br><br>'.form_submit('mysubmit', 'Show!'); 
+                        <?php //echo '<br><br>'.form_submit('mysubmit', 'Show!');
+                        //echo form_close();
                         echo '<br><br></div>';
                         }
                     else echo heading('-No Result To Show !-',3);?>
+                            <hr>
+                            <div id="show_grade">
+                                    <p>
+                                        <span class='ui-icon ui-icon-circle-check' style='float:left; margin:0 7px 50px 0;'></span>
+                                        Select An option To See Grade Sheet..
+
+                                    </p>
+                            </div>
             </div>
+
+
             <!-- ####################################################################################################### -->
             <div class="clear"></div>
         </div>

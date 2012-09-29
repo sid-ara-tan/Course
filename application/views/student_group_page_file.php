@@ -35,10 +35,24 @@
                                 echo ' '.$row_record_file->time.'<br>';
                                     if($row_record_file->uploader==$this->session->userdata['ID'])
                                     {
+                                            $image_properties = array(
+                                            'src' => base_url() . 'images/admin/error.png',
+                                            'alt' => 'delete',
+                                            'width' => '15',
+                                            'height' => '15',
+                                            'title' => 'delete the post...'
+                                         );
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
-                                        echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename,img(base_url() . 'images/admin/error.png'),'onclick=" return check()"').' ';  
+                                        echo '<br> '.anchor('student_home_group/delete_file/'.$courseno.'/'.$row_record_file->filename,img($image_properties),'onclick=" return check()"').' ';  
                                     }
-                                echo ${'commentoffile'.$row_record_file->file_id}.' '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,img(base_url() . 'images/comment.png'));
+                                            $image_properties = array(
+                                            'src' => base_url() . 'images/comment.png',
+                                            'alt' => 'comment',
+                                            'width' => '20',
+                                            'height' => '20',
+                                            'title' => 'comment here....'
+                                         );
+                                echo '<span style="font-size:20px;"><strong>'.nbs(3).${'commentoffile'.$row_record_file->file_id}.'</strong></span> '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,img($image_properties));
                                         //${'commentoffile'.$row_record_file->file_id}.'<br>';
                                   
                                 echo '<hr>';
