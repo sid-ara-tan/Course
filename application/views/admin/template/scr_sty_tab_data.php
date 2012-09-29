@@ -112,7 +112,7 @@
         }
 
         // add themeswitcher
-       	$(function(){
+      /* 	$(function(){
 			var ts = $('<div class="ui-button ui-widget ui-state-default ui-corner-all" style="padding: 5px; position: absolute; top: 20px; right: 10px;">Click here to add Themeswitcher!</div>')
 			.appendTo('body')
 			.bind("click", function() {
@@ -121,7 +121,7 @@
 					ts.removeClass("ui-button ui-widget ui-state-default ui-corner-all").text("").unbind("click").themeswitcher();
 				});
 			});
-        });
+        });*/
     });
 </script>
 

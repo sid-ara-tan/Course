@@ -5,7 +5,10 @@ class Admin extends CI_Controller{
         $this->my_library->check_logged_in();
         $this->load->model('admin/admin_model','admin');
     }
-
+    /**
+     *Showing home page after logged in
+     * @param <type> $param
+     */
     public function index($param=NULL) {        
         $data=array(
             'msg'=>'Welcome to Admin Panel',
@@ -14,11 +17,15 @@ class Admin extends CI_Controller{
         );
         $this->load->view('admin/home',$data);
     }
-    
+    /**
+     * Logout is done here
+     */
     function logout(){
         $this->my_library->logout();
     }
-
+    /**
+     * Loading template page
+     */
     public function template($param=NULL) {
         $data['title']='template page';
         $this->load->view('admin/template',$data);

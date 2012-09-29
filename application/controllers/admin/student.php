@@ -761,7 +761,15 @@
             $start_code=$config['start_code'];
             $end_code=$config['end_code'];
 
-            $all_course=$this->course_model->get_course_by_level_term($sLevel,$Term);
+            //$all_course=$this->course_model->get_course_by_level_term($sLevel,$Term);
+
+            $search_course=array(
+                'sLevel'=>$sLevel,
+                'Term'=>$Term,
+                'Dept_id'=>$data['Dept_id']
+            );
+
+            $all_course=$this->course_model->get_course_by_level_term_dept($search_course);
             
             
             $view_data['all_course']=$all_course;
