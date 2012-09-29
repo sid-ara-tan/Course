@@ -196,7 +196,13 @@ class Student_home extends CI_controller {
 
     function result()
     {
-        echo "Under construction";
+        $this->load->model('course');
+       $data['query_result_list']=$this->course->get_std_result_option();
+        
+        $data['query_student_info'] = $this->query_student;
+        $data['taken_course_query'] = $this->query_taken_course;
+        
+        $this->load->view('student_view_result', $data);
     }
     
 

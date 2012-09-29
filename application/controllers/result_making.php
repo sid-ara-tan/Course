@@ -40,6 +40,7 @@ class Result_making extends CI_Controller{
                             $inside_total=0;
                             foreach ($exams as $exam){
                                 $marks=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID);
+                                if($exam->Total>0)
                                 $inside_total+=($marks*$exam->Percentage)/($exam->Total*100);
                             }                            
                     }else{                        
@@ -48,7 +49,10 @@ class Result_making extends CI_Controller{
                             $inside_total=0;;
                             foreach ($exams as $exam){
                                 $best=$exam->Best;
-                                $marks_array[]=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID)/$exam->Total;
+                                if($exam->Total>0)
+                                    $marks_array[]=$this->result->get_Marks($courseno,$exam->Sec,$exam->ID,$S_ID)/$exam->Total;
+                                else
+                                    $marks_array[]=0;
                             }
                             rsort($marks_array);
                             for($i=0;$i<$best;$i++){

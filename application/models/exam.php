@@ -60,10 +60,13 @@ class Exam extends CI_Model{
     }
 
     function get_exam($courseno,$sec){
+        $id=$this->session->userdata['ID'];
         $query=$this->db->query("
             select Topic,ID,eDate,eType,eTime,Percentage
-            from exam
-            where CourseNo='$courseno' and Sec='$sec'
+            from exam,takencourse
+            where takencourse.CourseNo=exam.courseno
+            AND CourseNo='$courseno' and Sec='$sec'
+            AND S_Id='$id' Status='Running'
             ");
         if($query->num_rows()>0){
             foreach($query->result() as $row){

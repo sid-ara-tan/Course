@@ -178,5 +178,27 @@
         else
             return FALSE;
     }
+    
+    function get_std_result_option() {
+        $ID = $this->session->userdata['ID'];
+
+        $query_list_result = $this->db->query("
+                select distinct sLevel,Term
+                from course where CourseNo in
+                (   select CourseNo 
+                    from takencourse 
+                    where S_Id='$ID' 
+                    and
+                    (Status='Passed' or Status='Failed')
+                )
+        ");
+        
+        if ($query_list_result->num_rows() > 0) {
+
+            return $query_list_result;
+        }
+        else
+            return FALSE;
+    }
 
 }
