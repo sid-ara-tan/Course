@@ -127,4 +127,10 @@
         return $result;
     }
 
+
+    function update_taken_course_status($config=NULL){
+        
+        
+
+    }
 }

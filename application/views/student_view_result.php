@@ -3,7 +3,7 @@ $data['title'] = "Student Group Page Comment";
 $this->load->view('header/style_demo_header', $data);
 ?>
 
-<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>>
+<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
 <script>
     $(function() {
 
