@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 19, 2012 at 04:36 PM
+-- Generation Time: Sep 29, 2012 at 05:30 AM
 -- Server version: 5.5.16
 -- PHP Version: 5.3.8
 
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `authentication` (
 
 INSERT INTO `authentication` (`username`, `password`, `email`) VALUES
 ('admin', '12345', 'siddhartha047@gmail.com'),
-('secret', '12345', 'siddhartha047@gmail.com');
+('secret', '79968d2c9d82846be166c47caa80fc75', 'tanzir.b@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -244,7 +244,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `msg_no` (`msg_no`),
   KEY `CourseNo` (`CourseNo`),
   KEY `commentBy` (`commentBy`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=80 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=83 ;
 
 --
 -- Dumping data for table `comment`
@@ -262,7 +262,10 @@ INSERT INTO `comment` (`id`, `msg_no`, `CourseNo`, `time`, `commentBy`, `body`, 
 (76, 2, 'CSE300', '2012-09-13 04:40:45', '0805048', 'cbc', 1, 'student'),
 (77, 2, 'CSE300', '2012-09-13 11:37:28', '0805049', 'zcfzs', 0, 'student'),
 (78, 56, 'CSE309', '2012-09-13 05:28:41', '0805049', 'eryter', 1, 'student'),
-(79, 2, 'CSE300', '2012-09-13 05:37:24', '0805049', 'ghjfjfg', 1, 'student');
+(79, 2, 'CSE300', '2012-09-13 05:37:24', '0805049', 'ghjfjfg', 1, 'student'),
+(80, 58, 'CSE309', '2012-09-28 03:36:47', '0805049', 'ami uploadaisi :p', 1, 'student'),
+(81, 58, 'CSE309', '2012-09-28 04:37:28', '0805049', 'hgj', 1, 'student'),
+(82, 51, 'CSE309', '2012-09-28 05:37:06', '0805049', 'nb', 1, 'student');
 
 -- --------------------------------------------------------
 
@@ -276,6 +279,7 @@ CREATE TABLE IF NOT EXISTS `content` (
   `Topic` varchar(30) DEFAULT NULL,
   `Description` text,
   `Uploader` varchar(50) DEFAULT NULL,
+  `Uploader_ID` varchar(50) NOT NULL,
   `Upload_Time` timestamp NULL DEFAULT NULL,
   `File_Path` varchar(100) DEFAULT NULL,
   `status` int(1) NOT NULL,
@@ -287,20 +291,12 @@ CREATE TABLE IF NOT EXISTS `content` (
 -- Dumping data for table `content`
 --
 
-INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Upload_Time`, `File_Path`, `status`) VALUES
-('CSE300', '1', 'arafat', 'something somethingsomethingsomethingsomething\r\nsomethingsomethingsomething\\\r\nsomethingsomething', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings.txt', 1),
-('CSE300', '2', 'll', 'lkk', 'Sumaiya Iqbal', '2012-07-31 18:00:00', '8C736EAE00613.txt', 1),
-('CSE300', '3', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings1.txt', 1),
-('CSE300', '4', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings2.txt', 1),
-('CSE300', '5', 'asd', 'asds', 'Sumaiya Iqbal', '2012-07-31 18:00:00', 'Router_Settings3.txt', 1),
-('CSE305', '1', 'New', 'tanzir', 'Sumaiya Iqbal', '2012-09-07 12:44:14', 'Untitled.png', 0),
-('CSE309', '10', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:48', 'SMS_application1.pdf', 0),
-('CSE309', '3', 'vb', '', 'Rajkumar Das', '2012-08-15 18:00:00', 'vlcsnap-2012-08-16-21h071.png', 1),
-('CSE309', '5', 'dasd', '', 'Rajkumar Das', '2012-08-16 16:08:36', 'vlcsnap-2012-05-05-16h08.png', 1),
-('CSE309', '6', 'ZX', 'as', 'Rajkumar Das', '2012-08-28 11:14:38', 'Ideas_of_Democracy.docx', 1),
-('CSE309', '7', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:23', 'Ideas_of_Democracy1.docx', 1),
-('CSE309', '8', 'fg', '', 'Rajkumar Das', '2012-08-28 13:46:41', 'Calendar_AA20102011[rev.docx', 1),
-('CSE309', '9', 'vcxx', '', 'Rajkumar Das', '2012-08-30 13:25:32', 'SMS_application.pdf', 0);
+INSERT INTO `content` (`CourseNo`, `ID`, `Topic`, `Description`, `Uploader`, `Uploader_ID`, `Upload_Time`, `File_Path`, `status`) VALUES
+('CSE300', '10', 'Distributed Database', '', 'Sumaiya Iqbal', '05008', '2012-09-12 09:38:01', 'Server_list_of_LAN2.txt', 0),
+('CSE300', '6', 'test', '', 'Sumaiya Iqbal', '05008', '2012-09-11 14:10:09', 'httpsgithub.comsid-ara-t.txt', 0),
+('CSE300', '7', 'aaa', '', 'Sumaiya Iqbal', '05008', '2012-09-12 01:13:42', 'Server_list_of_LAN.txt', 0),
+('CSE300', '8', 'with_ID', 'check this out\r\n:)', 'Sumaiya Iqbal', '05008', '2012-09-12 09:30:05', 'httpsgithub.comsid-ara-t1.txt', 0),
+('CSE305', '1', 'arafat imtiaz', 'its me', 'Mahfuza Sarmin', '05003', '2012-09-12 09:35:41', '8C736EAE0061.txt', 0);
 
 -- --------------------------------------------------------
 
@@ -560,6 +556,7 @@ CREATE TABLE IF NOT EXISTS `message_group_student` (
 
 INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderInfo`, `senderType`, `Subject`, `mBody`, `status`) VALUES
 ('CSE300', 1, '2012-09-13 04:35:37', '0805048', 'student', 'hkjkhk', 'hjk', 1),
+('CSE300', 3, '2012-09-19 10:48:21', '05008', 'teacher', 'iugy', '98u', 1),
 ('CSE309', 50, '2012-09-13 02:23:30', '0805049', 'student', 'fggggg', 'dfgdfgdf', 1),
 ('CSE309', 51, '2012-09-13 02:35:34', '0805049', 'student', 'wer', 'fs', 1),
 ('CSE309', 52, '2012-09-13 08:37:32', '05001', 'teacher', 'ase', 'aer', 1),
@@ -567,7 +564,7 @@ INSERT INTO `message_group_student` (`CourseNo`, `MessageNo`, `mTime`, `SenderIn
 ('CSE309', 54, '2012-09-13 03:30:39', '0805048', 'student', 'sdg', 'dfgd', 1),
 ('CSE309', 55, '2012-09-13 03:30:47', '0805048', 'student', 'dgfdg', 'gdggdfgdfgjdmu,krjythn', 1),
 ('CSE309', 56, '2012-09-13 03:30:53', '0805048', 'student', 'ya hello', 'dfg', 1),
-('CSE309', 59, '2012-09-17 09:36:41', '0805049', 'student', 'fghgfhfghfg', 'fh', 1),
+('CSE309', 59, '2012-09-17 09:36:41', '0805049', 'student', 'fghgfhfghfg', 'fh', 0),
 ('CSE310', 2, '2012-09-13 04:28:23', '0805048', 'student', 'aedaw', 'ewqeqweqwe', 0);
 
 -- --------------------------------------------------------
@@ -793,18 +790,18 @@ CREATE TABLE IF NOT EXISTS `takencourse` (
 
 INSERT INTO `takencourse` (`Status`, `GPA`, `CourseNo`, `S_Id`) VALUES
 ('Running', 0.00, 'CSE309', '0705049'),
-('passed', 2.75, 'CSE310', '0705049'),
-('Running', NULL, 'CSE321', '0705049'),
-('Running', NULL, 'CSE322', '0705049'),
-('Running', NULL, 'CSE300', '0805001'),
-('Running', NULL, 'CSE303', '0805001'),
-('Running', NULL, 'CSE304', '0805001'),
-('Running', NULL, 'CSE305', '0805001'),
-('Running', NULL, 'CSE307', '0805001'),
-('Running', NULL, 'CSE308', '0805001'),
-('Running', NULL, 'CSE309', '0805001'),
-('Running', NULL, 'CSE310', '0805001'),
-('Running', NULL, 'CSE311', '0805001'),
+('Passed', 2.75, 'CSE310', '0705049'),
+('Passed', 4.00, 'CSE321', '0705049'),
+('Passed', 3.75, 'CSE322', '0705049'),
+('Passed', 3.50, 'CSE300', '0805001'),
+('Passed', 3.25, 'CSE303', '0805001'),
+('Passed', 3.00, 'CSE304', '0805001'),
+('Passed', 3.50, 'CSE305', '0805001'),
+('Passed', 3.75, 'CSE307', '0805001'),
+('Passed', 4.00, 'CSE308', '0805001'),
+('Passed', 2.75, 'CSE309', '0805001'),
+('Passed', 2.50, 'CSE310', '0805001'),
+('Failed', 0.00, 'CSE311', '0805001'),
 ('Running', NULL, 'CSE300', '0805002'),
 ('Running', NULL, 'CSE303', '0805002'),
 ('Running', NULL, 'CSE304', '0805002'),
