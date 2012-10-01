@@ -71,6 +71,11 @@
             echo $this->unit->run($test,$expected,'Testing get_student_by_id_function');
         }
     }
+    
+    function new_netbeans(){
+        echo 'This is netbeans new version Let s e howw it differ.';
+                
+    }
 
     
 }
