@@ -13,9 +13,11 @@
 
         $fixture[] = 'element';
         $this->assertTrue(count($fixture) == 1);
+        
+        $this->load->view('admin/backupcode/graph');
     }
 
-    function assertTrue($condition){
+  function assertTrue($condition){
         if (!$condition) {
             throw new Exception('Assertion failed.');
         }
@@ -70,6 +72,21 @@
             $test=$this->student_model->get_student_by_id($test);
             echo $this->unit->run($test,$expected,'Testing get_student_by_id_function');
         }
+    }
+    
+    function new_netbeans(){
+        echo 'This is netbeans new version Let s e howw it differ.';
+                
+    }
+
+    function exampleJson(){
+        $sid=$this->input->post('sid');
+
+        $ret[] = array('Year','Max','Min');
+        $ret[] = array("y".'1950',40,30);
+        $ret[] = array("y".'1960',48,30);
+
+        echo json_encode($ret,JSON_NUMERIC_CHECK);
     }
 
     
