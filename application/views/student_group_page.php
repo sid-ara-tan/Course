@@ -16,6 +16,9 @@ $this->load->view('header/style_demo_header',$data);
         $("div#tabs-3").ajaxStart(function(){
             $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
         });
+        $("div#tabs-5").ajaxStart(function(){
+            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+        });
 
         $("a#file").click(function(){
                                         //alert("ddd");
@@ -71,6 +74,24 @@ $this->load->view('header/style_demo_header',$data);
 
         });
         
+        $("a#members").click(function(){
+                                        //alert("ddd");
+                                $.ajax({
+                                        type: "POST",
+                                        data: "courseno=" + $("input#courseno_hidden").val(),
+
+                                        url: "<?php echo site_url('student_home_group/load_members');?>",
+                                        success: function(msg){
+
+                                                $("div#tabs-5").html(msg);
+
+                                        }
+
+                                });
+
+
+        });
+        
         });
     
 	$(function() {
@@ -89,6 +110,7 @@ $this->load->view('header/style_demo_header',$data);
             if(selected==3)$("a#file").click();
             else if(selected==1)$("a#c_content").click();
             else if(selected==2)$("a#marks").click();
+            else if(selected==4)$("a#members").click();
 
         }
 

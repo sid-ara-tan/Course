@@ -118,5 +118,24 @@ class Student extends CI_model {
         }
 
     }
+    
+    function get_std_list($courseno){
+
+        $result=$this->db->query("
+            SELECT *
+            FROM student,takencourse
+            WHERE 
+            student.S_Id = takencourse.S_Id
+            AND
+            CourseNo='$courseno'
+            ORDER BY Name
+            ");
+        if($result->num_rows()>0){
+            return $result;
+        }else{
+            return FALSE;
+        }
+
+    }
 
 }
