@@ -34,7 +34,8 @@
                                 if($row_record_file->senderType=='student')echo "<br />uploaded by <font color='green'> ".${'nameof'.$row_record_file->file_id}.'</font>';
                                 elseif($row_record_file->senderType=='teacher')echo "<br />uploaded by <font color='red'> ".${'nameof'.$row_record_file->file_id}.'</font>';
                                 echo ' '.$row_record_file->time.'<br>';
-                                    if($row_record_file->uploader==$this->session->userdata['ID'])
+
+                                if($row_record_file->uploader==$this->session->userdata['ID'])
                                     {
                                             $image_properties = array(
                                             'src' => base_url() . 'images/admin/error.png',
@@ -55,7 +56,7 @@
                                             'height' => '20',
                                             'title' => 'comment here....'
                                          );
-                                echo '<span style="font-size:16px;">'.nbs(3).${'commentoffile'.$row_record_file->file_id}.'</span> '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno,img($image_properties)."Comments");
+                                echo '<span style="font-size:16px;">'.nbs(3).${'commentoffile'.$row_record_file->file_id}.'</span> '.anchor('student_home_group/comment/'.$row_record_file->file_id.'/'.$courseno," Comments");
                                         //${'commentoffile'.$row_record_file->file_id}.'<br>';
                                   
                                 echo form_fieldset_close();
