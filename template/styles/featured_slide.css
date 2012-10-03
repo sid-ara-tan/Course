@@ -39,7 +39,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	text-transform:uppercase;
 	color:#F8F9F3;
 	/*background-color:#8199A9;*/
-        background-color: #2b3137;
+        background-color: #506565;
 	cursor:pointer;
 	border-top:2px solid #F8F9F3; /* Needs top-border as the JavaScript rotates the element */
 	}
@@ -47,22 +47,22 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 #featured_slide dl.slidedeck > dt.active{
 	color:#F8F9F3;
 	/*background-color:#002E5D;*/
-        background-color: #6c7b8b;
+        background-color: #1c2f2f;
 	cursor:default;
 	}
 
 /* Spines */
 
 #featured_slide dl.slidedeck dt.spine:hover{
-	/*color:#F8F9F3;
-	background-color:#002E5D;*/
+	/*color:#F8F9F3;*/
+	background-color:#1c2f2f;
 	}
 
 #featured_slide dl.slidedeck dt.spine.active, #featured_slide dl.slidedeck dt.spine.active:hover{
 	cursor:default;
 	color:#F8F9F3;
 	/*background-color:#002E5D;*/
-        background-color:#404953;
+        background-color:#1c2f2f;
 	}
 
 #featured_slide dl.slidedeck dt.spine .index{
