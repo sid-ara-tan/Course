@@ -38,28 +38,31 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	font-family:Georgia, "Times New Roman", Times, serif;
 	text-transform:uppercase;
 	color:#F8F9F3;
-	background-color:#8199A9;
+	/*background-color:#8199A9;*/
+        background-color: #2b3137;
 	cursor:pointer;
 	border-top:2px solid #F8F9F3; /* Needs top-border as the JavaScript rotates the element */
 	}
 
 #featured_slide dl.slidedeck > dt.active{
 	color:#F8F9F3;
-	background-color:#002E5D;
+	/*background-color:#002E5D;*/
+        background-color: #6c7b8b;
 	cursor:default;
 	}
 
 /* Spines */
 
 #featured_slide dl.slidedeck dt.spine:hover{
-	color:#F8F9F3;
-	background-color:#002E5D;
+	/*color:#F8F9F3;
+	background-color:#002E5D;*/
 	}
 
 #featured_slide dl.slidedeck dt.spine.active, #featured_slide dl.slidedeck dt.spine.active:hover{
 	cursor:default;
 	color:#F8F9F3;
-	background-color:#002E5D;
+	/*background-color:#002E5D;*/
+        background-color:#404953;
 	}
 
 #featured_slide dl.slidedeck dt.spine .index{
@@ -67,7 +70,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	font-size:24px;
 	font-weight:normal;
 	font-family:Georgia, "Times New Roman", Times, serif;
-	color:#F8F9F3;
+	/*color:#F8F9F3;*/
 	}
 
 #featured_slide dl.slidedeck dt.spine.active .index{
