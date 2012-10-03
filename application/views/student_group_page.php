@@ -6,18 +6,24 @@ $this->load->view('header/style_demo_header',$data);
 
         <script>
         $(document).ready(function(){
-    
+        var line_brake="<?php echo br(50);?>";
         $("div#tabs-4").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+            var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
+            
         });
         $("div#tabs-2").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+           var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
         });
         $("div#tabs-3").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+           var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
         });
         $("div#tabs-5").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+            var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
         });
 
         $("a#file").click(function(){

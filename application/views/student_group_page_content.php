@@ -1,4 +1,4 @@
-                    <p> <h1>All Course content :- </h1><br></p>
+                    <h1>All Course content :- </h1><br>
                     <?php
                     if($record_content!=FALSE){
 
@@ -13,5 +13,8 @@
                         }
                     }
                     
-                    else echo "<font color='red'> No Content Available".'</font>';
+                    else{
+                        echo "<font color='red'> No Content Available".'</font>';
+                        echo br(20);
+                    }
                     ?>

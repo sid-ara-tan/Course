@@ -26,6 +26,7 @@ body{
             /*background-color:#f0f1f3;*/
         
         background-color: #1c2f2f;
+        color:white;
             
 	}
 
@@ -179,6 +180,8 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 /* ----------------------------------------------Header-------------------------------------*/
 
+
+
 #header{
 	padding:25px 0 30px 0;
 	}
@@ -200,13 +203,13 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 #container h1, #container h2, #container h3, #container h4, #container h5, #container h6{
-	color:#8199A9;
-	background-color:#F8F9F3;
+	/*color:#8199A9;
+	background-color:#F8F9F3;*/
 	}
 
 #container a{
-	color:#591F58;
-	background-color:#F8F9F3;
+	/*color:#591F58;
+	background-color:#F8F9F3;*/
 	}
 
 #container .title{
@@ -459,4 +462,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
         background:#1c2f2f;
 	}
 
-        
+.file_conversation fieldset{
+    width: 95%;
+    margin: auto;
+    display: block;
+    background-color: #d1d5d5 ;
+    padding:20px;
+    margin-top: 10px;
+    -moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;
+
+}

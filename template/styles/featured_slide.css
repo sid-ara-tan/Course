@@ -17,6 +17,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	height:100%;
 	margin:0;
 	padding:0;
+        border:5px ridge #324343;
 	}
 
 #featured_slide dl.slidedeck > dd{
