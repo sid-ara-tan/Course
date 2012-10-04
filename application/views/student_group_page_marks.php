@@ -1,4 +1,4 @@
-                   <p><h1>All Given Marks Of <?php echo $coursename; ?></h1></p>
+                   <h1>All Given Marks Of <?php echo $coursename; ?></h1>
                 
                     <?php
                         $tmpl = array ( 'table_open'  => '<table border="1" cellpadding="2" cellspacing="1">',
@@ -17,6 +17,9 @@
                                 }
                             echo $this->table->generate();
                             }
-                    else echo "<font color='red'> No Data Available".'</font>';      
+                    else{
+                        echo "<font color='red'> No Data Available".'</font>';
+                        echo br(20);
+                    }
                     
                     ?>

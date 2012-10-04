@@ -18,11 +18,16 @@ body{
 	padding:0;
 	font-size:13px;
 	font-family:Georgia, "Times New Roman", Times, serif;
-	color:#F8F8F2;
+	/*color:#F8F8F2;*/
 	/*background-color:#03274B;*/
         /*background-image: url(../images/gradient2.png);
           background-repeat: repeat-x;*/
-        background-color:#39414A;
+        /*background-color:#39414A;*/
+            /*background-color:#f0f1f3;*/
+        
+        background-color: #1c2f2f;
+        color:white;
+            
 	}
 
 .login_member{
@@ -128,13 +133,39 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	line-height:normal;
 	}
 
-/*.row1{color:#5F8EC2; background-color:#03274B;}
-.row1 a{color:#F8F9F3; background-color:#03274B;}*/
+/*.row1{color:#5F8EC2; background-color:#03274B;}*/
 
-.row1{color:#5F8EC2; background-color:#03274B;}
+/*.row1{color:#666666; background-color:#E3F1F9;}*//*sid*/
 
-.row2{color:#F8F9F3; background-color:#072C53; border-top:1px solid #2B4D71; border-bottom:1px solid #2B4D71;}
-.row3{color:#777777; background:url("../images/featured_slide_bg.gif") top left repeat-x #F8F9F3;/*min-height:675px;*/}
+/*.row1{background-image: url(../images/gradient2.png);
+          background-repeat: repeat-x;}*/
+.row1{
+    background: url("../images/rays.png") no-repeat scroll 50% 0pt transparent;
+    background-color: #1c2f2f;
+    color:rgb(255, 255, 255) !important;
+}
+
+.row1 a{
+    /*color:black;*/
+    color:rgb(255, 255, 255) !important;
+}
+
+
+/*.row2{color:#F8F9F3; background-color:#072C53; border-top:1px solid #2B4D71; border-bottom:1px solid #2B4D71;}*/
+
+.row2{
+     color:rgb(128, 151, 159) !important;
+     background-color:#121f1f;
+     border-top:1px solid #121f1f;
+     border-bottom:1px solid #121f1f;}
+
+/*.row3{color:#777777; background:url("../images/featured_slide_bg.gif") top left repeat-x #F8F9F3;}*//*min-height:675px;*/
+
+.row3{
+    color: #ffffff;
+    border: 1px solid #324343 ;
+}
+
 .row4{color:#777777; background-color:#F8F9F3; border-bottom:2px solid #03274B;}
 .row5{padding:50px 0 30px 0; border-top:1px solid #F8F9F3;}
 
@@ -148,6 +179,8 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 /* ----------------------------------------------Header-------------------------------------*/
+
+
 
 #header{
 	padding:25px 0 30px 0;
@@ -170,13 +203,13 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 #container h1, #container h2, #container h3, #container h4, #container h5, #container h6{
-	color:#8199A9;
-	background-color:#F8F9F3;
+	/*color:#8199A9;
+	background-color:#F8F9F3;*/
 	}
 
 #container a{
-	color:#591F58;
-	background-color:#F8F9F3;
+	/*color:#591F58;
+	background-color:#F8F9F3;*/
 	}
 
 #container .title{
@@ -414,7 +447,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 #copyright{
 	padding:15px 0;
-	border-top:1px solid #2B4D71;
+	/*border-top:1px solid #2B4D71;*/
 	}
 
 #copyright p{
@@ -426,7 +459,50 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
         color:white;
 	/*color:#7F99A9;*/
 	/*background-color:#03274B;*/
-        background:#39414A;
+        background:#1c2f2f;
 	}
 
-        
+.file_conversation fieldset{
+   width: 95%;
+    margin: auto;
+    display: block;
+    background-color: #ffffff ;
+    padding:20px;
+    margin-top: 10px;
+    -moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;
+
+}
+
+.group_conversation fieldset{
+    width: 95%;
+    margin: auto;
+    display: block;
+    background-color: #ffffff ;
+    padding:20px;
+    margin-top: 10px;
+    -moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;
+
+}
+
+.comment_value{
+    padding: 10px;
+    font-size: 14px;
+    color:rgb(51, 51, 51);
+    background-color: #eff4fd;
+    font-family: 'lucida grande',tahoma,verdana,arial,sans-serif;
+}
+
+.comment_box{
+    background-color: #eff4fd;
+    padding: 10px;
+    font-size: 12px;
+    /*-moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;*/
+}
+
+.subject_value{
+    padding: 2px;
+    font-size: 14px;
+}

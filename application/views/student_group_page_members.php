@@ -1,3 +1,4 @@
+
     <script type="text/javascript">
     $(document).ready(function(){
     $("a.profile").click(function(){
@@ -6,8 +7,7 @@
     });
     </script>                   
 
-<p><h1>All Members List :</h1></p>
-                
+<p><h1>All Members List :</h1></p>                
                     <?php
                     
                     if($query_std_list!=FALSE){
@@ -46,7 +46,19 @@
                                 //echo '<img src='.base_url() . 'images/profile_pic/0805048_thumb' .' />';
                             }  
 
+
+                            echo "<ul>";
+                            foreach($query_std_list->result_array() as $row)
+                            {
+                                echo "<li>".anchor('student_home_group/group/'.$courseno,$row['Name'])."</li>";
+                            }
+                            echo "<ul/>";
+
                     }
-                    else echo "<font color='red'> No Data Available".'</font>';      
+                    else{
+                        echo "<font color='red'> No Data Available".'</font>';
+                        echo br(20);
+                    }
+
                     
                     ?>

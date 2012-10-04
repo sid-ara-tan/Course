@@ -13,6 +13,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	width:960px;
 	font-size:12px;
 	z-index:1000;
+
 	}
 
 #topnav ul, #topnav li{
@@ -33,10 +34,18 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 #topnav li a:link, #topnav li a:visited, #topnav li a:hover{
 	display:block;
 	margin:0;
-	padding:15px 0;
-	color:#F8F9F3;
-	background-color:#072C53;
-	text-transform:uppercase;
+	padding:15px 15px;
+	/*color:#F8F9F3;*/
+	/*background-color:#072C53;*/
+        color: #c4cad0;
+        background-color: #121f1f;
+        text-shadow:0pt 0pt 0pt transparent, 0pt 1px rgba(29, 29, 29, 0.2);
+	/*text-transform:uppercase;*/
+        display: inline-block;
+
+      /*  -moz-border-radius:5px;
+        -webkit-border-radius:5px;*/
+        text-shadow:3px 3px 3px #829595;
 	}
 
 #topnav ul ul li a:link, #topnav ul ul li a:visited{
@@ -44,26 +53,40 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	}
 
 #topnav li a:hover, #topnav li.active a{
-	color:#5F8EC2;
-	background:url("../images/topnav_a.gif") top center no-repeat #072C53;
+	color:#ffffff;
+	/*background:url("../images/topnav_a.gif") top center no-repeat #072C53;*/
+        /*background-color: #1c2f2f;*/
+        /*padding-right: 10px;
+        padding-left: 10px;*/
+        background: -moz-linear-gradient(rgb(28,47,47), rgb(80,101,101)) repeat scroll 0% 0% transparent;
+        background: -webkit-linear-gradient(rgb(28,47,47), rgb(80,101,101)) repeat scroll 0% 0% transparent;
+
+        border:1px solid #121f1f;
+       /* -webkit-box-shadow: 0 0 8px #404953;
+        -moz-box-shadow: 0px 0px 8px grey;*/
+        
+        
 	}
 
 #topnav li li a:link, #topnav li li a:visited{
-	width:150px;
+	width:200px;
 	float:none;
 	margin:0;
 	padding:7px 10px;
 	font-size:12px;
 	font-weight:normal;
-	color:#F8F9F3;
-	background-color:#072C53;
-	background-image:none;
+	color:#c4cad0;
+	/*background-color:#072C53;*/
 	border:none;
+        padding: 10px;
+
 	}
 
 #topnav li li a:hover{
-	color:#5F8EC2;
-	background-color:#072C53;
+	/*color:#5F8EC2;*/
+        color:#ffffff ;
+	/*background-color:#072C53;*/
+        background-color: #1c2f2f;
 	}
 
 #topnav ul ul{
@@ -72,8 +95,8 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	left:-999em;
 	height:auto;
 	width:170px;
-	border-left:1px solid #2B4D71;
-	border-bottom:1px solid #2B4D71;
+	/*border-left:1px solid #2B4D71;
+	border-bottom:1px solid #2B4D71;*/
 	}
 
 #topnav ul ul a{
