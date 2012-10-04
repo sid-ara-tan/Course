@@ -330,6 +330,7 @@ class Student_home_group extends CI_controller {
     
     function load_members()
     {
+        
         $this->load->model('student');
         
         $query_std_list=$this->student->get_std_list($this->input->post('courseno'));

@@ -128,6 +128,7 @@ class Student extends CI_model {
             student.S_Id = takencourse.S_Id
             AND
             CourseNo='$courseno'
+            AND Status='Running'
             ORDER BY Name
             ");
         if($result->num_rows()>0){

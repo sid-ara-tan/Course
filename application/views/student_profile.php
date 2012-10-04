@@ -158,7 +158,7 @@ $row_std = $query_student_info->row();
             <div id="right_column">
                 <div class="holder">
                     <h2 class="title">Profile Picture</h2>
-                    <div class="imgholder last"><img src="<?php echo base_url() . 'images/profile_pic/' . $row_std->S_Id; ?>" alt="" /></div>
+                    <div class="imgholder last"><img src="<?php echo base_url() . 'images/profile_pic/' . $row_std->S_Id; ?>" alt="" width="240" height="289"/></div>
                 </div>
             </div>
         </div>
