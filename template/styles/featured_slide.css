@@ -17,6 +17,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	height:100%;
 	margin:0;
 	padding:0;
+        border:5px ridge #324343;
 	}
 
 #featured_slide dl.slidedeck > dd{
@@ -38,28 +39,31 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	font-family:Georgia, "Times New Roman", Times, serif;
 	text-transform:uppercase;
 	color:#F8F9F3;
-	background-color:#8199A9;
+	/*background-color:#8199A9;*/
+        background-color: #506565;
 	cursor:pointer;
 	border-top:2px solid #F8F9F3; /* Needs top-border as the JavaScript rotates the element */
 	}
 
 #featured_slide dl.slidedeck > dt.active{
 	color:#F8F9F3;
-	background-color:#002E5D;
+	/*background-color:#002E5D;*/
+        background-color: #1c2f2f;
 	cursor:default;
 	}
 
 /* Spines */
 
 #featured_slide dl.slidedeck dt.spine:hover{
-	color:#F8F9F3;
-	background-color:#002E5D;
+	/*color:#F8F9F3;*/
+	background-color:#1c2f2f;
 	}
 
 #featured_slide dl.slidedeck dt.spine.active, #featured_slide dl.slidedeck dt.spine.active:hover{
 	cursor:default;
 	color:#F8F9F3;
-	background-color:#002E5D;
+	/*background-color:#002E5D;*/
+        background-color:#1c2f2f;
 	}
 
 #featured_slide dl.slidedeck dt.spine .index{
@@ -67,7 +71,7 @@ Licence: <a href="http://www.os-templates.com/template-terms">Website Template L
 	font-size:24px;
 	font-weight:normal;
 	font-family:Georgia, "Times New Roman", Times, serif;
-	color:#F8F9F3;
+	/*color:#F8F9F3;*/
 	}
 
 #featured_slide dl.slidedeck dt.spine.active .index{

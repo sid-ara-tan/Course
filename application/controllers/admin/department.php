@@ -397,7 +397,14 @@ Page should return id of the new record if row was successfully added. This valu
               $column=>$value
           );
 
+          
+
           $config=$this->strip($id);
+
+         /* if($value=="result_show_period"){
+                $this->course_model->update_taken_course_status($config);
+          }*/
+          
           
           $update=$this->department_model->update_schedule_info($config,$data);
 

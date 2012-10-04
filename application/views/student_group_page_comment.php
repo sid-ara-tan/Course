@@ -111,7 +111,7 @@ $row_std = $query_student_info->row();
                             &nbsp;
                             <input name="reset" type="reset" id="reset" tabindex="5" value="Reset" />
                         </p>
-                    </form>
+                        <?php echo form_close();?>
                 </div>
             </div>
             <!-- ####################################################################################################### -->

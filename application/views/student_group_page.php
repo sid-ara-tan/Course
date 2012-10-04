@@ -6,15 +6,24 @@ $this->load->view('header/style_demo_header',$data);
 
         <script>
         $(document).ready(function(){
-    
+        var line_brake="<?php echo br(50);?>";
         $("div#tabs-4").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+            var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
+            
         });
         $("div#tabs-2").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+           var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
         });
         $("div#tabs-3").ajaxStart(function(){
-            $(this).html("<img src='<?php echo base_url().'/images/wait.gif';?>' />");
+           var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
+        });
+        $("div#tabs-5").ajaxStart(function(){
+            var img_src="<?php echo base_url().'/images/wait.gif';?>";
+            $(this).html('<img src='+img_src+' height="20px" width="100px;"/>'+line_brake);
         });
 
         $("a#file").click(function(){
@@ -71,6 +80,24 @@ $this->load->view('header/style_demo_header',$data);
 
         });
         
+        $("a#members").click(function(){
+                                        //alert("ddd");
+                                $.ajax({
+                                        type: "POST",
+                                        data: "courseno=" + $("input#courseno_hidden").val(),
+
+                                        url: "<?php echo site_url('student_home_group/load_members');?>",
+                                        success: function(msg){
+
+                                                $("div#tabs-5").html(msg);
+
+                                        }
+
+                                });
+
+
+        });
+        
         });
     
 	$(function() {
@@ -89,6 +116,7 @@ $this->load->view('header/style_demo_header',$data);
             if(selected==3)$("a#file").click();
             else if(selected==1)$("a#c_content").click();
             else if(selected==2)$("a#marks").click();
+            else if(selected==4)$("a#members").click();
 
         }
 
@@ -177,7 +205,7 @@ $row_std = $query_student_info->row();
                                 <?php echo form_open('student_home_group/group_message/post');?>
 
                                 <br><h1><?php echo ' Wall';?></h1><br>
-                                <p>
+                                
                                     <?php echo form_label('Subject', 'subject_label');?>
                                     <br>
                                     <input type="text" name="subject" id="subject" value="" size="50" />
@@ -187,7 +215,7 @@ $row_std = $query_student_info->row();
                                     <br>
                                     <textarea name="message" id="message" rows="5" cols="70" maxlenth="1000" ></textarea>
                                     <div id="message_div"></div>
-                                </p>
+                                
 
                                 <p>
                                     <input type="button" id="msgPost" value="Post" onclick="checkNull(this.form)" />
@@ -197,21 +225,48 @@ $row_std = $query_student_info->row();
                                 echo "<input type='hidden' id='courseno_hidden' name='courseno' value='$courseno' />";
                                 echo form_close(); ?>
 
-                                <hr />
-                                <hr /><hr />
+                                <div class="group_conversation">
                                 <?php
                                 //$row_std_name=$query_student->row();
                                 if($querymsg!=FALSE)
                                 {
-
+                                    
                                 foreach ($querymsg as $row)
                                     {
-                                    if($row->senderType=='student')echo "<b><font color='green'>".${'nameof'.$row->MessageNo}.'</font></b>'.' says :';
+                                     echo form_fieldset();
+
+                                    echo '<div class="subject_value">';
+                                    echo "<font color='grey'><div><b>".$row->Subject.'</b></div></font><br>';
+                                    echo '</div>';
+
+                                    echo '<div class="comment_value">';
+                                    if($row->senderType=='student'){
+                                        echo '<b><span style="color:rgb(59, 89, 152);">';
+                                        echo ${'nameof'.$row->MessageNo};
+                                        echo '</span></b>'.':';
+                                    }
+
+                                    if($row->senderType=='teacher'){
+                                        echo '<b><span style="color:#1e2c47">';
+                                        echo ${'nameof'.$row->MessageNo};
+                                        echo '</span></b>'.':';
+                                    }
+
+                                    echo nbs(4);
+                                  /*  if($row->senderType=='student')echo "<b><font color='green'>".${'nameof'.$row->MessageNo}.'</font></b>'.' says :';
                                     elseif($row->senderType=='teacher')echo "<b><font color='red'>".${'nameof'.$row->MessageNo}.'</font></b>'.' says :';
                                     echo '('.$row->mTime.')';
-                                    echo br(2);;
-                                    echo "<font color='blue'><h3><b>".$row->Subject.'</b></h3></font><br>';
-                                    echo $row->mBody.'<br><br>';
+                                    echo br(2);*/;
+
+                                    //echo "<font color='grey'><div><b>".$row->Subject.'</b></div></font><br>';
+
+                                    //echo '<span class="comment_value">';
+                                    echo $row->mBody;
+                                    //echo '</span>';
+                                    echo '</div>';
+                                    
+                                    echo '<div class="comment_box">';
+                                    echo '('.$row->mTime.')  ';
                                     if($row->SenderInfo==$this->session->userdata['ID'])
                                     {
                                         //echo '<br>< '.anchor('student_home_group/group_message/delete/'.urlencode($this->encrypt->encode($row['MessageNo'])).'/'.$this->uri->segment(3),'Delete','onclick=" return check()"').' >';
@@ -223,24 +278,26 @@ $row_std = $query_student_info->row();
                                             'title' => 'delete the post...'
                                          );
 
-                                        echo '<br> '.anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img($image_properties),'onclick=" return check();"').' ';
+                                        echo anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img($image_properties)." Delete",'onclick=" return check();"').' ';
                                     }
                                     
                                     $image_properties = array(
                                             'src' => base_url() . 'images/comment.png',
                                             'alt' => 'comment',
-                                            'width' => '20',
-                                            'height' => '20',
+                                            'width' => '16',
+                                            'height' => '16',
                                             'title' => 'comment here....'
                                          );
-                                    
-                                    echo '<span style="font-size:20px;"><strong>'.nbs(3).${'commentof'.$row->MessageNo}.'</strong></span>'.' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno,img($image_properties));
-                                    //.${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
-                                    echo '<hr/>';
 
+                                    
+                                    echo '<span style="">'.nbs(3).${'commentof'.$row->MessageNo}.'</span>'.' '.anchor('student_home_group/comment/'.$row->MessageNo.'/'.$courseno," Comments");
+                                    echo "</div>";
+                                    //.${'commentof'.$row->MessageNo}." Comment</font> ").'<br>';
+                                        echo form_fieldset_close();
                                     }
 
                                 echo $this->pagination->create_links();
+                                
                                 }
                                 
                                 else echo "<b><font color='red'>No Post</font></b>";
@@ -248,6 +305,7 @@ $row_std = $query_student_info->row();
 
                         }
                         ?>
+                        </div>
                       </div>
                 </div>
 
