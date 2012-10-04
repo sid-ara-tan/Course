@@ -161,14 +161,44 @@ class Student_home extends CI_controller {
     function edit_profile()
     {
         $this->load->model('student');
+        $config['upload_path'] = './images/profile_pic';
+        $config['overwrite'] =TRUE;
+        $config['file_name'] =$this->input->post('std_id');
+        $config['allowed_types'] = 'jpg';
+        $this->load->library('upload', $config);
         $update=$this->student->edit_profile();
         
-        if($update)
+        if ( ! $this->upload->do_upload("file_upload"))
         {
-            $this->session->set_flashdata('notification',"Profile has been updated successfully");
+            $this->session->set_flashdata('notification',"Profile has been updated successfully 
+                                                          <br> and  ".$this->upload->display_errors());
+            //var_dump($_POST['file_upload']);
             redirect('student_home/profile');
         }
-        else echo "error occured";
+        //if($update)
+        else
+        {
+            $file_info=$this->upload->data();
+            //$this->upload->do_upload("file_upload");
+            $this->session->set_flashdata('notification',"Profile has been updated successfully
+                                            <br>
+                                            with file ". $file_info['file_name']);
+            redirect('student_home/profile');
+        }
+        //else echo "error occured";
+    }
+    
+    function delete_pp()
+    {
+
+        $filename=$this->session->userdata['ID'].'.jpg';
+        
+        $this->load->helper('file');
+
+        unlink("images/profile_pic/$filename");
+        
+        $this->session->set_flashdata('notification',"File : ".$filename. "<br> has been deleted successfully");
+        redirect('student_home/profile/');
     }
     
     /**

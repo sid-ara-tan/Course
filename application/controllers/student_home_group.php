@@ -341,4 +341,17 @@ class Student_home_group extends CI_controller {
         echo $msg;
     }
 
+   /* function load_members_detail()
+    {
+        
+        $this->load->model('student');
+        
+        $query_std_list=$this->student->get_std_list($this->input->post('courseno'));
+        
+        $data['query_std_list']=$query_std_list;
+        $data['courseno']=$this->input->post('courseno');
+        $msg=$this->load->view('student_group_page_members', $data,TRUE);
+        echo "hello";
+    }
+    */
 }

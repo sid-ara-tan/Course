@@ -7,6 +7,17 @@ $this->load->view('header/three_header', $data);
 $row_std = $query_student_info->row();
 ?>
 
+<script>
+function check()
+{
+    var ans=confirm("Are you sure to delete ?");
+    if(ans){
+        return true;
+    }
+    else return false;
+
+}
+</script>
 <body id="top">
     <div class="wrapper row1">
         <div id="header" class="clear">
@@ -89,7 +100,7 @@ $row_std = $query_student_info->row();
             <div id="content">
                 <h1 class="title">My Profile Information</h1>
                 
-                <form action="<?php echo base_url(); ?>index.php/student_home/edit_profile" method="post" accept-charset="utf-8" id="std_profile_form">
+                <form action="<?php echo base_url(); ?>index.php/student_home/edit_profile" method="post" enctype="multipart/form-data" accept-charset="utf-8" id="std_profile_form">
 
 
                     <div>
@@ -132,7 +143,10 @@ $row_std = $query_student_info->row();
                         <p id="phone_error"></p>
                     </div>
                     <br>
-                    <br>
+                     Upload Profile Picture (Only JPG):
+                     <br>
+                     <input type="file" name="file_upload" size="20" id="file_upload"  />
+                    <br><br>
                     <div>
                         Password:
                         <br>
@@ -158,7 +172,28 @@ $row_std = $query_student_info->row();
             <div id="right_column">
                 <div class="holder">
                     <h2 class="title">Profile Picture</h2>
-                    <div class="imgholder last"><img src="<?php echo base_url() . 'images/profile_pic/' . $row_std->S_Id; ?>" alt="" width="240" height="289"/></div>
+                    <div class="imgholder last">
+                        <?php if(is_file('images/profile_pic/'.$row_std->S_Id.'.jpg')==FALSE)
+                        {?>
+                         <img src="<?php echo base_url() . 'images/profile_pic/no_profile.jpg'; ?>" alt="" width="240" height="289"/>
+                        <?php
+                        }
+                         else {
+                         ?>
+                        <img src="<?php echo base_url() . 'images/profile_pic/' . $row_std->S_Id.'.jpg'; ?>" alt="" width="240" height="289"/>
+                        <?php 
+                        $image_properties = array(
+                                    'src' => base_url() . 'images/admin/error.png',
+                                    'alt' => 'delete',
+                                    'width' => '15',
+                                    'height' => '15',
+                                    'title' => 'delete profile pic...'
+                                    );
+                        echo '<br> ';
+                        echo anchor('student_home/delete_pp/',img($image_properties)." Delete",'onclick=" return check()"').' ';
+                        
+                        }?>
+                    </div>
                 </div>
             </div>
         </div>
