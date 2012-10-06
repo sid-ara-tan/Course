@@ -89,5 +89,15 @@
         echo json_encode($ret,JSON_NUMERIC_CHECK);
     }
 
+
+    function rupa(){
+         $data=array(
+            'msg'=>'Welcome to Admin Panel',
+            'info'=>"",
+            'title'=>'Home'
+        );
+         
+        $this->load->view('admin/demo',$data);
+    }
     
 }
