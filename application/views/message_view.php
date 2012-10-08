@@ -47,7 +47,7 @@
         ?>
         </ul>
        </li>
-      <li><a href="<?php echo base_url();?>index.php/course/logout">Logout</a></li>
+      <li><a href="<?php echo base_url();?>index.php/logout">Logout</a></li>
 
     </ul>
     <div  class="clear"></div>

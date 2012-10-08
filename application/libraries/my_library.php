@@ -34,11 +34,41 @@ class My_library {
     function is_logged_in() {
         $CI = & get_instance();
         $is_logged_in=$CI->session->userdata('is_logged_in');
-     
-        if(!isset($is_logged_in) || $is_logged_in!=TRUE){
+        $type=$CI->session->userdata('type');
+        if(!isset($is_logged_in) || $is_logged_in!=TRUE || $type!='student'){
             echo 'You don\'t have permission to access this page :) ';
             echo anchor(base_url(), "HOME");
-            die();
+            //die();
+            redirect('course');
+        }
+    }
+
+        function teacher_is_logged_in() {
+        $CI = & get_instance();
+        $is_logged_in=$CI->session->userdata('is_logged_in');
+        $type=$CI->session->userdata('type');
+        if(!isset($is_logged_in) || $is_logged_in!=TRUE || $type!='teacher'){
+            echo 'You don\'t have permission to access this page :) ';
+            echo anchor(base_url(), "HOME");
+            //die();
+            redirect('course');
+        }
+    }
+
+    function  not_logged_in(){
+        $CI = & get_instance();
+        $is_logged_in=$CI->session->userdata('is_logged_in');
+
+        if( $is_logged_in==TRUE){
+            //echo 'You don\'t have permission to access this page :) ';
+            //echo anchor(base_url(), "HOME");
+            //die();
+            if($CI->session->userdata('type')=='teacher'){
+                redirect('teacher_home');
+            }
+            elseif($CI->session->userdata('type')=='student'){
+                redirect('student_home');
+            }
         }
     }
 

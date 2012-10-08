@@ -1,0 +1,72 @@
+Dear Students,
+As discussed in the class, you have to perform the following tasks as enhancement of the experiment-8 in the upcoming week.
+
+1. Connect the three switches “START”, “PAUSE” and “RESET” to the interrupt pins of the ATmega16. The priority of the “RESET” is the highest and that of “START” is the lowest. No polling will be allowed.
+
+2. Show the elapsed time between consecutive press of “START” and “PAUSE” switch in two 7-segment displays having one decimal digit and one fractional digit.  
+
+Another question that has been asked by one student but the answer should be known to all:
+
+Size of each routing update (which is an array of bytes) is a multiple of 6 bytes. Each six byte contains information of a route (i.e., it corresponds to a row of the routing table) - the first 4 byte is network address, the next byte is the mask length and next one is the cost to reach the network. Thus the routing update can be viewed  as follows.
+
+                             4 byte                   1 byte         1 byte
+                ---------------------------------------------------------
+route1    |  Network Address  |  Mask length |  Cost  |
+                ---------------------------------------------------------
+route2    |  Network Address  |  Mask length |  Cost  |
+                                                   ...
+                                                   ...
+                                                   ...
+                ---------------------------------------------------------
+route n   |  Network Address  |  Mask length |  Cost  |
+                ---------------------------------------------------------
+
+KMS
+
+
+
+Khaled Mahmud khaledshahriar@cse.buet.ac.bd via googlegroups.com 
+	
+9:08 AM (2 hours ago)
+		
+to cse311august20.
+Dear Tanvir,
+First of all, I must appreciate for your questions, some of which are very good that are clear evidence of your serious effort in understanding the problem specification.  We expect others to match this level of understanding atleast before the quiz.
+
+Here goes the answer to your queries. I am sharing the mail with the group since the answers are supposed to be useful to others also; I think you would not mind.
+
+Query 1.  About Split Horizon: Is it done in the provided SimRouter.exe?
+Reply 1. No, Split Horizon is not done in the provider SimRouter.exe.
+Regarding the scenario you have described from the sample configuration, you should know that even if Router 3 goes down, the network between Router 3 and Router 1 should not be deleted from Router 1's routing table since there could be other active hosts/routers in the network. Imagine Router 3 and Router 1 are connected through a switch (instead of a point to point line) and some other hosts/routers are also connected to the same switch. In that case is it logical to delete the network in R1's routing table when R3 goes down? Think. The same applies to the network between R2 and R4.
+
+Query 2. About Next Hop
+Reply 2: The third option you have mentioned is implemented in the simrouter.exe provided to you i.e., when the next hop is of type port/interface, the function getNextHop() will return the IP of that interface as well as the Id of that interface. If you look at how the return value is used in the SimRouter class, then we should have a clear idea how things work. Now finding the IP of an interface from RoutingProtocol should not be difficult; you need to use the simrouter object that was passed as an argument for RoutingProtocol's constructor. Note that, getting the the IP of an interface is also required when you initially populate the routing table with directly connected interface. Thus this is supposed to be already done.
+
+Query 3: Can you add anything to the Timer Class?
+Reply 3: Off course you can. You can do anything inside the RoutingProtocol class as long as it provides the same services to the SimRouter class i.e., the three functions of RoutingProtocol invoked by SimRouter.
+
+Query 4: Can you implement any other algorithm/routing protocol such as link state?
+Reply 4: Again you are welcome to do so. However in that case your router will not work with simrouter.exe since our implementation is Distance vector and more importantly the format of routing update would not match.
+
+KMS
+
+
+
+On Thu, Oct 4, 2012 at 11:55 PM, Tanvir Ahmed Khan <takhandipu@gmail.com> wrote:
+
+    Sir,
+    I have some queries about this week's offline.They are:
+
+        About Split Horizon: Is it done in the provided SimRouter.exe? I believe without this INVALIDATE timer won't work properly in all cases. Even in the given simple config.txt file if R3 and R4 are disconnected, then R1 and R2 will not get the relevant Routing Table instances removed. If this can be done without split horizon rule, it will be extremely helpful for me if you can give me some suggestions about it.
+        About NextHop: I am not sure about what will be the ipAddr field of the nextHop entries of the Routing Table with the type port/interface(In case of Cisco Packet Tracer which is Type C). There is three options and also their respective problems:
+            it can be null just like the Cisco Packet Tracer. Even this looks to me the best choice but the problem is then we cannot check for the packet sending to that port of router directly.
+            it can be the ip of the other end of that wire. But this seems to be impossible to me because their is no broadcast message from hosts.
+            it can be the ip of that port of that router.It is a simpler one to look but the harder one to implement and I have to check a lot of things in a lot of the places of the source code to use it.
+        I have to add some extra fields in the MyTimer class(for invalidate timer) and also in the NextHop(for type checking) class. Is it acceptable?
+        Do I have to follow some specific way or algorithm to implement the Routing Table like it has to be a HashTable or it should use linkstate routing?
+
+    I tried my best to go through the class lecture syllabus of the chapter 5 of the TanenBaum book but because of it's huge size as well as our busy schedule I don't have the best of basics from this chapter.So please pardon me for any inconvenience.
+
+    Thanking You,
+    Tanvir Ahmed Khan
+    Student No.: 0805003

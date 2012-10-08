@@ -2,6 +2,7 @@
 class Course extends CI_Controller{
     function __construct(){
         parent::__construct();
+        $this->my_library->not_logged_in();
         $this->load->helper('url');
         $this->load->helper('form');
     }

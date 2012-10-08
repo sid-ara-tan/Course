@@ -71,7 +71,7 @@
       <h1><a href="index.html">Course Management System</a></h1>
       <p>Student Panel of <b><?php echo "* ".$row_std->Name." *";?></b>
           <br>
-          <?php echo anchor('course/logout','Log Out');?>
+          <?php echo anchor('logout','Log Out');?>
       </p>
     </div>
   </div>

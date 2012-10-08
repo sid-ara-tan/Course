@@ -6,7 +6,7 @@ class Teacher_home extends CI_controller{
     function __construct(){
         parent::__construct();
         $this->load->library(array('session','table'));
-        $this->my_library->is_logged_in();
+        $this->my_library->teacher_is_logged_in();
        
         $this->load->model('teacher');
         $row=$this->teacher->get_info();
