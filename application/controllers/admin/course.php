@@ -217,6 +217,12 @@
         $insert=$this->course_model->create_course($data);
         if($insert){
             echo $CourseNo;
+             $route = "uploads/".$CourseNo;
+
+             if(!is_dir($route)) //create the folder if it's not already exists
+             {
+                mkdir($route,0777,TRUE);
+             }
         }
         else{
             echo 'Database insertion failed';

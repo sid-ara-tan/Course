@@ -405,11 +405,21 @@ Page should return id of the new record if row was successfully added. This valu
                 $this->course_model->update_taken_course_status($config);
           }*/
           
-          
+
+
           $update=$this->department_model->update_schedule_info($config,$data);
 
           if($update){
               echo $value;
+
+              if($value=="result_show_period"){
+                  /**
+                   * here student's status will be changed according to his result
+                   * if he get passed gpa then passed and removed from the group
+                   * else he is failed and also remove from the group
+                   */
+                  //$this->course_model->update_student_status();
+              }
           }
           else{
               echo "Database update falied";

@@ -65,7 +65,7 @@ $row_std = $query_student_info->row();
                     </ul>
                 </li>
                 <li><?php echo anchor("student_home/course_registration", "Course Registration") ?></li>
-                <li class="active"><a href="#">Course Group</a>
+                <li><a href="#">Course Group</a>
                     <ul>
                         <?php
                         if($taken_course_query!=FALSE)
@@ -81,7 +81,7 @@ $row_std = $query_student_info->row();
                         ?>
                     </ul>
                 </li>
-                <li class="last"><?php echo anchor("student_home/result", "Result") ?></li>
+                <li class="active"><?php echo anchor("student_home/result", "Result") ?></li>
             </ul>
             <div  class="clear"></div>
         </div>

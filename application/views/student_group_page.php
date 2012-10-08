@@ -278,7 +278,7 @@ $row_std = $query_student_info->row();
                                             'title' => 'delete the post...'
                                          );
 
-                                        echo anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img($image_properties)." Delete",'onclick=" return check();"').' ';
+                                        echo anchor('student_home_group/group_message/delete/'.$row->MessageNo.'/'.$courseno,img($image_properties)."  Delete",'onclick=" return check();"').' ';
                                     }
                                     
                                     $image_properties = array(
