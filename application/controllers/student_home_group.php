@@ -374,7 +374,7 @@ class Student_home_group extends CI_controller {
         }
                                 
         
-        echo  anchor(site_url() . '/student_home_group/group/'.$this->uri->segment(3).'#',img($image_properties));
+        echo  anchor(site_url() . '/student_home_group/group/'.$this->input->post('CourseNo').'#',img($image_properties));
         echo '<div class="comment_value">';
         echo '<ul>';
             echo '<li>'."Student Id :".$query_std_detail->S_Id.'</li>';

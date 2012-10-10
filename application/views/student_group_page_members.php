@@ -22,14 +22,19 @@
     <script type="text/javascript">
 
 
-    function show_detail(i,sId){
+    function show_detail(i,sId,courseno){
         //alert(i);
         var ptag="p.profile"+i;
         var divtag="div.panel"+i;
         //$(divtag).slideToggle("slow");
+               
                       $.ajax({
                                 type: "POST",
-                                data: "S_Id=" + sId,
+                                data: {
+                                    S_Id : sId,
+                                    CourseNo : courseno
+                                
+                                },
 
                                 url: "<?php echo site_url('student_home_group/load_members_detail');?>",
                                 success: function(msg){
@@ -45,15 +50,21 @@
     }
     
     $(document).ready(function(){
-            
+           //$("input#search").css("color","grey");
         $("input#search").click(function(){
-            
+            $("input#search").css("color","black");
             if($("input#search").val()=='Search Name')$("input#search").val('');
         });
         
         $("input#search").blur(function(){
             
-            if($("input#search").val()=='')$("input#search").val('Search Name');
+            if($("input#search").val()=='')
+                {
+                    $("input#search").val('Search Name');
+                    $("input#search").css("color","grey");
+                }
+                
+            else $("input#search").css("color","black");
             
                 
         });
@@ -96,7 +107,7 @@
 
     <div class="file_conversation">
     <p><h1>All Members List :(Click On Any Name To See Detail) </h1></p>   
-    <input type="text" id="search" value="Search Name"></input>
+    <input type="text" id="search" value="Search Name" style="color:grey"></input>
                     <?php
                     
                     if($query_std_list!=FALSE){
@@ -111,7 +122,7 @@
                             echo '<br><br>';
                             $sID=$row['S_Id'];
                             //var_dump($sID);
-                            echo "<p class='profile".$i."' onclick='show_detail($i,\"".$sID."\")'>".$row['Name']."</p>";
+                            echo "<p class='profile".$i."' onclick='show_detail($i,\"".$sID."\",\"".$courseno."\")'>".$row['Name']."</p>";
                             echo "<div class=panel".$i." style='display:none'>";
 
                             echo "</div>";
