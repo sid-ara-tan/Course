@@ -122,7 +122,7 @@ class Student extends CI_model {
     function get_std_list($courseno){
 
         $result=$this->db->query("
-            SELECT *
+            SELECT Name,student.S_Id
             FROM student,takencourse
             WHERE 
             student.S_Id = takencourse.S_Id
@@ -137,6 +137,22 @@ class Student extends CI_model {
             return FALSE;
         }
 
+    }
+    
+    function get_detail($id){
+
+
+        $result=$this->db->query("
+                                    select * from student
+                                    where S_Id='$id';
+                                    ");
+        if($result->num_rows()>0){
+            $row=$result->row();
+            return $row;
+        }else{
+            return null;
+        }
+        
     }
 
 }

@@ -341,17 +341,54 @@ class Student_home_group extends CI_controller {
         echo $msg;
     }
 
-   /* function load_members_detail()
+    function load_members_detail()
     {
-        
+        $sId= $this->input->post('S_Id');
         $this->load->model('student');
+        //var_dump($sId);
+        $query_std_detail=$this->student->get_detail($sId);
         
-        $query_std_list=$this->student->get_std_list($this->input->post('courseno'));
+        if($query_std_detail!=null)
+        {
         
-        $data['query_std_list']=$query_std_list;
-        $data['courseno']=$this->input->post('courseno');
-        $msg=$this->load->view('student_group_page_members', $data,TRUE);
-        echo "hello";
+        if( is_file('images/profile_pic/'.$query_std_detail->S_Id.'.jpg')==FALSE)
+        {
+                $image_properties = array(
+                'src' => base_url() . 'images/profile_pic/no_profile.jpg',
+                'alt' => 'profile picture',
+                'width' => '96',
+                'height' => '96',
+                'title' => $query_std_detail->Name
+                );   
+        }
+        else
+        {
+
+        $image_properties = array(
+                'src' => base_url() . 'images/profile_pic/'.$query_std_detail->S_Id.'.jpg',
+                'alt' => 'profile picture',
+                'width' => '96',
+                'height' => '96',
+                'title' => $query_std_detail->Name
+                );
+        }
+                                
+        
+        echo  anchor(site_url() . '/student_home_group/group/'.$this->uri->segment(3).'#',img($image_properties));
+        echo '<div class="comment_value">';
+        echo '<ul>';
+            echo '<li>'."Student Id :".$query_std_detail->S_Id.'</li>';
+            echo '<li>'."Section :".$query_std_detail->Sec.'</li>';
+            echo '<li>'."Department :".$query_std_detail->Dept_id.'</li>';
+            echo '<li>'."Level/Term :".$query_std_detail->sLevel.'/'.$query_std_detail->Term.'</li>';
+            echo '<li>'."E Mail :".$query_std_detail->email.'</li>';
+
+        echo '</ul>';
+        echo "</div>";
+ 
+        //echo "hello in";
+        }
+
     }
-    */
+    
 }

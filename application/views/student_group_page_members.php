@@ -1,15 +1,35 @@
+<link rel="stylesheet" href="<?php echo base_url();?>jqueryUI/themes/sunny/jquery.ui.all.css"/>
 
+	
+        <script type="text/javascript" src="<?php echo base_url();?>jquery/jquery-1.7.2.min.js"></script>
+	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.core.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.widget.js"></script>
+	<script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.tabs.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.mouse.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.button.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.accordion.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.draggable.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.position.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.autocomplete.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.ui.dialog.js"></script>
+        
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.core.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.blind.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/ui/jquery.effects.explode.js"></script>
+                
+        <script src="<?php echo base_url();?>jqueryUI/external/jquery.cookie.js"></script>
+        <script src="<?php echo base_url();?>jqueryUI/external/jquery.bgiframe-2.1.2.js"></script>
     <script type="text/javascript">
 
-    function show_detail(i){
+
+    function show_detail(i,sId){
         //alert(i);
         var ptag="p.profile"+i;
         var divtag="div.panel"+i;
-        $(divtag).slideToggle("slow");
-               /*
-                        $.ajax({
+        //$(divtag).slideToggle("slow");
+                      $.ajax({
                                 type: "POST",
-                                //data: "courseno=" + $("input#courseno_hidden").val(),
+                                data: "S_Id=" + sId,
 
                                 url: "<?php echo site_url('student_home_group/load_members_detail');?>",
                                 success: function(msg){
@@ -20,7 +40,7 @@
                                 }
 
                         });
-                        */
+                       
   
     }
     
@@ -37,6 +57,39 @@
             
                 
         });
+        
+        
+        
+        
+        $(function() {
+		var availableTags = [
+			"ActionScript",
+			"AppleScript",
+			"Asp",
+			"BASIC",
+			"C",
+			"C++",
+			"Clojure",
+			"COBOL",
+			"ColdFusion",
+			"Erlang",
+			"Fortran",
+			"Groovy",
+			"Haskell",
+			"Java",
+			"JavaScript",
+			"Lisp",
+			"Perl",
+			"PHP",
+			"Python",
+			"Ruby",
+			"Scala",
+			"Scheme"
+		];
+		$( "#search" ).autocomplete({
+			source: availableTags
+		});
+	});
     });
     </script>                   
 
@@ -51,45 +104,18 @@
                         foreach($query_std_list->result_array() as $row)
                             {
                             //var_dump(is_file('images/profile_pic/0805045'));
-                            if( is_file('images/profile_pic/'.$row['S_Id'])==FALSE)
-                            {
-                                    $image_properties = array(
-                                    'src' => base_url() . 'images/profile_pic/no_profile.jpg',
-                                    'alt' => 'profile picture',
-                                    'width' => '96',
-                                    'height' => '96',
-                                    'title' => $row['Name']
-                                    );   
-                            }
-                            else
-                            {
 
-                            $image_properties = array(
-                                    'src' => base_url() . 'images/profile_pic/'.$row['S_Id'],
-                                    'alt' => 'profile picture',
-                                    'width' => '96',
-                                    'height' => '96',
-                                    'title' => $row['Name']
-                                    );
-                            }
-                                
                             
                             echo form_fieldset();
                             //echo  anchor('',img($image_properties)); 
                             echo '<br><br>';
-                            echo "<p class='profile".$i."' onclick='show_detail(".$i.")'>".$row['Name']."</p>";
+                            $sID=$row['S_Id'];
+                            //var_dump($sID);
+                            echo "<p class='profile".$i."' onclick='show_detail($i,\"".$sID."\")'>".$row['Name']."</p>";
                             echo "<div class=panel".$i." style='display:none'>";
-                            echo  anchor(site_url() . '/student_home_group/group/'.$courseno.'#',img($image_properties));
-                            echo '<div class="comment_value">';
-                            echo '<ul>';
-                                echo '<li>'."Student Id :".$row['S_Id'].'</li>';
-                                echo '<li>'."Section :".$row['Sec'].'</li>';
-                                echo '<li>'."Department :".$row['Dept_id'].'</li>';
-                                echo '<li>'."Level/Term :".$row['sLevel'].'/'.$row['Term'].'</li>';
-                                echo '<li>'."E Mail :".$row['email'].'</li>';
-                                
-                            echo '</ul>';
-                            echo    "</div></div>";
+
+                            echo "</div>";
+                            
                             echo form_fieldset_close();
                             
                             $i++;
