@@ -489,8 +489,9 @@ color:#7F99A9;*/
     background-color: #ffffff ;
     padding:20px;
     margin-top: 10px;
-    -moz-box-shadow:0 0px 5px grey;
-    -webkit-box-shadow:0 0px 5px grey;
+    /*-moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;*/
+        border: 1px ridge #ededed;
 
 }
 

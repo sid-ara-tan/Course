@@ -201,7 +201,7 @@ class Student_home_group extends CI_controller {
         //var_dump($courseno);
         $config['upload_path'] = './uploads/'.$courseno;
         $config['remove_spaces'] =TRUE;
-        $config['allowed_types'] = 'gif|jpg|png|pdf|doc|docx|ppt|pptx|xls|xlsx|zip|rar';
+        $config['allowed_types'] = '*';
         $this->load->library('upload', $config);
         
         if ( ! $this->upload->do_upload("file_upload"))
