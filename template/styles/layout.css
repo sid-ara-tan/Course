@@ -25,8 +25,9 @@ background-repeat: repeat-x;*/
         /*background-color:#39414A;*/
             /*background-color:#f0f1f3;*/
 
-        background-color: #1c2f2f;
-        color:white;
+       /* background-color: #1c2f2f;*/
+        background-color: rgb(248, 249, 243);
+        color:#000000;
 
 }
 
@@ -162,20 +163,38 @@ background-repeat: repeat-x;}*/
 /*.row3{color:#777777; background:url("../images/featured_slide_bg.gif") top left repeat-x #F8F9F3;}*//*min-height:675px;*/
 
 .row3{
-    color: #ffffff;
-    border: 1px solid #324343 ;
+    color: #000000;
+    /*border: 1px solid #324343 ;*/
+    background-color: #ffffff;
 }
 
-.row4{color:#777777; background-color:#F8F9F3; border-bottom:2px solid #03274B;}
+.row4{
+    color:#777777;
+    background-color:#F8F9F3;
+   /* border-bottom:px solid #03274B;*/
+}
 .row5{padding:50px 0 30px 0; border-top:1px solid #F8F9F3;}
 
 /* ----------------------------------------------Generalise-------------------------------------*/
 
-#header, #featured_slide, #container, #footer, #copyright{
+#header, #featured_slide, #container, #footer{
 position:relative;
 margin:0 auto 0;
 display:block;
 width:960px;
+}
+
+#copyright{
+top: 100px;
+text-align: center;
+position:relative;
+margin:0 auto 0;
+display:block;
+
+color:white;
+min-height:100px;
+background: url("../images/rays_invert.png") no-repeat scroll 50% 0pt transparent;
+background-color: #1c2f2f;
 }
 
 /* ----------------------------------------------Header-------------------------------------*/
@@ -447,7 +466,7 @@ margin:0;
 
 #copyright{
 padding:15px 0;
-/*border-top:1px solid #2B4D71;*/
+border-top:1px solid #2B4D71;
 }
 
 #copyright p{
@@ -456,10 +475,11 @@ padding:0;
 }
 
 #copyright, #copyright a{
-        color:white;
-/*color:#7F99A9;*/
-/*background-color:#03274B;*/
-        background:#1c2f2f;
+    color:white;
+     /*   color:white;
+color:#7F99A9;*/
+/*background-color:#03274B;
+        background:#1c2f2f;*/
 }
 
 .file_conversation fieldset{
@@ -481,8 +501,9 @@ padding:0;
     background-color: #ffffff ;
     padding:20px;
     margin-top: 10px;
-    -moz-box-shadow:0 0px 5px grey;
-    -webkit-box-shadow:0 0px 5px grey;
+    border: 1px ridge #ededed;
+    /*-moz-box-shadow:0 0px 5px grey;
+    -webkit-box-shadow:0 0px 5px grey;*/
 
 }
 
@@ -496,6 +517,7 @@ padding:0;
 
 .comment_box{
     background-color: #eff4fd;
+   /* background-color:#3b5998*/
     padding: 10px;
     font-size: 12px;
     /*-moz-box-shadow:0 0px 5px grey;
@@ -505,4 +527,18 @@ padding:0;
 .subject_value{
     padding: 2px;
     font-size: 14px;
+}
+
+.panel fieldset{
+    border: 1px solid grey;
+    width: 500px;
+}
+
+.panel input{
+    min-width: 150px;
+}
+
+.panel{
+    left:200px;
+    
 }

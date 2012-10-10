@@ -73,7 +73,7 @@
             'class'=>'icn_view_users'
         ),
         'add_student'=>array(
-            'name'=>'Creat a student',
+            'name'=>'Create a student',
             'link'=>  site_url('admin/student/add_a_student'),
             'class'=>'icn_new_article'
         ),

@@ -66,20 +66,20 @@
                           <div class="main-slider-content" style="width:684px; height:300px;">
                             <ul class="sliders-wrap-inner">
                                 <li>
-                                      <img src="<?php echo base_url();?>images/admin/lofslidernews/images/thumbl_980x340_004.png" title="Newsflash 2" >
+                                      <img src="<?php echo base_url();?>images/admin/lofslidernews/images/image_1.png" title="Newsflash 2" >
                                       <div class="slider-description">
-                                        <div class="slider-meta"><a target="_parent" title="Newsflash 1" href="#Category-1">/ Newsflash 1 /</a> <i> — Monday, February 15, 2010 12:42</i></div>
-                                        <h4>Content of Newsflash 1</h4>
-                                        <p>The one thing about a Web site, it always changes! content,...
+                                        <div class="slider-meta"><a target="_parent" title="Newsflash 1" href="#Category-1">/ CSE event 1 /</a> <i> — Monday, February 15, 2010 12:42</i></div>
+                                        <h4>Event 1</h4>
+                                        <p>Any updated event will be shown here...
                                         <a class="readmore" href="#">Read more </a>
                                         </p>
                                      </div>
                                 </li>
                                <li>
-                                  <img src="<?php echo base_url();?>images/admin/lofslidernews/images/thumbl_980x340_005.png" title="Newsflash 1" >
+                                  <img src="<?php echo base_url();?>images/admin/lofslidernews/images/image_2.png" title="Newsflash 1" >
                                      <div class="slider-description">
-                                       <div class="slider-meta"><a target="_parent" title="Newsflash 2" href="#Category-2">/ Newsflash 2 /</a> 	<i> — Monday, February 15, 2010 12:42</i></div>
-                                        <h4>Content of Newsflash 2</h4>
+                                       <div class="slider-meta"><a target="_parent" title="Newsflash 2" href="#Category-2">/ EEE event 2 /</a> 	<i> — Monday, February 15, 2010 12:42</i></div>
+                                        <h4>This is Event 2</h4>
                                         <p>I will be added content later ...
                                         <a class="readmore" href="#">Read more </a>
                                         </p>
@@ -95,15 +95,15 @@
                                       <li>
                                             <div>
                                                 <img src="" />
-                                                <h4> NewsFlash 1 </h4>
-                                                <span>20.01.2010</span> The quick brown fox jumps over the lazy dog...
+                                                <h4> CSE sample event 1 </h4>
+                                                <span>11.10.2012</span> The quick brown fox jumps over the lazy dog...
                                             </div>
                                         </li>
                                          <li>
                                             <div>
                                                 <img src="" />
-                                                <h4> NewsFlash 2 </h4>
-                                                <span>20.01.2010</span> The another quick brown fox jumps over the lazy dog. ..
+                                                <h4> EEE sample event 2</h4>
+                                                <span>11.10.2012</span> The another quick brown fox jumps over the lazy dog. ..
                                             </div>
                                         </li>
                                     </ul>
@@ -123,16 +123,36 @@
         <article class="module width_3_quarter">
 		<header><h3 class="tabs_involved">Content Manager</h3>
 		<ul class="tabs">
+                        <li><a href="#tab3">Others</a></li>
                         <li><a href="#tab1">Teachers</a></li>
                         <li><a href="#tab2">Students</a></li>
-                        <li><a href="#tab3">Others</a></li>
+                        
 		</ul>
 		</header>
 
 		<div class="tab_container">
+
+                     <div id="tab3" class="tab_content">
+                            <ul>
+                                <li><?php echo anchor("admin/unitTest","Unit testing");?> is done here</li>
+                                <li>View teachers information <?php echo anchor("admin/teacher/view_teacher","here");?></li>
+                                <li>View departments <?php echo anchor("admin/department/view_department","here");?></li>
+                                <li>Make routine for couses <?php echo anchor("admin/department/make_routine","here");?></li>
+                                <li>Schedule period <?php echo anchor("admin/department/schedule_period","here");?></li>
+                                <li>view couses <?php echo anchor("admin/course/view_course","here");?></li>
+                                <li>Assign course to teacher  <?php echo anchor("admin/course/assign_teacher_for_these_course","here");?></li>
+                                <li>Manage students in group <?php echo anchor("admin/student/manage_group_of_student","here");?></li>
+                                <li>Just add a student  <?php echo anchor("admin/student/add_a_student","here");?></li>
+                                <li>Show pending requests <?php echo anchor("admin/student/pending_request","here");?></li>
+
+
+                            </ul>
+			</div><!-- end of #tab2 -->
+                        
 			<div id="tab1" class="tab_content">
                              <ul>
                                 <li> View teachers information <?php echo anchor("admin/teacher/view_teacher","here");?></li>
+                                
                             </ul>
 
 			</div><!-- end of #tab1 -->
@@ -143,11 +163,7 @@
                             </ul>
 			</div><!-- end of #tab2 -->
 
-                        <div id="tab3" class="tab_content">
-                            <ul>
-                                <li><?php echo anchor("admin/unitTest","Unit testing");?> is done here</li>
-                            </ul>
-			</div><!-- end of #tab2 -->
+                       
 
 		</div><!-- end of .tab_container -->
 

@@ -48,16 +48,17 @@
                 $student_array[]=$row->S_Id;
                 
                 $this->table->add_row($row->S_Id,$row->Name,
-                        '<input type="text" name="'.$row->S_Id.'" id="'.$row->S_Id.'" size="10px"/>');
+                        '<input type="text" name="'.$row->S_Id.'" id="'.$row->S_Id.'" value="0" size="10px"/>');
             }
         }else{
             foreach ($rows as $row) {
 
                 $student_array[]=$row->S_Id;
-
+                if($this->exam->get_marks($courseno,$sec,$exam_ID,$row->S_Id)==NULL)$mark_value=0;
+                else $mark_value=$this->exam->get_marks($courseno,$sec,$exam_ID,$row->S_Id);
                 $this->table->add_row($row->S_Id,$row->Name,
                         '<input type="text" name="'.$row->S_Id.'" id="'.$row->S_Id.'"
-                          value="'.$this->exam->get_marks($courseno,$sec,$exam_ID,$row->S_Id).'"  size="10px"/>');
+                          value="'.$mark_value.'"  size="10px"/>');
             }
         }
         echo $this->table->generate();

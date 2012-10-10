@@ -60,6 +60,7 @@ class Teacher_message extends CI_Controller{
 
             $config['per_page'] ='5';
             $data['querymsg'] =$this->message->getallmessage($courseno,$config['per_page'],$this->uri->segment(4,0));
+            
 
             // for pagination
 

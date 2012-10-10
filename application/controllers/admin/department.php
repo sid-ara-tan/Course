@@ -419,6 +419,18 @@ Page should return id of the new record if row was successfully added. This valu
                    * else he is failed and also remove from the group
                    */
                   //$this->course_model->update_student_status();
+                  //echo 'hello world';
+                  $this->course_model->delete_takencourse($config);
+                  $this->course_model->delete_assignedcourse($config);
+                  $this->course_model->delete_classinfo($config);
+                  $this->course_model->delete_exam($config);
+                  $this->course_model->delete_marks($config);
+                  $this->course_model->delete_content($config);
+                  $this->course_model->delete_message($config);
+                 
+
+                 // var_dump($config);
+                  //$config['Dept_id'].$config['sLevel'].$config['Term'].
               }
           }
           else{

@@ -133,4 +133,165 @@
         
 
     }
+
+    function delete_takencourse($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $this->db->query("
+          Update takencourse set Status='passed'
+          where GPA>0 and CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+      $this->db->query("
+          Update takencourse set Status='failed'
+          where GPA=0 and CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+
+    function delete_assignedcourse($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $this->db->query("
+          Delete from assignedcourse
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+
+    function delete_classinfo($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $this->db->query("
+          Delete from classinfo
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+    function delete_exam($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $this->db->query("
+          Delete from exam
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+      $this->db->query("
+          Delete from exam_type
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+    function delete_marks($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $archive_data=$this->db->query("
+          Select * from marks
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+      if($archive_data->num_rows>0){
+          foreach ($archive_data->result() as $row) {
+            $this->db->insert('marks_archive',$row);
+            //echo $row->S_ID;
+          }
+      }
+     $this->db->query("
+          Delete from marks
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+
+    function delete_content($config){
+          $Department=$config['Dept_id'];
+          $Level=$config['sLevel'];
+          $Term=$config['Term'];
+          $time=time();
+
+          $archive_data=$this->db->query("
+              Select * from content
+              where CourseNo in
+              (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+              ");
+
+          foreach ($archive_data->result() as $row){
+                 $route = "uploads/".$row->CourseNo."/archive_".$time."/teacher";
+                 if(!is_dir($route)) //create the folder if it's not already exists
+                 {
+                    mkdir($route,0777,TRUE);
+                 }
+                 $filename="uploads/$row->CourseNo/$row->File_Path";
+                 $targetfilename="uploads/$row->CourseNo/archive_$time/teacher/$row->File_Path";
+                 if(file_exists($filename))
+                 rename($filename,$targetfilename);
+
+          }
+          if($archive_data->num_rows>0){
+              foreach ($archive_data->result() as $row) {
+                  $row->Timestamp=$time;
+                $this->db->insert('content_archive',$row);
+                //echo $row->S_ID;
+              }
+          }
+
+          $student_archive_data=$this->db->query("
+          Select * from file
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+
+          foreach ($student_archive_data->result() as $row){
+                 $route = "uploads/".$row->CourseNo."/archive_".$time."/student";
+                 if(!is_dir($route)) //create the folder if it's not already exists
+                 {
+                    mkdir($route,0777,TRUE);
+                 }
+                 $filename="uploads/$row->CourseNo/$row->filename";
+                 $targetfilename="uploads/$row->CourseNo/archive_$time/student/$row->filename";
+                 if(file_exists($filename))
+                     rename($filename,$targetfilename);
+          }
+          if($student_archive_data->num_rows>0){
+              foreach ($student_archive_data->result() as $row) {
+                  $row->Timestamp=$time;
+                $this->db->insert('file_archive',$row);
+                //echo $row->S_ID;
+              }
+          }
+         $this->db->query("
+          Delete from content
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+
+         $this->db->query("
+          Delete from file
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+    
+   function delete_message($config){
+      $Department=$config['Dept_id'];
+      $Level=$config['sLevel'];
+      $Term=$config['Term'];
+      $this->db->query("
+          Delete from message_group_student
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+      $this->db->query("
+          Delete from comment
+          where CourseNo in
+          (Select CourseNo from course where sLevel='$Level' and Term='$Term' and Dept_ID='$Department')
+          ");
+    }
+
+
 }

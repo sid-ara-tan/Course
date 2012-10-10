@@ -27,9 +27,11 @@
           <?php
                 $course_record=$this->teacher->get_courses();
 
-                foreach($course_record as $row){
-                    echo "<li>";
-                    echo anchor("teacher_home/class_content/{$row->CourseNo}",$row->CourseName)."</li>" ;
+                if($course_record!=FALSE){
+                    foreach($course_record as $row){
+                        echo "<li>";
+                        echo anchor("teacher_home/class_content/{$row->CourseNo}",$row->CourseName)."</li>" ;
+                    }
                 }
         ?>
         </ul>
@@ -40,9 +42,11 @@
           <?php
                 $course_record=$this->teacher->get_courses();
 
-                foreach($course_record as $row){
-                    echo "<li>";
-                    echo anchor("teacher_message/show_file/{$row->CourseNo}",$row->CourseName)."</li>" ;
+                if($course_record!=FALSE){
+                    foreach($course_record as $row){
+                        echo "<li>";
+                        echo anchor("teacher_message/show_file/{$row->CourseNo}",$row->CourseName)."</li>" ;
+                    }
                 }
         ?>
         </ul>
