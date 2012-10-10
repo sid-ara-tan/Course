@@ -89,5 +89,24 @@
         echo json_encode($ret,JSON_NUMERIC_CHECK);
     }
 
+
+    function rupa(){
+         $data=array(
+            'msg'=>'Welcome to Admin Panel',
+            'info'=>"",
+            'title'=>'Home'
+        );
+         
+        $this->load->view('admin/demo',$data);
+    }
+
+    function dir_creation($CourseNo="sid"){
+        $route = "uploads/".$CourseNo;
+
+        if(!is_dir($route)) //create the folder if it's not already exists
+        {
+          mkdir($route,0777,TRUE);
+        }
+    }
     
 }
